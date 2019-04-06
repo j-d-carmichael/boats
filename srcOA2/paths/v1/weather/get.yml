@@ -1,0 +1,16 @@
+tags:
+  - weather
+summary: Weather data
+description: Weather for a given country for a given `ISO ALPHA-2 Code'
+operationId: v1WeatherGet
+produces:
+  - application/json
+parameters:
+  - $ref: '#/parameters/offset'
+responses:
+  '200':
+    description: Successful fecth
+    schema:
+      $ref: '#/definitions/Weathers'
+  '404':
+    description: Country not found

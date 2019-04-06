@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Run ESLint
+# Commented out the autolinter as it appears to be running against the entire node_modules folder
+npm run lint || exit 1
+
+# Run tests
+npm run test

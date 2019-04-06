@@ -1,0 +1,11 @@
+tags:
+  - temperature
+summary: Temperature data
+description: Get the latest temperature
+operationId: v1TemperatureGet
+responses:
+  '200':
+    description: Successful fetch
+    content: 'mixin("../../../mixins/response/json.yml", "#/components/schemas/Temperature")'
+  '404':
+    description: Temp not found

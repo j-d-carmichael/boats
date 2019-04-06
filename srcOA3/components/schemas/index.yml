@@ -1,0 +1,17 @@
+GenericSearchMeta:
+  $ref: ./generic/searchMeta.yml
+
+Temperature:
+  $ref: ./temperature/model.yml
+
+Weather:
+  $ref: ./weather/model.yml
+
+Weathers:
+  $ref: ./weather/model.yml
+
+Unit:
+  $ref: ./unit/model.yml
+
+Units:
+  $ref: ./unit/model.yml
