@@ -1,21 +1,24 @@
 {
   "name": "swagger-chunk",
   "version": "2.4.5",
-  "description": "Build and maintain large swagger API documentation files from small manageable chunks. Output yaml or json format. Instal skeleton swagger-chunk & scripts via command line --init",
+  "description": "Dynamic Open API Tool",
   "keywords": [
     "swagger",
     "swagger-codegen",
-    "swagger chunk",
+    "openapi",
+    "openapi2",
+    "openapi3",
     "yaml",
     "yml",
     "merge yaml",
     "merge yml",
     "DDD",
-    "Documentation-Driven Development"
+    "Documentation-Driven Development",
+    "bundle"
   ],
   "main": "index.js",
   "bin": {
-    "swagger-chunk": "./bin/swagger-chunk.js"
+    "swagger-chunk": "./bin/doat.js"
   },
   "scripts": {
     "install:githooks": "cp ./githooks/* .git/hooks",
@@ -31,14 +34,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jdcrecur/swagger-chunk.git"
+    "url": "git+https://github.com/johndcarmichael/doat.git"
   },
   "author": "John Carmichael",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jdcrecur/swagger-chunk/issues"
+    "url": "https://github.com/johndcarmichael/doat/issues"
   },
-  "homepage": "https://github.com/jdcrecur/swagger-chunk#readme",
+  "homepage": "https://github.com/johndcarmichael/doat#readme",
   "dependencies": {
     "commander": "^2.19.0",
     "fs-extra": "^7.0.0",
