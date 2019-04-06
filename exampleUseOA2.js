@@ -1,6 +1,6 @@
-const SwaggerChunk = require('./es5/SwaggerChunk.js')
+const Bundler = require('./es5/Bundler.js')
 
-const chunk = new SwaggerChunk({
+const bundler = new Bundler({
   input: './srcOA2/index.yml',
 })
 
@@ -14,17 +14,17 @@ const UniqueOperationIds = new uniqueOperationIds(program)
 UniqueOperationIds
   .listAndInject()
   .then(() => {
-    chunk
+    bundler
       .toYamlFile('./build', 'builtOA2')
       .then(() => {
-        chunk
+        bundler
           .toYamlFile()
           .then(() => {
             console.log('Building json')
-            chunk
+            bundler
               .toJsonFile('./build', 'builtOA2')
               .then(() => {
-                chunk.toJsonFile()
+                bundler.toJsonFile()
               }).catch(e => console.error(e))
           }).catch(e => console.error(e))
       }).catch(e => console.error(e))

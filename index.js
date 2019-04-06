@@ -1,5 +1,5 @@
 const program = require('commander')
-const SwaggerChunk = require('./es5/SwaggerChunk')
+const Bundler = require('./es5/Bundler')
 const pkg = require('./package.json')
 
 program
@@ -10,7 +10,6 @@ program
   .option('-d, --destination_name [name]', 'Base name of the file eg "weather_api". The version number from the swagger file will be appended automatically unless instructed otherwise')
   .option('-D, --destination [path]', 'Path to the target eg "./build". If no destination directory is passed the output will be outputted in the terminal')
   .option('-e, --extension [ext]', 'The output extension, defaults to the output format if not provided')
-  .option('-h, --host_replacement [name]', '(swagger2 specific only) A host name string to replace the one found in the source')
   .option('-o, --output_format [format]', 'The output format yaml, yml or json. If not provided it will assume the format of the input file')
   .option('-n, --indentation [indent]', 'The numeric indentation, defaults to 4 if nothing passed')
   .option('-m, --make_unique_operation_ids', '// WARNING: modifies your files, check with git: Changes the value of all operationId to the camelCase pathname of the file minus the dir path then continues to the usual operation of bundling.')
@@ -30,8 +29,8 @@ const bundle = () => {
   const calculateOutputFormat = () => {
     return (program.output_format) ? program.output_format : program.input.split('.').pop()
   }
-  const swaggerChunk = new SwaggerChunk(program)
-  swaggerChunk[(['yaml', 'yml'].indexOf(calculateOutputFormat()) !== -1) ? 'toYamlFile' : 'toJsonFile'](
+  const bundler = new Bundler(program)
+  bundler[(['yaml', 'yml'].indexOf(calculateOutputFormat()) !== -1) ? 'toYamlFile' : 'toJsonFile'](
     program.destination,
     program.destination_name,
     program.extension || false

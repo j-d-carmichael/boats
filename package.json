@@ -22,7 +22,7 @@
     "build:es5": "./node_modules/.bin/babel es6 -d es5",
     "build:readme:toc": "node ./node_modules/doctoc/doctoc.js .",
     "lint": "eslint *.js es6/",
-    "test": "npm run test:build-run:oa2 && npm run test:build-run:oa3 && npm run test:unit && rm ./build/built*",
+    "test": "npm run test:build-run:oa2 && npm run test:build-run:oa3 && npm run test:unit",
     "test:unit": "NODE_ENV=TEST jest",
     "test:build-run:oa2": "npm run build:es5 && node exampleUseOA2.js",
     "test:build-run:oa3": "npm run build:es5 && node exampleUseOA3.js",

@@ -8,7 +8,7 @@ const resolveRefs = require('json-refs').resolveRefs
 const YAML = require('js-yaml')
 const dd = require('../dd')
 
-export default class SwaggerChunk {
+export default class Bundler {
 
   /**
    * @param program
@@ -28,7 +28,6 @@ export default class SwaggerChunk {
     this.mainJSON = ''
     this.appendVersion = (program.exclude_version !== true)
     this.input = program.input
-    this.hostReplacement = program.host_replacement || false
     this.cleanLeaf = program.clean_leaf || false
     this.validateOff = program.validate_off || false
     this.destination = program.destination || false
@@ -94,15 +93,11 @@ export default class SwaggerChunk {
       const pwd = process.cwd()
       process.chdir(path.dirname(this.input))
       resolveRefs(root, this.parseMainLoaderOptions()).then((results) => {
-        this.swaggerChunkConversions(results.resolved)
-          .then((json) => {
-            this.mainJSON = json
-            this.validate()
-              .then(() => {
-                process.chdir(pwd)
-                return resolve(this.mainJSON)
-              })
-              .catch(dd)
+        this.mainJSON = results.resolved
+        this.validate()
+          .then(() => {
+            process.chdir(pwd)
+            return resolve(this.mainJSON)
           })
           .catch(dd)
       })
@@ -130,41 +125,12 @@ export default class SwaggerChunk {
     return JSON.parse(JSON.stringify(src))
   }
 
-  swaggerChunkConversions (swaggerDocument) {
-    return new Promise((resolve, reject) => {
-      try {
-        if (this.hostReplacement) {
-          swaggerDocument.host = this.hostReplacement
-        }
-        if (this.cleanLeaf) {
-          swaggerDocument = this.cleanLeafs(swaggerDocument)
-        }
-        return resolve(swaggerDocument)
-      } catch (e) {
-        reject(e)
-      }
-    })
-  }
-
   lastChar (string) {
     return string[string.length - 1]
   }
 
   removeLastChar (str) {
     return str.slice(0, -1)
-  }
-
-  cleanLeafs (swaggerDocument) {
-    for (let key in swaggerDocument) {
-      if (typeof swaggerDocument[key] === 'object') {
-        swaggerDocument[key] = this.cleanLeafs(swaggerDocument[key])
-      } else {
-        if (this.lastChar(swaggerDocument[key]) === ',') {
-          swaggerDocument[key] = this.removeLastChar(swaggerDocument[key])
-        }
-      }
-    }
-    return swaggerDocument
   }
 
   getVersion () {
