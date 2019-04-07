@@ -2,26 +2,33 @@ import path from 'path'
 import * as nunjucks from 'nunjucks'
 import functionParamsFromStr from './functionParamsFromStr'
 import fs from 'fs-extra'
+import calculateIndentFromLineBreak from './calculateIndentFromLineBreak'
 
 class Mixin {
   injector (inputString, fileLocation, originalIndentation) {
-    let mixinRegex = /'?(mixin\(.*\))'?/
-    let mixinStr = inputString.match(mixinRegex)
-    if (!mixinStr) {
-      return inputString
-    }
-    let indent = calculateIndentFromLineBreak(inputString, mixinStr.index) + originalIndentation
-    let replaceVal = `
+    return new Promise((resolve, reject) => {
+      try {
+        let mixinRegex = /'?(mixin\(.*\))'?/
+        let mixinStr = inputString.match(mixinRegex)
+        if (!mixinStr) {
+          return resolve(inputString)
+        }
+        let indent = calculateIndentFromLineBreak(inputString, mixinStr.index) + originalIndentation
+        let replaceVal = `
 `
-    let linePadding = ''
-    for (let i = 0; i < indent; ++i) {
-      linePadding += ' '
-    }
-    replaceVal += this.parser(mixinStr[0], fileLocation, linePadding)
-    return inputString.replace(
-      mixinStr[0],
-      replaceVal
-    )
+        let linePadding = ''
+        for (let i = 0; i < indent; ++i) {
+          linePadding += ' '
+        }
+        replaceVal += this.parser(mixinStr[0], fileLocation, linePadding)
+        return resolve(inputString.replace(
+          mixinStr[0],
+          replaceVal
+        ))
+      } catch (e) {
+        reject(e)
+      }
+    })
   }
 
   parser (val, currentFilePointer, linePadding) {

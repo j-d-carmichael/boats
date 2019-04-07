@@ -48,10 +48,13 @@ export default class Bundler {
   parseMainLoaderOptions () {
     return {
       loaderOptions: {
-        processContent: async (res, callback) => {
+        processContent: (res, callback) => {
           try {
-            res.text = await Mixin.injector(res.text, res.location, this.originalIndentation)
-            callback(null, YAML.safeLoad(res.text))
+            Mixin.injector(res.text, res.location, this.originalIndentation)
+              .then((text) => {
+                callback(null, YAML.safeLoad(text))
+              })
+              .catch(dd)
           } catch (e) {
             dd({
               msg: 'Error parsing yml',

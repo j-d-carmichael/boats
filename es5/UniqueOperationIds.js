@@ -1,94 +1,88 @@
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
 
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _fs = require('fs');
 
-var _fs = _interopRequireDefault(require("fs"));
+var _fs2 = _interopRequireDefault(_fs);
 
-var _path = _interopRequireDefault(require("path"));
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Walker = require('walker');
-
 var YAML = require('js-yaml');
-
 var dd = require('../dd');
 
-var UniqueOperationIds =
-/*#__PURE__*/
-function () {
+var UniqueOperationIds = function () {
   function UniqueOperationIds(program) {
-    (0, _classCallCheck2["default"])(this, UniqueOperationIds);
+    _classCallCheck(this, UniqueOperationIds);
 
     if (!program.input) {
       dd('No input provided');
     } else {
-      if (!_fs["default"].existsSync(program.input)) {
+      if (!_fs2.default.existsSync(program.input)) {
         dd('File does not exist. (' + program.input + ')');
       }
     }
-
-    this.input = _path["default"].dirname(program.input);
+    this.input = _path2.default.dirname(program.input);
     this.stripValue = program.strip_value || 'src/paths/';
     this.indentation = program.indentation || 2;
   }
 
-  (0, _createClass2["default"])(UniqueOperationIds, [{
-    key: "ucFirst",
+  _createClass(UniqueOperationIds, [{
+    key: 'ucFirst',
     value: function ucFirst(s) {
       if (typeof s !== 'string') {
         return '';
       }
-
       return s.charAt(0).toUpperCase() + s.slice(1);
     }
   }, {
-    key: "isYml",
+    key: 'isYml',
     value: function isYml(filePath) {
-      return ['yml', 'yaml'].indexOf(_path["default"].extname(filePath).substring(1)) !== -1;
+      return ['yml', 'yaml'].indexOf(_path2.default.extname(filePath).substring(1)) !== -1;
     }
   }, {
-    key: "getUniqueOperationIdFromPath",
+    key: 'getUniqueOperationIdFromPath',
     value: function getUniqueOperationIdFromPath(filePath) {
       filePath = filePath.replace(this.stripValue, '');
-      filePath = filePath.replace(_path["default"].extname(filePath), '');
+      filePath = filePath.replace(_path2.default.extname(filePath), '');
       var filePathParts = filePath.split('/');
-
       for (var i = 0; i < filePathParts.length; ++i) {
         if (i !== 0) {
           filePathParts[i] = this.ucFirst(filePathParts[i]);
         }
       }
-
       return filePathParts.join('');
     }
   }, {
-    key: "readYmlToJson",
+    key: 'readYmlToJson',
     value: function readYmlToJson(filePath) {
-      return YAML.safeLoad(_fs["default"].readFileSync(filePath).toString());
+      return YAML.safeLoad(_fs2.default.readFileSync(filePath).toString());
     }
   }, {
-    key: "writeJsonToYaml",
+    key: 'writeJsonToYaml',
     value: function writeJsonToYaml(filePath, json) {
-      return _fs["default"].writeFileSync(filePath, YAML.safeDump(json, {
+      return _fs2.default.writeFileSync(filePath, YAML.safeDump(json, {
         indent: this.indentation,
         lineWidth: 1000,
         noCompatMode: true
       }));
     }
   }, {
-    key: "injectUniqueOperationId",
+    key: 'injectUniqueOperationId',
     value: function injectUniqueOperationId(filePath) {
       var uniqueOpId = this.getUniqueOperationIdFromPath(filePath);
       var json = this.readYmlToJson(filePath);
-
       if (json) {
         if (json.summary || json.description) {
           json.operationId = uniqueOpId;
@@ -99,12 +93,11 @@ function () {
             }
           }
         }
-
         this.writeJsonToYaml(filePath, json);
       }
     }
   }, {
-    key: "listAndInject",
+    key: 'listAndInject',
     value: function listAndInject() {
       var _this = this;
 
@@ -122,7 +115,9 @@ function () {
       });
     }
   }]);
+
   return UniqueOperationIds;
 }();
 
-exports["default"] = UniqueOperationIds;
+exports.default = UniqueOperationIds;
+module.exports = exports.default;

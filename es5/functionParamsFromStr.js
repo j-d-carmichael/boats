@@ -1,16 +1,15 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
 
 /**
  *
  * @param string
  * @returns {Array}
  */
-var _default = function _default(string) {
+exports.default = function (string) {
   if (string[0] === '\'') string = string.substring(1, string.length);
   if (string[string.length - 1] === '\'') string = string.substring(0, string.length - 1);
   string = string.trim();
@@ -28,4 +27,4 @@ var _default = function _default(string) {
   return paramsArray;
 };
 
-exports["default"] = _default;
+module.exports = exports.default;
