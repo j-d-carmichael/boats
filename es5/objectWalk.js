@@ -4,15 +4,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var dd = require('../dd');
 
 exports.default = function (object, applyFunction) {
   var walk = function walk(object, applyFunction) {
-    if ((typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object') {
+    if ((typeof object === 'undefined' ? 'undefined' : (0, _typeof3.default)(object)) === 'object') {
       for (var key in object) {
-        if (_typeof(object[key]) === 'object') {
+        if ((0, _typeof3.default)(object[key]) === 'object') {
           object[key] = walk(object[key], applyFunction);
         } else {
           object[key] = applyFunction(object[key]);

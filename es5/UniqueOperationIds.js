@@ -4,7 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _fs = require('fs');
 
@@ -16,15 +22,13 @@ var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var Walker = require('walker');
 var YAML = require('js-yaml');
 var dd = require('../dd');
 
 var UniqueOperationIds = function () {
   function UniqueOperationIds(program) {
-    _classCallCheck(this, UniqueOperationIds);
+    (0, _classCallCheck3.default)(this, UniqueOperationIds);
 
     if (!program.input) {
       dd('No input provided');
@@ -38,7 +42,7 @@ var UniqueOperationIds = function () {
     this.indentation = program.indentation || 2;
   }
 
-  _createClass(UniqueOperationIds, [{
+  (0, _createClass3.default)(UniqueOperationIds, [{
     key: 'ucFirst',
     value: function ucFirst(s) {
       if (typeof s !== 'string') {
@@ -115,7 +119,6 @@ var UniqueOperationIds = function () {
       });
     }
   }]);
-
   return UniqueOperationIds;
 }();
 

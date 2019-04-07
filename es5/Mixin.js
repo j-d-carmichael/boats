@@ -4,7 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _path = require('path');
 
@@ -30,38 +44,55 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var Mixin = function () {
   function Mixin() {
-    _classCallCheck(this, Mixin);
+    (0, _classCallCheck3.default)(this, Mixin);
   }
 
-  _createClass(Mixin, [{
+  (0, _createClass3.default)(Mixin, [{
     key: 'injector',
-    value: function injector(inputString, fileLocation, originalIndentation) {
-      var _this = this;
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(inputString, fileLocation, originalIndentation) {
+        var mixinRegex, mixinStr, indent, replaceVal, linePadding, i;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                mixinRegex = /'?(mixin\(.*\))'?/;
+                mixinStr = inputString.match(mixinRegex);
 
-      return new Promise(function (resolve, reject) {
-        try {
-          var mixinRegex = /'?(mixin\(.*\))'?/;
-          var mixinStr = inputString.match(mixinRegex);
-          if (!mixinStr) {
-            return resolve(inputString);
+                if (mixinStr) {
+                  _context.next = 4;
+                  break;
+                }
+
+                return _context.abrupt('return', inputString);
+
+              case 4:
+                indent = (0, _calculateIndentFromLineBreak2.default)(inputString, mixinStr.index) + originalIndentation;
+                replaceVal = '\n';
+                linePadding = '';
+
+                for (i = 0; i < indent; ++i) {
+                  linePadding += ' ';
+                }
+                replaceVal += this.parser(mixinStr[0], fileLocation, linePadding);
+                return _context.abrupt('return', inputString.replace(mixinStr[0], replaceVal));
+
+              case 10:
+              case 'end':
+                return _context.stop();
+            }
           }
-          var indent = (0, _calculateIndentFromLineBreak2.default)(inputString, mixinStr.index) + originalIndentation;
-          var replaceVal = '\n';
-          var linePadding = '';
-          for (var i = 0; i < indent; ++i) {
-            linePadding += ' ';
-          }
-          replaceVal += _this.parser(mixinStr[0], fileLocation, linePadding);
-          return resolve(inputString.replace(mixinStr[0], replaceVal));
-        } catch (e) {
-          reject(e);
-        }
-      });
-    }
+        }, _callee, this);
+      }));
+
+      function injector(_x, _x2, _x3) {
+        return _ref.apply(this, arguments);
+      }
+
+      return injector;
+    }()
   }, {
     key: 'parser',
     value: function parser(val, currentFilePointer, linePadding) {
@@ -93,7 +124,6 @@ var Mixin = function () {
       return val;
     }
   }]);
-
   return Mixin;
 }();
 

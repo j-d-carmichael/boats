@@ -48,13 +48,10 @@ export default class Bundler {
   parseMainLoaderOptions () {
     return {
       loaderOptions: {
-        processContent: (res, callback) => {
+        processContent: async (res, callback) => {
           try {
-            Mixin.injector(res.text, res.location, this.originalIndentation)
-              .then((text) => {
-                callback(null, YAML.safeLoad(text))
-              })
-              .catch(dd)
+            res.text = await Mixin.injector(res.text, res.location, this.originalIndentation)
+            callback(null, YAML.safeLoad(res.text))
           } catch (e) {
             dd({
               msg: 'Error parsing yml',
@@ -70,38 +67,23 @@ export default class Bundler {
     return YAML.safeLoad(fs.readFileSync(this.input).toString())
   }
 
-  parseMain () {
-    return new Promise((resolve) => {
-      const root = this.parseMainRoot()
-      const pwd = process.cwd()
-      process.chdir(path.dirname(this.input))
-      resolveRefs(root, this.parseMainLoaderOptions()).then((results) => {
-        this.mainJSON = results.resolved
-        this.validator()
-          .then(() => {
-            process.chdir(pwd)
-            return resolve(this.mainJSON)
-          })
-          .catch(dd)
-      })
-        .catch(dd)
-    })
+  async parseMain () {
+    const root = this.parseMainRoot()
+    const pwd = process.cwd()
+    process.chdir(path.dirname(this.input))
+    const results = await resolveRefs(root, this.parseMainLoaderOptions())
+    this.mainJSON = results.resolved
+    await this.validator()
+    process.chdir(pwd)
+    return this.mainJSON
   }
 
-  validator () {
-    return new Promise((resolve, reject) => {
-      if (!this.validate) {
-        const SwaggerParser = require('swagger-parser')
-        SwaggerParser.validate(this.cloneObject(this.mainJSON), {}, (e) => {
-          if (e) {
-            return reject(e.message)
-          }
-          return resolve()
-        }).catch(reject)
-      } else {
-        return resolve()
-      }
-    })
+  async validator () {
+    if (!this.validate) {
+      const SwaggerParser = require('swagger-parser')
+      await SwaggerParser.validate(this.cloneObject(this.mainJSON), {})
+    }
+    return true
   }
 
   cloneObject (src) {
@@ -156,53 +138,40 @@ export default class Bundler {
     }
   }
 
-  toJsonFile (filePath) {
+  async toJsonFile (filePath) {
     this.output = filePath || false
-    return new Promise((resolve, reject) => {
-      this.toJSON().then((json) => {
-        const jsonString = JSON.stringify(this.mainJSON, null, this.indentation)
-        if (!this.destination) {
-          console.log(jsonString)
-          return resolve()
-        }
-        this.writeFile(filePath, jsonString)
-        resolve('File written to: ' + this.getFilePath(filePath))
-      }).catch(reject)
-    })
+    await this.toJSON()
+    const jsonString = JSON.stringify(this.mainJSON, null, this.indentation)
+    if (!this.output) {
+      console.log(jsonString)
+      return true
+    }
+    this.writeFile(filePath, jsonString)
+    console.log('File written to: ' + this.getFilePath(filePath))
+    return jsonString
   }
 
-  toJSON () {
-    return new Promise((resolve, reject) => {
-      this.parseMain().then((json) => {
-        return resolve(json)
-      }).catch(reject)
-    })
+  async toJSON () {
+    return await this.parseMain()
   }
 
-  toYamlFile (filePath) {
+  async toYamlFile (filePath) {
     this.output = filePath || false
-    return new Promise((resolve, reject) => {
-      this.toYAML().then((yml) => {
-        if (!this.output) {
-          console.log(yml)
-          return resolve()
-        }
-        this.writeFile(filePath, yml)
-        resolve('File written to: ' + this.getFilePath(filePath))
-      }).catch(reject)
-    })
+    const yml = await this.toYAML()
+    if (!this.output) {
+      console.log(yml)
+      return true
+    }
+    this.writeFile(filePath, yml)
+    console.log('File written to: ' + this.getFilePath(filePath))
+    return true
   }
 
-  toYAML () {
-    return new Promise((resolve, reject) => {
-      this.parseMain().then((json) => {
-        return resolve(
-          YAML.safeDump(
-            json,
-            this.indentation
-          )
-        )
-      }).catch(reject)
-    })
+  async toYAML () {
+    const json = await this.parseMain()
+    return YAML.safeDump(
+      json,
+      this.indentation
+    )
   }
 }
