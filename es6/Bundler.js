@@ -28,10 +28,9 @@ export default class Bundler {
     this.mainJSON = ''
     this.appendVersion = (program.exclude_version !== true)
     this.input = program.input
-    this.cleanLeaf = program.clean_leaf || false
-    this.validateOff = program.validate_off || false
-    this.destination = program.destination || false
-    this.indentation = program.indentation || 4
+    this.validate = (program.validate === 'on')
+    this.output = program.output || false
+    this.indentation = program.indentation || 2
     this.originalIndentation = program.originalIndentation || 2
   }
 
@@ -94,7 +93,7 @@ export default class Bundler {
       process.chdir(path.dirname(this.input))
       resolveRefs(root, this.parseMainLoaderOptions()).then((results) => {
         this.mainJSON = results.resolved
-        this.validate()
+        this.validator()
           .then(() => {
             process.chdir(pwd)
             return resolve(this.mainJSON)
@@ -105,9 +104,9 @@ export default class Bundler {
     })
   }
 
-  validate () {
+  validator () {
     return new Promise((resolve, reject) => {
-      if (!this.validateOff) {
+      if (!this.validate) {
         const SwaggerParser = require('swagger-parser')
         SwaggerParser.validate(this.cloneObject(this.mainJSON), {}, (e) => {
           if (e) {
@@ -146,21 +145,25 @@ export default class Bundler {
       if (packageJson.version) {
         swagVersion = packageJson.version
       } else {
-        // try and get the version from the yml file
-        return dd('No version provided and no version in the package.json')
+        return swagVersion
       }
     }
     return '_' + swagVersion
   }
 
-  getFileName (name, ext) {
-    return name + this.getVersion() + '.' + ext
+  getFileName (filePath) {
+    const name = path.basename(filePath).replace(path.extname(filePath), '')
+    return name + this.getVersion() + path.extname(filePath)
   }
 
-  writeFile (dir, name, ext, contents) {
+  getFilePath (filePath) {
+    return path.join(path.dirname(filePath), this.getFileName(filePath))
+  }
+
+  writeFile (filePath, contents) {
     try {
-      fs.ensureDirSync(dir)
-      return fs.writeFileSync(path.join(dir, this.getFileName(name, ext)), contents)
+      fs.ensureDirSync(path.dirname(filePath))
+      return fs.writeFileSync(this.getFilePath(filePath), contents)
     } catch (e) {
       dd({
         msg: 'Error writing file',
@@ -169,17 +172,17 @@ export default class Bundler {
     }
   }
 
-  toJsonFile (dir, name, ext) {
-    this.destination = dir || false
-    ext = ext || 'json'
+  toJsonFile (filePath) {
+    this.output = filePath || false
     return new Promise((resolve, reject) => {
       this.toJSON().then((json) => {
+        const jsonString = JSON.stringify(this.mainJSON, null, this.indentation)
         if (!this.destination) {
-          console.log(JSON.stringify(this.mainJSON, null, 4))
+          console.log(jsonString)
           return resolve()
         }
-        this.writeFile(dir, name, ext, JSON.stringify(json, null, this.indentation))
-        resolve('File written to: ' + path.join(dir, this.getFileName(name, ext)))
+        this.writeFile(filePath, jsonString)
+        resolve('File written to: ' + this.getFilePath(filePath))
       }).catch(reject)
     })
   }
@@ -192,17 +195,16 @@ export default class Bundler {
     })
   }
 
-  toYamlFile (dir, name, ext) {
-    ext = ext || 'yaml'
-    this.destination = dir || false
+  toYamlFile (filePath) {
+    this.output = filePath || false
     return new Promise((resolve, reject) => {
       this.toYAML().then((yml) => {
-        if (!this.destination) {
+        if (!this.output) {
           console.log(yml)
           return resolve()
         }
-        this.writeFile(dir, name, ext, yml)
-        resolve('File written to: ' + path.join(dir, this.getFileName(name, ext)))
+        this.writeFile(filePath, yml)
+        resolve('File written to: ' + this.getFilePath(filePath))
       }).catch(reject)
     })
   }

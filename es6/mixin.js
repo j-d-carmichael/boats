@@ -25,9 +25,6 @@ export default (val, currentFilePointer, linePadding) => {
     nunjucks.configure({ autoescape: false })
     const renderPath = path.join(path.dirname(currentFilePointer), mixinPath)
     if (!fs.pathExistsSync(renderPath)) {
-      console.error('Path not found while rendering nunjuck template: ' + renderPath)
-      console.error(mixinPath)
-      console.error( currentFilePointer)
       throw new Error('Path not found when trying to render mixin: ' + renderPath)
     }
     let rendered = nunjucks.render(renderPath, vars)

@@ -60,10 +60,9 @@ var Bundler = function () {
     this.mainJSON = '';
     this.appendVersion = program.exclude_version !== true;
     this.input = program.input;
-    this.cleanLeaf = program.clean_leaf || false;
-    this.validateOff = program.validate_off || false;
-    this.destination = program.destination || false;
-    this.indentation = program.indentation || 4;
+    this.validate = program.validate === 'on';
+    this.output = program.output || false;
+    this.indentation = program.indentation || 2;
     this.originalIndentation = program.originalIndentation || 2;
   }
 
@@ -132,7 +131,7 @@ var Bundler = function () {
         process.chdir(_path2.default.dirname(_this2.input));
         resolveRefs(root, _this2.parseMainLoaderOptions()).then(function (results) {
           _this2.mainJSON = results.resolved;
-          _this2.validate().then(function () {
+          _this2.validator().then(function () {
             process.chdir(pwd);
             return resolve(_this2.mainJSON);
           }).catch(dd);
@@ -140,12 +139,12 @@ var Bundler = function () {
       });
     }
   }, {
-    key: 'validate',
-    value: function validate() {
+    key: 'validator',
+    value: function validator() {
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
-        if (!_this3.validateOff) {
+        if (!_this3.validate) {
           var SwaggerParser = require('swagger-parser');
           SwaggerParser.validate(_this3.cloneObject(_this3.mainJSON), {}, function (e) {
             if (e) {
@@ -188,23 +187,28 @@ var Bundler = function () {
         if (packageJson.version) {
           swagVersion = packageJson.version;
         } else {
-          // try and get the version from the yml file
-          return dd('No version provided and no version in the package.json');
+          return swagVersion;
         }
       }
       return '_' + swagVersion;
     }
   }, {
     key: 'getFileName',
-    value: function getFileName(name, ext) {
-      return name + this.getVersion() + '.' + ext;
+    value: function getFileName(filePath) {
+      var name = _path2.default.basename(filePath).replace(_path2.default.extname(filePath), '');
+      return name + this.getVersion() + _path2.default.extname(filePath);
+    }
+  }, {
+    key: 'getFilePath',
+    value: function getFilePath(filePath) {
+      return _path2.default.join(_path2.default.dirname(filePath), this.getFileName(filePath));
     }
   }, {
     key: 'writeFile',
-    value: function writeFile(dir, name, ext, contents) {
+    value: function writeFile(filePath, contents) {
       try {
-        _fsExtra2.default.ensureDirSync(dir);
-        return _fsExtra2.default.writeFileSync(_path2.default.join(dir, this.getFileName(name, ext)), contents);
+        _fsExtra2.default.ensureDirSync(_path2.default.dirname(filePath));
+        return _fsExtra2.default.writeFileSync(this.getFilePath(filePath), contents);
       } catch (e) {
         dd({
           msg: 'Error writing file',
@@ -214,19 +218,19 @@ var Bundler = function () {
     }
   }, {
     key: 'toJsonFile',
-    value: function toJsonFile(dir, name, ext) {
+    value: function toJsonFile(filePath) {
       var _this4 = this;
 
-      this.destination = dir || false;
-      ext = ext || 'json';
+      this.output = filePath || false;
       return new Promise(function (resolve, reject) {
         _this4.toJSON().then(function (json) {
+          var jsonString = JSON.stringify(_this4.mainJSON, null, _this4.indentation);
           if (!_this4.destination) {
-            console.log(JSON.stringify(_this4.mainJSON, null, 4));
+            console.log(jsonString);
             return resolve();
           }
-          _this4.writeFile(dir, name, ext, JSON.stringify(json, null, _this4.indentation));
-          resolve('File written to: ' + _path2.default.join(dir, _this4.getFileName(name, ext)));
+          _this4.writeFile(filePath, jsonString);
+          resolve('File written to: ' + _this4.getFilePath(filePath));
         }).catch(reject);
       });
     }
@@ -243,19 +247,18 @@ var Bundler = function () {
     }
   }, {
     key: 'toYamlFile',
-    value: function toYamlFile(dir, name, ext) {
+    value: function toYamlFile(filePath) {
       var _this6 = this;
 
-      ext = ext || 'yaml';
-      this.destination = dir || false;
+      this.output = filePath || false;
       return new Promise(function (resolve, reject) {
         _this6.toYAML().then(function (yml) {
-          if (!_this6.destination) {
+          if (!_this6.output) {
             console.log(yml);
             return resolve();
           }
-          _this6.writeFile(dir, name, ext, yml);
-          resolve('File written to: ' + _path2.default.join(dir, _this6.getFileName(name, ext)));
+          _this6.writeFile(filePath, yml);
+          resolve('File written to: ' + _this6.getFilePath(filePath));
         }).catch(reject);
       });
     }

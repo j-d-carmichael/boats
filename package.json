@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/johndcarmichael/doat#readme",
   "dependencies": {
-    "commander": "^2.19.0",
+    "commander": "^2.20.0",
     "fs-extra": "^7.0.0",
     "inquirer": "^6.2.0",
     "js-yaml": "^3.12.0",
