@@ -6,7 +6,7 @@ const bundler = new Bundler({
 
 const uniqueOperationIds = require('./es5/UniqueOperationIds')
 const program = {
-  make_unique_operation_ids: true,
+  unique_operation_ids: true,
   strip_value: 'srcOA3/paths/',
   input: './srcOA3/index.yml',
 }
@@ -17,14 +17,14 @@ UniqueOperationIds
   .then(() => {
     console.log('Building yaml')
     bundler
-      .toYamlFile('./build', 'builtOA3')
+      .toYamlFile('./build/builtOA3.yml')
       .then(() => {
         bundler
           .toYamlFile()
           .then(() => {
             console.log('Building json')
             bundler
-              .toJsonFile('./build', 'builtOA3')
+              .toJsonFile('./build/builtOA3.json')
               .then(() => {
                 bundler.toJsonFile()
               }).catch(e => console.error(e))

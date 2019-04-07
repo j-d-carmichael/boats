@@ -1,5 +1,4 @@
-import mixin from './mixin'
-import calculateIndentFromLineBreak from './calculateIndentFromLineBreak'
+import Mixin from './Mixin'
 import * as program from 'commander'
 import fs from 'fs-extra'
 import path from 'path'
@@ -49,29 +48,11 @@ export default class Bundler {
   parseMainLoaderOptions () {
     return {
       loaderOptions: {
-        processContent: (res, callback) => {
-          let mixinRegex = /'?(mixin\(.*\))'?/
-          let mixinStr = res.text.match(mixinRegex)
-          if (mixinStr) {
-            let indent = calculateIndentFromLineBreak(res.text, mixinStr.index) + this.originalIndentation
-            let replaceVal = `
-`
-            let linePadding = ''
-            for (let i = 0; i < indent; ++i) {
-              linePadding += ' '
-            }
-            replaceVal += mixin(mixinStr[0], res.location, linePadding)
-            res.text = res.text.replace(
-              mixinStr[0],
-              replaceVal
-            )
-          }
-
+        processContent: async (res, callback) => {
           try {
-            const content = YAML.safeLoad(res.text)
-            callback(null, content)
+            res.text = await Mixin.injector(res.text, res.location, this.originalIndentation)
+            callback(null, YAML.safeLoad(res.text))
           } catch (e) {
-            console.error('Error parsing')
             dd({
               msg: 'Error parsing yml',
               e: e

@@ -1,43 +1,41 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _mixin = require('./mixin');
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _mixin2 = _interopRequireDefault(_mixin);
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _calculateIndentFromLineBreak = require('./calculateIndentFromLineBreak');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _calculateIndentFromLineBreak2 = _interopRequireDefault(_calculateIndentFromLineBreak);
+var _Mixin = _interopRequireDefault(require("./Mixin"));
 
-var _commander = require('commander');
+var _calculateIndentFromLineBreak = _interopRequireDefault(require("./calculateIndentFromLineBreak"));
 
-var program = _interopRequireWildcard(_commander);
+var program = _interopRequireWildcard(require("commander"));
 
-var _fsExtra = require('fs-extra');
+var _fsExtra = _interopRequireDefault(require("fs-extra"));
 
-var _fsExtra2 = _interopRequireDefault(_fsExtra);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _path = _interopRequireDefault(require("path"));
 
 var resolveRefs = require('json-refs').resolveRefs;
+
 var YAML = require('js-yaml');
+
 var dd = require('../dd');
 
-var Bundler = function () {
-
+var Bundler =
+/*#__PURE__*/
+function () {
   /**
    * @param program
    * {
@@ -47,16 +45,16 @@ var Bundler = function () {
    */
   function Bundler() {
     var program = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    _classCallCheck(this, Bundler);
+    (0, _classCallCheck2["default"])(this, Bundler);
 
     if (!program.input) {
       dd('No input provided');
     } else {
-      if (!_fsExtra2.default.existsSync(program.input)) {
+      if (!_fsExtra["default"].existsSync(program.input)) {
         dd('File does not exist. (' + program.input + ')');
       }
     }
+
     this.mainJSON = '';
     this.appendVersion = program.exclude_version !== true;
     this.input = program.input;
@@ -66,149 +64,175 @@ var Bundler = function () {
     this.originalIndentation = program.originalIndentation || 2;
   }
 
-  _createClass(Bundler, [{
-    key: 'readJsonFile',
+  (0, _createClass2["default"])(Bundler, [{
+    key: "readJsonFile",
     value: function readJsonFile(file) {
       try {
-        return JSON.parse(_fsExtra2.default.readFileSync(file));
+        return JSON.parse(_fsExtra["default"].readFileSync(file));
       } catch (err) {
         return null;
       }
     }
   }, {
-    key: 'packageJson',
+    key: "packageJson",
     value: function packageJson() {
       return this.readJsonFile('./package.json');
     }
   }, {
-    key: 'parseMainLoaderOptions',
+    key: "parseMainLoaderOptions",
     value: function parseMainLoaderOptions() {
       var _this = this;
 
       return {
         loaderOptions: {
-          processContent: function processContent(res, callback) {
-            var mixinRegex = /'?(mixin\(.*\))'?/;
-            var mixinStr = res.text.match(mixinRegex);
-            if (mixinStr) {
-              var indent = (0, _calculateIndentFromLineBreak2.default)(res.text, mixinStr.index) + _this.originalIndentation;
-              var replaceVal = '\n';
-              var linePadding = '';
-              for (var i = 0; i < indent; ++i) {
-                linePadding += ' ';
-              }
-              replaceVal += (0, _mixin2.default)(mixinStr[0], res.location, linePadding);
-              res.text = res.text.replace(mixinStr[0], replaceVal);
+          processContent: function () {
+            var _processContent = (0, _asyncToGenerator2["default"])(
+            /*#__PURE__*/
+            _regenerator["default"].mark(function _callee(res, callback) {
+              return _regenerator["default"].wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.prev = 0;
+                      _context.next = 3;
+                      return _Mixin["default"].injector(res.text, res.location, _this.originalIndentation);
+
+                    case 3:
+                      res.text = _context.sent;
+                      callback(null, YAML.safeLoad(res.text));
+                      _context.next = 10;
+                      break;
+
+                    case 7:
+                      _context.prev = 7;
+                      _context.t0 = _context["catch"](0);
+                      dd({
+                        msg: 'Error parsing yml',
+                        e: _context.t0
+                      });
+
+                    case 10:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, null, [[0, 7]]);
+            }));
+
+            function processContent(_x, _x2) {
+              return _processContent.apply(this, arguments);
             }
 
-            try {
-              var content = YAML.safeLoad(res.text);
-              callback(null, content);
-            } catch (e) {
-              console.error('Error parsing');
-              dd({
-                msg: 'Error parsing yml',
-                e: e
-              });
-            }
-          }
+            return processContent;
+          }()
         }
       };
     }
   }, {
-    key: 'parseMainRoot',
+    key: "parseMainRoot",
     value: function parseMainRoot() {
-      return YAML.safeLoad(_fsExtra2.default.readFileSync(this.input).toString());
+      return YAML.safeLoad(_fsExtra["default"].readFileSync(this.input).toString());
     }
   }, {
-    key: 'parseMain',
+    key: "parseMain",
     value: function parseMain() {
       var _this2 = this;
 
       return new Promise(function (resolve) {
         var root = _this2.parseMainRoot();
+
         var pwd = process.cwd();
-        process.chdir(_path2.default.dirname(_this2.input));
+        process.chdir(_path["default"].dirname(_this2.input));
         resolveRefs(root, _this2.parseMainLoaderOptions()).then(function (results) {
           _this2.mainJSON = results.resolved;
+
           _this2.validator().then(function () {
             process.chdir(pwd);
             return resolve(_this2.mainJSON);
-          }).catch(dd);
-        }).catch(dd);
+          })["catch"](dd);
+        })["catch"](dd);
       });
     }
   }, {
-    key: 'validator',
+    key: "validator",
     value: function validator() {
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
         if (!_this3.validate) {
           var SwaggerParser = require('swagger-parser');
+
           SwaggerParser.validate(_this3.cloneObject(_this3.mainJSON), {}, function (e) {
             if (e) {
               return reject(e.message);
             }
+
             return resolve();
-          }).catch(reject);
+          })["catch"](reject);
         } else {
           return resolve();
         }
       });
     }
   }, {
-    key: 'cloneObject',
+    key: "cloneObject",
     value: function cloneObject(src) {
       return JSON.parse(JSON.stringify(src));
     }
   }, {
-    key: 'lastChar',
+    key: "lastChar",
     value: function lastChar(string) {
       return string[string.length - 1];
     }
   }, {
-    key: 'removeLastChar',
+    key: "removeLastChar",
     value: function removeLastChar(str) {
       return str.slice(0, -1);
     }
   }, {
-    key: 'getVersion',
+    key: "getVersion",
     value: function getVersion() {
       var swagVersion = '';
+
       if (!this.appendVersion) {
         return swagVersion;
       }
+
       var parsedResltObj = this.mainJSON;
+
       if (parsedResltObj.info.version) {
         swagVersion = parsedResltObj.info.version;
       } else if (!program.Version) {
         var packageJson = this.packageJson();
+
         if (packageJson.version) {
           swagVersion = packageJson.version;
         } else {
           return swagVersion;
         }
       }
+
       return '_' + swagVersion;
     }
   }, {
-    key: 'getFileName',
+    key: "getFileName",
     value: function getFileName(filePath) {
-      var name = _path2.default.basename(filePath).replace(_path2.default.extname(filePath), '');
-      return name + this.getVersion() + _path2.default.extname(filePath);
+      var name = _path["default"].basename(filePath).replace(_path["default"].extname(filePath), '');
+
+      return name + this.getVersion() + _path["default"].extname(filePath);
     }
   }, {
-    key: 'getFilePath',
+    key: "getFilePath",
     value: function getFilePath(filePath) {
-      return _path2.default.join(_path2.default.dirname(filePath), this.getFileName(filePath));
+      return _path["default"].join(_path["default"].dirname(filePath), this.getFileName(filePath));
     }
   }, {
-    key: 'writeFile',
+    key: "writeFile",
     value: function writeFile(filePath, contents) {
       try {
-        _fsExtra2.default.ensureDirSync(_path2.default.dirname(filePath));
-        return _fsExtra2.default.writeFileSync(this.getFilePath(filePath), contents);
+        _fsExtra["default"].ensureDirSync(_path["default"].dirname(filePath));
+
+        return _fsExtra["default"].writeFileSync(this.getFilePath(filePath), contents);
       } catch (e) {
         dd({
           msg: 'Error writing file',
@@ -217,7 +241,7 @@ var Bundler = function () {
       }
     }
   }, {
-    key: 'toJsonFile',
+    key: "toJsonFile",
     value: function toJsonFile(filePath) {
       var _this4 = this;
 
@@ -225,28 +249,31 @@ var Bundler = function () {
       return new Promise(function (resolve, reject) {
         _this4.toJSON().then(function (json) {
           var jsonString = JSON.stringify(_this4.mainJSON, null, _this4.indentation);
+
           if (!_this4.destination) {
             console.log(jsonString);
             return resolve();
           }
+
           _this4.writeFile(filePath, jsonString);
+
           resolve('File written to: ' + _this4.getFilePath(filePath));
-        }).catch(reject);
+        })["catch"](reject);
       });
     }
   }, {
-    key: 'toJSON',
+    key: "toJSON",
     value: function toJSON() {
       var _this5 = this;
 
       return new Promise(function (resolve, reject) {
         _this5.parseMain().then(function (json) {
           return resolve(json);
-        }).catch(reject);
+        })["catch"](reject);
       });
     }
   }, {
-    key: 'toYamlFile',
+    key: "toYamlFile",
     value: function toYamlFile(filePath) {
       var _this6 = this;
 
@@ -257,26 +284,26 @@ var Bundler = function () {
             console.log(yml);
             return resolve();
           }
+
           _this6.writeFile(filePath, yml);
+
           resolve('File written to: ' + _this6.getFilePath(filePath));
-        }).catch(reject);
+        })["catch"](reject);
       });
     }
   }, {
-    key: 'toYAML',
+    key: "toYAML",
     value: function toYAML() {
       var _this7 = this;
 
       return new Promise(function (resolve, reject) {
         _this7.parseMain().then(function (json) {
           return resolve(YAML.safeDump(json, _this7.indentation));
-        }).catch(reject);
+        })["catch"](reject);
       });
     }
   }]);
-
   return Bundler;
 }();
 
-exports.default = Bundler;
-module.exports = exports.default;
+exports["default"] = Bundler;
