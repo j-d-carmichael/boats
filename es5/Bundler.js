@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -255,7 +259,7 @@ var Bundler = function () {
   }, {
     key: 'cloneObject',
     value: function cloneObject(src) {
-      return JSON.parse(JSON.stringify(src));
+      return JSON.parse((0, _stringify2.default)(src));
     }
   }, {
     key: 'lastChar',
@@ -325,7 +329,7 @@ var Bundler = function () {
                 return this.toJSON();
 
               case 3:
-                jsonString = JSON.stringify(this.mainJSON, null, this.indentation);
+                jsonString = (0, _stringify2.default)(this.mainJSON, null, this.indentation);
 
                 if (this.output) {
                   _context5.next = 7;
