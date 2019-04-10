@@ -9,13 +9,7 @@ Beautiful Open Api Template System
 
 - [Summary](#summary)
 - [Examples](#examples)
-- [Install and use locally via cli](#install-and-use-locally-via-cli)
-- [How it works](#how-it-works)
-  - [Initialise skeleton swagger-chunk files](#initialise-skeleton-swagger-chunk-files)
-  - [Managing operation ids](#managing-operation-ids)
-  - [Overriding the base host](#overriding-the-base-host)
-  - [Clean up leaf values](#clean-up-leaf-values)
-  - [Use programmatically](#use-programmatically)
+- [Available commands](#available-commands)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -33,13 +27,13 @@ Beautiful Open Api Template System
  - [Unique Operation ID example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L5)
  - [OpenAPI 3 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3) 
  - [OpenAPI 2 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA2) 
- - Programmatic use of the tool:  
- - Cli use of the tool:   
+ - [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)  
+ - After adding "boats" as an npm script to this package: `npm run boats -i ./src/index.yml`
 
 ## Available commands
 Available commands (possible by [commander](https://www.npmjs.com/package/commander)):
 ```
-Usage: oats [options]
+Usage: boats [options]
 
 Options:
   --init                      Inject a skeleton yml structure to the current directory named /src/...
