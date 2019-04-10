@@ -2,6 +2,10 @@
 
 Beautiful Open Api Template System
 
+(please note this has only just been published and is now being battle tested in a few real world projects)
+
+[![Build Status](https://travis-ci.org/johndcarmichael/boats.svg?branch=master)](https://travis-ci.org/johndcarmichael/boats) | [![Dependencies](https://david-dm.org/johndcarmichael/boats.svg)](https://david-dm.org/johndcarmichael/boats) | [![License](http://img.shields.io/npm/l/boats.svg)](https://github.com/johndcarmichael/boats/blob/master/LICENSE)
+
 ---
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->

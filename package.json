@@ -1,21 +1,21 @@
 {
   "name": "boats",
-  "version": "0.0.4",
-  "description": "Dynamic Open API Tool",
+  "version": "0.0.5",
+  "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
-    "swagger-codegen",
     "openapi",
     "openapi2",
     "openapi3",
     "yaml",
-    "yml",
+    "bundle",
     "nunjucks",
-    "merge yaml",
+    "yml",
+    "yaml",
     "merge yml",
+    "merge yaml",
     "DDD",
-    "Documentation-Driven Development",
-    "bundle"
+    "Documentation-Driven Development"
   ],
   "main": "index.js",
   "bin": {
@@ -35,14 +35,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johndcarmichael/doat.git"
+    "url": "git+https://github.com/johndcarmichael/boats.git"
   },
   "author": "John Carmichael",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/johndcarmichael/doat/issues"
+    "url": "https://github.com/johndcarmichael/boats/issues"
   },
-  "homepage": "https://github.com/johndcarmichael/doat#readme",
+  "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "commander": "^2.20.0",
