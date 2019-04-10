@@ -24,6 +24,7 @@ Beautiful Open Api Template System
     - [Variables](#variables)
     - [CLI Tool](#cli-tool)
     - [Programmatic Use](#programmatic-use)
+    - [Init](#init)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -48,7 +49,7 @@ Beautiful Open Api Template System
  - [OpenAPI 3 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3) 
  - [OpenAPI 2 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA2) 
  - [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)  
- - After adding "boats" as an npm script to this package: `npm run boats -i ./src/index.yml`
+ - [CLI Usage](#cli-tool)
 
 ## Available commands
 
