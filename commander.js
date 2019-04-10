@@ -14,11 +14,7 @@ module.exports = () => {
 
     .option('-I, --indentation [indent]', 'The numeric indentation, defaults to 2 if option passed')
 
-    .option('-u, --unique_operation_ids', 'Changes the value of all operationId to the camelCase pathname minus the --strip_value before bundling.')
-
-    .option('-U, --unique_operation_ids_only', 'Same as -m but will only inject the uniqueOperationIds into the files and then stops.')
-
-    .option('-s, --strip_value [strip]', 'Related to u & U, the value removed from the file path for the uniqueIds, defaults to src/paths/')
+    .option('-s, --strip_value [strip]', 'The value removed from during creation of the uniqueOpId tpl function, defaults to "paths/"')
 
     .option('-v --validate <state>', 'Validate OA 2/3 state "on" or "off". Defaults to "on"', /^(on|off)$/i, 'on')
 

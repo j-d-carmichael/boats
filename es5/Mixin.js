@@ -58,17 +58,18 @@ var Mixin = function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                console.log(fileLocation);
                 mixinRegex = /'?(mixin\(.*\))'?/;
                 mixinStr = inputString.match(mixinRegex);
 
                 if (mixinStr) {
-                  _context.next = 4;
+                  _context.next = 5;
                   break;
                 }
 
                 return _context.abrupt('return', inputString);
 
-              case 4:
+              case 5:
                 indent = (0, _calculateIndentFromLineBreak2.default)(inputString, mixinStr.index) + originalIndentation;
                 replaceVal = '\n';
                 linePadding = '';
@@ -79,7 +80,7 @@ var Mixin = function () {
                 replaceVal += this.parser(mixinStr[0], fileLocation, linePadding);
                 return _context.abrupt('return', inputString.replace(mixinStr[0], replaceVal));
 
-              case 10:
+              case 11:
               case 'end':
                 return _context.stop();
             }

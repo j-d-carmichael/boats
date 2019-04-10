@@ -1,5 +1,8 @@
-# swagger-chunk
+# BOATS
 
+Beautiful Open Api Template System
+
+# Table of contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -17,7 +20,11 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Summary
-Bundle many OpenAPI 2|3 files together into one. Please see the srcOA2 and srcOA3 for examples.
+ - Bundle OpenAPI 2|3 files together.
+ - Validate Open API 2|3 output.
+ - Mixins within y(a)ml files
+ - Variables within y(a)ml files
+ - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine
 
 ## Examples
 For a full example please view the example folder within the swagger-chunk repo.: [https://github.com/jdcrecur/swagger-chunk/tree/master/srcOA3](https://github.com/jdcrecur/swagger-chunk/tree/master/srcOA3)
@@ -35,25 +42,18 @@ node node_modules/swagger-chunk -o yaml -e yml -i ./src/index.yml -D ./build/ -d
 
 The following options are available, made easily possible by [commander](https://www.npmjs.com/package/commander)
 ```
-Usage: swagger-chunk [options]
+Usage: oats [options]
 
 Options:
-  -v, --version                         output the version number
-  --init                                Inject a skeleton yml structure to the current directory named /src/...
-  -i, --input [path]                    The relative path to the input file
-  -c, --clean_leaf                      This will strip all trailing "," from all values
-  -d, --destination_name [name]         Base name of the file eg "weather_api". The version number from the swagger file will be appended automatically unless instructed otherwise
-  -D, --destination [path]              Path to the target eg "./build". If no destination directory is passed the output will be outputted in the terminal
-  -e, --extension [ext]                 The output extension, defaults to the output format if not provided
-  -h, --host_replacement [name]         (swagger2 specific only) A host name string to replace the one found in the source
-  -o, --output_format [format]          The output format yaml, yml or json. If not provided it will assume the format of the input file
-  -n, --indentation [indent]            The numeric indentation, defaults to 4 if nothing passed
-  -m, --make_unique_operation_ids       // WARNING: modifies your files, check with git: Changes the value of all operationId to the camelCase pathname of the file minus the dir path then continues to the usual operation of bundling.
-  -M, --make_unique_operation_ids_only  Same as -m but will only inject the uniqueOperationIds into the yaml file and then stop
-  -s, --strip_value [strip]             Related to m & M, the value removed from the file path for the uniqueIds, defaults to src/paths/
-  -V, --validate_off                    Do not validate the swagger output
-  -x, --exclude_version                 Exclude the swagger version from the generated output file
-  -h, --help                            output usage information
+  -V, --version               output the version number
+  --init                      Inject a skeleton yml structure to the current directory named /src/...
+  -i, --input [path]          The relative path to the main input file eg "./src/index.yml"
+  -o, --output [path]         Path to the target eg "./build/weather_api.json|yaml|yml". The version of the api will be injected automatically based on the version from within the OA index if present. If option not passed the output will be in the terminal.
+  -x, --exclude_version       Exclude the OA version from the generated output file.
+  -I, --indentation [indent]  The numeric indentation, defaults to 2 if option passed
+  -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "paths/"
+  -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
+  -h, --help                  output usage informat
 ```
 
 An example use via a package.json file:

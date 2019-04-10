@@ -7,10 +7,10 @@ Temperature:
 Weather:
   $ref: ./weather/model.yml
 
-Weathers: mixin('../mixins/pagination.yml', "'#/definitions/GenericSearchMeta'", "'#/definitions/Weather'")
+Weathers: {{ mixin('../mixins/pagination.yml', '#/definitions/GenericSearchMeta', '#/definitions/Weather') }}
 
 Unit:
   $ref: ./unit/model.yml
 
 Units:
-  $ref: ./unit/models.yml
+  $ref: {{ mixin('../mixins/pagination.yml', '#/definitions/GenericSearchMeta', '#/definitions/unit') }}

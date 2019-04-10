@@ -7,11 +7,9 @@ Temperature:
 Weather:
   $ref: ./weather/model.yml
 
-Weathers:
-  $ref: ./weather/model.yml
+Weathers: {{ mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather") }}
 
 Unit:
   $ref: ./unit/model.yml
 
-Units:
-  $ref: ./unit/model.yml
+Units: {{ mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Unit") }}

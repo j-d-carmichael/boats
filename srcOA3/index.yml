@@ -12,7 +12,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: http://some-url.com/api/v1
+  - url: {{ host }}
 
 tags:
   - name: weather

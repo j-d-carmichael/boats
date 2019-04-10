@@ -1,4 +1,4 @@
-import Mixin from './Mixin'
+import Template from './Template'
 import * as program from 'commander'
 import fs from 'fs-extra'
 import path from 'path'
@@ -24,6 +24,7 @@ export default class Bundler {
         dd('File does not exist. (' + program.input + ')')
       }
     }
+    this.strip_value = program.strip_value || 'paths/'
     this.mainJSON = ''
     this.appendVersion = (program.exclude_version !== true)
     this.input = program.input
@@ -31,6 +32,7 @@ export default class Bundler {
     this.output = program.output || false
     this.indentation = program.indentation || 2
     this.originalIndentation = program.originalIndentation || 2
+    this.customVars = program.customVars || {}
   }
 
   readJsonFile (file) {
@@ -50,7 +52,7 @@ export default class Bundler {
       loaderOptions: {
         processContent: async (res, callback) => {
           try {
-            res.text = await Mixin.injector(res.text, res.location, this.originalIndentation)
+            res.text = await Template.load(res.text, res.location, this.originalIndentation, this.strip_value, this.customVars)
             callback(null, YAML.safeLoad(res.text))
           } catch (e) {
             dd({
@@ -63,12 +65,13 @@ export default class Bundler {
     }
   }
 
-  parseMainRoot () {
-    return YAML.safeLoad(fs.readFileSync(this.input).toString())
+  async parseMainRoot () {
+    const renderedIndex = await Template.load(fs.readFileSync(this.input).toString(), this.input, this.originalIndentation, this.strip_value, this.customVars)
+    return YAML.safeLoad(renderedIndex)
   }
 
   async parseMain () {
-    const root = this.parseMainRoot()
+    const root = await this.parseMainRoot()
     const pwd = process.cwd()
     process.chdir(path.dirname(this.input))
     const results = await resolveRefs(root, this.parseMainLoaderOptions())

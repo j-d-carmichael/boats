@@ -1,68 +1,37 @@
-const uniqueOperationIds = require('../es6/UniqueOperationIds')
-let UniqueOperationIds
-
-describe('Load the construct successfully', () => {
-  it('load ../srcOA2/index.yml', (done) => {
-    try {
-      UniqueOperationIds = new uniqueOperationIds({
-        input: './srcOA2/index.yml'
-      })
-      done()
-    } catch (e) {
-      done(e)
-    }
-  })
-})
+import UniqueOperationIds from '../es6/UniqueOperationIds'
 
 describe('getUniqueOperationIdFromPath', () => {
-  it('getUniqueOperationIdFromPath v1/some/path/get should be v1SomePathGet', () => {
-    UniqueOperationIds = new uniqueOperationIds({
-      input: './srcOA2/index.yml'
-    })
+  it('standard action v1WeatherGet', () => {
     expect(
-      UniqueOperationIds.getUniqueOperationIdFromPath('src_2/paths/v1/weather/get.yml')
+      UniqueOperationIds.getUniqueOperationIdFromPath('src/paths/v1/weather/get.yml', 'paths/', 'src/')
     ).toBe(
-      'src_2PathsV1WeatherGet'
+      'v1WeatherGet'
     )
   })
-
-  it('getUniqueOperationIdFromPath wih custom strip value', () => {
-    UniqueOperationIds = new uniqueOperationIds({
-      input: './srcOA2/index.yml',
-      strip_value: 'srcOA2/paths/'
-    })
+  it('custom strip value', () => {
     expect(
-      UniqueOperationIds.getUniqueOperationIdFromPath('srcOA2/paths/v1/weather/get.yml')
+      UniqueOperationIds.getUniqueOperationIdFromPath('src/paths/more/v1/weather/get.yml', 'paths/more/', 'src/')
     ).toBe(
       'v1WeatherGet'
     )
   })
 })
 
-describe('uc first', () => {
-  UniqueOperationIds = new uniqueOperationIds({
-    input: './srcOA2/index.yml'
-  })
-  it('UC First a simple string', () => {
+
+describe('removeFileExtension', () => {
+  it('Removes .yml from path provided', () => {
     expect(
-      UniqueOperationIds.ucFirst('abc')
+      UniqueOperationIds.removeFileExtension('paths/v1/weather/get.yml')
     ).toBe(
-      'Abc'
+      'paths/v1/weather/get'
     )
   })
-})
 
-describe('isYml', () => {
-  UniqueOperationIds = new uniqueOperationIds({
-    input: './srcOA2/index.yml'
-  })
-  it('should work yml', () => {
-    expect(UniqueOperationIds.isYml('something.yml')).toBe(true)
-  })
-  it('should work yaml', () => {
-    expect(UniqueOperationIds.isYml('something.yml')).toBe(true)
-  })
-  it('should be false', () => {
-    expect(UniqueOperationIds.isYml('something.yml.xtx')).toBe(false)
+  it('Handles multiple . in path', () => {
+    expect(
+      UniqueOperationIds.removeFileExtension('paths/v1/weather/get.post.yml')
+    ).toBe(
+      'paths/v1/weather/get.post'
+    )
   })
 })
