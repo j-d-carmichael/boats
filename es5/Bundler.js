@@ -75,7 +75,7 @@ var Bundler = function () {
     this.output = program.output || false;
     this.indentation = program.indentation || 2;
     this.originalIndentation = program.originalIndentation || 2;
-    this.customVars = program.customVars || {};
+    this.variables = program.variables || {};
   }
 
   (0, _createClass3.default)(Bundler, [{
@@ -107,7 +107,7 @@ var Bundler = function () {
                     case 0:
                       _context.prev = 0;
                       _context.next = 3;
-                      return _Template2.default.load(res.text, res.location, _this.originalIndentation, _this.strip_value, _this.customVars);
+                      return _Template2.default.load(res.text, res.location, _this.originalIndentation, _this.strip_value, _this.variables);
 
                     case 3:
                       res.text = _context.sent;
@@ -152,7 +152,7 @@ var Bundler = function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Template2.default.load(_fsExtra2.default.readFileSync(this.input).toString(), this.input, this.originalIndentation, this.strip_value, this.customVars);
+                return _Template2.default.load(_fsExtra2.default.readFileSync(this.input).toString(), this.input, this.originalIndentation, this.strip_value, this.variables);
 
               case 2:
                 renderedIndex = _context2.sent;

@@ -2,7 +2,7 @@ const Bundler = require('./es5/Bundler.js')
 
 const bundler = new Bundler({
   input: './srcOA3/index.yml',
-  customVars: {
+  variables: {
     host: 'http://www.somehost.com'
   }
 })

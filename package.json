@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Dynamic Open API Tool",
   "keywords": [
     "swagger",
@@ -44,6 +44,7 @@
   },
   "homepage": "https://github.com/johndcarmichael/doat#readme",
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "commander": "^2.20.0",
     "fs-extra": "^7.0.0",
     "inquirer": "^6.2.0",
