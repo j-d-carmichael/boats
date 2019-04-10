@@ -8,14 +8,14 @@ const bundler = new Bundler({
 })
 
 bundler
-  .toYamlFile('./build/builtOA3.yml')
+  .toYamlFile('./build/builtOA2.yml')
   .then(() => {
 
     bundler.toYamlFile()
       .then(() => {
 
         console.log('Building json')
-        bundler.toJsonFile('./build/builtOA3.json')
+        bundler.toJsonFile('./build/builtOA2.json')
           .then(() => {
             bundler.toJsonFile()
           }).catch(e => console.error(e))

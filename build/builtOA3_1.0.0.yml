@@ -11,7 +11,7 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
-  - url: 'http://some-url.com/api/v1'
+  - url: 'http://www.somehost.com'
 tags:
   - name: weather
     description: Weather data
@@ -69,7 +69,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
-          description: Successful fecth
+          description: Successful fetch
           content:
             application/json:
               schema:
@@ -124,7 +124,7 @@ components:
           type: string
         date:
           type: string
-    Weather: &ref_0
+    Weather:
       properties:
         cloudCover:
           type: string
@@ -138,11 +138,27 @@ components:
           $ref: '#/components/schemas/Units'
         windDirection:
           $ref: '#/components/schemas/Units'
-    Weathers: *ref_0
-    Unit: &ref_1
+    Weathers:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/GenericSearchMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Weather'
+    Unit:
       properties:
         unit:
           type: string
         value:
           type: number
-    Units: *ref_1
+    Units:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/GenericSearchMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Unit'

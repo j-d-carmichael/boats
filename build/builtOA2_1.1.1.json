@@ -223,9 +223,17 @@
       }
     },
     "Units": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Unit"
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/GenericSearchMeta"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Unit"
+          }
+        }
       }
     }
   },

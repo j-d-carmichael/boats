@@ -1,0 +1,163 @@
+swagger: '2.0'
+info:
+  description: This is the swagger definition for a made up application
+  version: 1.1.1
+  title: Example
+  contact:
+    email: john-carmichael@email.it
+schemes:
+  - http
+  - https
+host: localhost
+basePath: /api/v1
+tags:
+  - name: weather
+    description: Weather data
+paths:
+  /weather/:
+    get:
+      tags:
+        - weather
+      summary: Weather data
+      description: Weather for a given country for a given `ISO ALPHA-2 Code'
+      operationId: v1WeatherGet
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/offset'
+      responses:
+        '200':
+          description: Successful fecth
+          schema:
+            $ref: '#/definitions/Weathers'
+        '404':
+          description: Country not found
+  '/weather/{country}':
+    get:
+      tags:
+        - weather
+      summary: Weather data
+      description: Weather for a given country for a given `ISO ALPHA-2 Code'
+      operationId: v1WeatherCountryGet
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: country
+          description: ISO "ALPHA-2 Code"
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful fecth
+          schema:
+            $ref: '#/definitions/Weather'
+        '404':
+          description: Country not found
+  /temperature/:
+    get:
+      tags:
+        - temperature
+      summary: Temperature data
+      description: Get the latest temperature
+      operationId: v1TemperatureGet
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful fetch
+          schema:
+            $ref: '#/definitions/Temperature'
+        '404':
+          description: Temp not found
+    post:
+      tags:
+        - temperature
+      summary: Temperature data
+      description: Create a new temperature record.
+      operationId: v1TemperaturePost
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: temp
+          description: Temp to create
+          schema:
+            type: object
+            required:
+              - temp
+            properties:
+              temp:
+                type: number
+      responses:
+        '200':
+          description: Successful temp creation
+          schema:
+            $ref: '#/definitions/Temperature'
+        '422':
+          description: Invalid form data provided
+definitions:
+  GenericSearchMeta:
+    type: object
+    properties:
+      totalResultCount:
+        type: number
+      offset:
+        type: number
+      limit:
+        type: number
+  Temperature:
+    type: object
+    properties:
+      degrees:
+        type: string
+      date:
+        type: string
+  Weather:
+    type: object
+    properties:
+      cloudCover:
+        type: string
+      humidity:
+        type: number
+      precipitation:
+        type: number
+      temperature:
+        $ref: '#/definitions/Units'
+      windSpeed:
+        $ref: '#/definitions/Units'
+      windDirection:
+        $ref: '#/definitions/Units'
+  Weathers:
+    type: object
+    properties:
+      meta:
+        $ref: '#/definitions/GenericSearchMeta'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Weather'
+  Unit:
+    type: object
+    properties:
+      unit:
+        type: string
+      value:
+        type: number
+  Units:
+    type: object
+    properties:
+      meta:
+        $ref: '#/definitions/GenericSearchMeta'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Unit'
+parameters:
+  offset:
+    in: query
+    name: offset
+    required: false
+    type: integer
+    minimum: 0
+    description: The number of items to skip before starting to collect the result set.
