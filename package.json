@@ -1,6 +1,6 @@
 {
-  "name": "doat",
-  "version": "2.4.5",
+  "name": "boats",
+  "version": "0.0.1",
   "description": "Dynamic Open API Tool",
   "keywords": [
     "swagger",
@@ -10,6 +10,7 @@
     "openapi3",
     "yaml",
     "yml",
+    "nunjucks",
     "merge yaml",
     "merge yml",
     "DDD",
