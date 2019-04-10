@@ -12,5 +12,4 @@ Weathers: {{ mixin('../mixins/pagination.yml', '#/definitions/GenericSearchMeta'
 Unit:
   $ref: ./unit/model.yml
 
-Units:
-  $ref: {{ mixin('../mixins/pagination.yml', '#/definitions/GenericSearchMeta', '#/definitions/unit') }}
+Units: {{ mixin('../mixins/pagination.yml', '#/definitions/GenericSearchMeta', '#/definitions/Unit') }}
