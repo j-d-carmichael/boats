@@ -29,8 +29,10 @@ Beautiful Open Api Template System
  - Use as a cli tool or use programmatically
 
 ## Examples
- - OpenAPI 3 example files: 
- - OpenAPI 2 example files: 
+ - [Mixin example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11)
+ - [Unique Operation ID example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L5)
+ - [OpenAPI 3 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3) 
+ - [OpenAPI 2 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA2) 
  - Programmatic use of the tool:  
  - Cli use of the tool:   
 

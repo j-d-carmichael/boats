@@ -18,7 +18,7 @@
   ],
   "main": "index.js",
   "bin": {
-    "swagger-chunk": "./bin/doat.js"
+    "boats": "./bin/cli.js"
   },
   "scripts": {
     "install:githooks": "cp ./githooks/* .git/hooks",
