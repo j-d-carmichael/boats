@@ -2,7 +2,7 @@
 
 Beautiful Open Api Template System
 
-(please note this has only just been published and is now being battle tested in a few real world projects)
+(Please note this has only just been published and is now being battle tested in a few real world projects. If you find any issues please report on github, thanks.)
 
 [![Build Status](https://travis-ci.org/johndcarmichael/boats.svg?branch=master)](https://travis-ci.org/johndcarmichael/boats) | [![Dependencies](https://david-dm.org/johndcarmichael/boats.svg)](https://david-dm.org/johndcarmichael/boats) | [![License](http://img.shields.io/npm/l/boats.svg)](https://github.com/johndcarmichael/boats/blob/master/LICENSE)
 
@@ -76,6 +76,12 @@ Options:
 ---
 
 BOATS ships with a few features described below.
+> Tip! Add boats as an npm script for easy cli access:
+```
+"scripts": {
+  "boats": "boats",
+  ...
+```
 
 #### Bundler
 There are a few tools already out there that use the js-yaml and json-refs tool combination to bundle many y(a)ml files together into a single file.
@@ -129,9 +135,25 @@ url: {{ host }}
 
 #### CLI Tool
 BOATS can be used as a cli tool via an npm script eg:
+
+package.json script
 ```
-npm run boats -i ./src/index.yml
+"build:yml": "boats -i ./src/index.yml -o ./build/api.yml
+```
+
+cli command:
+```
+npm run build:yml
 ```
 
 #### Programmatic Use
 You can also use BOATS programmatically, please see [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)
+
+#### Init
+Lastly, you can initialize a project via the init command. The net result will be:
+ - OpenAPI3 example files injected into your current project within a folder named src
+ - Build scripts for JSON and YAML added to your package.json file for CLI use.
+
+```
+npm run boats -- --init
+``` 
