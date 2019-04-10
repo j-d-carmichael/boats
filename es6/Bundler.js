@@ -32,7 +32,7 @@ export default class Bundler {
     this.output = program.output || false
     this.indentation = program.indentation || 2
     this.originalIndentation = program.originalIndentation || 2
-    this.customVars = program.customVars || {}
+    this.variables = program.variables || {}
   }
 
   readJsonFile (file) {
@@ -52,7 +52,7 @@ export default class Bundler {
       loaderOptions: {
         processContent: async (res, callback) => {
           try {
-            res.text = await Template.load(res.text, res.location, this.originalIndentation, this.strip_value, this.customVars)
+            res.text = await Template.load(res.text, res.location, this.originalIndentation, this.strip_value, this.variables)
             callback(null, YAML.safeLoad(res.text))
           } catch (e) {
             dd({
@@ -66,7 +66,7 @@ export default class Bundler {
   }
 
   async parseMainRoot () {
-    const renderedIndex = await Template.load(fs.readFileSync(this.input).toString(), this.input, this.originalIndentation, this.strip_value, this.customVars)
+    const renderedIndex = await Template.load(fs.readFileSync(this.input).toString(), this.input, this.originalIndentation, this.strip_value, this.variables)
     return YAML.safeLoad(renderedIndex)
   }
 

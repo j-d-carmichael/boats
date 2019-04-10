@@ -41,23 +41,23 @@ if (srcAlreadyExists || buildAlreadyExists) {
 
   inquirer.prompt(questions).then((answers) => {
     if (answers.installConfirm) {
-      fs.copySync(__dirname + '/src_2', srcPath)
+      fs.copySync(__dirname + '/srcOA3', srcPath)
       fs.copySync(__dirname + '/build', buildPath)
-      console.log('Completed: Installed swagger-chunk skeleton files to ' + srcPath)
+      console.log('Completed: Installed boats skeleton files to ' + srcPath)
       const name = answers.name
       if (answers.updateName) {
         localPkgJson.name = name
       }
-      localPkgJson.scripts['build:json'] = 'swagger-chunk -i ./src/index.yml -o json -D ./build/ -d ' + name
-      localPkgJson.scripts['build:yaml'] = 'swagger-chunk -i ./src/index.yml -o yaml -e yml -D ./build/ -d ' + name
+      localPkgJson.scripts['build:json'] = 'boats -i ./src/index.yml -o ./build/api.json'
+      localPkgJson.scripts['build:yaml'] = 'boats -i ./src/index.yml -o ./build/api.yml'
       localPkgJson.scripts['build:all'] = 'npm run build:json && npm run build:yaml'
 
       // Write the new json object to file
       fs.writeFileSync(localPkgJsonPath, JSON.stringify(localPkgJson, null, 4))
       if (answers.updateName) {
-        return console.log('Completed: swagger-chunk build scripts added to your package.json file and name updated.')
+        return console.log('Completed: boats build scripts added to your package.json file and name updated.')
       } else {
-        return console.log('Completed: swagger-chunk build scripts added to your package.json file.')
+        return console.log('Completed: boats build scripts added to your package.json file.')
       }
     } else {
       return console.log('Installation cancelled.')
