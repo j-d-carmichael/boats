@@ -1,10 +1,10 @@
 import Template from './Template'
 import * as program from 'commander'
+import * as YAML from 'js-yaml'
 import fs from 'fs-extra'
 import path from 'path'
 
 const resolveRefs = require('json-refs').resolveRefs
-const YAML = require('js-yaml')
 const dd = require('../dd')
 
 export default class Bundler {

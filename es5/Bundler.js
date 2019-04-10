@@ -28,6 +28,10 @@ var _commander = require('commander');
 
 var program = _interopRequireWildcard(_commander);
 
+var _jsYaml = require('js-yaml');
+
+var YAML = _interopRequireWildcard(_jsYaml);
+
 var _fsExtra = require('fs-extra');
 
 var _fsExtra2 = _interopRequireDefault(_fsExtra);
@@ -41,7 +45,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var resolveRefs = require('json-refs').resolveRefs;
-var YAML = require('js-yaml');
 var dd = require('../dd');
 
 var Bundler = function () {
