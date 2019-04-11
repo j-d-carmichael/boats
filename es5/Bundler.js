@@ -44,6 +44,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _cloneObject = require('./cloneObject');
+
+var _cloneObject2 = _interopRequireDefault(_cloneObject);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -237,7 +241,7 @@ var Bundler = function () {
 
                 SwaggerParser = require('swagger-parser');
                 _context4.next = 4;
-                return SwaggerParser.validate(this.cloneObject(this.mainJSON), {});
+                return SwaggerParser.validate((0, _cloneObject2.default)(this.mainJSON), {});
 
               case 4:
                 return _context4.abrupt('return', true);
@@ -256,11 +260,6 @@ var Bundler = function () {
 
       return validator;
     }()
-  }, {
-    key: 'cloneObject',
-    value: function cloneObject(src) {
-      return JSON.parse((0, _stringify2.default)(src));
-    }
   }, {
     key: 'lastChar',
     value: function lastChar(string) {

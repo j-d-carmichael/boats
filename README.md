@@ -2,8 +2,6 @@
 
 Beautiful Open Api Template System
 
-(Please note this has only just been published and is now being battle tested in a few real world projects. If you find any issues please report on github, thanks.)
-
 [![Build Status](https://travis-ci.org/johndcarmichael/boats.svg?branch=master)](https://travis-ci.org/johndcarmichael/boats) | [![Dependencies](https://david-dm.org/johndcarmichael/boats.svg)](https://david-dm.org/johndcarmichael/boats) | [![License](http://img.shields.io/npm/l/boats.svg)](https://github.com/johndcarmichael/boats/blob/master/LICENSE)
 
 ---
@@ -21,6 +19,7 @@ Beautiful Open Api Template System
     - [Templating](#templating)
     - [Mixins](#mixins)
     - [Unique Operation Identifiers](#unique-operation-identifiers)
+    - [Process Environment Variables](#process-environment-variables)
     - [Variables](#variables)
     - [CLI Tool](#cli-tool)
     - [Programmatic Use](#programmatic-use)
@@ -50,6 +49,7 @@ Beautiful Open Api Template System
  - [OpenAPI 2 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA2) 
  - [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)  
  - [CLI Usage](#cli-tool)
+ - [DotEnv](#)
 
 ## Available commands
 
@@ -122,6 +122,17 @@ Results in:
 `v1TemperatureGet`
 
 This is especially helpful for API generators.
+
+#### Process Environment Variables
+During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI files, this is common with AWS's cloud formation when used with dynamic containers.
+
+To accommodate this, all `process.env` variables are exposed in read-only format to the templates.
+
+To enable easier development with `process.env` variables BOATS also makes use of the [dotenv](https://www.npmjs.com/package/dotenv) package during cli use only.
+
+If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made available to the Nunjucks engine as a tpl variable.
+
+> !Tip: Do not add the .env file to your git repo, this is only for development purposes. Your CI tool should use proper env variables during a build chain.
 
 #### Variables
 In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set

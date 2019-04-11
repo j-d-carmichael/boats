@@ -3,6 +3,7 @@ import * as program from 'commander'
 import * as YAML from 'js-yaml'
 import fs from 'fs-extra'
 import path from 'path'
+import cloneObject from './cloneObject'
 
 const resolveRefs = require('json-refs').resolveRefs
 const dd = require('../dd')
@@ -84,13 +85,9 @@ export default class Bundler {
   async validator () {
     if (!this.validate) {
       const SwaggerParser = require('swagger-parser')
-      await SwaggerParser.validate(this.cloneObject(this.mainJSON), {})
+      await SwaggerParser.validate(cloneObject(this.mainJSON), {})
     }
     return true
-  }
-
-  cloneObject (src) {
-    return JSON.parse(JSON.stringify(src))
   }
 
   lastChar (string) {

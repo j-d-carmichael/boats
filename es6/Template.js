@@ -3,6 +3,7 @@ import * as nunjucks from 'nunjucks'
 import fs from 'fs-extra'
 import UniqueOperationIds from './UniqueOperationIds'
 import calculateIndentFromLineBreak from './calculateIndentFromLineBreak'
+import cloneObject from './cloneObject'
 
 class Template {
   /**
@@ -60,6 +61,11 @@ class Template {
     env.addGlobal( 'uniqueOpId', this.uniqueOpId)
     env.addGlobal( 'uniqueOpIdStripValue', this.stripValue)
     env.addGlobal( 'currentFilePointer', this.currentFilePointer)
+    const processEnvVars = cloneObject(process.env)
+    for(let key in processEnvVars){
+      env.addGlobal( key, processEnvVars[key])
+    }
+
     for(let key in customVars){
       env.addGlobal( key, customVars[key])
     }

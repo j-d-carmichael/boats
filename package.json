@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
@@ -30,7 +30,6 @@
     "test:unit": "NODE_ENV=TEST jest",
     "test:build-run:oa2": "npm run build:es5 && node exampleUseOA2.js",
     "test:build-run:oa3": "npm run build:es5 && node exampleUseOA3.js",
-    "test:uniqueOperationIds": "npm run build:es5 && node index.js -m -i src/index.yml",
     "prepublish": "npm run build:readme:toc && npm run test && npm run build:es5"
   },
   "repository": {
@@ -46,6 +45,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "commander": "^2.20.0",
+    "dotenv": "^7.0.0",
     "fs-extra": "^7.0.1",
     "inquirer": "^6.2.2",
     "js-yaml": "^3.13.1",

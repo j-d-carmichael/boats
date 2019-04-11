@@ -40,6 +40,10 @@ var _calculateIndentFromLineBreak = require('./calculateIndentFromLineBreak');
 
 var _calculateIndentFromLineBreak2 = _interopRequireDefault(_calculateIndentFromLineBreak);
 
+var _cloneObject = require('./cloneObject');
+
+var _cloneObject2 = _interopRequireDefault(_cloneObject);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -131,8 +135,13 @@ var Template = function () {
       env.addGlobal('uniqueOpId', this.uniqueOpId);
       env.addGlobal('uniqueOpIdStripValue', this.stripValue);
       env.addGlobal('currentFilePointer', this.currentFilePointer);
-      for (var key in customVars) {
-        env.addGlobal(key, customVars[key]);
+      var processEnvVars = (0, _cloneObject2.default)(process.env);
+      for (var key in processEnvVars) {
+        env.addGlobal(key, processEnvVars[key]);
+      }
+
+      for (var _key in customVars) {
+        env.addGlobal(_key, customVars[_key]);
       }
     }
   }, {
