@@ -132,7 +132,7 @@ To enable easier development with `process.env` variables BOATS also makes use o
 
 If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made available to the Nunjucks engine as a tpl variable.
 
-> !Tip: Do not add the .env file to your git repo, this is only for development purposes. Your CI tool should use proper env variables during a build chain.
+> !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
 
 #### Variables
 In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set
@@ -146,6 +146,8 @@ The variables can then be accessed via the normal nunjucks syntax eg:
 ```
 url: {{ host }}
 ```
+
+> !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 #### CLI Tool
 BOATS can be used as a cli tool via an npm script eg:
