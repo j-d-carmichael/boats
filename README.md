@@ -66,9 +66,11 @@ Options:
   -x, --exclude_version       Exclude the OA version from the generated output file.
   -I, --indentation [indent]  The numeric indentation, defaults to 2 if option passed
   -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "paths/"
-  -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
-  -V, --version               output the version number of the tool  
-  -h, --help                  output usage informat
+  -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
+  -v  --validate <state>      Validate OA 2/3 state "on" or "off" (default: "on")
+  -V, --version               output the version number
+  -h, --help                  output usage information
+
 ```
 ---
 

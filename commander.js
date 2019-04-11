@@ -30,7 +30,7 @@ module.exports = () => {
 
     .option('-v --validate <state>', 'Validate OA 2/3 state "on" or "off". Defaults to "on"', /^(on|off)$/i, 'on')
 
-    .option('-$, --variables [value]', 'A repeatable value', collect, [])
+    .option('-$, --variables [value]', 'Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987"', collect, [])
 
     .parse(process.argv)
   return program
