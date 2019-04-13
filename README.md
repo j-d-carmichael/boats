@@ -45,7 +45,7 @@ Beautiful Open Api Template System
 ---
 Being developers we know we don't have to type things out more than once and when we do it is annoying. Not many folk enjoy typing out endless HTML, hence template engines, nor CSS hence SASS and LESS... or any computer language, hence functions.
 
-OpenAPI does allow for content to be injected into other files which makes for a lot of typing eg:
+OpenAPI does not allow for content to be injected into other files which makes for a lot of typing eg:
   -  Adding data & meta attributes when writing JSONAPI style outputs
   -  '[application/json](https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore-expanded.yaml#L46)' attributes in OA3 paths
 
