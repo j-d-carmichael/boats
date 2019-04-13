@@ -11,6 +11,7 @@ Beautiful Open Api Template System
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Summary](#summary)
+- [Why](#why)
 - [Examples](#examples)
 - [Available commands](#available-commands)
 - [Features](#features)
