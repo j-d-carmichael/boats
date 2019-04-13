@@ -25,6 +25,7 @@ Beautiful Open Api Template System
     - [Programmatic Use](#programmatic-use)
     - [Init](#init)
 - [History](#history)
+- [Thanks To](#thanks-to)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -35,7 +36,6 @@ Beautiful Open Api Template System
  - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser) or [json-refs](https://www.npmjs.com/package/json-refs) (see the history for why they both exist [History](#history))
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
- - Use as a cli tool or use programmatically
  - Unique operation id's based on file location automatically
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
@@ -46,9 +46,7 @@ Beautiful Open Api Template System
 
  - [Mixin example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11)
  - [Unique Operation ID example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L5)
- - [OpenAPI 3 openapi spec example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3M) 
- - [OpenAPI 3 json-refs style example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3)
- - [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)  
+ - [OpenAPI 3 openapi spec example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3M)
  - [CLI Usage](#cli-tool)
  - [DotEnv](#)
 
@@ -63,15 +61,16 @@ Usage: boats [options]
 Options:
   --init                      Inject a skeleton yml structure to the current directory named /src/...
   -i, --input [path]          The relative path to the main input file eg "./src/index.yml"
-  -o, --output [path]         Path to the target eg "./build/weather_api.json|yaml|yml". The version of the api will be injected automatically based on the version from within the OA index if present. If option not passed the output will be in the terminal.
-  -x, --exclude_version       Exclude the OA version from the generated output file.
-  -I, --indentation [indent]  The numeric indentation, defaults to 2 if option passed
+  -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml" 
+                              (if json_refs is not used the output directory will also contain the compiled tpl files)
+  -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
+  -j, --json_refs             If passed the json-refs bundler will be used instead of swagger-parser's bundler.
+  -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
   -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "paths/"
+  -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
   -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
-  -v  --validate <state>      Validate OA 2/3 state "on" or "off" (default: "on")
   -V, --version               output the version number
   -h, --help                  output usage information
-
 ```
 ---
 
@@ -176,12 +175,21 @@ npm run boats -- --init
 ``` 
 
 ## History
-A few years ago when swagger really exploded in popularity lots of packages started appearing to aid in the painful job of maintaining large single files of yaml. The packages all did 1 main job, bundled many little files into 1 (see this [example](https://github.com/johndcarmichael/boats/tree/master/srcOA3). This was primarily done in conjunction with 2 packages, [json-refs](https://www.npmjs.com/package/json-refs) and [js-yaml](https://www.npmjs.com/package/js-yaml), json-refs would resolve all $ref file locations and the js-yaml would parse the yml to json. The net result being a big old json object of all the files which could then be written to disk. Very important for lots and lots of tools out there, from codegen to cloudfront.
+A few years ago when swagger really exploded in popularity lots of packages started appearing to aid in the painful job of maintaining large single files of yaml (just search the internet for "merge swagger files"). The packages all did 1 main job, bundled many little files into 1 (see this [example](https://github.com/johndcarmichael/boats/tree/master/srcOA3). This is and was often done in conjunction with 2 packages, [json-refs](https://www.npmjs.com/package/json-refs) and [js-yaml](https://www.npmjs.com/package/js-yaml), json-refs would resolve all $ref file locations and the js-yaml would parse the yml to json. The net result being a big old json object of all the files which could then be written to disk. Very important for lots and lots of tools out there, from codegen to cloudfront.
 
 However, when using json-refs to resolve the file locations the net result can be a lot of repeat code. For example, if you reference a definition by file, json-refs grabs the content of the said file and injects it into the response which is not great if you also reference it in a few other locations too, lots of duplicated yaml. To get around this the trick was to reference the swagger definition instead eg: `#/components/schemas/Temperature`, this would prevent json-refs from resolving the file and thus prevent duplicate content. Of course today all the little files built in this fashion cannot be used by tools that are able to parse multi-file openapi specs.
 
-Enter swagger-parser. The guys who wrote swagger-parser did what the json-refs and js-yaml combo could not, they are able to bundle files by file location but also not have duplicates in the response... best of both worlds: truly valid small files with an equally valid bundled output.
+Enter json-schema-ref-parser. This package "crawls even the most complex JSON Schemas and gives you simple, straightforward JavaScript objects" and without duplicates. Now you can bundle multiple files together, remove dupes and output a single output that can be written to disk.
 
-BOATS ships with both options, json-refs/js-yaml or the swagger-parser. By default this package will use the swagger-parser bundler, but passing the `-j` flag will instruct the use of the json-refs bundler. Both will run through the nunjucks tpl engine and both will be validated unless instructed not. In addition, if you use the swagger-parser bundler, BOATS will first parse all the nunjucks content to the directory of the output file first before validating and bundling.
+BOATS ships with both options, json-refs/js-yaml or the json-schema-ref-parser. By default this package will use the swagger-parser through to json-schema-ref-parser bundler, but passing the `-j` flag will instruct the use of the json-refs bundler. Both will run through the nunjucks tpl engine and both will be validated unless instructed not. 
+
+If you are not using the json-refs bundler, BOATS will first mirror your input folder to your output folder; each will be parsed 1 by 1 through the tpl engine. Validation and bundling happens once this is complete. 
+
+## Thanks To
+BOATS is nothing more than a connection between other packages so big thanks to:
+ - The team behind https://www.npmjs.com/package/swagger-parser
+ - whitlockjc for https://www.npmjs.com/package/json-refs
+ - vitaly for https://www.npmjs.com/package/js-yaml
+ - The team behind https://www.npmjs.com/package/nunjucks
 
 

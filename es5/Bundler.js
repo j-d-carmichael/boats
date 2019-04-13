@@ -28,10 +28,6 @@ var _Template = require('./Template');
 
 var _Template2 = _interopRequireDefault(_Template);
 
-var _commander = require('commander');
-
-var program = _interopRequireWildcard(_commander);
-
 var _jsYaml = require('js-yaml');
 
 var YAML = _interopRequireWildcard(_jsYaml);
@@ -44,6 +40,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _getOutputName = require('./getOutputName');
+
+var _getOutputName2 = _interopRequireDefault(_getOutputName);
+
 var _validate = require('./validate');
 
 var _validate2 = _interopRequireDefault(_validate);
@@ -51,8 +51,6 @@ var _validate2 = _interopRequireDefault(_validate);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SwaggerParser = require('swagger-parser');
 
 var resolveRefs = require('json-refs').resolveRefs;
 var dd = require('../dd');
@@ -89,20 +87,6 @@ var Bundler = function () {
   }
 
   (0, _createClass3.default)(Bundler, [{
-    key: 'readJsonFile',
-    value: function readJsonFile(file) {
-      try {
-        return JSON.parse(_fsExtra2.default.readFileSync(file));
-      } catch (err) {
-        return null;
-      }
-    }
-  }, {
-    key: 'packageJson',
-    value: function packageJson() {
-      return this.readJsonFile('./package.json');
-    }
-  }, {
     key: 'parseMainLoaderOptions',
     value: function parseMainLoaderOptions() {
       var _this = this;
@@ -244,42 +228,13 @@ var Bundler = function () {
       return str.slice(0, -1);
     }
   }, {
-    key: 'getVersion',
-    value: function getVersion() {
-      var swagVersion = '';
-      if (!this.appendVersion) {
-        return swagVersion;
-      }
-      var parsedResltObj = this.mainJSON;
-      if (parsedResltObj.info.version) {
-        swagVersion = parsedResltObj.info.version;
-      } else if (!program.Version) {
-        var packageJson = this.packageJson();
-        if (packageJson.version) {
-          swagVersion = packageJson.version;
-        } else {
-          return swagVersion;
-        }
-      }
-      return '_' + swagVersion;
-    }
-  }, {
-    key: 'getFileName',
-    value: function getFileName(filePath) {
-      var name = _path2.default.basename(filePath).replace(_path2.default.extname(filePath), '');
-      return name + this.getVersion() + _path2.default.extname(filePath);
-    }
-  }, {
-    key: 'getFilePath',
-    value: function getFilePath(filePath) {
-      return _path2.default.join(_path2.default.dirname(filePath), this.getFileName(filePath));
-    }
-  }, {
     key: 'writeFile',
     value: function writeFile(filePath, contents) {
       try {
         _fsExtra2.default.ensureDirSync(_path2.default.dirname(filePath));
-        return _fsExtra2.default.writeFileSync(this.getFilePath(filePath), contents);
+        var adaptedFilePath = (0, _getOutputName2.default)(filePath, this.mainJSON, this.appendVersion);
+        _fsExtra2.default.writeFileSync(adaptedFilePath, contents);
+        return adaptedFilePath;
       } catch (e) {
         dd({
           msg: 'Error writing file',
@@ -312,11 +267,10 @@ var Bundler = function () {
                 return _context4.abrupt('return', true);
 
               case 7:
-                this.writeFile(filePath, jsonString);
-                console.log('File written to: ' + this.getFilePath(filePath));
+                console.log('File written to: ' + this.writeFile(filePath, jsonString));
                 return _context4.abrupt('return', jsonString);
 
-              case 10:
+              case 9:
               case 'end':
                 return _context4.stop();
             }
@@ -383,11 +337,10 @@ var Bundler = function () {
                 return _context6.abrupt('return', true);
 
               case 7:
-                this.writeFile(filePath, yml);
-                console.log('File written to: ' + this.getFilePath(filePath));
+                console.log('File written to: ' + this.writeFile(filePath, yml));
                 return _context6.abrupt('return', true);
 
-              case 10:
+              case 9:
               case 'end':
                 return _context6.stop();
             }

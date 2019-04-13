@@ -17,6 +17,6 @@ parameters:
 responses:
   '200':
     description: Successful temp creation
-    content: {{ mixin("../../../mixins/response/json.yml", "#/components/schemas/Temperature") }}
+    content: {{ mixin("../../../mixins/response/json.yml", "../../../components/schemas/temperature/model.yml") }}
   '422':
     description: Invalid form data provided

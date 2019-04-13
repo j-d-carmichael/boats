@@ -1,12 +1,9 @@
 import Template from './Template'
-import * as program from 'commander'
 import * as YAML from 'js-yaml'
 import fs from 'fs-extra'
 import path from 'path'
+import getFilePath from './getOutputName'
 import validate from './validate'
-
-const SwaggerParser = require('swagger-parser')
-
 const resolveRefs = require('json-refs').resolveRefs
 const dd = require('../dd')
 
@@ -36,18 +33,6 @@ export default class Bundler {
     this.indentation = program.indentation || 2
     this.originalIndentation = program.originalIndentation || 2
     this.variables = program.variables || {}
-  }
-
-  readJsonFile (file) {
-    try {
-      return JSON.parse(fs.readFileSync(file))
-    } catch (err) {
-      return null
-    }
-  }
-
-  packageJson () {
-    return this.readJsonFile('./package.json')
   }
 
   parseMainLoaderOptions () {
@@ -94,38 +79,12 @@ export default class Bundler {
     return str.slice(0, -1)
   }
 
-  getVersion () {
-    let swagVersion = ''
-    if (!this.appendVersion) {
-      return swagVersion
-    }
-    let parsedResltObj = this.mainJSON
-    if (parsedResltObj.info.version) {
-      swagVersion = parsedResltObj.info.version
-    } else if (!program.Version) {
-      const packageJson = (this.packageJson())
-      if (packageJson.version) {
-        swagVersion = packageJson.version
-      } else {
-        return swagVersion
-      }
-    }
-    return '_' + swagVersion
-  }
-
-  getFileName (filePath) {
-    const name = path.basename(filePath).replace(path.extname(filePath), '')
-    return name + this.getVersion() + path.extname(filePath)
-  }
-
-  getFilePath (filePath) {
-    return path.join(path.dirname(filePath), this.getFileName(filePath))
-  }
-
   writeFile (filePath, contents) {
     try {
       fs.ensureDirSync(path.dirname(filePath))
-      return fs.writeFileSync(this.getFilePath(filePath), contents)
+      const adaptedFilePath = getFilePath(filePath, this.mainJSON, this.appendVersion)
+      fs.writeFileSync(adaptedFilePath, contents)
+      return adaptedFilePath
     } catch (e) {
       dd({
         msg: 'Error writing file',
@@ -142,8 +101,7 @@ export default class Bundler {
       console.log(jsonString)
       return true
     }
-    this.writeFile(filePath, jsonString)
-    console.log('File written to: ' + this.getFilePath(filePath))
+    console.log('File written to: ' + this.writeFile(filePath, jsonString))
     return jsonString
   }
 
@@ -158,8 +116,7 @@ export default class Bundler {
       console.log(yml)
       return true
     }
-    this.writeFile(filePath, yml)
-    console.log('File written to: ' + this.getFilePath(filePath))
+    console.log('File written to: ' + this.writeFile(filePath, yml))
     return true
   }
 

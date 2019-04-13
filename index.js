@@ -33,7 +33,7 @@ if (program.init) {
   }
   Template.directoryParse(program.input, program.output, program.indentation, program.strip_value, program.variables)
     .then((returnFile) => {
-      if (1 === 2) {
+      if (program.validate === 'on') {
         validate(returnFile)
           .then(swagBundle(returnFile))
           .catch(e => console.error('Validation error', e))

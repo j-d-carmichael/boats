@@ -5,9 +5,8 @@ properties:
     type: number
   precipitation:
     type: number
-  temperature:
-    $ref: '#/components/schemas/Units'
-  windSpeed:
-    $ref: '#/components/schemas/Units'
-  windDirection:
-    $ref: '#/components/schemas/Units'
+  temperature: {{ mixin("../../../mixins/pagination.yml", "../generic/searchMeta.yml", "../unit/model.yml") }}
+
+  windSpeed: {{ mixin("../../../mixins/pagination.yml", "../generic/searchMeta.yml", "../unit/model.yml") }}
+
+  windDirection: {{ mixin("../../../mixins/pagination.yml", "../generic/searchMeta.yml", "../unit/model.yml") }}

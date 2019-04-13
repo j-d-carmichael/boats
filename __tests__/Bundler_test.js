@@ -11,12 +11,12 @@ const tryOrFail = (f, done) => {
     done(e)
   }
 }
-
+const input = './srcJsonRefsOA2/index.yml'
 describe('Load the construct', () => {
   it('should not fail with a simple import point', (done) => {
     tryOrFail(() => {
       bundler = new Bundler({
-        input: './srcOA2/index.yml'
+        input: input
       })
     }, done)
   })
@@ -24,7 +24,7 @@ describe('Load the construct', () => {
   it('should not fail with a simple import point and exclude_version', (done) => {
     tryOrFail(() => {
       bundler = new Bundler({
-        input: './srcOA2/index.yml',
+        input: input,
         exclude_version: true
       })
     }, done)

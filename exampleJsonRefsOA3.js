@@ -1,21 +1,21 @@
 const Bundler = require('./es5/Bundler.js')
 
 const bundler = new Bundler({
-  input: './srcOA3/index.yml',
+  input: './srcJsonRefsOA3/index.yml',
   variables: {
     host: 'http://www.somehost.com'
   }
 })
 
 bundler
-  .toYamlFile('./build/builtOA3.yml')
+  .toYamlFile('./build/builtJsonRefsOA3.yml')
   .then(() => {
 
     bundler.toYamlFile()
       .then(() => {
 
         console.log('Building json')
-        bundler.toJsonFile('./build/builtOA3.json')
+        bundler.toJsonFile('./build/builtJsonRefsOA3.json')
           .then(() => {
             bundler.toJsonFile()
           }).catch(e => console.error(e))

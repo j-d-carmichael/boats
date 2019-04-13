@@ -28,6 +28,10 @@ var _fsExtra = require('fs-extra');
 
 var _fsExtra2 = _interopRequireDefault(_fsExtra);
 
+var _getOutputName = require('./getOutputName');
+
+var _getOutputName2 = _interopRequireDefault(_getOutputName);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -55,7 +59,7 @@ exports.default = function () {
               contents = YAML.safeDump(bundled, indentation);
             }
             _fsExtra2.default.ensureDirSync(_path2.default.dirname(outputFile));
-            return _context.abrupt('return', _fsExtra2.default.writeFileSync(outputFile, contents));
+            return _context.abrupt('return', _fsExtra2.default.writeFileSync((0, _getOutputName2.default)(outputFile, bundled), contents));
 
           case 8:
           case 'end':
