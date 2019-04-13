@@ -22,6 +22,7 @@
     "boats": "./bin/cli.js"
   },
   "scripts": {
+    "swaggercli": "swagger-cli bundle -o build/built.yml build/index.yml",
     "install:githooks": "cp ./githooks/* .git/hooks",
     "build:es5": "./node_modules/.bin/babel es6 -d es5",
     "build:readme:toc": "node ./node_modules/doctoc/doctoc.js .",
@@ -51,7 +52,9 @@
     "js-yaml": "^3.13.1",
     "json-refs": "^3.0.13",
     "nunjucks": "^3.2.0",
-    "swagger-parser": "^6.0.5"
+    "swagger-cli": "^2.2.1",
+    "swagger-parser": "^6.0.5",
+    "walker": "^1.0.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

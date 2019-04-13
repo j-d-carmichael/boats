@@ -44,13 +44,15 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _cloneObject = require('./cloneObject');
+var _validate = require('./validate');
 
-var _cloneObject2 = _interopRequireDefault(_cloneObject);
+var _validate2 = _interopRequireDefault(_validate);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SwaggerParser = require('swagger-parser');
 
 var resolveRefs = require('json-refs').resolveRefs;
 var dd = require('../dd');
@@ -204,14 +206,20 @@ var Bundler = function () {
                 results = _context3.sent;
 
                 this.mainJSON = results.resolved;
-                _context3.next = 11;
-                return this.validator();
 
-              case 11:
+                if (this.validate) {
+                  _context3.next = 12;
+                  break;
+                }
+
+                _context3.next = 12;
+                return (0, _validate2.default)(this.mainJSON);
+
+              case 12:
                 process.chdir(pwd);
                 return _context3.abrupt('return', this.mainJSON);
 
-              case 13:
+              case 14:
               case 'end':
                 return _context3.stop();
             }
@@ -224,41 +232,6 @@ var Bundler = function () {
       }
 
       return parseMain;
-    }()
-  }, {
-    key: 'validator',
-    value: function () {
-      var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
-        var SwaggerParser;
-        return _regenerator2.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                if (this.validate) {
-                  _context4.next = 4;
-                  break;
-                }
-
-                SwaggerParser = require('swagger-parser');
-                _context4.next = 4;
-                return SwaggerParser.validate((0, _cloneObject2.default)(this.mainJSON), {});
-
-              case 4:
-                return _context4.abrupt('return', true);
-
-              case 5:
-              case 'end':
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function validator() {
-        return _ref4.apply(this, arguments);
-      }
-
-      return validator;
     }()
   }, {
     key: 'lastChar',
@@ -317,42 +290,42 @@ var Bundler = function () {
   }, {
     key: 'toJsonFile',
     value: function () {
-      var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(filePath) {
+      var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(filePath) {
         var jsonString;
-        return _regenerator2.default.wrap(function _callee5$(_context5) {
+        return _regenerator2.default.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 this.output = filePath || false;
-                _context5.next = 3;
+                _context4.next = 3;
                 return this.toJSON();
 
               case 3:
                 jsonString = (0, _stringify2.default)(this.mainJSON, null, this.indentation);
 
                 if (this.output) {
-                  _context5.next = 7;
+                  _context4.next = 7;
                   break;
                 }
 
                 console.log(jsonString);
-                return _context5.abrupt('return', true);
+                return _context4.abrupt('return', true);
 
               case 7:
                 this.writeFile(filePath, jsonString);
                 console.log('File written to: ' + this.getFilePath(filePath));
-                return _context5.abrupt('return', jsonString);
+                return _context4.abrupt('return', jsonString);
 
               case 10:
               case 'end':
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee4, this);
       }));
 
       function toJsonFile(_x4) {
-        return _ref5.apply(this, arguments);
+        return _ref4.apply(this, arguments);
       }
 
       return toJsonFile;
@@ -360,27 +333,27 @@ var Bundler = function () {
   }, {
     key: 'toJSON',
     value: function () {
-      var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
-        return _regenerator2.default.wrap(function _callee6$(_context6) {
+      var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
+        return _regenerator2.default.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _context6.next = 2;
+                _context5.next = 2;
                 return this.parseMain();
 
               case 2:
-                return _context6.abrupt('return', _context6.sent);
+                return _context5.abrupt('return', _context5.sent);
 
               case 3:
               case 'end':
-                return _context6.stop();
+                return _context5.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee5, this);
       }));
 
       function toJSON() {
-        return _ref6.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       }
 
       return toJSON;
@@ -388,42 +361,42 @@ var Bundler = function () {
   }, {
     key: 'toYamlFile',
     value: function () {
-      var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(filePath) {
+      var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(filePath) {
         var yml;
-        return _regenerator2.default.wrap(function _callee7$(_context7) {
+        return _regenerator2.default.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 this.output = filePath || false;
-                _context7.next = 3;
+                _context6.next = 3;
                 return this.toYAML();
 
               case 3:
-                yml = _context7.sent;
+                yml = _context6.sent;
 
                 if (this.output) {
-                  _context7.next = 7;
+                  _context6.next = 7;
                   break;
                 }
 
                 console.log(yml);
-                return _context7.abrupt('return', true);
+                return _context6.abrupt('return', true);
 
               case 7:
                 this.writeFile(filePath, yml);
                 console.log('File written to: ' + this.getFilePath(filePath));
-                return _context7.abrupt('return', true);
+                return _context6.abrupt('return', true);
 
               case 10:
               case 'end':
-                return _context7.stop();
+                return _context6.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee6, this);
       }));
 
       function toYamlFile(_x5) {
-        return _ref7.apply(this, arguments);
+        return _ref6.apply(this, arguments);
       }
 
       return toYamlFile;
@@ -431,29 +404,29 @@ var Bundler = function () {
   }, {
     key: 'toYAML',
     value: function () {
-      var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8() {
+      var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
         var json;
-        return _regenerator2.default.wrap(function _callee8$(_context8) {
+        return _regenerator2.default.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                _context8.next = 2;
+                _context7.next = 2;
                 return this.parseMain();
 
               case 2:
-                json = _context8.sent;
-                return _context8.abrupt('return', YAML.safeDump(json, this.indentation));
+                json = _context7.sent;
+                return _context7.abrupt('return', YAML.safeDump(json, this.indentation));
 
               case 4:
               case 'end':
-                return _context8.stop();
+                return _context7.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee7, this);
       }));
 
       function toYAML() {
-        return _ref8.apply(this, arguments);
+        return _ref7.apply(this, arguments);
       }
 
       return toYAML;

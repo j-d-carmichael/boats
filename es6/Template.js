@@ -1,11 +1,61 @@
 import path from 'path'
 import * as nunjucks from 'nunjucks'
+import walker from 'walker'
 import fs from 'fs-extra'
 import UniqueOperationIds from './UniqueOperationIds'
 import calculateIndentFromLineBreak from './calculateIndentFromLineBreak'
 import cloneObject from './cloneObject'
 
 class Template {
+  /**
+   * Parses all files in a folder against the nunjuck tpl engine and outputs in a mirrored path the in provided outputDirectory
+   * @param inputFile The input directory to start parsing from
+   * @param output The directory to output/mirror to
+   * @param originalIndent The original indent (currently hard coded to 2)
+   * @param stripValue The strip value for the uniqueOpIp
+   * @param variables The variables for the tpl engine
+   */
+  directoryParse (inputFile, output, originalIndent = 2, stripValue = 'paths/', variables = {}) {
+    return new Promise((resolve, reject) => {
+      if (!inputFile || !output) {
+        throw new Error('You must pass an input file and output directory when parsing multiple files.')
+      }
+      inputFile = this.cleanInputString(inputFile)
+
+      let returnFileinput
+      walker(path.dirname(inputFile))
+        .on('file', async (file) => {
+          const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
+          const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables)
+          if(inputFile === file){
+            returnFileinput = outputFile
+          }
+          fs.outputFileSync(outputFile, rendered)
+        })
+        .on('error', (er, entry) => {
+          reject(er + ' on entry ' + entry)
+        })
+        .on('end', () => {
+          resolve(returnFileinput)
+        })
+    })
+  }
+
+  cleanInputString(relativeFilePath){
+    if(relativeFilePath.substring(0, 2) === './'){
+      return relativeFilePath.substring(2, relativeFilePath.length)
+    }
+    if(relativeFilePath.substring(0, 1) === '/'){
+      return relativeFilePath.substring(1, relativeFilePath.length)
+    }
+    return relativeFilePath
+  }
+
+  calculateOutputFile (inputFile, currentFile, outputDirectory) {
+    const inputDir = path.dirname(inputFile)
+    return path.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, ''))
+  }
+
   /**
    *
    * @param inputString The string to parse
@@ -15,7 +65,7 @@ class Template {
    * @param customVars Custom variables passed to nunjucks
    * @returns {Promise<*>}
    */
-  async load (inputString, fileLocation, originalIndentation, stripValue, customVars = {}) {
+  async load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}) {
     this.currentFilePointer = fileLocation
     this.originalIndentation = originalIndentation
     this.stripValue = stripValue
@@ -54,20 +104,20 @@ class Template {
 
   nunjucksSetup (customVars) {
     let env = nunjucks.configure({ autoescape: false })
-    env.addGlobal( 'mixin', this.mixin)
-    env.addGlobal( 'mixinNumber', this.mixinNumber)
-    env.addGlobal( 'mixinObject', this.mixinObject)
-    env.addGlobal( 'mixinVarNamePrefix', this.mixinVarNamePrefix)
-    env.addGlobal( 'uniqueOpId', this.uniqueOpId)
-    env.addGlobal( 'uniqueOpIdStripValue', this.stripValue)
-    env.addGlobal( 'currentFilePointer', this.currentFilePointer)
+    env.addGlobal('mixin', this.mixin)
+    env.addGlobal('mixinNumber', this.mixinNumber)
+    env.addGlobal('mixinObject', this.mixinObject)
+    env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)
+    env.addGlobal('uniqueOpId', this.uniqueOpId)
+    env.addGlobal('uniqueOpIdStripValue', this.stripValue)
+    env.addGlobal('currentFilePointer', this.currentFilePointer)
     const processEnvVars = cloneObject(process.env)
-    for(let key in processEnvVars){
-      env.addGlobal( key, processEnvVars[key])
+    for (let key in processEnvVars) {
+      env.addGlobal(key, processEnvVars[key])
     }
 
-    for(let key in customVars){
-      env.addGlobal( key, customVars[key])
+    for (let key in customVars) {
+      env.addGlobal(key, customVars[key])
     }
   }
 

@@ -1,0 +1,16 @@
+tags:
+  - temperature
+summary: Temperature data
+description: Get the latest temperature
+operationId: v1TemperatureGet
+responses:
+  '200':
+    description: Successful fetch
+    content: 
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/temperature/model.yml
+      
+      
+  '404':
+    description: Temp not found

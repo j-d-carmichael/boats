@@ -3,7 +3,9 @@ import * as program from 'commander'
 import * as YAML from 'js-yaml'
 import fs from 'fs-extra'
 import path from 'path'
-import cloneObject from './cloneObject'
+import validate from './validate'
+
+const SwaggerParser = require('swagger-parser')
 
 const resolveRefs = require('json-refs').resolveRefs
 const dd = require('../dd')
@@ -77,17 +79,11 @@ export default class Bundler {
     process.chdir(path.dirname(this.input))
     const results = await resolveRefs(root, this.parseMainLoaderOptions())
     this.mainJSON = results.resolved
-    await this.validator()
+    if (!this.validate) {
+      await validate(this.mainJSON)
+    }
     process.chdir(pwd)
     return this.mainJSON
-  }
-
-  async validator () {
-    if (!this.validate) {
-      const SwaggerParser = require('swagger-parser')
-      await SwaggerParser.validate(cloneObject(this.mainJSON), {})
-    }
-    return true
   }
 
   lastChar (string) {

@@ -1,0 +1,18 @@
+tags:
+  - weather
+summary: Weather data
+description: Weather for a given country for a given `ISO ALPHA-2 Code'
+operationId: v1WeatherGet
+parameters:
+  - $ref: ../../../components/parameters/offset.yml
+responses:
+  '200':
+    description: Successful fetch
+    content: 
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/weather/model.yml
+      
+      
+  '404':
+    description: Country not found

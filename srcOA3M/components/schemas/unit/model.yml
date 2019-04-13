@@ -1,0 +1,5 @@
+properties:
+  unit:
+    type: string
+  value:
+    type: number

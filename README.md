@@ -24,6 +24,7 @@ Beautiful Open Api Template System
     - [CLI Tool](#cli-tool)
     - [Programmatic Use](#programmatic-use)
     - [Init](#init)
+- [History](#history)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -31,7 +32,7 @@ Beautiful Open Api Template System
 
 ---
 
- - Bundle multiple OpenAPI 2|3 files together with [js-yaml](https://www.npmjs.com/package/js-yaml) & [json-refs](https://www.npmjs.com/package/json-refs)
+ - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser) or [json-refs](https://www.npmjs.com/package/json-refs) (see the history for why they both exist [History](#history))
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
  - Use as a cli tool or use programmatically
@@ -45,8 +46,8 @@ Beautiful Open Api Template System
 
  - [Mixin example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11)
  - [Unique Operation ID example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L5)
- - [OpenAPI 3 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3) 
- - [OpenAPI 2 example files](https://github.com/johndcarmichael/boats/tree/master/srcOA2) 
+ - [OpenAPI 3 openapi spec example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3M) 
+ - [OpenAPI 3 json-refs style example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3)
  - [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)  
  - [CLI Usage](#cli-tool)
  - [DotEnv](#)
@@ -173,3 +174,14 @@ Lastly, you can initialize a project via the init command. The net result will b
 ```
 npm run boats -- --init
 ``` 
+
+## History
+A few years ago when swagger really exploded in popularity lots of packages started appearing to aid in the painful job of maintaining large single files of yaml. The packages all did 1 main job, bundled many little files into 1 (see this [example](https://github.com/johndcarmichael/boats/tree/master/srcOA3). This was primarily done in conjunction with 2 packages, [json-refs](https://www.npmjs.com/package/json-refs) and [js-yaml](https://www.npmjs.com/package/js-yaml), json-refs would resolve all $ref file locations and the js-yaml would parse the yml to json. The net result being a big old json object of all the files which could then be written to disk. Very important for lots and lots of tools out there, from codegen to cloudfront.
+
+However, when using json-refs to resolve the file locations the net result can be a lot of repeat code. For example, if you reference a definition by file, json-refs grabs the content of the said file and injects it into the response which is not great if you also reference it in a few other locations too, lots of duplicated yaml. To get around this the trick was to reference the swagger definition instead eg: `#/components/schemas/Temperature`, this would prevent json-refs from resolving the file and thus prevent duplicate content. Of course today all the little files built in this fashion cannot be used by tools that are able to parse multi-file openapi specs.
+
+Enter swagger-parser. The guys who wrote swagger-parser did what the json-refs and js-yaml combo could not, they are able to bundle files by file location but also not have duplicates in the response... best of both worlds: truly valid small files with an equally valid bundled output.
+
+BOATS ships with both options, json-refs/js-yaml or the swagger-parser. By default this package will use the swagger-parser bundler, but passing the `-j` flag will instruct the use of the json-refs bundler. Both will run through the nunjucks tpl engine and both will be validated unless instructed not. In addition, if you use the swagger-parser bundler, BOATS will first parse all the nunjucks content to the directory of the output file first before validating and bundling.
+
+

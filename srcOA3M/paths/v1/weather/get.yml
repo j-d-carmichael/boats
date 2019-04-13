@@ -1,0 +1,13 @@
+tags:
+  - weather
+summary: Weather data
+description: Weather for a given country for a given `ISO ALPHA-2 Code'
+operationId: {{ uniqueOpId() }}
+parameters:
+  - $ref: ../../../components/parameters/offset.yml
+responses:
+  '200':
+    description: Successful fetch
+    content: {{ mixin("../../../mixins/response/json.yml", "../../../components/schemas/weather/model.yml") }}
+  '404':
+    description: Country not found

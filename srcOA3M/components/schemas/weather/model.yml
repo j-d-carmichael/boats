@@ -1,0 +1,12 @@
+properties:
+  cloudCover:
+    type: string
+  humidity:
+    type: number
+  precipitation:
+    type: number
+  temperature: {{ mixin("../../../mixins/pagination.yml", "../generic/searchMeta.yml", "../unit/model.yml") }}
+
+  windSpeed: {{ mixin("../../../mixins/pagination.yml", "../generic/searchMeta.yml", "../unit/model.yml") }}
+
+  windDirection: {{ mixin("../../../mixins/pagination.yml", "../generic/searchMeta.yml", "../unit/model.yml") }}

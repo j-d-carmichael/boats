@@ -1,0 +1,39 @@
+properties:
+  cloudCover:
+    type: string
+  humidity:
+    type: number
+  precipitation:
+    type: number
+  temperature: 
+    type: object
+    properties:
+      meta:
+        $ref: ../generic/searchMeta.yml
+      data:
+        type: array
+        items:
+          $ref: ../unit/model.yml
+    
+
+  windSpeed: 
+    type: object
+    properties:
+      meta:
+        $ref: ../generic/searchMeta.yml
+      data:
+        type: array
+        items:
+          $ref: ../unit/model.yml
+    
+
+  windDirection: 
+    type: object
+    properties:
+      meta:
+        $ref: ../generic/searchMeta.yml
+      data:
+        type: array
+        items:
+          $ref: ../unit/model.yml
+    

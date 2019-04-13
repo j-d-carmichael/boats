@@ -1,0 +1,28 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Weather API
+  description: A sample API
+  contact:
+    name: Swagger API Team
+    email: apiteam@swagger.io
+    url: http://swagger.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: localhost
+
+tags:
+  - name: weather
+    description: Weather data
+
+paths:
+  $ref: paths/index.yml
+
+components:
+  parameters:
+    $ref: components/parameters/index.yml
+  schemas:
+    $ref: components/schemas/index.yml

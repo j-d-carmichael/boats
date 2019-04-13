@@ -1,0 +1,27 @@
+tags:
+  - temperature
+summary: Temperature data
+description: Create a new temperature record.
+operationId: v1TemperaturePost
+parameters:
+  - in: body
+    name: temp
+    description: Temp to create
+    schema:
+      type: object
+      required:
+        - temp
+      properties:
+        temp:
+          type: number
+responses:
+  '200':
+    description: Successful temp creation
+    content: 
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/temperature/model.yml
+      
+      
+  '422':
+    description: Invalid form data provided
