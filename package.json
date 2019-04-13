@@ -30,9 +30,9 @@
     "test": "npm run test:builds && npm run test:unit",
     "test:unit": "NODE_ENV=TEST jest",
     "test:builds": "npm run build:es5 && npm run test:build-run:oa2:json-refs && npm run test:build-run:oa3:json-refs && npm run test:build-run:oa3:std",
-    "test:build-run:oa2:json-refs": "node exampleJsonRefsOA2.js",
-    "test:build-run:oa3:json-refs": "node exampleJsonRefsOA3.js",
-    "test:build-run:oa3:std": "node exampleStdOA3.js",
+    "test:build-run:oa2:json-refs": "node example-json-refs-oa2.js",
+    "test:build-run:oa3:json-refs": "node example-json-refs-oa3.js",
+    "test:build-run:oa3:std": "node example-json-schema-ref-parser.js",
     "prepublish": "npm run build:readme:toc && npm run test && npm run build:es5"
   },
   "repository": {

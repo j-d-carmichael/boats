@@ -32,7 +32,6 @@ Beautiful Open Api Template System
 ## Summary
 
 ---
-
  - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser) or [json-refs](https://www.npmjs.com/package/json-refs) (see the history for why they both exist [History](#history))
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
@@ -40,15 +39,26 @@ Beautiful Open Api Template System
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
 
+## Why
+
+---
+Being developers we know we don't have to type things out more than once and when we do it is annoying. Not many folk enjoy typing out endless HTML, hence template engines, nor CSS hence SASS and LESS... or any computer language, hence functions.
+
+OpenAPI does allow for content to be injected into other files which makes for a lot of typing eg:
+  -  Adding data & meta attributes when writing JSONAPI style outputs
+  -  '[application/json](https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore-expanded.yaml#L46)' attributes in OA3 paths
+
+So the why is purely to implement DRY'er yaml source files so lazyness can thrive. More importantly however, repetition is not only mind numbingly boring but typically leads to mistakes, so by reducing repetition there is also a reduction is mistakes.
+
 ## Examples
 
 ---
 
  - [Mixin example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11)
  - [Unique Operation ID example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L5)
- - [OpenAPI 3 openapi spec example files](https://github.com/johndcarmichael/boats/tree/master/srcOA3M)
- - [CLI Usage](#cli-tool)
- - [DotEnv](#)
+ - [json-schema-ref-parser bundling OA3](https://github.com/johndcarmichael/boats/tree/master/example-json-schema-ref-parser.js)
+ - [json-refs bundling OA2](https://github.com/johndcarmichael/boats/tree/master/example-json-refs-oa2.js)
+ - [json-refs bundling OA3](https://github.com/johndcarmichael/boats/tree/master/example-json-refs-oa3.js)
 
 ## Available commands
 
