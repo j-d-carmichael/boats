@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getFileName = undefined;
+exports.getFileName = exports.getVersion = undefined;
 
 var _path = require('path');
 
@@ -21,9 +21,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getVersion = function getVersion(jsonObj, appendVersion) {
+var getVersion = exports.getVersion = function getVersion(jsonObj, excludeVersion) {
   var swagVersion = '';
-  if (!appendVersion) {
+  if (excludeVersion) {
     return swagVersion;
   }
   if (jsonObj.info.version) {
@@ -44,11 +44,11 @@ var getVersion = function getVersion(jsonObj, appendVersion) {
   return '_' + swagVersion;
 };
 
-var getFileName = exports.getFileName = function getFileName(filePath, openApiJson, appendVersion) {
+var getFileName = exports.getFileName = function getFileName(filePath, openApiJson, excludeVersion) {
   var name = _path2.default.basename(filePath).replace(_path2.default.extname(filePath), '');
-  return name + getVersion(openApiJson, appendVersion) + _path2.default.extname(filePath);
+  return name + getVersion(openApiJson, excludeVersion) + _path2.default.extname(filePath);
 };
 
-exports.default = function (filePath, openApiJson, appendVersion) {
-  return _path2.default.join(_path2.default.dirname(filePath), getFileName(filePath, openApiJson, appendVersion));
+exports.default = function (filePath, openApiJson, excludeVersion) {
+  return _path2.default.join(_path2.default.dirname(filePath), getFileName(filePath, openApiJson, excludeVersion));
 };

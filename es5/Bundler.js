@@ -77,7 +77,7 @@ var Bundler = function () {
     }
     this.strip_value = program.strip_value || 'paths/';
     this.mainJSON = '';
-    this.appendVersion = program.exclude_version !== true;
+    this.exclude_version = program.exclude_version;
     this.input = program.input;
     this.validate = program.validate === 'on';
     this.output = program.output || false;
@@ -232,7 +232,7 @@ var Bundler = function () {
     value: function writeFile(filePath, contents) {
       try {
         _fsExtra2.default.ensureDirSync(_path2.default.dirname(filePath));
-        var adaptedFilePath = (0, _getOutputName2.default)(filePath, this.mainJSON, this.appendVersion);
+        var adaptedFilePath = (0, _getOutputName2.default)(filePath, this.mainJSON, this.exclude_version);
         _fsExtra2.default.writeFileSync(adaptedFilePath, contents);
         return adaptedFilePath;
       } catch (e) {

@@ -26,13 +26,15 @@
     "install:githooks": "cp ./githooks/* .git/hooks",
     "build:es5": "./node_modules/.bin/babel es6 -d es5",
     "build:readme:toc": "node ./node_modules/doctoc/doctoc.js .",
+    "clean:build": "rm -R ./build/*",
     "lint": "eslint *.js es6/",
-    "test": "npm run test:builds && npm run test:unit",
+    "test": "npm run clean:build && npm run test:builds && npm run test:unit",
     "test:unit": "NODE_ENV=TEST jest",
-    "test:builds": "npm run build:es5 && npm run test:build-run:oa2:json-refs && npm run test:build-run:oa3:json-refs && npm run test:build-run:oa3:std",
+    "test:builds": "npm run build:es5 && npm run test:build-run:oa2:json-refs && npm run test:build-run:oa3:json-refs && npm run test:build-run:oa3:std && npm run test:build-run:oa3:std:exclude-version",
     "test:build-run:oa2:json-refs": "node example-json-refs-oa2.js",
     "test:build-run:oa3:json-refs": "node example-json-refs-oa3.js",
     "test:build-run:oa3:std": "node example-json-schema-ref-parser.js",
+    "test:build-run:oa3:std:exclude-version": "node example-json-excluded-version.js",
     "prepublish": "npm run build:readme:toc && npm run test && npm run build:es5"
   },
   "repository": {

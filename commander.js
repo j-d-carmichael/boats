@@ -1,19 +1,20 @@
 const program = require('commander')
 const pkg = require('./package.json')
 
-function collect(val, memo) {
+function collect (val, memo) {
   let parts = val.split('=')
   let obj = {}
-  if(parts.length === 1){
+  if (parts.length === 1) {
     obj[parts[0].trim()] = true
   } else {
-    obj[parts.shift().trim()] = parts.join().trim();
+    obj[parts.shift().trim()] = parts.join().trim()
   }
-  memo.push(obj);
-  return memo;
+  memo.push(obj)
+  return memo
 }
 
 module.exports = () => {
+  console.log(process.argv)
   program
     .option('--init', 'Inject a skeleton yml structure to the current directory named /src/...')
 

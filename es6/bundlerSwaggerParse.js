@@ -3,7 +3,7 @@ import * as YAML from 'js-yaml'
 import fs from 'fs-extra'
 import getFilePath from './getOutputName'
 
-export default async (inputFile, outputFile, options = {}, indentation = 2) => {
+export default async (inputFile, outputFile, options = {}, indentation = 2, excludeVersion) => {
   const SwaggerParser = require('swagger-parser')
   const bundled = await SwaggerParser.bundle(inputFile, options)
   let contents
@@ -13,5 +13,12 @@ export default async (inputFile, outputFile, options = {}, indentation = 2) => {
     contents = YAML.safeDump(bundled, indentation)
   }
   fs.ensureDirSync(path.dirname(outputFile))
-  return fs.writeFileSync(getFilePath(outputFile, bundled), contents)
+  return fs.writeFileSync(
+    getFilePath(
+      outputFile,
+      bundled,
+      excludeVersion
+    ),
+    contents
+  )
 }

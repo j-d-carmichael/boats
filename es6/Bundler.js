@@ -26,7 +26,7 @@ export default class Bundler {
     }
     this.strip_value = program.strip_value || 'paths/'
     this.mainJSON = ''
-    this.appendVersion = (program.exclude_version !== true)
+    this.exclude_version = program.exclude_version
     this.input = program.input
     this.validate = (program.validate === 'on')
     this.output = program.output || false
@@ -82,7 +82,7 @@ export default class Bundler {
   writeFile (filePath, contents) {
     try {
       fs.ensureDirSync(path.dirname(filePath))
-      const adaptedFilePath = getFilePath(filePath, this.mainJSON, this.appendVersion)
+      const adaptedFilePath = getFilePath(filePath, this.mainJSON, this.exclude_version)
       fs.writeFileSync(adaptedFilePath, contents)
       return adaptedFilePath
     } catch (e) {

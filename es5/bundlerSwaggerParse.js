@@ -40,6 +40,7 @@ exports.default = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(inputFile, outputFile) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     var indentation = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
+    var excludeVersion = arguments[4];
     var SwaggerParser, bundled, contents;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -59,7 +60,7 @@ exports.default = function () {
               contents = YAML.safeDump(bundled, indentation);
             }
             _fsExtra2.default.ensureDirSync(_path2.default.dirname(outputFile));
-            return _context.abrupt('return', _fsExtra2.default.writeFileSync((0, _getOutputName2.default)(outputFile, bundled), contents));
+            return _context.abrupt('return', _fsExtra2.default.writeFileSync((0, _getOutputName2.default)(outputFile, bundled, excludeVersion), contents));
 
           case 8:
           case 'end':
