@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "http://www.somehost.com"
+      "url": null
     }
   ],
   "tags": [
