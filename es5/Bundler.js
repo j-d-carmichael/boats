@@ -48,6 +48,10 @@ var _validate = require('./validate');
 
 var _validate2 = _interopRequireDefault(_validate);
 
+var _defaults = require('./defaults');
+
+var defaults = _interopRequireWildcard(_defaults);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -75,14 +79,14 @@ var Bundler = function () {
         dd('File does not exist. (' + program.input + ')');
       }
     }
-    this.strip_value = program.strip_value || 'paths/';
+    this.strip_value = program.strip_value || defaults.DEFAULT_STRIP_VALUE;
     this.mainJSON = '';
     this.exclude_version = program.exclude_version;
     this.input = program.input;
     this.validate = program.validate === 'on';
     this.output = program.output || false;
-    this.indentation = program.indentation || 2;
-    this.originalIndentation = program.originalIndentation || 2;
+    this.indentation = program.indentation || defaults.DEFAULT_INDENTATION;
+    this.originalIndentation = program.originalIndentation || defaults.DEFAULT_ORIGINAL_INDENTATION;
     this.variables = program.variables || {};
   }
 

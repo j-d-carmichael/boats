@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
@@ -24,7 +24,7 @@
   "scripts": {
     "swaggercli": "swagger-cli bundle -o build/built.yml build/index.yml",
     "install:githooks": "cp ./githooks/* .git/hooks",
-    "build:es5": "./node_modules/.bin/babel es6 -d es5",
+    "build:es5": "rm -R ./es5/* && ./node_modules/.bin/babel es6 -d es5",
     "build:readme:toc": "node ./node_modules/doctoc/doctoc.js .",
     "clean:build": "rm -R ./build/*",
     "lint": "eslint *.js es6/",

@@ -33,7 +33,7 @@
         ],
         "summary": "Temperature data",
         "description": "Get the latest temperature",
-        "operationId": "v1TemperatureGet",
+        "operationId": "pathsV1TemperatureGet",
         "responses": {
           "200": {
             "description": "Successful fetch",
@@ -56,7 +56,7 @@
         ],
         "summary": "Temperature data",
         "description": "Create a new temperature record.",
-        "operationId": "v1TemperaturePost",
+        "operationId": "pathsV1TemperaturePost",
         "parameters": [
           {
             "in": "body",
@@ -99,7 +99,7 @@
         ],
         "summary": "Weather data",
         "description": "Weather for a given country for a given `ISO ALPHA-2 Code'",
-        "operationId": "v1WeatherGet",
+        "operationId": "pathsV1WeatherGet",
         "parameters": [
           {
             "$ref": "#/components/parameters/offset"
@@ -129,7 +129,7 @@
         ],
         "summary": "Weather data",
         "description": "Weather for a given country for a given `ISO ALPHA-2 Code'",
-        "operationId": "v1WeatherCountryGet",
+        "operationId": "pathsV1WeatherCountryGet",
         "parameters": [
           {
             "in": "path",

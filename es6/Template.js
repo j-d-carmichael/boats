@@ -5,6 +5,7 @@ import fs from 'fs-extra'
 import UniqueOperationIds from './UniqueOperationIds'
 import calculateIndentFromLineBreak from './calculateIndentFromLineBreak'
 import cloneObject from './cloneObject'
+import * as defaults from './defaults'
 
 class Template {
   /**
@@ -15,7 +16,7 @@ class Template {
    * @param stripValue The strip value for the uniqueOpIp
    * @param variables The variables for the tpl engine
    */
-  directoryParse (inputFile, output, originalIndent = 2, stripValue = 'paths/', variables = {}) {
+  directoryParse (inputFile, output, originalIndent = defaults.DEFAULT_ORIGINAL_INDENTATION, stripValue = defaults.DEFAULT_STRIP_VALUE, variables = {}) {
     return new Promise((resolve, reject) => {
       if (!inputFile || !output) {
         throw new Error('You must pass an input file and output directory when parsing multiple files.')
@@ -69,7 +70,7 @@ class Template {
     this.currentFilePointer = fileLocation
     this.originalIndentation = originalIndentation
     this.stripValue = stripValue
-    this.mixinVarNamePrefix = 'var'
+    this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX
     this.mixinObject = this.setMixinPositions(inputString, originalIndentation)
     this.mixinNumber = 0
     this.setMixinPositions(inputString, originalIndentation)

@@ -52,6 +52,10 @@ var _cloneObject = require('./cloneObject');
 
 var _cloneObject2 = _interopRequireDefault(_cloneObject);
 
+var _defaults = require('./defaults');
+
+var defaults = _interopRequireWildcard(_defaults);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -73,11 +77,11 @@ var Template = function () {
      * @param variables The variables for the tpl engine
      */
     value: function directoryParse(inputFile, output) {
-      var originalIndent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+      var originalIndent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaults.DEFAULT_ORIGINAL_INDENTATION;
 
       var _this = this;
 
-      var stripValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'paths/';
+      var stripValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaults.DEFAULT_STRIP_VALUE;
       var variables = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
 
       return new _promise2.default(function (resolve, reject) {
@@ -166,7 +170,7 @@ var Template = function () {
                 this.currentFilePointer = fileLocation;
                 this.originalIndentation = originalIndentation;
                 this.stripValue = stripValue;
-                this.mixinVarNamePrefix = 'var';
+                this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX;
                 this.mixinObject = this.setMixinPositions(inputString, originalIndentation);
                 this.mixinNumber = 0;
                 this.setMixinPositions(inputString, originalIndentation);

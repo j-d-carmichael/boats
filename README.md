@@ -27,6 +27,7 @@ Beautiful Open Api Template System (beta release)
     - [Init](#init)
 - [History](#history)
 - [Thanks To](#thanks-to)
+- [Roadmap](#roadmap)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -98,17 +99,19 @@ BOATS ships with a few features described below.
 ```
 
 #### Bundler
-There are a few tools already out there that use the js-yaml and json-refs tool combination to bundle many y(a)ml files together into a single file.
-BOATS is just the same in this sense as all the rest, it will read an entry point and resolve the json references in turn resulting in a single OpenAPI file.
+There are a few tools that can bundle multiple swagger/openapi files into a single output, either using json-ref + js-yaml or swagger-parser. 
+This package gives the option to use both, to use the json-refs style bundler pass the `-j` argument, else the default swagger-parser will be used.
+See the [History](#history) section below to understand why both are available at the present time.
 
 #### Validation
 Errors will be thrown if $refs cannot be resolved properly.
 The bundled output is also validated with swagger-parser, throwing errors to console if/when found.
 
 #### Templating
-Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files.
+Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files, write loops, use variables, whatever you need.
 BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also have the full power of the nunjucks templating functions available to you.
-If you have not used Nunjucks before, it is very similar to the Twig, Blade and Django templating language.
+
+If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
 #### Mixins
 The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml#L10) or for OA3 [content objects](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11). 
@@ -203,4 +206,10 @@ BOATS is nothing more than a connection between other packages so big thanks to:
  - vitaly for https://www.npmjs.com/package/js-yaml
  - The team behind https://www.npmjs.com/package/nunjucks
 
+## Roadmap
+Unknown right now, this was package was constructed to help make openapi files a little more dynamic and "DRY" which I feel has been achieved. Future releases for now will be polishing, cleaning and tests, v1.0.0 will appear once it has been proven and battle tested ;)
+
+Fully open to contributions, critiques and ideas via github pull-requests and/or issues which will likely shape the future of this package.
+
+Thanks, John.
 

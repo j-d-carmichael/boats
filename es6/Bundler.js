@@ -4,8 +4,11 @@ import fs from 'fs-extra'
 import path from 'path'
 import getFilePath from './getOutputName'
 import validate from './validate'
+import * as defaults from './defaults'
+
 const resolveRefs = require('json-refs').resolveRefs
 const dd = require('../dd')
+
 
 export default class Bundler {
 
@@ -24,14 +27,14 @@ export default class Bundler {
         dd('File does not exist. (' + program.input + ')')
       }
     }
-    this.strip_value = program.strip_value || 'paths/'
+    this.strip_value = program.strip_value || defaults.DEFAULT_STRIP_VALUE
     this.mainJSON = ''
     this.exclude_version = program.exclude_version
     this.input = program.input
     this.validate = (program.validate === 'on')
     this.output = program.output || false
-    this.indentation = program.indentation || 2
-    this.originalIndentation = program.originalIndentation || 2
+    this.indentation = program.indentation || defaults.DEFAULT_INDENTATION
+    this.originalIndentation = program.originalIndentation || defaults.DEFAULT_ORIGINAL_INDENTATION
     this.variables = program.variables || {}
   }
 
