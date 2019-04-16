@@ -12,8 +12,8 @@ if (fs.pathExistsSync(dotenvFilePath)) {
   require('dotenv').config({ path: dotenvFilePath })
 }
 
-// Return init function
 if (program.init) {
+  // Return init function
   require('./init')
 } else if (program.json_refs) {
   // Start json refs bundler
@@ -31,7 +31,7 @@ if (program.init) {
     bundlerSwaggerParse(inputFile, program.output, {}, program.indentation, program.exclude_version)
       .catch(e => console.error('Bundler error', e))
   }
-  Template.directoryParse(program.input, program.output, program.indentation, program.strip_value, program.variables)
+  Template.directoryParse(program.input, program.output, program.indentation, program.strip_value, program.variables, program.functions)
     .then((returnFile) => {
       if (program.validate === 'on') {
         validate(returnFile)

@@ -88,6 +88,7 @@ var Bundler = function () {
     this.indentation = program.indentation || defaults.DEFAULT_INDENTATION;
     this.originalIndentation = program.originalIndentation || defaults.DEFAULT_ORIGINAL_INDENTATION;
     this.variables = program.variables || {};
+    this.helper_functions = program.functions || [];
   }
 
   (0, _createClass3.default)(Bundler, [{
@@ -105,7 +106,7 @@ var Bundler = function () {
                     case 0:
                       _context.prev = 0;
                       _context.next = 3;
-                      return _Template2.default.load(res.text, res.location, _this.originalIndentation, _this.strip_value, _this.variables);
+                      return _Template2.default.load(res.text, res.location, _this.originalIndentation, _this.strip_value, _this.variables, _this.helper_functions);
 
                     case 3:
                       res.text = _context.sent;

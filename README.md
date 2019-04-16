@@ -18,8 +18,10 @@ Beautiful Open Api Template System (beta release)
     - [Bundler](#bundler)
     - [Validation](#validation)
     - [Templating](#templating)
-    - [Mixins](#mixins)
-    - [Unique Operation Identifiers](#unique-operation-identifiers)
+    - [Template functions built in](#template-functions-built-in)
+        - [mixin](#mixin)
+        - [uniqueOpId](#uniqueopid)
+    - [Custom template functions (your own)](#custom-template-functions-your-own)
     - [Process Environment Variables](#process-environment-variables)
     - [Variables](#variables)
     - [CLI Tool](#cli-tool)
@@ -34,6 +36,7 @@ Beautiful Open Api Template System (beta release)
 ## Summary
 
 ---
+An OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files through the use of a template engine:
  - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser) or [json-refs](https://www.npmjs.com/package/json-refs) (see the history for why they both exist [History](#history))
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
@@ -44,11 +47,12 @@ Beautiful Open Api Template System (beta release)
 ## Why
 
 ---
-Being developers we know we don't have to type things out more than once and when we do it is annoying. Not many folk enjoy typing out endless HTML, hence template engines, nor CSS hence SASS and LESS... or any computer language, hence functions.
-
 OpenAPI does not allow for content to be injected into other files which makes for a lot of typing eg:
   -  Adding data & meta attributes when writing JSONAPI style outputs
   -  '[application/json](https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore-expanded.yaml#L46)' attributes in OA3 paths
+  -  etc etc
+
+Not many folk enjoy typing out endless HTML, hence template engines such as Nunjucks, Twig, Blade or Django. People got exhausted of writing CSS hence the emergence of preprocessors such as SASS and LESS.
 
 So the why is purely to implement DRY'er yaml source files so lazyness can thrive. More importantly however, repetition is not only mind numbingly boring but typically leads to mistakes, so by reducing repetition there is also a reduction is mistakes.
 
@@ -78,7 +82,7 @@ Options:
   -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
   -j, --json_refs             If passed the json-refs bundler will be used instead of swagger-parser's bundler.
   -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
-  -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "paths/"
+  -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
   -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
   -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
   -V, --version               output the version number
@@ -92,20 +96,19 @@ Options:
 
 BOATS ships with a few features described below.
 > Tip! Add boats as an npm script for easy cli access:
-```
+```json
 "scripts": {
   "boats": "boats",
   ...
 ```
 
 #### Bundler
-There are a few tools that can bundle multiple swagger/openapi files into a single output, either using json-ref + js-yaml or swagger-parser. 
-This package gives the option to use both, to use the json-refs style bundler pass the `-j` argument, else the default swagger-parser will be used.
+There are a few tools that can bundle multiple swagger/openapi files into a single output, either using json-ref + js-yaml or json-schema-ref-parser. 
+This package gives the option to use both, to use the json-refs style bundler pass the `-j` argument, else the default json-schema-ref-parser will be used.
 See the [History](#history) section below to understand why both are available at the present time.
 
 #### Validation
-Errors will be thrown if $refs cannot be resolved properly.
-The bundled output is also validated with swagger-parser, throwing errors to console if/when found.
+Content is validated using swagger-parser; the validator automatically detects the OA version. Errors are output to the console.
 
 #### Templating
 Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files, write loops, use variables, whatever you need.
@@ -113,7 +116,9 @@ BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also 
 
 If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
-#### Mixins
+#### Template functions built in
+
+###### mixin
 The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml#L10) or for OA3 [content objects](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11). 
 
 The mixin function assumes the 1st given argument to be the relative path to the mixin template yaml file.
@@ -124,7 +129,7 @@ mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "
 
 The mixin template can then use the arguments as [illustrated here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/pagination.yml).
 
-#### Unique Operation Identifiers
+###### uniqueOpId
 The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system. 
 The path leading up to the entry point is always removed.
 In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "paths/".
@@ -136,6 +141,34 @@ Results in:
 `v1TemperatureGet`
 
 This is especially helpful for API generators.
+
+#### Custom template functions (your own)
+It is possible to inject your own helper functions into the Nunjucks tpl engine. For [example](https://github.com/johndcarmichael/boats/tree/master/nunjucksHelpers/injectPackageJsonVersion.js), you may wish to inject your own helper function that would automatically inject the package.json version number into the OpenAPI index file. This is how it would be done:
+
+Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
+```
+boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.js
+```
+
+The `./helpers/injectPackageJsonVersion.js` should export a single default function:
+```javascript
+const packageJson = require('../package.json')
+module.exports = () => {
+  // assuming this is a valid package json file
+  return packageJson.version
+}
+```
+
+In your yaml file you can now access the custom function by file name:
+```yaml
+openapi: "3.0.0"
+info:
+  version: {{ injectPackageJsonVersion() }}
+```
+
+ - Customer helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
+ - A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
+ - The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
 
 #### Process Environment Variables
 During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI files, this is common with AWS's cloud formation when used with dynamic containers.

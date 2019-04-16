@@ -38,3 +38,15 @@ describe('setMixinPositions', () => {
     ))
   })
 })
+
+describe('getHelperFunctionNameFromPath', () => {
+  it('should return untouched a valid string', () => {
+    expect(Template.getHelperFunctionNameFromPath('/some/path/helpers/myCoolHelper.js'))
+      .toBe('myCoolHelper')
+  })
+
+  it('should strip out non (alpha numeric _ )chars', () => {
+    expect(Template.getHelperFunctionNameFromPath('/some/path/helpers/my-Cool$Helper!_.js'))
+      .toBe('myCoolHelper_')
+  })
+})

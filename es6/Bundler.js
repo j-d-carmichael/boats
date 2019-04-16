@@ -36,6 +36,7 @@ export default class Bundler {
     this.indentation = program.indentation || defaults.DEFAULT_INDENTATION
     this.originalIndentation = program.originalIndentation || defaults.DEFAULT_ORIGINAL_INDENTATION
     this.variables = program.variables || {}
+    this.helper_functions = program.functions || []
   }
 
   parseMainLoaderOptions () {
@@ -43,7 +44,7 @@ export default class Bundler {
       loaderOptions: {
         processContent: async (res, callback) => {
           try {
-            res.text = await Template.load(res.text, res.location, this.originalIndentation, this.strip_value, this.variables)
+            res.text = await Template.load(res.text, res.location, this.originalIndentation, this.strip_value, this.variables, this.helper_functions)
             callback(null, YAML.safeLoad(res.text))
           } catch (e) {
             dd({

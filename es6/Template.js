@@ -2,7 +2,6 @@ import path from 'path'
 import * as nunjucks from 'nunjucks'
 import walker from 'walker'
 import fs from 'fs-extra'
-import UniqueOperationIds from './UniqueOperationIds'
 import calculateIndentFromLineBreak from './calculateIndentFromLineBreak'
 import cloneObject from './cloneObject'
 import * as defaults from './defaults'
@@ -15,8 +14,16 @@ class Template {
    * @param originalIndent The original indent (currently hard coded to 2)
    * @param stripValue The strip value for the uniqueOpIp
    * @param variables The variables for the tpl engine
+   * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
    */
-  directoryParse (inputFile, output, originalIndent = defaults.DEFAULT_ORIGINAL_INDENTATION, stripValue = defaults.DEFAULT_STRIP_VALUE, variables = {}) {
+  directoryParse (
+    inputFile
+    , output
+    , originalIndent = defaults.DEFAULT_ORIGINAL_INDENTATION
+    , stripValue = defaults.DEFAULT_STRIP_VALUE
+    , variables = {}
+    , helpFunctionPaths
+  ) {
     return new Promise((resolve, reject) => {
       if (!inputFile || !output) {
         throw new Error('You must pass an input file and output directory when parsing multiple files.')
@@ -27,8 +34,8 @@ class Template {
       walker(path.dirname(inputFile))
         .on('file', async (file) => {
           const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
-          const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables)
-          if(inputFile === file){
+          const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths)
+          if (inputFile === file) {
             returnFileinput = outputFile
           }
           fs.outputFileSync(outputFile, rendered)
@@ -42,11 +49,11 @@ class Template {
     })
   }
 
-  cleanInputString(relativeFilePath){
-    if(relativeFilePath.substring(0, 2) === './'){
+  cleanInputString (relativeFilePath) {
+    if (relativeFilePath.substring(0, 2) === './') {
       return relativeFilePath.substring(2, relativeFilePath.length)
     }
-    if(relativeFilePath.substring(0, 1) === '/'){
+    if (relativeFilePath.substring(0, 1) === '/') {
       return relativeFilePath.substring(1, relativeFilePath.length)
     }
     return relativeFilePath
@@ -64,9 +71,10 @@ class Template {
    * @param originalIndentation The original indentation
    * @param stripValue The opid strip value
    * @param customVars Custom variables passed to nunjucks
+   * @param helpFunctionPaths
    * @returns {Promise<*>}
    */
-  async load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}) {
+  async load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}, helpFunctionPaths = []) {
     this.currentFilePointer = fileLocation
     this.originalIndentation = originalIndentation
     this.stripValue = stripValue
@@ -74,8 +82,14 @@ class Template {
     this.mixinObject = this.setMixinPositions(inputString, originalIndentation)
     this.mixinNumber = 0
     this.setMixinPositions(inputString, originalIndentation)
-    this.nunjucksSetup(customVars)
-    return nunjucks.render(fileLocation)
+    this.nunjucksSetup(customVars, helpFunctionPaths)
+    try{
+      return nunjucks.render(fileLocation)
+    } catch (e) {
+      console.error('Error parsing nunjucks: ')
+      console.error(e)
+      process.exit(0)
+    }
   }
 
   /**
@@ -103,15 +117,17 @@ class Template {
     return matched
   }
 
-  nunjucksSetup (customVars) {
+  nunjucksSetup (customVars = {}, helpFunctionPaths = []) {
     let env = nunjucks.configure({ autoescape: false })
-    env.addGlobal('mixin', this.mixin)
+    env.addGlobal('mixin', require('../nunjucksHelpers/mixin'))
     env.addGlobal('mixinNumber', this.mixinNumber)
     env.addGlobal('mixinObject', this.mixinObject)
     env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)
-    env.addGlobal('uniqueOpId', this.uniqueOpId)
+
+    env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'))
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
     env.addGlobal('currentFilePointer', this.currentFilePointer)
+
     const processEnvVars = cloneObject(process.env)
     for (let key in processEnvVars) {
       env.addGlobal(key, processEnvVars[key])
@@ -120,32 +136,20 @@ class Template {
     for (let key in customVars) {
       env.addGlobal(key, customVars[key])
     }
-  }
-
-  uniqueOpId () {
-    return UniqueOperationIds.getUniqueOperationIdFromPath(this.env.globals.currentFilePointer, this.env.globals.uniqueOpIdStripValue)
-  }
-
-  mixin () {
-    let tplGlobals = this.env.globals
-    const renderPath = path.join(path.dirname(tplGlobals.currentFilePointer), arguments[0])
-    if (!fs.pathExistsSync(renderPath)) {
-      throw new Error('Path not found when trying to render mixin: ' + renderPath)
-    }
-    let vars = {}
-    for (let i = 1; i < arguments.length; ++i) {
-      vars[tplGlobals.mixinVarNamePrefix + i] = arguments[i]
-    }
-    let replaceVal = `
-`
-    let rendered = nunjucks.render(renderPath, vars)
-    // inject the indentation
-    let parts = rendered.split('\n')
-    parts.forEach((part, i) => {
-      parts[i] = tplGlobals.mixinObject[tplGlobals.mixinNumber].mixinLinePadding + part
+    helpFunctionPaths.forEach((filePath) => {
+      env.addGlobal(
+        this.getHelperFunctionNameFromPath(filePath),
+        require(filePath)
+      )
     })
-    ++this.env.globals.mixinNumber
-    return replaceVal + parts.join('\n')
+  }
+
+  /**
+   * Returns an alpha numeric underscore helper function name
+   * @param filePath
+   */
+  getHelperFunctionNameFromPath (filePath) {
+    return path.basename(filePath, path.extname(filePath)).replace(/[^0-9a-z_]/gi, '')
   }
 }
 

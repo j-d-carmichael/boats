@@ -40,10 +40,6 @@ var _fsExtra = require('fs-extra');
 
 var _fsExtra2 = _interopRequireDefault(_fsExtra);
 
-var _UniqueOperationIds = require('./UniqueOperationIds');
-
-var _UniqueOperationIds2 = _interopRequireDefault(_UniqueOperationIds);
-
 var _calculateIndentFromLineBreak = require('./calculateIndentFromLineBreak');
 
 var _calculateIndentFromLineBreak2 = _interopRequireDefault(_calculateIndentFromLineBreak);
@@ -75,14 +71,16 @@ var Template = function () {
      * @param originalIndent The original indent (currently hard coded to 2)
      * @param stripValue The strip value for the uniqueOpIp
      * @param variables The variables for the tpl engine
+     * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
      */
     value: function directoryParse(inputFile, output) {
       var originalIndent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaults.DEFAULT_ORIGINAL_INDENTATION;
+      var stripValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaults.DEFAULT_STRIP_VALUE;
 
       var _this = this;
 
-      var stripValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaults.DEFAULT_STRIP_VALUE;
       var variables = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+      var helpFunctionPaths = arguments[5];
 
       return new _promise2.default(function (resolve, reject) {
         if (!inputFile || !output) {
@@ -100,7 +98,7 @@ var Template = function () {
                   case 0:
                     outputFile = _this.calculateOutputFile(inputFile, file, _path2.default.dirname(output));
                     _context.next = 3;
-                    return _this.load(_fsExtra2.default.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables);
+                    return _this.load(_fsExtra2.default.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths);
 
                   case 3:
                     rendered = _context.sent;
@@ -153,6 +151,7 @@ var Template = function () {
      * @param originalIndentation The original indentation
      * @param stripValue The opid strip value
      * @param customVars Custom variables passed to nunjucks
+     * @param helpFunctionPaths
      * @returns {Promise<*>}
      */
 
@@ -163,6 +162,7 @@ var Template = function () {
         var originalIndentation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
         var stripValue = arguments[3];
         var customVars = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+        var helpFunctionPaths = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : [];
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -174,18 +174,27 @@ var Template = function () {
                 this.mixinObject = this.setMixinPositions(inputString, originalIndentation);
                 this.mixinNumber = 0;
                 this.setMixinPositions(inputString, originalIndentation);
-                this.nunjucksSetup(customVars);
+                this.nunjucksSetup(customVars, helpFunctionPaths);
+                _context2.prev = 8;
                 return _context2.abrupt('return', nunjucks.render(fileLocation));
 
-              case 9:
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2['catch'](8);
+
+                console.error('Error parsing nunjucks: ');
+                console.error(_context2.t0);
+                process.exit(0);
+
+              case 17:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2, this, [[8, 12]]);
       }));
 
-      function load(_x7, _x8) {
+      function load(_x8, _x9) {
         return _ref2.apply(this, arguments);
       }
 
@@ -221,15 +230,24 @@ var Template = function () {
     }
   }, {
     key: 'nunjucksSetup',
-    value: function nunjucksSetup(customVars) {
+    value: function nunjucksSetup() {
+      var _this2 = this;
+
+      var customVars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var helpFunctionPaths = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
       var env = nunjucks.configure({ autoescape: false });
-      env.addGlobal('mixin', this.mixin);
+      env.addGlobal('injectPackageJsonVersion', require('../nunjucksHelpers/injectPackageJsonVersion'));
+
+      env.addGlobal('mixin', require('../nunjucksHelpers/mixin'));
       env.addGlobal('mixinNumber', this.mixinNumber);
       env.addGlobal('mixinObject', this.mixinObject);
       env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix);
-      env.addGlobal('uniqueOpId', this.uniqueOpId);
+
+      env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'));
       env.addGlobal('uniqueOpIdStripValue', this.stripValue);
       env.addGlobal('currentFilePointer', this.currentFilePointer);
+
       var processEnvVars = (0, _cloneObject2.default)(process.env);
       for (var key in processEnvVars) {
         env.addGlobal(key, processEnvVars[key]);
@@ -238,33 +256,20 @@ var Template = function () {
       for (var _key in customVars) {
         env.addGlobal(_key, customVars[_key]);
       }
-    }
-  }, {
-    key: 'uniqueOpId',
-    value: function uniqueOpId() {
-      return _UniqueOperationIds2.default.getUniqueOperationIdFromPath(this.env.globals.currentFilePointer, this.env.globals.uniqueOpIdStripValue);
-    }
-  }, {
-    key: 'mixin',
-    value: function mixin() {
-      var tplGlobals = this.env.globals;
-      var renderPath = _path2.default.join(_path2.default.dirname(tplGlobals.currentFilePointer), arguments[0]);
-      if (!_fsExtra2.default.pathExistsSync(renderPath)) {
-        throw new Error('Path not found when trying to render mixin: ' + renderPath);
-      }
-      var vars = {};
-      for (var i = 1; i < arguments.length; ++i) {
-        vars[tplGlobals.mixinVarNamePrefix + i] = arguments[i];
-      }
-      var replaceVal = '\n';
-      var rendered = nunjucks.render(renderPath, vars);
-      // inject the indentation
-      var parts = rendered.split('\n');
-      parts.forEach(function (part, i) {
-        parts[i] = tplGlobals.mixinObject[tplGlobals.mixinNumber].mixinLinePadding + part;
+      helpFunctionPaths.forEach(function (filePath) {
+        env.addGlobal(_this2.getHelperFunctionNameFromPath(filePath), require(filePath));
       });
-      ++this.env.globals.mixinNumber;
-      return replaceVal + parts.join('\n');
+    }
+
+    /**
+     * Returns an alpha numeric underscore helper function name
+     * @param filePath
+     */
+
+  }, {
+    key: 'getHelperFunctionNameFromPath',
+    value: function getHelperFunctionNameFromPath(filePath) {
+      return _path2.default.basename(filePath, _path2.default.extname(filePath)).replace(/[^0-9a-z_]/gi, '');
     }
   }]);
   return Template;

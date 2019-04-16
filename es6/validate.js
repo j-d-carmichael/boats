@@ -1,6 +1,11 @@
 import cloneObject from './cloneObject'
 
-export default async (input, options = {}) => {
+/**
+ * TODO add the ability to pass in the options object to json-schema-ref-parser
+ * @param input
+ * @returns {Promise<void>}
+ */
+export default async (input) => {
   if(typeof input === 'object'){
     input = cloneObject(input)
   }
