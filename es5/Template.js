@@ -237,8 +237,6 @@ var Template = function () {
       var helpFunctionPaths = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
       var env = nunjucks.configure({ autoescape: false });
-      env.addGlobal('injectPackageJsonVersion', require('../nunjucksHelpers/injectPackageJsonVersion'));
-
       env.addGlobal('mixin', require('../nunjucksHelpers/mixin'));
       env.addGlobal('mixinNumber', this.mixinNumber);
       env.addGlobal('mixinObject', this.mixinObject);

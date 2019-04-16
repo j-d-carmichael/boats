@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: {{ injectPackageJsonVersion() }}
+  version: 1.0.0
   title: Weather API
   description: A sample API
   contact:

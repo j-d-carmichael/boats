@@ -5,7 +5,7 @@ describe('Check to ensure the files are generated with the correct file names:',
   const paths = [
     'build/builtJsonRefsOA2_1.1.1.json',
     'build/builtJsonRefsOA3_1.0.0.json',
-    'build/builtOA3_' + packageJson.version + '.yml',
+    'build/builtOA3_1.0.0.yml',
     'build/builtOA3.yml'
   ]
   for (let i = 0; i < paths.length; ++i) {
