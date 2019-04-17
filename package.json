@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
@@ -74,5 +74,8 @@
     "doctoc": "^1.4.0",
     "eslint": "^5.16.0",
     "jest": "^23.6.0"
+  },
+  "engines": {
+    "node": "8"
   }
 }
