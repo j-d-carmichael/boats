@@ -242,6 +242,8 @@ var Template = function () {
       env.addGlobal('mixinObject', this.mixinObject);
       env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix);
 
+      env.addGlobal('packageJson', require('../nunjucksHelpers/packageJson'));
+
       env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'));
       env.addGlobal('uniqueOpIdStripValue', this.stripValue);
       env.addGlobal('currentFilePointer', this.currentFilePointer);

@@ -20,6 +20,7 @@ Beautiful Open Api Template System (beta release)
     - [Templating](#templating)
     - [Template functions built in](#template-functions-built-in)
         - [mixin](#mixin)
+        - [packageJson](#packagejson)
         - [uniqueOpId](#uniqueopid)
     - [Custom template functions (your own)](#custom-template-functions-your-own)
     - [Process Environment Variables](#process-environment-variables)
@@ -119,20 +120,41 @@ If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, 
 #### Template functions built in
 
 ###### mixin
+Example use:
+```yaml
+Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
+```
+
 The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml#L10) or for OA3 [content objects](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11). 
 
 The mixin function assumes the 1st given argument to be the relative path to the mixin template yaml file.
+
 All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg `var1`
-```
-mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
-```
 
 The mixin template can then use the arguments as [illustrated here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/pagination.yml).
 
+###### packageJson
+Example use:
+```yaml
+openapi: "3.0.0"
+info:
+  version: {{ packageJson('version') }}
+```
+
+Returns the value of an expected attribute to be found in your `package.json` or throws an error. 
+
 ###### uniqueOpId
+Example use:
+```yaml
+tags:
+  - temperature
+summary: Temperature data
+description: Get the latest temperature
+operationId: {{ uniqueOpId() }}
+```
 The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system. 
 The path leading up to the entry point is always removed.
-In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "paths/".
+In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "src/paths/".
 
 So the following path:
 `/home/me/code/project/src/paths/v1/temperature/get.yml`
@@ -140,10 +162,10 @@ So the following path:
 Results in:
 `v1TemperatureGet`
 
-This is especially helpful for API generators.
+This is especially helpful for API generators eg: codegen
 
 #### Custom template functions (your own)
-It is possible to inject your own helper functions into the Nunjucks tpl engine. For [example](https://github.com/johndcarmichael/boats/tree/master/nunjucksHelpers/injectPackageJsonVersion.js), you may wish to inject your own helper function that would automatically inject the package.json version number into the OpenAPI index file. This is how it would be done:
+It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
 
 Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
 ```
