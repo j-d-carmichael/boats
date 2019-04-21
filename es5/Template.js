@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -72,22 +76,23 @@ var Template = function () {
      * @param stripValue The strip value for the uniqueOpIp
      * @param variables The variables for the tpl engine
      * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
+     * @param boatsrc
      */
     value: function directoryParse(inputFile, output) {
       var originalIndent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaults.DEFAULT_ORIGINAL_INDENTATION;
       var stripValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaults.DEFAULT_STRIP_VALUE;
+      var variables = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
 
       var _this = this;
 
-      var variables = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
       var helpFunctionPaths = arguments[5];
+      var boatsrc = arguments[6];
 
       return new _promise2.default(function (resolve, reject) {
         if (!inputFile || !output) {
           throw new Error('You must pass an input file and output directory when parsing multiple files.');
         }
         inputFile = _this.cleanInputString(inputFile);
-
         var returnFileinput = void 0;
         (0, _walker2.default)(_path2.default.dirname(inputFile)).on('file', function () {
           var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(file) {
@@ -98,7 +103,7 @@ var Template = function () {
                   case 0:
                     outputFile = _this.calculateOutputFile(inputFile, file, _path2.default.dirname(output));
                     _context.next = 3;
-                    return _this.load(_fsExtra2.default.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths);
+                    return _this.load(_fsExtra2.default.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths, boatsrc);
 
                   case 3:
                     rendered = _context.sent;
@@ -126,6 +131,13 @@ var Template = function () {
         });
       });
     }
+
+    /**
+     * Cleans the input string to ensure a match with the walker package when mirroring
+     * @param relativeFilePath
+     * @returns {string|*}
+     */
+
   }, {
     key: 'cleanInputString',
     value: function cleanInputString(relativeFilePath) {
@@ -137,6 +149,15 @@ var Template = function () {
       }
       return relativeFilePath;
     }
+
+    /**
+     * Calculates the output file based on the input file, used for mirroring the input src dir
+     * @param inputFile
+     * @param currentFile
+     * @param outputDirectory
+     * @returns {*}
+     */
+
   }, {
     key: 'calculateOutputFile',
     value: function calculateOutputFile(inputFile, currentFile, outputDirectory) {
@@ -145,13 +166,14 @@ var Template = function () {
     }
 
     /**
-     *
+     * Loads and renders a tpl file
      * @param inputString The string to parse
      * @param fileLocation The file location the string derived from
      * @param originalIndentation The original indentation
      * @param stripValue The opid strip value
      * @param customVars Custom variables passed to nunjucks
      * @param helpFunctionPaths
+     * @param boatsrc Fully qualified path to .boatsrc file
      * @returns {Promise<*>}
      */
 
@@ -163,6 +185,7 @@ var Template = function () {
         var stripValue = arguments[3];
         var customVars = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
         var helpFunctionPaths = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : [];
+        var boatsrc = arguments[6];
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -174,7 +197,7 @@ var Template = function () {
                 this.mixinObject = this.setMixinPositions(inputString, originalIndentation);
                 this.mixinNumber = 0;
                 this.setMixinPositions(inputString, originalIndentation);
-                this.nunjucksSetup(customVars, helpFunctionPaths);
+                this.nunjucksSetup(customVars, helpFunctionPaths, boatsrc);
                 _context2.prev = 8;
                 return _context2.abrupt('return', nunjucks.render(fileLocation));
 
@@ -228,15 +251,57 @@ var Template = function () {
       }
       return matched;
     }
+
+    /**
+     * Tries to inject the provided json from a .boatsrc file
+     * @param boatsrc
+     * @returns {{autoescape: boolean, tags: {blockStart: string, commentStart: string, variableEnd: string, variableStart: string, commentEnd: string, blockEnd: string}}|({autoescape: boolean, tags: {blockStart: string, commentStart: string, variableEnd: string, variableStart: string, commentEnd: string, blockEnd: string}} & Template.nunjucksOptions)}
+     */
+
+  }, {
+    key: 'nunjucksOptions',
+    value: function nunjucksOptions() {
+      var boatsrc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      var baseOptions = {
+        autoescape: false,
+        tags: {
+          blockStart: '<%',
+          blockEnd: '%>',
+          variableStart: '<$',
+          variableEnd: '$>',
+          commentStart: '{#',
+          commentEnd: '#}'
+        }
+      };
+      try {
+        var json = _fsExtra2.default.readJsonSync(boatsrc);
+        if (json.nunjucksOptions) {
+          return (0, _assign2.default)(baseOptions, json.nunjucksOptions);
+        }
+      } catch (e) {
+        return baseOptions;
+      }
+    }
+
+    /**
+     * Sets up the tpl engine for the current file being rendered
+     * @param customVars
+     * @param helpFunctionPaths
+     * @param boatsrc Exact path to a .boatsrc file
+     */
+
   }, {
     key: 'nunjucksSetup',
     value: function nunjucksSetup() {
+      var customVars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
       var _this2 = this;
 
-      var customVars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       var helpFunctionPaths = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var boatsrc = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-      var env = nunjucks.configure({ autoescape: false });
+      var env = nunjucks.configure(this.nunjucksOptions(boatsrc));
       env.addGlobal('mixin', require('../nunjucksHelpers/mixin'));
       env.addGlobal('mixinNumber', this.mixinNumber);
       env.addGlobal('mixinObject', this.mixinObject);

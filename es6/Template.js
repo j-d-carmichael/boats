@@ -15,6 +15,7 @@ class Template {
    * @param stripValue The strip value for the uniqueOpIp
    * @param variables The variables for the tpl engine
    * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
+   * @param boatsrc
    */
   directoryParse (
     inputFile
@@ -23,18 +24,18 @@ class Template {
     , stripValue = defaults.DEFAULT_STRIP_VALUE
     , variables = {}
     , helpFunctionPaths
+    , boatsrc
   ) {
     return new Promise((resolve, reject) => {
       if (!inputFile || !output) {
         throw new Error('You must pass an input file and output directory when parsing multiple files.')
       }
       inputFile = this.cleanInputString(inputFile)
-
       let returnFileinput
       walker(path.dirname(inputFile))
         .on('file', async (file) => {
           const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
-          const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths)
+          const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths, boatsrc)
           if (inputFile === file) {
             returnFileinput = outputFile
           }
@@ -49,6 +50,11 @@ class Template {
     })
   }
 
+  /**
+   * Cleans the input string to ensure a match with the walker package when mirroring
+   * @param relativeFilePath
+   * @returns {string|*}
+   */
   cleanInputString (relativeFilePath) {
     if (relativeFilePath.substring(0, 2) === './') {
       return relativeFilePath.substring(2, relativeFilePath.length)
@@ -59,22 +65,30 @@ class Template {
     return relativeFilePath
   }
 
+  /**
+   * Calculates the output file based on the input file, used for mirroring the input src dir
+   * @param inputFile
+   * @param currentFile
+   * @param outputDirectory
+   * @returns {*}
+   */
   calculateOutputFile (inputFile, currentFile, outputDirectory) {
     const inputDir = path.dirname(inputFile)
     return path.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, ''))
   }
 
   /**
-   *
+   * Loads and renders a tpl file
    * @param inputString The string to parse
    * @param fileLocation The file location the string derived from
    * @param originalIndentation The original indentation
    * @param stripValue The opid strip value
    * @param customVars Custom variables passed to nunjucks
    * @param helpFunctionPaths
+   * @param boatsrc Fully qualified path to .boatsrc file
    * @returns {Promise<*>}
    */
-  async load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}, helpFunctionPaths = []) {
+  async load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}, helpFunctionPaths = [], boatsrc) {
     this.currentFilePointer = fileLocation
     this.originalIndentation = originalIndentation
     this.stripValue = stripValue
@@ -82,8 +96,8 @@ class Template {
     this.mixinObject = this.setMixinPositions(inputString, originalIndentation)
     this.mixinNumber = 0
     this.setMixinPositions(inputString, originalIndentation)
-    this.nunjucksSetup(customVars, helpFunctionPaths)
-    try{
+    this.nunjucksSetup(customVars, helpFunctionPaths, boatsrc)
+    try {
       return nunjucks.render(fileLocation)
     } catch (e) {
       console.error('Error parsing nunjucks: ')
@@ -117,8 +131,41 @@ class Template {
     return matched
   }
 
-  nunjucksSetup (customVars = {}, helpFunctionPaths = []) {
-    let env = nunjucks.configure({ autoescape: false })
+  /**
+   * Tries to inject the provided json from a .boatsrc file
+   * @param boatsrc
+   * @returns {{autoescape: boolean, tags: {blockStart: string, commentStart: string, variableEnd: string, variableStart: string, commentEnd: string, blockEnd: string}}|({autoescape: boolean, tags: {blockStart: string, commentStart: string, variableEnd: string, variableStart: string, commentEnd: string, blockEnd: string}} & Template.nunjucksOptions)}
+   */
+  nunjucksOptions (boatsrc = '') {
+    let baseOptions = {
+      autoescape: false,
+      tags: {
+        blockStart: '<%',
+        blockEnd: '%>',
+        variableStart: '<$',
+        variableEnd: '$>',
+        commentStart: '{#',
+        commentEnd: '#}'
+      }
+    }
+    try {
+      let json = fs.readJsonSync(boatsrc)
+      if (json.nunjucksOptions) {
+        return Object.assign(baseOptions, json.nunjucksOptions)
+      }
+    } catch (e) {
+      return baseOptions
+    }
+  }
+
+  /**
+   * Sets up the tpl engine for the current file being rendered
+   * @param customVars
+   * @param helpFunctionPaths
+   * @param boatsrc Exact path to a .boatsrc file
+   */
+  nunjucksSetup (customVars = {}, helpFunctionPaths = [], boatsrc = '') {
+    let env = nunjucks.configure(this.nunjucksOptions(boatsrc))
     env.addGlobal('mixin', require('../nunjucksHelpers/mixin'))
     env.addGlobal('mixinNumber', this.mixinNumber)
     env.addGlobal('mixinObject', this.mixinObject)

@@ -1,8 +1,8 @@
 type: object
 properties:
   meta:
-    $ref: {{ var1 }}
+    $ref: <$ var1 $>
   data:
     type: array
     items:
-      $ref: {{ var2 }}
+      $ref: <$ var2 $>

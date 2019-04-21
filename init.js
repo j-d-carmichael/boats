@@ -35,15 +35,18 @@ if (srcAlreadyExists || buildAlreadyExists) {
   }, {
     type: 'confirm',
     name: 'installConfirm',
-    message: 'Press Y and enter to install.',
+    message: 'Press Y and enter to install. This will make a copy of the template files to ./src, an output directory ./build and a config file ./.boatsrc',
     default: false
   }]
 
   inquirer.prompt(questions).then((answers) => {
     if (answers.installConfirm) {
+      fs.copySync(__dirname + '/.boatsrc', path.join(pwd, '/.boatsrc'))
+      console.log('Completed: Injected a .boatsrc file')
       fs.copySync(__dirname + '/srcOA3', srcPath)
-      fs.copySync(__dirname + '/build', buildPath)
       console.log('Completed: Installed boats skeleton files to ' + srcPath)
+      fs.ensureDirSync(buildPath)
+      console.log('Completed: Created a build output directory')
       const name = answers.name
       if (answers.updateName) {
         localPkgJson.name = name
@@ -54,13 +57,12 @@ if (srcAlreadyExists || buildAlreadyExists) {
 
       // Write the new json object to file
       fs.writeFileSync(localPkgJsonPath, JSON.stringify(localPkgJson, null, 4))
+      console.log('Completed: BOATS build scripts added to your package.json')
       if (answers.updateName) {
-        return console.log('Completed: boats build scripts added to your package.json file and name updated.')
-      } else {
-        return console.log('Completed: boats build scripts added to your package.json file.')
+        return console.log('Completed: Package json name attr updated')
       }
     } else {
-      return console.log('Installation cancelled.')
+      return console.log('BOATS Installation cancelled.')
     }
   }).catch((e) => {
     console.log('Aborting installation:')

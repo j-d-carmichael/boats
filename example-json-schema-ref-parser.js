@@ -1,6 +1,5 @@
-const bundlerSwaggerParse = require('./es5/bundlerSwaggerParse')
-const Template = require('./es5/Template.js')
-const validate = require('./es5/validate')
+const boats = require('./index')
+const path = require('path')
 
 const program = {
   input: './srcOA3/index.yml',
@@ -10,11 +9,19 @@ const program = {
 }
 
 // Parse, validate then bundle into 1 file.
-Template.directoryParse(program.input, program.output, program.indentation, program.strip_value)
+boats.Template.directoryParse(
+  program.input,
+  program.output,
+  program.indentation,
+  program.strip_value,
+  {},
+  [],
+  path.join(process.cwd(), '.boatsrc')
+)
   .then((returnFile) => {
-    validate(returnFile)
+    boats.validate(returnFile)
       .then(() => {
-        bundlerSwaggerParse(returnFile, program.output, {}, program.indentation)
+        boats.bundlerSwaggerParse(returnFile, program.output, {}, program.indentation)
           .catch(e => console.error('Bundle error', e))
       })
       .catch(e => console.error('Validation error', e))

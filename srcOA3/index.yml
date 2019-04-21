@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
-  version: {{ packageJson('version') }}
-  title: {{ packageJson('name') }}
+  version: <$ packageJson('version') $>
+  title: <$ packageJson('name') $>
   description: A sample API
   contact:
     name: Swagger API Team

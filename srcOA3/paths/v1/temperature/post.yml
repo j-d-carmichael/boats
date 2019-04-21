@@ -2,7 +2,7 @@ tags:
   - temperature
 summary: Temperature data
 description: Create a new temperature record.
-operationId: {{ uniqueOpId() }}
+operationId: <$ uniqueOpId() $>
 parameters:
   - in: body
     name: temp
@@ -17,6 +17,6 @@ parameters:
 responses:
   '200':
     description: Successful temp creation
-    content: {{ mixin("../../../mixins/response/json.yml", "../../../components/schemas/temperature/model.yml") }}
+    content: <$ mixin("../../../mixins/response/json.yml", "../../../components/schemas/temperature/model.yml") $>
   '422':
     description: Invalid form data provided

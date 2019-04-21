@@ -2,7 +2,7 @@ tags:
   - weather
 summary: Weather data
 description: Weather for a given country for a given `ISO ALPHA-2 Code'
-operationId: {{ uniqueOpId() }}
+operationId: <$ uniqueOpId() $>
 parameters:
   - in: path
     name: country
@@ -13,6 +13,6 @@ parameters:
 responses:
   '200':
     description: Successful fetch
-    content: {{ mixin("../../../../mixins/response/json.yml", "#/components/schemas/Weather") }}
+    content: <$ mixin("../../../../mixins/response/json.yml", "#/components/schemas/Weather") $>
   '404':
     description: Country not found
