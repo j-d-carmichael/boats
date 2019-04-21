@@ -48,7 +48,7 @@ An OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files th
 ## Why
 
 ---
-OpenAPI does not allow for content to be injected into other files which makes for a lot of typing eg:
+OpenAPI does not allow for content to be injected into other files easily which makes for a lot of typing eg:
   -  Adding data & meta attributes when writing JSONAPI style outputs
   -  '[application/json](https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore-expanded.yaml#L46)' attributes in OA3 paths
   -  etc etc
@@ -117,9 +117,43 @@ BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also 
 
 If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
+##### .boatsrc 
+You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
+
+The default options are:
+```json
+{
+    "autoescape": false,
+    "tags": {
+      "blockStart": "<%",
+      "blockEnd": "%>",
+      "variableStart": "<$",
+      "variableEnd": "$>",
+      "commentStart": "<#",
+      "commentEnd": "#>"
+    }
+}
+```
+ 
+Example to override the default tags 
+```json
+{
+  "nunjucksOptions": {
+    "tags": {
+      "blockStart": "{%",
+      "blockEnd": "%}",
+      "variableStart": "{{",
+      "variableEnd": "}}",
+      "commentStart": "{#",
+      "commentEnd": "#}"
+    }
+  }
+}
+```
+
 #### Template functions built in
 
-###### mixin
+##### mixin
 Example use:
 ```yaml
 Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
@@ -133,24 +167,24 @@ All additional arguments are passed as numbers variables to the Nunjucks templat
 
 The mixin template can then use the arguments as [illustrated here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/pagination.yml).
 
-###### packageJson
+##### packageJson
 Example use:
 ```yaml
 openapi: "3.0.0"
 info:
-  version: {{ packageJson('version') }}
+  version: <$ packageJson('version') $>
 ```
 
 Returns the value of an expected attribute to be found in your `package.json` or throws an error. 
 
-###### uniqueOpId
+##### uniqueOpId
 Example use:
 ```yaml
 tags:
   - temperature
 summary: Temperature data
 description: Get the latest temperature
-operationId: {{ uniqueOpId() }}
+operationId: <$ uniqueOpId() $>
 ```
 The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system. 
 The path leading up to the entry point is always removed.
@@ -183,9 +217,8 @@ module.exports = () => {
 
 In your yaml file you can now access the custom function by file name:
 ```yaml
-openapi: "3.0.0"
 info:
-  version: {{ injectPackageJsonVersion() }}
+  version: <$ injectPackageJsonVersion() $>
 ```
 
  - Customer helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
@@ -213,7 +246,7 @@ npm run boats -i ./src/index.yml -$ host=http://somedomain.com -$ email=john@boa
 
 The variables can then be accessed via the normal nunjucks syntax eg:
 ```
-url: {{ host }}
+url: <$ host $>
 ```
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
