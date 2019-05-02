@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
