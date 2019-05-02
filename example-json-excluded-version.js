@@ -9,7 +9,15 @@ const program = {
 }
 
 // Parse, validate then bundle into 1 file.
-boats.Template.directoryParse(program.input, program.output, program.indentation, program.strip_value, path.join(process.cwd(), '.boatsrc'))
+boats.Template.directoryParse(
+  program.input,
+  program.output,
+  program.indentation,
+  program.strip_value,
+  [],
+  undefined,
+  path.join(process.cwd(), '.boatsrc')
+)
   .then((returnFile) => {
     boats.validate(returnFile)
       .then(() => {

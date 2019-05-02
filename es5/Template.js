@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
@@ -205,7 +209,7 @@ var Template = function () {
                 _context2.prev = 12;
                 _context2.t0 = _context2['catch'](8);
 
-                console.error('Error parsing nunjucks: ');
+                console.error('Error parsing nunjucks file ' + fileLocation + ': ');
                 console.error(_context2.t0);
                 process.exit(0);
 
@@ -294,7 +298,7 @@ var Template = function () {
   }, {
     key: 'nunjucksSetup',
     value: function nunjucksSetup() {
-      var customVars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var customVars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
       var _this2 = this;
 
@@ -317,10 +321,10 @@ var Template = function () {
       for (var key in processEnvVars) {
         env.addGlobal(key, processEnvVars[key]);
       }
-
-      for (var _key in customVars) {
-        env.addGlobal(_key, customVars[_key]);
-      }
+      customVars.forEach(function (varObj) {
+        var keys = (0, _keys2.default)(varObj);
+        env.addGlobal(keys[0], varObj[keys[0]]);
+      });
       helpFunctionPaths.forEach(function (filePath) {
         env.addGlobal(_this2.getHelperFunctionNameFromPath(filePath), require(filePath));
       });

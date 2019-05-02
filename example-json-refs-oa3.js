@@ -2,9 +2,9 @@ const path = require('path')
 const boats = require('./index')
 const bundler = new boats.Bundler({
   input: './srcJsonRefsOA3/index.yml',
-  variables: {
+  variables: [{
     host: 'http://www.somehost.com'
-  },
+  }],
   boatsrc: path.join(process.cwd(), '.boatsrc')
 })
 

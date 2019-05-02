@@ -14,8 +14,8 @@ boats.Template.directoryParse(
   program.output,
   program.indentation,
   program.strip_value,
-  {},
   [],
+  undefined,
   path.join(process.cwd(), '.boatsrc')
 )
   .then((returnFile) => {

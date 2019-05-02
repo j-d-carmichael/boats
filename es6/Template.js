@@ -100,7 +100,7 @@ class Template {
     try {
       return nunjucks.render(fileLocation)
     } catch (e) {
-      console.error('Error parsing nunjucks: ')
+      console.error('Error parsing nunjucks file ' + fileLocation + ': ')
       console.error(e)
       process.exit(0)
     }
@@ -164,7 +164,7 @@ class Template {
    * @param helpFunctionPaths
    * @param boatsrc Exact path to a .boatsrc file
    */
-  nunjucksSetup (customVars = {}, helpFunctionPaths = [], boatsrc = '') {
+  nunjucksSetup (customVars = [], helpFunctionPaths = [], boatsrc = '') {
     let env = nunjucks.configure(this.nunjucksOptions(boatsrc))
     env.addGlobal('mixin', require('../nunjucksHelpers/mixin'))
     env.addGlobal('mixinNumber', this.mixinNumber)
@@ -181,9 +181,11 @@ class Template {
     for (let key in processEnvVars) {
       env.addGlobal(key, processEnvVars[key])
     }
-
-    for (let key in customVars) {
-      env.addGlobal(key, customVars[key])
+    if (Array.isArray(customVars)) {
+      customVars.forEach((varObj) => {
+        const keys = Object.keys(varObj)
+        env.addGlobal(keys[0], varObj[keys[0]])
+      })
     }
     helpFunctionPaths.forEach((filePath) => {
       env.addGlobal(
