@@ -321,10 +321,12 @@ var Template = function () {
       for (var key in processEnvVars) {
         env.addGlobal(key, processEnvVars[key]);
       }
-      customVars.forEach(function (varObj) {
-        var keys = (0, _keys2.default)(varObj);
-        env.addGlobal(keys[0], varObj[keys[0]]);
-      });
+      if (Array.isArray(customVars)) {
+        customVars.forEach(function (varObj) {
+          var keys = (0, _keys2.default)(varObj);
+          env.addGlobal(keys[0], varObj[keys[0]]);
+        });
+      }
       helpFunctionPaths.forEach(function (filePath) {
         env.addGlobal(_this2.getHelperFunctionNameFromPath(filePath), require(filePath));
       });
