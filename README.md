@@ -197,6 +197,8 @@ So the following path:
 Results in:
 `v1TemperatureGet`
 
+Each segment of the path is run through [camelcase](https://github.com/sindresorhus/camelcase#readme) so `this-folder` results in `thisFolder`
+
 This is especially helpful for API generators eg: codegen
 
 #### Custom template functions (your own)

@@ -16,6 +16,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _camelcase = require('camelcase');
+
+var _camelcase2 = _interopRequireDefault(_camelcase);
+
 var _ucFirst = require('./ucFirst');
 
 var _ucFirst2 = _interopRequireDefault(_ucFirst);
@@ -48,7 +52,7 @@ var UniqueOperationIds = function () {
       var filePathParts = filePath.split('/');
       for (var i = 0; i < filePathParts.length; ++i) {
         if (i !== 0) {
-          filePathParts[i] = (0, _ucFirst2.default)(filePathParts[i]);
+          filePathParts[i] = (0, _ucFirst2.default)((0, _camelcase2.default)(filePathParts[i]));
         }
       }
       return (0, _lcFirst2.default)(filePathParts.join(''));

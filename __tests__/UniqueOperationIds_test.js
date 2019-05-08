@@ -15,6 +15,14 @@ describe('getUniqueOperationIdFromPath', () => {
       'v1WeatherGet'
     )
   })
+
+  it('handle snake-case', () => {
+    expect(
+      UniqueOperationIds.getUniqueOperationIdFromPath('src/paths/more/v1/weather-is-bad/get.yml', 'paths/more/', 'src/')
+    ).toBe(
+      'v1WeatherIsBadGet'
+    )
+  })
 })
 
 

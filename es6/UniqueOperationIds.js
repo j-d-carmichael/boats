@@ -1,4 +1,5 @@
 import path from 'path'
+import camelcase from 'camelcase'
 import ucFirst from './ucFirst'
 import lcFirst from './lcFirst'
 
@@ -17,7 +18,7 @@ class UniqueOperationIds {
     let filePathParts = filePath.split('/')
     for (let i = 0; i < filePathParts.length; ++i) {
       if (i !== 0) {
-        filePathParts[i] = ucFirst(filePathParts[i])
+        filePathParts[i] = ucFirst(camelcase(filePathParts[i]))
       }
     }
     return lcFirst(filePathParts.join(''))
