@@ -1,6 +1,0 @@
-# Not the gitkeep files
-!.gitkeep
-
-# Ignore these files
-node_modules/
-.idea

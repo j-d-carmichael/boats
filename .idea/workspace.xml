@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c445c8a3-2be4-42e3-9ed7-6e00d07a0608" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="swagger-chunk" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__tests__/buildFiles_test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="6" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__tests__/calculateIndentFromLineBreak_test.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.babelrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>resolve</find>
+      <find>replace</find>
+      <find>walker</find>
+      <find>fs-extra</find>
+      <find>fs</find>
+      <find>js-yaml</find>
+      <find>doat</find>
+      <find>cloneObject</find>
+      <find>toYAML</find>
+      <find>dirname</find>
+      <find>readJsonFile</find>
+      <find>packageJson</find>
+      <find>getFileName</find>
+      <find>234</find>
+      <find>appendVersion</find>
+      <find>lint</find>
+      <find>:es5</find>
+      <find>'</find>
+      <find>{{</find>
+      <find>{$</find>
+      <find>$}</find>
+      <find>}}</find>
+      <find>nunjucksSetup</find>
+      <find>Weather</find>
+      <find>temperature</find>
+      <find>`</find>
+      <find>swagger-cli</find>
+      <find>import</find>
+      <find>./defaults</find>
+      <find>es5/</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>dd</replace>
+      <replace>string</replace>
+      <replace>src_2/</replace>
+      <replace>#/components/parameters/</replace>
+      <replace>#/components/schemas/</replace>
+      <replace>bundler</replace>
+      <replace>boats</replace>
+      <replace>&quot;</replace>
+      <replace>{$</replace>
+      <replace>$}</replace>
+      <replace>&lt;$</replace>
+      <replace>$&gt;</replace>
+      <replace>weather</replace>
+      <replace>const</replace>
+      <replace>src/</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src_3</dir>
+      <dir>$PROJECT_DIR$/srcJsonRefsOA2</dir>
+      <dir>$PROJECT_DIR$/srcJsonRefsOA3</dir>
+      <dir>$PROJECT_DIR$/srcOA3</dir>
+      <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/srcOA3/paths/v1</dir>
+      <dir>$PROJECT_DIR$/es6</dir>
+      <dir>$PROJECT_DIR$/src</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.npmignore" />
+        <option value="$PROJECT_DIR$/__tests__/UniqueOperationIds_test.js" />
+        <option value="$PROJECT_DIR$/es6/UniqueOperationIds.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/srcOA3/mixins/request/json.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/temperature/post.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/mixins/response/pagination.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/temperature/get.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/components/parameters/index.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/components/parameters/pathId.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/temperature/id/get.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/temperature/id/put.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/components/schemas/index.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/index.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/weather/id/put.yml" />
+        <option value="$PROJECT_DIR$/es6/bundlerSwaggerParse.js" />
+        <option value="$PROJECT_DIR$/example-json.js" />
+        <option value="$PROJECT_DIR$/srcOA3/components/schemas/weather/model.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/components/schemas/weather/post.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/components/schemas/weather/put.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/weather/id/get.yml" />
+        <option value="$PROJECT_DIR$/es6/validate.js" />
+        <option value="$PROJECT_DIR$/srcOA3/paths/v1/weather/get.yml" />
+        <option value="$PROJECT_DIR$/srcOA3/mixins/response/json.pagination.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/parameters/pathId.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/parameters/queryOffset.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/paths/v1/weather/id/get.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/mixins/response/json.pagination.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/mixins/response/pagination.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/paths/v1/weather/get.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/index.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/paths/v1/weather/post.yml" />
+        <option value="$PROJECT_DIR$/srcOA2/paths/v1/weather/id/put.yml" />
+        <option value="$PROJECT_DIR$/es5/Template.js" />
+        <option value="$PROJECT_DIR$/cli.js" />
+        <option value="$PROJECT_DIR$/src/bundlerSwaggerParse.js" />
+        <option value="$PROJECT_DIR$/src/calculateIndentFromLineBreak.js" />
+        <option value="$PROJECT_DIR$/src/cloneObject.js" />
+        <option value="$PROJECT_DIR$/src/defaults.js" />
+        <option value="$PROJECT_DIR$/src/getOutputName.js" />
+        <option value="$PROJECT_DIR$/src/lcFirst.js" />
+        <option value="$PROJECT_DIR$/src/ucFirst.js" />
+        <option value="$PROJECT_DIR$/src/UniqueOperationIds.js" />
+        <option value="$PROJECT_DIR$/src/validate.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/.eslintrc" />
+        <option value="$PROJECT_DIR$/src/Template.js" />
+        <option value="$PROJECT_DIR$/nunjucksHelpers/uniqueOpId.js" />
+        <option value="$PROJECT_DIR$/.babelrc" />
+        <option value="$PROJECT_DIR$/__tests__/buildFiles_test.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="240" />
+    <option name="y" value="131" />
+    <option name="width" value="1440" />
+    <option name="height" value="791" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="boats" type="b2602c69:ProjectViewProjectNode" />
+              <item name="boats" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="boats" type="b2602c69:ProjectViewProjectNode" />
+              <item name="boats" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="rollup&#9;FILE&#9;file:///home/carmichael/code/swagger-chunk/rollup.config.js&#10;packa&#9;FILE&#9;file:///home/carmichael/code/swagger-chunk/package.json&#10;src/&#9;FILE&#9;file:///home/carmichael/code/swagger-chunk/src" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="ECMAScript 6" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.15.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/srcOA3/components/schemas/weather" />
+      <recent name="$PROJECT_DIR$/srcOA3/paths/v1/temperature/id" />
+      <recent name="$PROJECT_DIR$/nunjucksHelpers" />
+      <recent name="$PROJECT_DIR$/__tests__" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/srcOA2" />
+      <recent name="$PROJECT_DIR$/srcOA3/mixins/response" />
+      <recent name="$PROJECT_DIR$/nunjucksHelpers" />
+      <recent name="$PROJECT_DIR$/es6" />
+      <recent name="$PROJECT_DIR$/src_3/components" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c445c8a3-2be4-42e3-9ed7-6e00d07a0608" name="Default" comment="" />
+      <created>1518090096944</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1518090096944</updated>
+      <workItem from="1518090098749" duration="1988000" />
+      <workItem from="1518108796132" duration="1536000" />
+      <workItem from="1518171696391" duration="40000" />
+      <workItem from="1518184700126" duration="2037000" />
+      <workItem from="1518188960883" duration="33000" />
+      <workItem from="1518189463911" duration="147000" />
+      <workItem from="1518191657338" duration="4528000" />
+      <workItem from="1518201416819" duration="2928000" />
+      <workItem from="1518204704784" duration="755000" />
+      <workItem from="1518510969090" duration="51000" />
+      <workItem from="1518511142056" duration="2009000" />
+      <workItem from="1518542409856" duration="1018000" />
+      <workItem from="1518711978112" duration="1562000" />
+      <workItem from="1520355434308" duration="790000" />
+      <workItem from="1520412529013" duration="904000" />
+      <workItem from="1520530019849" duration="606000" />
+      <workItem from="1520584961829" duration="5099000" />
+      <workItem from="1521727752390" duration="1852000" />
+      <workItem from="1526664469883" duration="819000" />
+      <workItem from="1528450946212" duration="7722000" />
+      <workItem from="1528618157709" duration="27000" />
+      <workItem from="1528618857842" duration="3255000" />
+      <workItem from="1528623806924" duration="10044000" />
+      <workItem from="1528892680725" duration="740000" />
+      <workItem from="1528894993909" duration="909000" />
+      <workItem from="1532010905008" duration="137000" />
+      <workItem from="1534861882246" duration="3268000" />
+      <workItem from="1541592812384" duration="1840000" />
+      <workItem from="1541600526187" duration="597000" />
+      <workItem from="1541602760348" duration="769000" />
+      <workItem from="1541603650150" duration="26000" />
+      <workItem from="1541605584701" duration="847000" />
+      <workItem from="1541608561344" duration="70000" />
+      <workItem from="1541608652820" duration="82000" />
+      <workItem from="1541608750967" duration="88000" />
+      <workItem from="1542123359058" duration="912000" />
+      <workItem from="1544191004180" duration="1508000" />
+      <workItem from="1546011555616" duration="3343000" />
+      <workItem from="1546516211964" duration="334000" />
+      <workItem from="1546516628690" duration="319000" />
+      <workItem from="1548767608865" duration="1521000" />
+      <workItem from="1548850496651" duration="15000" />
+      <workItem from="1551948075981" duration="3419000" />
+      <workItem from="1551987272249" duration="1187000" />
+      <workItem from="1551995332395" duration="1082000" />
+      <workItem from="1553980645557" duration="28908000" />
+      <workItem from="1554078818823" duration="3944000" />
+      <workItem from="1554092351307" duration="7047000" />
+      <workItem from="1554149283194" duration="9197000" />
+      <workItem from="1554172005133" duration="886000" />
+      <workItem from="1554369479259" duration="5208000" />
+      <workItem from="1554418177811" duration="1084000" />
+      <workItem from="1554457354895" duration="14422000" />
+      <workItem from="1554503093802" duration="779000" />
+      <workItem from="1554585783517" duration="655000" />
+      <workItem from="1554588080841" duration="700000" />
+      <workItem from="1554589009534" duration="848000" />
+      <workItem from="1554589878806" duration="664000" />
+      <workItem from="1554630333723" duration="1997000" />
+      <workItem from="1554636390910" duration="7368000" />
+      <workItem from="1554755111615" duration="6197000" />
+      <workItem from="1554766204728" duration="951000" />
+      <workItem from="1554768371544" duration="1646000" />
+      <workItem from="1554805060791" duration="11519000" />
+      <workItem from="1554843917077" duration="15429000" />
+      <workItem from="1554866023242" duration="471000" />
+      <workItem from="1554885221683" duration="11205000" />
+      <workItem from="1554931750644" duration="4859000" />
+      <workItem from="1554937950531" duration="2406000" />
+      <workItem from="1554943594976" duration="4866000" />
+      <workItem from="1554950836919" duration="74000" />
+      <workItem from="1554952782718" duration="56000" />
+      <workItem from="1555059183888" duration="2483000" />
+      <workItem from="1555102682205" duration="11892000" />
+      <workItem from="1555114993493" duration="7683000" />
+      <workItem from="1555138218103" duration="4285000" />
+      <workItem from="1555143293245" duration="2374000" />
+      <workItem from="1555230302163" duration="5354000" />
+      <workItem from="1555290977737" duration="1560000" />
+      <workItem from="1555300039750" duration="1040000" />
+      <workItem from="1555392872810" duration="164000" />
+      <workItem from="1555449956673" duration="194000" />
+      <workItem from="1555450186683" duration="8815000" />
+      <workItem from="1555459153088" duration="1138000" />
+      <workItem from="1555465207650" duration="1965000" />
+      <workItem from="1555478055390" duration="1368000" />
+      <workItem from="1555479900698" duration="713000" />
+      <workItem from="1555482007319" duration="1418000" />
+      <workItem from="1555646423355" duration="1000" />
+      <workItem from="1555707307375" duration="781000" />
+      <workItem from="1555708917844" duration="1103000" />
+      <workItem from="1555736410174" duration="2440000" />
+      <workItem from="1555887243405" duration="3741000" />
+      <workItem from="1555938033765" duration="936000" />
+      <workItem from="1556064122876" duration="1413000" />
+      <workItem from="1556076328842" duration="27000" />
+      <workItem from="1556089948391" duration="320000" />
+      <workItem from="1556527975766" duration="8000" />
+      <workItem from="1556528161875" duration="614000" />
+      <workItem from="1556662172986" duration="64000" />
+      <workItem from="1556728144509" duration="126000" />
+      <workItem from="1556777175966" duration="765000" />
+      <workItem from="1556791805121" duration="1540000" />
+      <workItem from="1557071183549" duration="197000" />
+      <workItem from="1557072453654" duration="665000" />
+      <workItem from="1557119757813" duration="662000" />
+      <workItem from="1557302273730" duration="561000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="284559000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4986911" visible="true" weight="0.17521368" />
+      <window_info id="Favorites" order="1" sideWeight="0.5013089" side_tool="true" weight="0.28655282" />
+      <window_info id="Structure" order="2" weight="0.2497332" />
+      <window_info id="npm" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.17640573" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32928178" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.29060772" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.15766263" />
+      <window_info anchor="bottom" id="TypeScript" order="12" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4986911" visible="true" weight="0.2470651" />
+      <window_info id="Favorites" order="1" sideWeight="0.5013089" side_tool="true" weight="0.28655282" />
+      <window_info id="Structure" order="2" weight="0.2497332" />
+      <window_info id="npm" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.17640573" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32928178" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32048458" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.15766263" />
+      <window_info anchor="bottom" id="TypeScript" order="12" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/srcOA2/mixins/response/pagination.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/index.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="6" lean-forward="true" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/paths/index.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/paths/v1/weather/id/get.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/parameters/queryOffset.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/paths/v1/weather/get.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/paths/v1/weather/id/put.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcOA2/paths/v1/weather/post.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/bundlerSwaggerParse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/validate.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/getOutputName.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/lcFirst.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/Template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="231" selection-start-line="231" selection-end-line="231" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/ucFirst.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/UniqueOperationIds.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-390" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es5/defaults.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/builtO23_0.2.0.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/builtOA3_0.2.0.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nunjucksHelpers/mixin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nunjucksHelpers/uniqueOpId.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="42" selection-start-column="42" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nunjucksHelpers/packageJson.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bundlerSwaggerParse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculateIndentFromLineBreak.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cloneObject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/defaults.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/getOutputName.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lcFirst.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3332">
+          <caret line="196" selection-start-line="196" selection-end-line="196" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ucFirst.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UniqueOperationIds.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/validate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dd.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commander.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commander.helperFunctions.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commander.collect.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/UniqueOperationIds_test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/ucFirst_test.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/Template_test.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/lcFirst_test.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/commander.collect_test.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cli.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/cloneObject_test.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/buildFiles_test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="6" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/@jest/transform/build/ScriptTransformer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="469" column="16" selection-start-line="469" selection-start-column="16" selection-end-line="469" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__tests__/calculateIndentFromLineBreak_test.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
