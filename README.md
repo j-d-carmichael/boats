@@ -4,37 +4,6 @@ Beautiful Open Api Template System (beta release)
 
 [![Build Status](https://travis-ci.org/johndcarmichael/boats.svg?branch=master)](https://travis-ci.org/johndcarmichael/boats) | [![Dependencies](https://david-dm.org/johndcarmichael/boats.svg)](https://david-dm.org/johndcarmichael/boats) | [![License](http://img.shields.io/npm/l/boats.svg)](https://github.com/johndcarmichael/boats/blob/master/LICENSE)
 
----
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Summary](#summary)
-- [Why](#why)
-- [Examples](#examples)
-- [Available commands](#available-commands)
-- [Features](#features)
-    - [Bundler](#bundler)
-    - [Validation](#validation)
-    - [Templating](#templating)
-      - [.boatsrc](#boatsrc)
-    - [Template functions built in](#template-functions-built-in)
-      - [mixin](#mixin)
-      - [packageJson](#packagejson)
-      - [uniqueOpId](#uniqueopid)
-    - [Custom template functions (your own)](#custom-template-functions-your-own)
-    - [Process Environment Variables](#process-environment-variables)
-    - [Variables](#variables)
-    - [CLI Tool](#cli-tool)
-    - [Programmatic Use](#programmatic-use)
-    - [Init](#init)
-- [History](#history)
-- [Thanks To](#thanks-to)
-- [Roadmap](#roadmap)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Summary
 
 ---
@@ -45,52 +14,6 @@ An OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files th
  - Unique operation id's based on file location automatically
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
-
-## Why
-
----
-OpenAPI does not allow for content to be injected into other files easily which makes for a lot of typing eg:
-  -  Adding data & meta attributes when writing JSONAPI style outputs
-  -  '[application/json](https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore-expanded.yaml#L46)' attributes in OA3 paths
-  -  etc etc
-
-Not many folk enjoy typing out endless HTML, hence template engines such as Nunjucks, Twig, Blade or Django. People got exhausted of writing CSS hence the emergence of preprocessors such as SASS and LESS.
-
-So the why is purely to implement DRY'er yaml source files so lazyness can thrive. More importantly however, repetition is not only mind numbingly boring but typically leads to mistakes, so by reducing repetition there is also a reduction is mistakes.
-
-## Examples
-
----
-
- - [Mixin example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11)
- - [Unique Operation ID example](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L5)
- - [json-schema-ref-parser bundling OA3](https://github.com/johndcarmichael/boats/tree/master/example-json-schema-ref-parser.js)
- - [json-refs bundling OA2](https://github.com/johndcarmichael/boats/tree/master/example-json-refs-oa2.js)
- - [json-refs bundling OA3](https://github.com/johndcarmichael/boats/tree/master/example-json-refs-oa3.js)
-
-## Available commands
-
----
-
-Available commands (possible by [commander](https://www.npmjs.com/package/commander)):
-```
-Usage: boats [options]
-
-Options:
-  --init                      Inject a skeleton yml structure to the current directory named /src/...
-  -i, --input [path]          The relative path to the main input file eg "./src/index.yml"
-  -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml" 
-                              (if json_refs is not used the output directory will also contain the compiled tpl files)
-  -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
-  -j, --json_refs             If passed the json-refs bundler will be used instead of swagger-parser's bundler.
-  -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
-  -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
-  -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
-  -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
-  -V, --version               output the version number
-  -h, --help                  output usage information
-```
----
 
 ## Features
 
@@ -104,21 +27,16 @@ BOATS ships with a few features described below.
   ...
 ```
 
-#### Bundler
-There are a few tools that can bundle multiple swagger/openapi files into a single output, either using json-ref + js-yaml or json-schema-ref-parser. 
-This package gives the option to use both, to use the json-refs style bundler pass the `-j` argument, else the default json-schema-ref-parser will be used.
-See the [History](#history) section below to understand why both are available at the present time.
-
-#### Validation
+### Validation
 Content is validated using swagger-parser; the validator automatically detects the OA version. Errors are output to the console.
 
-#### Templating
+### Templating
 Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files, write loops, use variables, whatever you need.
 BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also have the full power of the nunjucks templating functions available to you.
 
 If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
-##### .boatsrc 
+#### .boatsrc 
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
 
 The default options are:
@@ -254,7 +172,7 @@ url: <$ host $>
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
-#### CLI Tool
+### CLI Tool
 BOATS can be used as a cli tool via an npm script eg:
 
 package.json script
@@ -267,10 +185,34 @@ cli command:
 npm run build:yml
 ```
 
-#### Programmatic Use
+#### Available commands
+
+---
+
+Available commands (possible by [commander](https://www.npmjs.com/package/commander)):
+```
+Usage: boats [options]
+
+Options:
+  --init                      Inject a skeleton yml structure to the current directory named /src/...
+  -i, --input [path]          The relative path to the main input file eg "./src/index.yml"
+  -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml" 
+                              (if json_refs is not used the output directory will also contain the compiled tpl files)
+  -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
+  -j, --json_refs             If passed the json-refs bundler will be used instead of swagger-parser's bundler.
+  -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
+  -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
+  -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
+  -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
+  -V, --version               output the version number
+  -h, --help                  output usage information
+```
+---
+
+### Programmatic Use
 You can also use BOATS programmatically, please see [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)
 
-#### Init
+### Init
 Lastly, you can initialize a project via the init command. The net result will be:
  - OpenAPI3 example files injected into your current project within a folder named src
  - Build scripts for JSON and YAML added to your package.json file for CLI use.
@@ -279,28 +221,8 @@ Lastly, you can initialize a project via the init command. The net result will b
 npm run boats -- --init
 ``` 
 
-## History
-A few years ago when swagger really exploded in popularity lots of packages started appearing to aid in the painful job of maintaining large single files of yaml (just search the internet for "merge swagger files"). The packages all did 1 main job, bundled many little files into 1 (see this [example](https://github.com/johndcarmichael/boats/tree/master/srcOA3). This is and was often done in conjunction with 2 packages, [json-refs](https://www.npmjs.com/package/json-refs) and [js-yaml](https://www.npmjs.com/package/js-yaml), json-refs would resolve all $ref file locations and the js-yaml would parse the yml to json. The net result being a big old json object of all the files which could then be written to disk. Very important for lots and lots of tools out there, from codegen to cloudfront.
-
-However, when using json-refs to resolve the file locations the net result can be a lot of repeat code. For example, if you reference a definition by file, json-refs grabs the content of the said file and injects it into the response which is not great if you also reference it in a few other locations too, lots of duplicated yaml. To get around this the trick was to reference the swagger definition instead eg: `#/components/schemas/Temperature`, this would prevent json-refs from resolving the file and thus prevent duplicate content. Of course today all the little files built in this fashion cannot be used by tools that are able to parse multi-file openapi specs.
-
-Enter json-schema-ref-parser. This package "crawls even the most complex JSON Schemas and gives you simple, straightforward JavaScript objects" and without duplicates. Now you can bundle multiple files together, remove dupes and output a single output that can be written to disk.
-
-BOATS ships with both options, json-refs/js-yaml or the json-schema-ref-parser. By default this package will use the swagger-parser through to json-schema-ref-parser bundler, but passing the `-j` flag will instruct the use of the json-refs bundler. Both will run through the nunjucks tpl engine and both will be validated unless instructed not. 
-
-If you are not using the json-refs bundler, BOATS will first mirror your input folder to your output folder; each will be parsed 1 by 1 through the tpl engine. Validation and bundling happens once this is complete. 
-
 ## Thanks To
 BOATS is nothing more than a connection between other packages so big thanks to:
  - The team behind https://www.npmjs.com/package/swagger-parser
- - whitlockjc for https://www.npmjs.com/package/json-refs
  - vitaly for https://www.npmjs.com/package/js-yaml
  - The team behind https://www.npmjs.com/package/nunjucks
-
-## Roadmap
-Unknown right now, this was package was constructed to help make openapi files a little more dynamic and "DRY" which I feel has been achieved. Future releases for now will be polishing, cleaning and tests, v1.0.0 will appear once it has been proven and battle tested ;)
-
-Fully open to contributions, critiques and ideas via github pull-requests and/or issues which will likely shape the future of this package.
-
-Thanks, John.
-
