@@ -27,6 +27,11 @@ BOATS ships with a few features described below.
   ...
 ```
 
+### Init
+Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init command. The net result will be:
+ - Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
+ - Build scripts for JSON and YAML added to your package.json file for CLI use.
+
 ### Validation
 Content is validated using swagger-parser; the validator automatically detects the OA version. Errors are output to the console.
 
@@ -210,12 +215,7 @@ Options:
 ---
 
 ### Programmatic Use
-You can also use BOATS programmatically, please see [Programmatic use of the tool](https://github.com/johndcarmichael/boats/blob/master/clean-programmatic-example.js)
-
-### Init
-Lastly, you can initialize a project via the init command. The net result will be:
- - OpenAPI3 example files injected into your current project within a folder named src
- - Build scripts for JSON and YAML added to your package.json file for CLI use.
+You can also use BOATS programmatically, just require (import if you are using a bundler) the lib into your project.
 
 ```
 npm run boats -- --init
