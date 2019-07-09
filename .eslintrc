@@ -1,5 +1,4 @@
 {
-  "parser": "babel-eslint",
   "extends": "eslint:recommended",
   "rules": {
     "comma-dangle": 0,
@@ -7,7 +6,7 @@
   },
   "env": {
     "node": true,
-    "mocha": true,
+    "jest": true,
     "es6": true
   }
 }

@@ -1,4 +1,4 @@
-import Template from '../es6/Template'
+import Template from '../src/Template'
 const string1 = `
 Weather: mixin('some/path', 321)
 

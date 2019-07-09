@@ -1,4 +1,0 @@
-get:
-  $ref: ./get.yml
-post:
-  $ref: ./post.yml

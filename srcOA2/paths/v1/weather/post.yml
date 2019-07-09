@@ -1,0 +1,19 @@
+tags:
+  - weather
+summary: weather data
+description: Create a new weather record.
+operationId: <$ uniqueOpId() $>
+parameters:
+  - in: body
+    name: <$ uniqueOpId() $>
+    description: Optional description in *Markdown*
+    required: true
+    schema:
+      $ref: ../../../definitions/weather/post.yml
+responses:
+  '200':
+    description: Successful temp creation
+    schema:
+      $ref: ../../../definitions/weather/model.yml
+  '422':
+    description: Invalid form data provided

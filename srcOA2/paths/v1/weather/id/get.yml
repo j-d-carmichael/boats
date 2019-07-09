@@ -1,0 +1,16 @@
+tags:
+  - weather
+summary: weather data
+description: Get the latest temperatures
+operationId: <$ uniqueOpId() $>
+produces:
+  - application/json
+parameters:
+  - $ref: ../../../../parameters/pathId.yml
+responses:
+  '200':
+    description: Successful fetch
+    schema:
+      $ref: ../../../../definitions/weather/model.yml
+  '404':
+    description: Temp not found

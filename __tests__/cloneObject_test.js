@@ -1,4 +1,4 @@
-import cloneobject from '../es6/cloneObject'
+import cloneobject from '../src/cloneObject'
 
 describe('cloneObject', () => {
   it('compare cloned object to original', () => {

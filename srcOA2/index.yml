@@ -1,0 +1,29 @@
+swagger: "2.0"
+info:
+  version: <$ packageJson('version') $>
+  title: <$ packageJson('name') $>
+  description: A sample API
+  contact:
+    name: Swagger API Team
+    email: john@boats.io
+    url: https://github.com/johndcarmichael/boats/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
+
+tags:
+  - name: weather
+    description: Weather data
+
+paths:
+  $ref: paths/index.yml
+
+parameters:
+  $ref: parameters/index.yml
+definitions:
+  $ref: definitions/index.yml

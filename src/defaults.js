@@ -1,0 +1,9 @@
+module.exports = {
+  DEFAULT_STRIP_VALUE: 'src/paths/',
+  DEFAULT_INDENTATION: 2,
+  DEFAULT_ORIGINAL_INDENTATION: 2,
+  DEFAULT_MIXIN_VAR_PREFIX: 'var'
+}
+
+
+

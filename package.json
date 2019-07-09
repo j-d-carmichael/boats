@@ -1,19 +1,18 @@
 {
   "name": "boats",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
     "openapi",
     "openapi2",
     "openapi3",
+    "openapi template",
     "yaml",
     "bundle",
     "nunjucks",
     "yml",
     "yaml",
-    "merge yml",
-    "merge yaml",
     "DDD",
     "Documentation-Driven Development"
   ],
@@ -22,25 +21,18 @@
     "boats": "./bin/cli.js"
   },
   "scripts": {
-    "swaggercli": "swagger-cli bundle -o build/built.yml build/index.yml",
     "install:githooks": "cp ./githooks/* .git/hooks",
-    "build": "rm -fR ./es5/* && ./node_modules/.bin/babel es6 -d es5",
     "build:readme:toc": "node ./node_modules/doctoc/doctoc.js .",
     "clean:build": "rm -fR ./build/*",
-    "lint": "eslint *.js es6/",
-    "test": "npm run lint && npm run clean:build && npm run test:builds && npm run test:unit && npm run clean:build && npm run test:builds:cli && npm run test:unit",
+    "lint": "eslint *.js src/",
+    "test": "npm run clean:build && npm run test:builds && npm run test:unit",
     "test:unit": "NODE_ENV=TEST jest",
-    "test:builds": "npm run build && npm run test:build-run:oa2:json-refs && npm run test:build-run:oa3:json-refs && npm run test:build-run:oa3:std && npm run test:build-run:oa3:std:exclude-version",
-    "test:build-run:oa2:json-refs": "node example-json-refs-oa2.js",
-    "test:build-cli:oa2:json-refs": "node ./bin/cli.js -i ./srcJsonRefsOA2/index.yml -o ./build/builtJsonRefsOA2.json -j -$ host=http://www.somehost.com",
-    "test:build-run:oa3:json-refs": "node example-json-refs-oa3.js",
-    "test:build-cli:oa3:json-refs": "node ./bin/cli.js -i ./srcJsonRefsOA3/index.yml -o ./build/builtJsonRefsOA3.json -j -$ host=http://www.somehost.com",
-    "test:build-run:oa3:std": "node example-json-schema-ref-parser.js",
+    "test:builds": "npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
+    "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml -o ./build/builtO23.yml -s srcOA2/paths/",
     "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml -o ./build/builtOA3.yml -s srcOA3/paths/",
-    "test:build-run:oa3:std:exclude-version": "node example-json-excluded-version.js",
+    "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml -o ./build/builtOA2.yml -x -s srcOA2/paths/",
     "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js -i ./srcOA3/index.yml -o ./build/builtOA3.yml -x -s srcOA3/paths/",
-    "test:builds:cli": "npm run test:build-cli:oa2:json-refs && npm run test:build-cli:oa3:json-refs && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
-    "prepublish": "npm run build:readme:toc && npm run test && npm run build"
+    "prepublish": "npm run build:readme:toc && npm run test"
   },
   "repository": {
     "type": "git",
@@ -53,30 +45,23 @@
   },
   "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
-    "babel-runtime": "^6.26.0",
     "camelcase": "^5.3.1",
     "commander": "^2.20.0",
-    "dotenv": "^7.0.0",
-    "fs-extra": "^7.0.1",
-    "inquirer": "^6.2.2",
+    "dotenv": "^8.0.0",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^6.4.1",
     "js-yaml": "^3.13.1",
-    "json-refs": "^3.0.13",
     "nunjucks": "^3.2.0",
-    "swagger-cli": "^2.2.1",
-    "swagger-parser": "^6.0.5",
+    "swagger-parser": "^8.0.0",
     "walker": "^1.0.7"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^10.0.1",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/preset-env": "^7.5.4",
     "doctoc": "^1.4.0",
-    "eslint": "^5.16.0",
-    "jest": "^23.6.0"
+    "eslint": "^6.0.1",
+    "jest": "^24.8.0"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   }
 }

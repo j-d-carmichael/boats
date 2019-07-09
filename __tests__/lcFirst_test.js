@@ -1,4 +1,4 @@
-import lcFirst from '../es6/lcFirst'
+import lcFirst from '../src/lcFirst'
 
 describe('lcFirst', () => {
   it('lowercase an uppercase start', () => {

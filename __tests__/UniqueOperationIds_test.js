@@ -1,4 +1,4 @@
-import UniqueOperationIds from '../es6/UniqueOperationIds'
+import UniqueOperationIds from '../src/UniqueOperationIds'
 
 describe('getUniqueOperationIdFromPath', () => {
   it('standard action v1WeatherGet', () => {

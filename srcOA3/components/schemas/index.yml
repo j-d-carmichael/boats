@@ -1,15 +1,11 @@
 GenericSearchMeta:
   $ref: ./generic/searchMeta.yml
 
-Temperature:
-  $ref: ./temperature/model.yml
-
 Weather:
   $ref: ./weather/model.yml
 
-Weathers: <$ mixin("../../mixins/pagination.yml", "./generic/searchMeta.yml", "./unit/model.yml") $>
+WeatherPost:
+  $ref: ./weather/post.yml
 
-Unit:
-  $ref: ./unit/model.yml
-
-Units: <$ mixin("../../mixins/pagination.yml", "./generic/searchMeta.yml", "./unit/model.yml") $>
+WeatherPut:
+  $ref: ./weather/put.yml

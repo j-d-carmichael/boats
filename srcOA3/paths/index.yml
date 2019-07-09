@@ -1,15 +1,11 @@
-# Temperature
-/temperature/:
-  get:
-    $ref: ./v1/temperature/get.yml
-  post:
-    $ref: ./v1/temperature/post.yml
-
 # Weather
 /weather/:
   get:
     $ref: ./v1/weather/get.yml
-/weather/{country}:
+  post:
+    $ref: ./v1/weather/post.yml
+/weather/{id}:
   get:
-    $ref: ./v1/weather/country/get.yml
-
+    $ref: ./v1/weather/id/get.yml
+  put:
+    $ref: ./v1/weather/id/put.yml

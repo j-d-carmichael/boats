@@ -1,5 +1,0 @@
-properties:
-  degrees:
-    type: string
-  date:
-    type: string

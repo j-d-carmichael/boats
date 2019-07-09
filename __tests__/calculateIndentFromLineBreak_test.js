@@ -1,4 +1,4 @@
-import calculateIndentFromLineBreak from '../es6/calculateIndentFromLineBreak'
+import calculateIndentFromLineBreak from '../src/calculateIndentFromLineBreak'
 
 describe('calculateIndentFromLineBreak', () => {
   it('check 4 space indent from start of file', () => {

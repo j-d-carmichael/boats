@@ -1,0 +1,7 @@
+properties:
+  meta:
+    $ref: <$ var1 $>
+  data:
+    type: array
+    items:
+      $ref: <$ var2 $>

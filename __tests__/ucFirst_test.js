@@ -1,4 +1,4 @@
-import ucFirst from '../es6/ucFirst'
+import ucFirst from '../src/ucFirst'
 
 describe('ucFirst', () => {
   it('uppercase a lowercase start', () => {

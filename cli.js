@@ -1,8 +1,7 @@
 const path = require('path')
-const Bundler = require('./es5/Bundler')
-const bundlerSwaggerParse = require('./es5/bundlerSwaggerParse')
-const Template = require('./es5/Template')
-const validate = require('./es5/validate')
+const bundlerSwaggerParse = require('./src/bundlerSwaggerParse')
+const Template = require('./src/Template')
+const validate = require('./src/validate')
 const program = require('./commander')()
 const fs = require('fs-extra')
 const dotenvFilePath = path.join(process.cwd(), '.env')
@@ -16,18 +15,6 @@ if (fs.pathExistsSync(dotenvFilePath)) {
 if (program.init) {
   // Return init function
   require('./init')
-} else if (program.json_refs) {
-  // Start json refs bundler
-  const calculateOutputFormat = () => {
-    return program[(program.output) ? 'output' : 'input'].split('.').pop()
-  }
-  const bundler = new Bundler(Object.assign(program, {
-    boatsrc: boatsrc
-  }))
-  bundler[(['yaml', 'yml'].indexOf(calculateOutputFormat()) !== -1) ? 'toYamlFile' : 'toJsonFile'](program.output)
-    .then(() => {
-      // Nothing to do as all handled in the bundler
-    }).catch(err => console.error(err))
 } else {
   // parse the directory then validate and bundle with swagger-parser
   const swagBundle = (inputFile) => {
