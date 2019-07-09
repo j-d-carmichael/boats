@@ -141,12 +141,12 @@ Example to override the default tags
 {
   "nunjucksOptions": {
     "tags": {
-      "blockStart": "\{%",
-      "blockEnd": "%\}",
-      "variableStart": "{\{",
-      "variableEnd": "}\}",
-      "commentStart": "\{#",
-      "commentEnd": "#\}"
+      "blockStart": "[%",
+      "blockEnd": "%]",
+      "variableStart": "[[",
+      "variableEnd": "]]",
+      "commentStart": "[#",
+      "commentEnd": "#]"
     }
   }
 }
