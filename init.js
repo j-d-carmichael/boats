@@ -48,9 +48,9 @@ if (srcAlreadyExists || buildAlreadyExists) {
 
   inquirer.prompt(questions).then((answers) => {
     if (answers.installConfirm) {
-      fs.copySync(__dirname + '/.boatsrc', path.join(pwd, '/.boatsrc'))
+      fs.copySync(path.join(__dirname, '.boatsrc'), path.join(pwd, '/.boatsrc'))
       console.log('Completed: Injected a .boatsrc file')
-      fs.copySync(__dirname + (answers.oaType === 'Swagger 2.0') ? 'srcOA2' : 'srcOA3', srcPath)
+      fs.copySync(path.join(__dirname, (answers.oaType === 'Swagger 2.0') ? 'srcOA2' : 'srcOA3'), srcPath)
       console.log('Completed: Installed boats skeleton files to ' + srcPath)
       fs.ensureDirSync(buildPath)
       console.log('Completed: Created a build output directory')
