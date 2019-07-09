@@ -33,6 +33,13 @@ if (srcAlreadyExists || buildAlreadyExists) {
       return answers.name !== localPkgJson.name
     }
   }, {
+    type: 'list',
+    name: 'oaType',
+    choices: [
+      'Swagger 2.0',
+      'OpenAPI 3.0.0'
+    ]
+  }, {
     type: 'confirm',
     name: 'installConfirm',
     message: 'Press Y and enter to install. This will make a copy of the template files to ./src, an output directory ./build and a config file ./.boatsrc',
@@ -43,7 +50,7 @@ if (srcAlreadyExists || buildAlreadyExists) {
     if (answers.installConfirm) {
       fs.copySync(__dirname + '/.boatsrc', path.join(pwd, '/.boatsrc'))
       console.log('Completed: Injected a .boatsrc file')
-      fs.copySync(__dirname + '/srcOA3', srcPath)
+      fs.copySync(__dirname + (answers.oaType === 'Swagger 2.0') ? 'srcOA2' : 'srcOA3', srcPath)
       console.log('Completed: Installed boats skeleton files to ' + srcPath)
       fs.ensureDirSync(buildPath)
       console.log('Completed: Created a build output directory')
