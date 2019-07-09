@@ -4,5 +4,5 @@ branches:
 language: node_js
 node_js:
   - "node"
-  - "8"
+  - "10"
 sudo: false
