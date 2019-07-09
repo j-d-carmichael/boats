@@ -6,6 +6,6 @@ Beautiful Open Api Template System
 
 ___
 
-> Using a template engine when writing OpenAPI spec makes live a little less repetitive.
+> Using a template engine when writing OpenAPI spec makes life a little less repetitive.
 
 Full docsify documentation here: [https://johndcarmichael.github.io/boats/](https://johndcarmichael.github.io/boats/)
