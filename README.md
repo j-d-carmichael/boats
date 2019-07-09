@@ -48,23 +48,8 @@ If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, 
 
 #### .boatsrc 
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
-
-The default options are:
-```json
-{
-    "autoescape": false,
-    "tags": {
-      "blockStart": "<%",
-      "blockEnd": "%>",
-      "variableStart": "<$",
-      "variableEnd": "$>",
-      "commentStart": "<#",
-      "commentEnd": "#>"
-    }
-}
-```
  
-Example to override the default tags 
+Example to override the default tag delimiters
 ```json
 {
   "nunjucksOptions": {
@@ -78,6 +63,16 @@ Example to override the default tags
     }
   }
 }
+```
+
+The default tag delimiters in BOATS are:
+```
+"blockStart": "<%",
+"blockEnd": "%>",
+"variableStart": "<$",
+"variableEnd": "$>",
+"commentStart": "<#",
+"commentEnd": "#>"
 ```
 
 #### Template functions built in
