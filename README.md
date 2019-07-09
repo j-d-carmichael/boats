@@ -132,7 +132,7 @@ Pass to the cli tool a helper function path. The path should be relative to your
 boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.js
 ```
 
-The `./helpers/injectPackageJsonVersion.js` should export a single default function:
+The `./nunjucksHelpers/injectPackageJsonVersion.js` should export a single default function:
 ```javascript
 const packageJson = require('../package.json')
 module.exports = () => {
