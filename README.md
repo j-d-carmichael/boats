@@ -8,7 +8,7 @@ Beautiful Open Api Template System (beta release)
 
 ---
 An OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files through the use of a template engine:
- - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser) or [json-refs](https://www.npmjs.com/package/json-refs) (see the history for why they both exist [History](#history))
+ - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
  - Unique operation id's based on file location automatically
@@ -220,6 +220,9 @@ You can also use BOATS programmatically, just require (import if you are using a
 ```
 npm run boats -- --init
 ``` 
+
+### Deprecated
+If you were using the pre 1.0.0 release, sorry, but we the json-refs bundler was dropped.
 
 ## Thanks To
 BOATS is nothing more than a connection between other packages so big thanks to:
