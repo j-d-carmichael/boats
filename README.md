@@ -9,3 +9,6 @@ ___
 > Using a template engine when writing OpenAPI spec makes life a little less repetitive.
 
 Full docsify documentation here: [https://johndcarmichael.github.io/boats/](https://johndcarmichael.github.io/boats/)
+
+## Last publish reason
+> Security update from [inquirer](https://www.npmjs.com/package/inquirer)
