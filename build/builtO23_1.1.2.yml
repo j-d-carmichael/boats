@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.1.1
+  version: 1.1.2
   title: boats
   description: A sample API
   contact:
@@ -22,11 +22,12 @@ paths:
     get:
       tags:
         - weather
-      summary: weather data
-      description: Get the latest temperatures
+      summary: weather search
+      description: Search for weather objects
       operationId: v1WeatherGet
       parameters:
         - $ref: '#/parameters/queryOffset'
+        - $ref: '#/parameters/queryTextSearch'
       responses:
         '200':
           description: Successful fetch
@@ -60,12 +61,12 @@ paths:
             $ref: '#/definitions/Weather'
         '422':
           description: Invalid form data provided
-  '/weather/{id}':
+  '/weather/id/{id}':
     get:
       tags:
         - weather
-      summary: weather data
-      description: Get the latest temperatures
+      summary: One weather object
+      description: Get the full weather object
       operationId: v1WeatherIdGet
       produces:
         - application/json
@@ -101,6 +102,22 @@ paths:
             $ref: '#/definitions/Weather'
         '422':
           description: Invalid form data provided
+  /weather/latest:
+    get:
+      tags:
+        - weather
+      summary: lastest weather data
+      description: Get the latest temperatures
+      operationId: v1WeatherLatestGet
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful fetch
+          schema:
+            $ref: '#/definitions/Weathers'
+        '404':
+          description: Temp not found
 parameters:
   queryOffset:
     in: query
@@ -108,6 +125,12 @@ parameters:
     required: false
     type: integer
     description: The number of items to skip before starting to collect the result set.
+  queryTextSearch:
+    in: query
+    name: textSearch
+    required: false
+    type: string
+    description: Search string to query weathers on
   pathId:
     in: path
     name: id
@@ -139,6 +162,10 @@ definitions:
         type: integer
       temperature:
         type: number
+  Weathers:
+    type: array
+    items:
+      $ref: '#/definitions/Weather'
   WeatherPost:
     type: object
     properties:

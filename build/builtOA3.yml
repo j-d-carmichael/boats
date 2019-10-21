@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.1
+  version: 1.1.2
   title: boats
   description: A sample API
   contact:
@@ -60,7 +60,7 @@ paths:
                 $ref: '#/components/schemas/Weather'
         '422':
           description: Invalid form data provided
-  '/weather/{id}':
+  '/weather/id/{id}':
     get:
       tags:
         - weather

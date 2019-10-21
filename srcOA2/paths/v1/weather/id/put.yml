@@ -12,7 +12,7 @@ parameters:
     description: Optional description in *Markdown*
     required: true
     schema:
-      $ref: ../../../../definitions/weather/put.yml
+      $ref: ../../../../definitions/weather/id/put.yml
 responses:
   '200':
     description: Successful temp creation

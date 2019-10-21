@@ -1,0 +1,7 @@
+# Note that the model of post is simply extended with additional items we need for an update, aka put.
+allOf:
+  - $ref: ../post.yml
+  - type: object
+    properties:
+      id:
+        type: integer

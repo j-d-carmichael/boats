@@ -1,11 +1,16 @@
+## Register all definitions here, the https://www.npmjs.com/package/json-schema-ref-parser
+##   from https://www.npmjs.com/package/swagger-parser will use the names you declare here
+##   for each definition if you do. Otherwise it can result in interesting automated reference
+##   names or deeply referenced objects which break code generators.
+
 GenericSearchMeta:
   $ref: ./generic/searchMeta.yml
 
 Weather:
   $ref: ./weather/model.yml
-
+Weathers:
+  $ref: ./weather/models.yml
 WeatherPost:
   $ref: ./weather/post.yml
-
 WeatherPut:
-  $ref: ./weather/put.yml
+  $ref: ./weather/id/put.yml
