@@ -83,13 +83,13 @@ Example use:
 Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
 ```
 
-The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml#L10) or for OA3 [content objects](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L11). 
+The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L9).
 
 The mixin function assumes the 1st given argument to be the relative path to the mixin template yaml file.
 
 All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg `var1`
 
-The mixin template can then use the arguments as [illustrated here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/pagination.yml).
+Mixin file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml) and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
 
 ##### packageJson
 Example use:
