@@ -130,7 +130,7 @@ parameters:
     name: textSearch
     required: false
     type: string
-    description: Search string to query weathers on
+    description: Search string to query
   pathId:
     in: path
     name: id
