@@ -35,7 +35,9 @@ Want to just see a demo up and running on your machine with no real effort... Yo
 ```
 npm run boats -- --init
 ``` 
- 
+
+### Dereference the output
+When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
 
 ### Validation
 Content is validated using swagger-parser; the validator automatically detects the OA version. Errors are output to the console.
@@ -204,7 +206,7 @@ Options:
   -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml" 
                               (if json_refs is not used the output directory will also contain the compiled tpl files)
   -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
-  -j, --json_refs             If passed the json-refs bundler will be used instead of swagger-parser's bundler.
+  -d, --dereference           Will pass the output via https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback
   -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
   -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
   -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
