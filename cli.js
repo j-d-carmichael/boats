@@ -18,7 +18,14 @@ if (program.init) {
 } else {
   // parse the directory then validate and bundle with swagger-parser
   const swagBundle = (inputFile) => {
-    bundlerSwaggerParse(inputFile, program.output, {}, program.indentation, program.exclude_version)
+    bundlerSwaggerParse(
+      inputFile,
+      program.output,
+      {},
+      program.indentation,
+      program.exclude_version,
+      program.dereference
+    )
       .catch(e => console.error('Bundler error', e))
   }
   Template.directoryParse(
