@@ -4,3 +4,4 @@
 # Ignore these files
 node_modules/
 .idea
+coverage
