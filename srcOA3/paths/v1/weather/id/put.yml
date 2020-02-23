@@ -1,5 +1,5 @@
 tags:
-  - weather
+  - <$ autoTag() $>
 summary: weather data
 description: Create a new weather record.
 operationId: <$ uniqueOpId() $>

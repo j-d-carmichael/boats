@@ -1,5 +1,5 @@
 tags:
-  - weather
+  - V1Weather
 summary: weather data
 description: Get the latest temperatures
 operationId: v1WeatherIdGet
