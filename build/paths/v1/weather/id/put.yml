@@ -1,5 +1,5 @@
 tags:
-  - V1Weather
+  - V1
 summary: weather data
 description: Create a new weather record.
 operationId: v1WeatherIdPut

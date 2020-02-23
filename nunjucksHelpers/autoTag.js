@@ -5,9 +5,7 @@ module.exports = function () {
   switch(base.length){
     case 1:
       return base[0].split('.').shift();
-    case 2:
-      return ucFirst(base[0]);
     default:
-      return ucFirst(base[0]) + ucFirst(base[1]);
+      return ucFirst(base[0]);
   }
 };
