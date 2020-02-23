@@ -126,6 +126,30 @@ Each segment of the path is run through [camelcase](https://github.com/sindresor
 
 This is especially helpful for API generators eg: codegen
 
+##### autoTag
+Calculates the tag based on the location of the file in the folder structure:
+```yaml
+tags:
+  - <$ autoTag() $>
+```
+
+The function calculates up to a max of 2 folders.
+
+The following path:
+`src/paths/temperature/get.yml`
+Results in:
+`Temperature`
+
+The following path:
+`src/paths/temperature/europe/get.yml`
+Results in:
+`TemperatureEurope`
+
+The following path:
+`src/paths/temperature/europe/uk/get.yml`
+Results in:
+`TemperatureEurope`
+
 #### Custom template functions (your own)
 It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
 
