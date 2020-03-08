@@ -11,6 +11,7 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   testMatch: [
+    '__tests__/*.spec.js',
     '**/__tests__/*.spec.js',
   ],
 
