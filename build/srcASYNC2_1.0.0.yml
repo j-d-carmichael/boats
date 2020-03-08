@@ -1,0 +1,39 @@
+asyncapi: 2.0.0
+info:
+  title: Streetlights API
+  version: 1.0.0
+  description: G2 RabbitMQ routing keys
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+defaultContentType: application/json
+channels:
+  ms_auth.cache.connection:
+    description: >-
+      When a new connection change occurs the new cache values are emitted in
+      the payload
+    subscribe:
+      operationId: ms_auth.cache.connection
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/ms_auth.cache.connection'
+components:
+  schemas:
+    ms_auth.cache.connection:
+      type: object
+      properties:
+        username:
+          type: string
+        connections:
+          type: array
+          items:
+            type: object
+            properties:
+              updated:
+                type: string
+                format: date
+              state:
+                type: string
+              username:
+                type: string

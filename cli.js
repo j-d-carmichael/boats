@@ -1,9 +1,9 @@
+const fs = require('fs-extra');
 const path = require('path');
 const bundlerSwaggerParse = require('./src/bundlerSwaggerParse');
 const Template = require('./src/Template');
 const validate = require('./src/validate');
 const program = require('./commander')();
-const fs = require('fs-extra');
 const dotenvFilePath = path.join(process.cwd(), '.env');
 const boatsrc = path.join(process.cwd(), '.boatsrc');
 
@@ -17,16 +17,19 @@ if (program.init) {
   require('./init');
 } else {
   // parse the directory then validate and bundle with swagger-parser
-  const swagBundle = (inputFile) => {
-    bundlerSwaggerParse(
-      inputFile,
-      program.output,
-      {},
-      program.indentation,
-      program.exclude_version,
-      program.dereference
-    )
-      .catch(e => console.error('Bundler error', e));
+  const swagBundle = async (inputFile) => {
+    try {
+      return await bundlerSwaggerParse(
+        inputFile,
+        program.output,
+        {},
+        program.indentation,
+        program.exclude_version,
+        program.dereference
+      );
+    } catch (e) {
+      console.error('Bundler error', e);
+    }
   };
   Template.directoryParse(
     program.input
@@ -37,17 +40,19 @@ if (program.init) {
     , program.functions
     , boatsrc
   )
-    .then((returnFile) => {
+    .then(async (returnFile) => {
+      const writtenOutFilePath = await swagBundle(returnFile);
       if (program.validate === 'on') {
-        if(program.type && program.type === 'asyncapi'){
-
+        if (program.type && program.type === 'asyncapi') {
+          await validate.asyncapi(
+            fs.readFileSync(writtenOutFilePath).toString()
+          );
         } else {
-          validate.openapi(returnFile)
-            .then(swagBundle(returnFile))
-            .catch(e => console.error('Validation error', e));
+          await validate.openapi(returnFile);
         }
-      } else {
-        swagBundle(returnFile);
       }
-    }).catch((err) => console.error(err));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }

@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
@@ -26,7 +26,8 @@
     "lint": "eslint *.js src/",
     "test": "npm run clean:build && npm run test:builds && npm run test:unit",
     "test:unit": "NODE_ENV=TEST jest",
-    "test:builds": "npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
+    "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
+    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml -o ./build/srcASYNC2.yml -t asyncapi",
     "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml -o ./build/builtO23.yml -s srcOA2/paths/",
     "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml -o ./build/builtOA3.yml -s srcOA3/paths/",
     "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml -o ./build/builtOA2.yml -x -s srcOA2/paths/",
@@ -53,7 +54,8 @@
     "js-yaml": "^3.13.1",
     "nunjucks": "^3.2.0",
     "swagger-parser": "^8.0.4",
-    "walker": "^1.0.7"
+    "walker": "^1.0.7",
+    "json-schema-ref-parser": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
