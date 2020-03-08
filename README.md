@@ -1,19 +1,20 @@
 # BOATS
 
-Beautiful Open Api Template System (beta release)
-
-[![Build Status](https://travis-ci.org/johndcarmichael/boats.svg?branch=master)](https://travis-ci.org/johndcarmichael/boats) | [![Dependencies](https://david-dm.org/johndcarmichael/boats.svg)](https://david-dm.org/johndcarmichael/boats) | [![License](http://img.shields.io/npm/l/boats.svg)](https://github.com/johndcarmichael/boats/blob/master/LICENSE)
+Beautiful Open Api Template System (and AsyncAPI)
 
 ## Summary
 
 ---
-An OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files through the use of a template engine:
- - Bundle multiple OpenAPI 2|3 files together with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
+An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files through the use of a template engine:
+ - Bundle multiple yml files together with [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser)
+ - Validate AsyncAPI output with [asyncapi/parser-js](https://github.com/asyncapi/parser-js)
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
  - Unique operation id's based on file location automatically
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
+
+(to use with AsyncAPI set the `--type asyncapi`)
 
 ## Features
 
@@ -40,7 +41,7 @@ npm run boats -- --init
 When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
 
 ### Validation
-Content is validated using swagger-parser; the validator automatically detects the OA version. Errors are output to the console.
+Errors are output to the console.
 
 ### Templating
 Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files, write loops, use variables, whatever you need.
@@ -226,6 +227,7 @@ Options:
   -d, --dereference           Will pass the output via https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback
   -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
   -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
+  -t, --type [type]           The validator type, asyncapi or openapi, default is openapi 
   -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
   -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
   -V, --version               output the version number
@@ -242,5 +244,6 @@ If you were using the pre 1.0.0 release, sorry, but we the json-refs bundler was
 ## Thanks To
 BOATS is nothing more than a connection between other packages so big thanks to:
  - The team behind https://www.npmjs.com/package/swagger-parser
+ - The team behind https://github.com/asyncapi/parser-js
  - vitaly for https://www.npmjs.com/package/js-yaml
  - The team behind https://www.npmjs.com/package/nunjucks
