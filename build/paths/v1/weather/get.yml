@@ -9,13 +9,8 @@ responses:
     content: 
       application/json:
         schema:
-          properties:
-            meta:
-              $ref: ../../../components/schemas/generic/searchMeta.yml
-            data:
-              type: array
-              items:
-                $ref: ../../../components/schemas/weather/model.yml
+          $ref: ../../../components/schemas/index.yml#/Weathers
+      
       
   '404':
     description: Temp not found

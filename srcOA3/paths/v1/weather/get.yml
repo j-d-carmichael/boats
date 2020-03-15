@@ -6,6 +6,6 @@ operationId: <$ uniqueOpId() $>
 responses:
   '200':
     description: Successful fetch
-    content: <$ mixin("../../../mixins/response/json.pagination.yml", "../../../components/schemas/generic/searchMeta.yml", "../../../components/schemas/weather/model.yml") $>
+    content: <$ mixin("../../../mixins/response/json.yml", "../../../components/schemas/index.yml#/Weathers") $>
   '404':
     description: Temp not found

@@ -4,6 +4,8 @@ GenericSearchMeta:
 Weather:
   $ref: ./weather/model.yml
 
+Weathers: <$ mixin("../../mixins/response/pagination.yml", "./generic/searchMeta.yml", "./weather/model.yml") $>
+
 WeatherPost:
   $ref: ./weather/post.yml
 

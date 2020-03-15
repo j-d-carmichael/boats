@@ -1,9 +1,0 @@
-application/json:
-  schema:
-    properties:
-      meta:
-        $ref: 
-      data:
-        type: array
-        items:
-          $ref: 

@@ -29,13 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/GenericSearchMeta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Weather'
+                $ref: '#/components/schemas/Weathers'
         '404':
           description: Temp not found
     post:
@@ -142,6 +136,15 @@ components:
           type: integer
         temperature:
           type: number
+    Weathers:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/GenericSearchMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Weather'
     WeatherPost:
       type: object
       properties:
