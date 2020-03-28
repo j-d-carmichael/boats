@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "swagger",
@@ -28,10 +28,10 @@
     "test:unit": "NODE_ENV=TEST jest",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
     "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml -o ./build/srcASYNC2.yml -t asyncapi",
-    "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml -o ./build/builtO23.yml -s srcOA2/paths/",
-    "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml -o ./build/builtOA3.yml -s srcOA3/paths/",
-    "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml -o ./build/builtOA2.yml -x -s srcOA2/paths/",
-    "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js -i ./srcOA3/index.yml -o ./build/builtOA3.yml -x -s srcOA3/paths/",
+    "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_std.yml -s srcOA2/paths/",
+    "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -s srcOA3/paths/",
+    "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_no_version.yml -x -s srcOA2/paths/",
+    "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -x -s srcOA3/paths/",
     "prepublish": "npm run test"
   },
   "repository": {

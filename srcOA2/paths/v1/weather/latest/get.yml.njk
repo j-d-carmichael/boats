@@ -2,13 +2,13 @@ tags:
   - weather
 summary: lastest weather data
 description: Get the latest temperatures
-operationId: v1WeatherLatestGetYml
+operationId: {{ uniqueOpId() }}
 produces:
   - application/json
 responses:
   '200':
     description: Successful fetch
     schema:
-      $ref: ../../../../definitions/weather/models.yml
+      $ref: ../../../../definitions/weather/models.yml.njk
   '404':
     description: Temp not found

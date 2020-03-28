@@ -1,6 +1,0 @@
-queryOffset:
-  $ref: ./queryOffset.yml
-queryTextSearch:
-  $ref: ./queryTextSearch.yml
-pathId:
-  $ref: ./pathId.yml

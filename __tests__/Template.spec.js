@@ -47,6 +47,23 @@ describe('setMixinPositions', () => {
   });
 });
 
+describe('stripNjkExtension', () => {
+  it('should remove the ext', function () {
+    expect(
+      Template.stripNjkExtension('/some/path/helpers/myCoolHelper.js.njk')
+    ).toBe(
+      '/some/path/helpers/myCoolHelper.js'
+    )
+  })
+  it('should return plain', function () {
+    expect(
+      Template.stripNjkExtension('/some/path/helpers/myCoolHelper.js')
+    ).toBe(
+      '/some/path/helpers/myCoolHelper.js'
+    )
+  })
+})
+
 describe('getHelperFunctionNameFromPath', () => {
   it('should return untouched a valid string', () => {
     expect(Template.getHelperFunctionNameFromPath('/some/path/helpers/myCoolHelper.js'))

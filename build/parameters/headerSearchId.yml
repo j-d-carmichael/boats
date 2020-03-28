@@ -1,0 +1,5 @@
+in: header
+name: Search-Id
+type: string
+description: Unique search id
+x-example: 569eecd9-9962-4aed-a0f0-30476c6a82ed

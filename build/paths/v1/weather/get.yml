@@ -1,21 +1,23 @@
 tags:
-  - V1
-summary: weather data
-description: Get the latest temperatures
-operationId: v1WeatherGet
+  - weather
+summary: weather search
+description: Search for weather objects
+operationId: v1WeatherGetYml
+parameters:
+  - $ref: ../../../parameters/queryOffset.yml
+  - $ref: ../../../parameters/queryTextSearch.yml
 responses:
   '200':
     description: Successful fetch
-    content: 
-      application/json:
-        schema:
-          properties:
-            meta:
-              $ref: ../../../components/schemas/generic/searchMeta.yml
-            data:
-              type: array
-              items:
-                $ref: ../../../components/schemas/weather/model.yml
+    # Example use of the mixin helper from boats: https://johndcarmichael.github.io/boats/#/?id=mixin
+    schema: 
+      properties:
+        meta:
+          $ref: ../../../definitions/generic/searchMeta.yml
+        data:
+          type: array
+          items:
+            $ref: ../../../definitions/weather/model.yml
       
   '404':
     description: Temp not found

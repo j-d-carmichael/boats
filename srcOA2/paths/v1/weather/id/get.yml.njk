@@ -2,15 +2,15 @@ tags:
   - weather
 summary: One weather object
 description: Get the full weather object
-operationId: v1WeatherIdGetYml
+operationId: {{ uniqueOpId() }}
 produces:
   - application/json
 parameters:
-  - $ref: ../../../../parameters/pathId.yml
+  - $ref: ../../../../parameters/pathId.yml.njk
 responses:
   '200':
     description: Successful fetch
     schema:
-      $ref: ../../../../definitions/weather/model.yml
+      $ref: ../../../../definitions/weather/model.yml.njk
   '404':
     description: Temp not found

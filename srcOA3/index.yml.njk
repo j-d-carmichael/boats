@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
-  version: 1.5.0
-  title: boats
+  version: {{ packageJson('version') }}
+  title: {{ packageJson('name') }}
   description: A sample API
   contact:
     name: Swagger API Team
@@ -19,10 +19,10 @@ tags:
     description: Weather data
 
 paths:
-  $ref: paths/index.yml
+  $ref: paths/index.yml.njk
 
 components:
   parameters:
-    $ref: components/parameters/index.yml
+    $ref: components/parameters/index.yml.njk
   schemas:
-    $ref: components/schemas/index.yml
+    $ref: components/schemas/index.yml.njk

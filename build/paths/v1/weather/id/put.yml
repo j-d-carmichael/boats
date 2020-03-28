@@ -1,24 +1,22 @@
 tags:
-  - V1
+  - weather
 summary: weather data
 description: Create a new weather record.
-operationId: v1WeatherIdPut
-requestBody:
-  description: Optional description in *Markdown*
-  required: true
-  content: 
-    application/json:
-      schema:
-        $ref: ../../../../components/schemas/weather/put.yml
-    
+operationId: v1WeatherIdPutYml
+produces:
+  - application/json
+parameters:
+  - $ref: ../../../../parameters/pathId.yml
+  - in: body
+    name: v1WeatherIdPutYml
+    description: Optional description in *Markdown*
+    required: true
+    schema:
+      $ref: ../../../../definitions/weather/id/put.yml
 responses:
   '200':
     description: Successful temp creation
-    content: 
-      application/json:
-        schema:
-          $ref: ../../../../components/schemas/weather/model.yml
-      
-      
+    schema:
+      $ref: ../../../../definitions/weather/model.yml
   '422':
     description: Invalid form data provided

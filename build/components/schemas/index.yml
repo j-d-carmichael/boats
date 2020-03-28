@@ -4,6 +4,17 @@ GenericSearchMeta:
 Weather:
   $ref: ./weather/model.yml
 
+Weathers: 
+  type: object
+  properties:
+    meta:
+      $ref: ./generic/searchMeta.yml
+    data:
+      type: array
+      items:
+        $ref: ./weather/model.yml
+  
+
 WeatherPost:
   $ref: ./weather/post.yml
 

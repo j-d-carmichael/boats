@@ -1,0 +1,195 @@
+swagger: '2.0'
+info:
+  version: 1.5.0
+  title: boats
+  description: A sample API
+  contact:
+    name: Swagger API Team
+    email: john@boats.io
+    url: 'https://github.com/johndcarmichael/boats/'
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
+tags:
+  - name: weather
+    description: Weather data
+paths:
+  /weather/:
+    get:
+      tags:
+        - weather
+      summary: weather search
+      description: Search for weather objects
+      operationId: v1WeatherGetYml
+      parameters:
+        - $ref: '#/parameters/queryOffset'
+        - $ref: '#/parameters/queryTextSearch'
+      responses:
+        '200':
+          description: Successful fetch
+          schema:
+            properties:
+              meta:
+                $ref: '#/definitions/GenericSearchMeta'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Weather'
+        '404':
+          description: Temp not found
+    post:
+      tags:
+        - weather
+      summary: weather data
+      description: Create a new weather record.
+      operationId: v1WeatherPostYml
+      parameters:
+        - in: body
+          name: v1WeatherPostYml
+          description: Optional description in *Markdown*
+          required: true
+          schema:
+            $ref: '#/definitions/WeatherPost'
+      responses:
+        '200':
+          description: Successful temp creation
+          schema:
+            $ref: '#/definitions/Weather'
+        '422':
+          description: Invalid form data provided
+  '/weather/id/{id}':
+    get:
+      tags:
+        - weather
+      summary: One weather object
+      description: Get the full weather object
+      operationId: v1WeatherIdGetYml
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/pathId'
+      responses:
+        '200':
+          description: Successful fetch
+          schema:
+            $ref: '#/definitions/Weather'
+        '404':
+          description: Temp not found
+    put:
+      tags:
+        - weather
+      summary: weather data
+      description: Create a new weather record.
+      operationId: v1WeatherIdPutYml
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/pathId'
+        - in: body
+          name: v1WeatherIdPutYml
+          description: Optional description in *Markdown*
+          required: true
+          schema:
+            $ref: '#/definitions/WeatherPut'
+      responses:
+        '200':
+          description: Successful temp creation
+          schema:
+            $ref: '#/definitions/Weather'
+        '422':
+          description: Invalid form data provided
+  /weather/latest:
+    get:
+      tags:
+        - weather
+      summary: lastest weather data
+      description: Get the latest temperatures
+      operationId: v1WeatherLatestGetYml
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful fetch
+          schema:
+            $ref: '#/definitions/Weathers'
+        '404':
+          description: Temp not found
+parameters:
+  headerSearchId:
+    in: header
+    name: Search-Id
+    type: string
+    description: Unique search id
+    x-example: 569eecd9-9962-4aed-a0f0-30476c6a82ed
+  queryOffset:
+    in: query
+    name: offset
+    required: false
+    type: integer
+    description: The number of items to skip before starting to collect the result set.
+  queryTextSearch:
+    in: query
+    name: textSearch
+    required: false
+    type: string
+    description: Search string to query
+  pathId:
+    in: path
+    name: id
+    type: integer
+    required: true
+    description: Numeric ID of object to fetch
+definitions:
+  GenericSearchMeta:
+    properties:
+      totalResultCount:
+        type: number
+      offset:
+        type: number
+      limit:
+        type: number
+  Weather:
+    type: object
+    properties:
+      id:
+        type: integer
+      date:
+        type: string
+        format: date
+      location:
+        type: string
+      cloudCoverPercentage:
+        type: integer
+      humidityPercentage:
+        type: integer
+      temperature:
+        type: number
+  Weathers:
+    type: array
+    items:
+      $ref: '#/definitions/Weather'
+  WeatherPost:
+    type: object
+    properties:
+      date:
+        type: string
+        format: date
+      location:
+        type: string
+      cloudCoverPercentage:
+        type: integer
+      humidityPercentage:
+        type: integer
+      temperature:
+        type: number
+  WeatherPut:
+    allOf:
+      - $ref: '#/definitions/WeatherPost'
+      - type: object
+        properties:
+          id:
+            type: integer
