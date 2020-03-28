@@ -15,3 +15,18 @@ channels:
 components:
   schemas:
     $ref: ./components/schemas/index.yml
+
+{{ inject([{
+ toAllOperations: {
+   content: {
+     parameters: {
+       streetlightId:{
+         description: 'The ID of the streetlight.',
+         schema:{
+           type: 'string'
+         }
+       }
+     }
+   }
+ }
+}]) }}

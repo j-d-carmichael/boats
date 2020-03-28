@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.5.0
+  version: 1.6.0
   title: boats
   description: A sample API
   contact:
@@ -14,9 +14,6 @@ host: api.example.com
 basePath: /v1
 schemes:
   - https
-tags:
-  - name: weather
-    description: Weather data
 paths:
   /weather/:
     get:
@@ -28,6 +25,8 @@ paths:
       parameters:
         - $ref: '#/parameters/queryOffset'
         - $ref: '#/parameters/queryTextSearch'
+        - &ref_0
+          $ref: '#/parameters/headerSearchId'
       responses:
         '200':
           description: Successful fetch
@@ -39,8 +38,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Weather'
-        '404':
-          description: Temp not found
+        '404': &ref_1
+          description: Path & method combination not found
     post:
       tags:
         - weather
@@ -54,11 +53,13 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/WeatherPost'
+        - *ref_0
       responses:
         '200':
           description: Successful temp creation
           schema:
             $ref: '#/definitions/Weather'
+        '404': *ref_1
         '422':
           description: Invalid form data provided
   '/weather/id/{id}':
@@ -72,13 +73,13 @@ paths:
         - application/json
       parameters:
         - $ref: '#/parameters/pathId'
+        - *ref_0
       responses:
         '200':
           description: Successful fetch
           schema:
             $ref: '#/definitions/Weather'
-        '404':
-          description: Temp not found
+        '404': *ref_1
     put:
       tags:
         - weather
@@ -95,11 +96,13 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/WeatherPut'
+        - *ref_0
       responses:
         '200':
           description: Successful temp creation
           schema:
             $ref: '#/definitions/Weather'
+        '404': *ref_1
         '422':
           description: Invalid form data provided
   /weather/latest:

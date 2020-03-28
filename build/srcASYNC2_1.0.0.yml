@@ -18,6 +18,11 @@ channels:
         contentType: application/json
         payload:
           $ref: '#/components/schemas/ms_auth.cache.connection'
+    parameters:
+      streetlightId:
+        description: The ID of the streetlight.
+        schema:
+          type: string
 components:
   schemas:
     ms_auth.cache.connection:
