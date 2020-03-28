@@ -2,6 +2,8 @@
 
 Beautiful Open Api Template System (and AsyncAPI)
 
+[searching for a better set of words for the BOATS acronym :) ]
+
 ## Summary
 
 ---
