@@ -1,11 +1,11 @@
 # Weather
 /weather/:
   get:
-    $ref: ./v1/weather/get.yml
+    $ref: ./weather/get.yml
   post:
-    $ref: ./v1/weather/post.yml
+    $ref: ./weather/post.yml
 /weather/id/{id}:
   get:
-    $ref: ./v1/weather/id/get.yml
+    $ref: ./weather/id/get.yml
   put:
-    $ref: ./v1/weather/id/put.yml
+    $ref: ./weather/id/put.yml

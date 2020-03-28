@@ -1,13 +1,13 @@
 GenericSearchMeta:
-  $ref: ./generic/searchMeta.yml
+  $ref: ./generic/searchMeta.yml.njk
 
 Weather:
-  $ref: ./weather/model.yml
+  $ref: ./weather/model.yml.njk
 
-Weathers: <$ mixin("../../mixins/response/pagination.yml", "./generic/searchMeta.yml", "./weather/model.yml") $>
+Weathers: {{ mixin("../../mixins/response/pagination.yml.njk", "./generic/searchMeta.yml.njk", "./weather/model.yml.njk") }}
 
 WeatherPost:
-  $ref: ./weather/post.yml
+  $ref: ./weather/post.yml.njk
 
 WeatherPut:
-  $ref: ./weather/put.yml
+  $ref: ./weather/put.yml.njk

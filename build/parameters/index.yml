@@ -1,3 +1,5 @@
+headerSearchId:
+  $ref: ./headerSearchId.yml
 queryOffset:
   $ref: ./queryOffset.yml
 queryTextSearch:

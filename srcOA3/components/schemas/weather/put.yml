@@ -1,5 +1,5 @@
 allOf:
-  - $ref: ./post.yml
+  - $ref: ./post.yml.njk
   - type: object
     properties:
       id:

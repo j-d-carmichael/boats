@@ -1,7 +1,7 @@
-openapi: "3.0.0"
+swagger: "2.0"
 info:
-  version: 1.5.0
-  title: boats
+  version: {{ packageJson('version') }}
+  title: {{ packageJson('name') }}
   description: A sample API
   contact:
     name: Swagger API Team
@@ -11,18 +11,19 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-servers:
-  - url: localhost
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
 
 tags:
   - name: weather
     description: Weather data
 
 paths:
-  $ref: paths/index.yml
+  $ref: paths/index.yml.njk
 
-components:
-  parameters:
-    $ref: components/parameters/index.yml
-  schemas:
-    $ref: components/schemas/index.yml
+parameters:
+  $ref: parameters/index.yml.njk
+definitions:
+  $ref: definitions/index.yml.njk

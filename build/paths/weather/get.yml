@@ -1,0 +1,16 @@
+tags:
+  - Weather
+summary: weather data
+description: Get the latest temperatures
+operationId: weatherGetYml
+responses:
+  '200':
+    description: Successful fetch
+    content: 
+      application/json:
+        schema:
+          $ref: ../../components/schemas/index.yml#/Weathers
+      
+      
+  '404':
+    description: Temp not found

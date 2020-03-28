@@ -1,0 +1,11 @@
+# Weather
+/weather/:
+  get:
+    $ref: ./weather/get.yml.njk
+  post:
+    $ref: ./weather/post.yml.njk
+/weather/id/{id}:
+  get:
+    $ref: ./weather/id/get.yml.njk
+  put:
+    $ref: ./weather/id/put.yml.njk

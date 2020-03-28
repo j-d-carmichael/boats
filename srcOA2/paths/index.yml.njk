@@ -1,0 +1,20 @@
+## All route registered in a single index file. Should this file be getting very long, think about breaking your API up into smaller service aka microservice architecture
+
+# General routes to search and create items
+/weather/:
+  get:
+    $ref: ./v1/weather/get.yml.njk
+  post:
+    $ref: ./v1/weather/post.yml.njk
+
+# Item specific routes, note the prefix /id/{id}
+/weather/id/{id}:
+  get:
+    $ref: ./v1/weather/id/get.yml.njk
+  put:
+    $ref: ./v1/weather/id/put.yml.njk
+
+# As the above {id} is nested inside /id, we can now introduce another weather uri segment
+/weather/latest:
+  get:
+    $ref: ./v1/weather/latest/get.yml.njk
