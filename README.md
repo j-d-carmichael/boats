@@ -11,8 +11,10 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
  - Unique operation id's based on file location automatically
+ - Inject common content and responses
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
+ - See [built in functions](#template-functions-built-in) below for more
 
 (to use with AsyncAPI set the `--type asyncapi`)
 
@@ -49,6 +51,18 @@ BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also 
 
 If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
+#### File ext. 
+You may use `.yaml` or `.yml`.
+
+You may also use, since version 1.50, the nunjucks extension, but only on .yml (not .yaml), eg: `something.yml.njk`.
+
+Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig mapping in you settings for file types). 
+
+Adding the `.yml.njk` allows the ide to easily use the yaml and nunjucks highlighting in 1 which is pretty cool.
+
+Additionally, when using the `.yml.njk` ext you will also want to back back to the default njk tags by not setting any tags in your `.boatsrc` file
+
+
 #### .boatsrc 
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
  
@@ -78,7 +92,30 @@ The default tag delimiters in BOATS are:
 "commentEnd": "#>"
 ```
 
+If you use the `.yml.njk`, you will want to just use the default tags from nunjucks. 
+
+The following just lets nunjucks pick the defaults (ie the ones in [their docs](https://mozilla.github.io/nunjucks/templating.html)) which then allow the ide to highlight the files correctly.:
+```json
+ {
+   "nunjucksOptions": {
+     "tags": {}
+   }
+}
+```
+
 #### Template functions built in
+
+##### inject
+
+Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L25
+
+The inject helper allows you to inject content to many operations from a single block. In the example above we are injecting a header parameter to every path method.
+
+For openapi, the content will be merged/concat/injected into paths that are not excluded.
+
+For asyncapi, the content will be merged/concat/injected into [channels](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/index.yml#L19).
+
+Type less do more.
 
 ##### mixin
 Example use:
