@@ -43,12 +43,14 @@ if (program.init) {
     .then(async (returnFile) => {
       const writtenOutFilePath = await swagBundle(returnFile);
       if (program.validate === 'on') {
-        if (program.type && program.type === 'asyncapi') {
-          await validate.asyncapi(
-            fs.readFileSync(writtenOutFilePath).toString()
-          );
-        } else {
-          await validate.openapi(returnFile);
+        if(program.type){
+          if (program.type === 'asyncapi') {
+            await validate.asyncapi(
+              fs.readFileSync(writtenOutFilePath).toString()
+            );
+          } else if(['openapi', 'swagger'].indexOf(program.type) !== -1){
+            await validate.openapi(returnFile);
+          }
         }
       }
     })

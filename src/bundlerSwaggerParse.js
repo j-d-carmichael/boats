@@ -2,6 +2,7 @@ const path = require('path');
 const YAML = require('js-yaml');
 const fs = require('fs-extra');
 const getFilePath = require('./getOutputName');
+const Injector = require('./Injector');
 const $RefParser = require('json-schema-ref-parser');
 
 /**
@@ -25,6 +26,7 @@ module.exports = async (inputFile, outputFile, options = {}, indentation = 2, ex
   if (dereference) {
     bundled = await $RefParser.dereference(bundled);
   }
+  bundled = Injector.init(bundled)
   let contents;
   if (path.extname(outputFile) === '.json') {
     contents = JSON.stringify(bundled, null, indentation);

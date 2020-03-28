@@ -206,6 +206,7 @@ class Template {
 
     env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'))
     env.addGlobal('autoTag', require('../nunjucksHelpers/autoTag'))
+    env.addGlobal('inject', require('../nunjucksHelpers/inject'))
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
     env.addGlobal('currentFilePointer', this.currentFilePointer)
 
