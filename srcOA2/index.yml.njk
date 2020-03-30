@@ -24,7 +24,8 @@ definitions:
 
 {{ inject([{
     toAllOperations: {
-      exclude: ['/weather/latest'],
+      excludePaths: ['/weather/latest'],
+      includeMethods: ['get'],
       content: {
         parameters: [{
           '$ref': '#/parameters/headerSearchId'
