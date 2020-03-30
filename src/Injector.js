@@ -48,14 +48,18 @@ class Injector {
   }
 
   toAllOperationsPaths (inputObject, injection) {
-    const excludeOps = injection.exclude || []
+    const excludeOps = injection.excludePaths || []
+    const includeMethods = injection.includeMethods.map(m => m.toLowerCase()) || false
     for (let path in inputObject.paths) {
       if (excludeOps.indexOf(path) !== -1) {
         continue
       }
 
       for (let method in inputObject.paths[path]) {
-
+        method = method.toLowerCase()
+        if (includeMethods && includeMethods.indexOf(method) === -1) {
+          continue
+        }
         for (let attribute in injection.content) {
           const attributeValue = injection.content[attribute]
           if (inputObject.paths[path][method][attribute]) {

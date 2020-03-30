@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.6.0
+  version: 1.7.0
   title: boats
   description: A sample API
   contact:
@@ -53,13 +53,11 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/WeatherPost'
-        - *ref_0
       responses:
         '200':
           description: Successful temp creation
           schema:
             $ref: '#/definitions/Weather'
-        '404': *ref_1
         '422':
           description: Invalid form data provided
   '/weather/id/{id}':
@@ -96,13 +94,11 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/WeatherPut'
-        - *ref_0
       responses:
         '200':
           description: Successful temp creation
           schema:
             $ref: '#/definitions/Weather'
-        '404': *ref_1
         '422':
           description: Invalid form data provided
   /weather/latest:
