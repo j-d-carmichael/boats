@@ -36,7 +36,7 @@ class Template {
         .on('file', async (file) => {
           const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
           const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths, boatsrc)
-          if (inputFile === file) {
+          if (path.normalize(inputFile) === path.normalize(file)) {
             returnFileinput = outputFile
           }
           fs.outputFileSync(outputFile, rendered)
