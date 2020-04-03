@@ -3,7 +3,7 @@ const path = require('path');
 const bundlerSwaggerParse = require('./src/bundlerSwaggerParse');
 const Template = require('./src/Template');
 const validate = require('./src/validate');
-const program = require('./commander')();
+const program = require('./commander')(process.argv);
 const dotenvFilePath = path.join(process.cwd(), '.env');
 const boatsrc = path.join(process.cwd(), '.boatsrc');
 
