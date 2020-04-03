@@ -1,7 +1,7 @@
 const program = require('commander');
 const collect = require('./commander.collect');
 const helperFunctions = require('./commander.helperFunctions');
-module.exports = () => {
+module.exports = (args) => {
   program
     .option('--init', 'Inject a skeleton yml structure to the current directory named /src/...')
 
@@ -18,7 +18,7 @@ module.exports = () => {
     .option('-t, --type <type>', 'Which validator to use, "openapi" or "asyncapi"?', /^(openapi|asyncapi)$/i, 'openapi')
     .option('-v, --validate <state>', 'Validate OA 2/3 state "on" or "off"', /^(on|off)$/i, 'on')
     .option('-x, --exclude_version', 'By default the OA version is injected into the file name, this option stops this happening.')
-    .parse(process.argv);
+    .parse(args);
 
   return program;
 };

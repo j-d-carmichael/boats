@@ -8,6 +8,8 @@ ___
 Full docsify documentation here: [https://johndcarmichael.github.io/boats/](https://johndcarmichael.github.io/boats/)
 
 ## Last publish reason
+- 2020/04/03 1.7.1 Release: PR from @CasperJ to fix windows build environments 
+- 2020/03/30 1.7.0 Release: Tpl helper "inject" new option "includeMethods"
 - 2020/03/28 1.6.0 Release: New tpl helper "inject" common content to paths/channels inc. exclude list
 - 2020/03/28 1.5.0 Release: .njk ext support allowing std nunjucks tags, tip: .boatsrc
 - 2020/03/08 1.4.0 Release: Added ability to build and validate AsyncAPI yml files
