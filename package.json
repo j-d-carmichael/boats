@@ -1,12 +1,13 @@
 {
   "name": "boats",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
-    "swagger",
+    "asyncapi",
     "openapi",
     "openapi2",
     "openapi3",
+    "swagger",
     "openapi template",
     "yaml",
     "bundle",
@@ -45,25 +46,25 @@
   },
   "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
-    "asyncapi-parser": "^0.14.0",
+    "asyncapi-parser": "^0.15.0",
     "camelcase": "^5.3.1",
-    "commander": "^2.20.3",
+    "commander": "^5.0.0",
     "dotenv": "^8.2.0",
-    "fs-extra": "^8.1.0",
-    "inquirer": "^6.5.2",
+    "fs-extra": "^9.0.0",
+    "inquirer": "^7.1.0",
     "js-yaml": "^3.13.1",
-    "nunjucks": "^3.2.0",
-    "swagger-parser": "^8.0.4",
+    "nunjucks": "^3.2.1",
+    "swagger-parser": "^9.0.1",
     "walker": "^1.0.7",
-    "json-schema-ref-parser": "latest"
+    "json-schema-ref-parser": "^8.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "eslint": "^6.8.0",
-    "jest": "^24.9.0"
+    "jest": "^25.2.7"
   },
   "engines": {
-    "node": "10"
+    "node": "12"
   }
 }
