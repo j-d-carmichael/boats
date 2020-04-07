@@ -8,7 +8,8 @@ ___
 Full docsify documentation here: [https://johndcarmichael.github.io/boats/](https://johndcarmichael.github.io/boats/)
 
 ## Last publish reason
-- 2020/04/07 1.7.3 Release: Bug fix only the 1st inject found block is respected, other blocks are ignored
+- 2020/04/07 1.7.4 Release: Bug fix only the 1st inject found block is respected, other blocks are ignored
+- 2020/04/07 1.7.3 Release: Chore dependency update, camelcase
 - 2020/04/07 1.7.2 Release: Bug fix relating to "inject" new option "includeMethods"
 - 2020/04/03 1.7.1 Release: PR from @CasperJ to fix windows build environments 
 - 2020/03/30 1.7.0 Release: Tpl helper "inject" new option "includeMethods"
