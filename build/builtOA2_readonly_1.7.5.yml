@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.7.4
+  version: 1.7.5
   title: boats
   description: A sample API
   contact:
@@ -25,8 +25,6 @@ paths:
       parameters:
         - $ref: '#/parameters/queryOffset'
         - $ref: '#/parameters/queryTextSearch'
-        - &ref_0
-          $ref: '#/parameters/headerSearchId'
       responses:
         '200':
           description: Successful fetch
@@ -38,28 +36,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Weather'
-        '404': &ref_1
+        '404': &ref_0
           description: Path & method combination not found
-    post:
-      tags:
-        - weather
-      summary: weather data
-      description: Create a new weather record.
-      operationId: v1WeatherPostYml
-      parameters:
-        - in: body
-          name: v1WeatherPostYml
-          description: Optional description in *Markdown*
-          required: true
-          schema:
-            $ref: '#/definitions/WeatherPost'
-      responses:
-        '200':
-          description: Successful temp creation
-          schema:
-            $ref: '#/definitions/Weather'
-        '422':
-          description: Invalid form data provided
   '/weather/id/{id}':
     get:
       tags:
@@ -71,36 +49,12 @@ paths:
         - application/json
       parameters:
         - $ref: '#/parameters/pathId'
-        - *ref_0
       responses:
         '200':
           description: Successful fetch
           schema:
             $ref: '#/definitions/Weather'
-        '404': *ref_1
-    put:
-      tags:
-        - weather
-      summary: weather data
-      description: Create a new weather record.
-      operationId: v1WeatherIdPutYml
-      produces:
-        - application/json
-      parameters:
-        - $ref: '#/parameters/pathId'
-        - in: body
-          name: v1WeatherIdPutYml
-          description: Optional description in *Markdown*
-          required: true
-          schema:
-            $ref: '#/definitions/WeatherPut'
-      responses:
-        '200':
-          description: Successful temp creation
-          schema:
-            $ref: '#/definitions/Weather'
-        '422':
-          description: Invalid form data provided
+        '404': *ref_0
   /weather/latest:
     get:
       tags:

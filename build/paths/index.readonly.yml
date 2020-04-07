@@ -1,0 +1,27 @@
+## This additional_path block gets filled with any extra from the readonly and the normal api index
+
+## place any readonly specific paths here
+
+
+## All route registered in a single index file.
+## Should this file be getting very long, think about breaking your API up into smaller service aka microservice architecture.
+## In this simple example we are using 1 paths file for 2 apis, this base tpl is use by the full weather api and also the readonly api.
+## The index.readonly.yml sets a var write to be false which results in the output not printing the post/put routes.. aka the write routes.
+## This is a very handy feature to ensure as little human error as possible when maintaining public/private apis to the same data set.
+
+# General routes to search and create items
+/weather/:
+  get:
+    $ref: ./v1/weather/get.yml
+
+
+# Item specific routes, note the prefix /id/{id}
+/weather/id/{id}:
+  get:
+    $ref: ./v1/weather/id/get.yml
+
+
+# As the above {id} is nested inside /id, we can now introduce another weather uri segment
+/weather/latest:
+  get:
+    $ref: ./v1/weather/latest/get.yml
