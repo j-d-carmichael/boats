@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -47,7 +47,7 @@
   "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
     "asyncapi-parser": "^0.15.0",
-    "camelcase": "^5.3.1",
+    "camelcase": "^6.0.0",
     "commander": "^5.0.0",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.0",
