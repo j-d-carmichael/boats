@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
