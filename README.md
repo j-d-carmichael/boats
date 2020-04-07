@@ -7,7 +7,13 @@ ___
 
 Full docsify documentation here: [https://johndcarmichael.github.io/boats/](https://johndcarmichael.github.io/boats/)
 
+Example files can be found here:
+- https://github.com/johndcarmichael/boats/tree/master/srcASYNC2
+- https://github.com/johndcarmichael/boats/tree/master/srcOA2 (note the readonly use of nunjucks extend here)
+- https://github.com/johndcarmichael/boats/tree/master/srcOA3
+
 ## Last publish reason
+- 2020/04/07 1.7.5 Release: Docs better examples readme links.
 - 2020/04/07 1.7.4 Release: Bug fix only the 1st inject found block is respected, other blocks are ignored
 - 2020/04/07 1.7.3 Release: Chore dependency update, camelcase
 - 2020/04/07 1.7.2 Release: Bug fix relating to "inject" new option "includeMethods"

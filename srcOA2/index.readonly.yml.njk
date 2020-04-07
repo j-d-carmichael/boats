@@ -17,14 +17,13 @@ schemes:
     - https
 
 {#
-    Note that here we are including the normal paths index,
+    Note that here we are including the readonly paths index,
     chase it through and you will see a usefull example of
     using nunjucks set, extends and block features to
     type less and more.
-    Compare this to the /src/OA2/index.readonly.yml.njk
 #}
 paths:
-    $ref: paths/index.yml.njk
+    $ref: paths/index.readonly.yml.njk
 parameters:
     $ref: parameters/index.yml.njk
 definitions:
@@ -35,9 +34,6 @@ definitions:
       excludePaths: ['/weather/latest'],
       includeMethods: ['get'],
       content: {
-        parameters: [{
-          '$ref': '#/parameters/headerSearchId'
-        }],
         responses: {
           '404': {
             description: 'Path & method combination not found'

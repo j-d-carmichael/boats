@@ -31,11 +31,29 @@ class Template {
         throw new Error('You must pass an input file and output directory when parsing multiple files.')
       }
       inputFile = this.cleanInputString(inputFile)
+      // ensure we parse the input file 1st as this typically contains the inject function
+      this.load(
+        fs.readFileSync(inputFile, 'utf8'),
+        inputFile,
+        originalIndent,
+        stripValue,
+        variables,
+        helpFunctionPaths,
+        boatsrc
+      )
       let returnFileinput
       walker(path.dirname(inputFile))
-        .on('file', async (file) => {
+        .on('file', (file) => {
           const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
-          const rendered = await this.load(fs.readFileSync(file, 'utf8'), file, originalIndent, stripValue, variables, helpFunctionPaths, boatsrc)
+          const rendered = this.load(
+            fs.readFileSync(file, 'utf8'),
+            file,
+            originalIndent,
+            stripValue,
+            variables,
+            helpFunctionPaths,
+            boatsrc
+          )
           if (path.normalize(inputFile) === path.normalize(file)) {
             returnFileinput = outputFile
           }
@@ -117,7 +135,7 @@ class Template {
    * @param boatsrc Fully qualified path to .boatsrc file
    * @returns {Promise<*>}
    */
-  async load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}, helpFunctionPaths = [], boatsrc) {
+  load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}, helpFunctionPaths = [], boatsrc) {
     this.currentFilePointer = fileLocation
     this.originalIndentation = originalIndentation
     this.stripValue = stripValue
