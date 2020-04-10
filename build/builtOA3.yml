@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.7.5
+  version: 1.7.6
   title: boats
   description: A sample API
   contact:
