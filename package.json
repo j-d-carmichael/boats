@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -34,7 +34,7 @@
     "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -s srcOA3/paths/",
     "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_no_version.yml -x -s srcOA2/paths/",
     "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -x -s srcOA3/paths/",
-    "prepublish": "npm run test"
+    "prepublishOnly": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -54,10 +54,11 @@
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
     "js-yaml": "^3.13.1",
+    "json-schema-ref-parser": "^8.0.0",
+    "npm-tool-version-check": "^1.0.1",
     "nunjucks": "^3.2.1",
     "swagger-parser": "^9.0.1",
-    "walker": "^1.0.7",
-    "json-schema-ref-parser": "^8.0.0"
+    "walker": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
