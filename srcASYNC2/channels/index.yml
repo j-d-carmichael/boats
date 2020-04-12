@@ -1,2 +1,0 @@
-ms_auth.cache.connection:
-  $ref: ./ms_auth.cache.connection.yml

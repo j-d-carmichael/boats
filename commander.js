@@ -18,6 +18,7 @@ module.exports = (args) => {
     .option('-t, --type <type>', 'Which validator to use, "openapi" or "asyncapi"?', /^(openapi|asyncapi)$/i, 'openapi')
     .option('-v, --validate <state>', 'Validate OA 2/3 state "on" or "off"', /^(on|off)$/i, 'on')
     .option('-x, --exclude_version', 'By default the OA version is injected into the file name, this option stops this happening.')
+    .option('--convert_to_njk <localDirectory>', 'Convert to .yml.njk, pass in a relative src folder eg: --convert_to_njk ./src')
     .parse(args);
 
   return program;
