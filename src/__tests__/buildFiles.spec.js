@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const packageJson = require('../package');
+const packageJson = require('../../package');
 
 describe('Check to ensure the files are generated with the correct file names:', () => {
   const paths = [

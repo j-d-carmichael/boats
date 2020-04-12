@@ -1,4 +1,4 @@
-const removeFileExtension = require('../src/removeFileExtension')
+const removeFileExtension = require('../removeFileExtension')
 describe('removeFileExtension', () => {
   it('Removes .yml from path provided', () => {
     expect(

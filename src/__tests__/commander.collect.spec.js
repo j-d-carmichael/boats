@@ -1,4 +1,4 @@
-const collect = require('../commander.collect');
+const collect = require('../../commander.collect');
 
 test('add bob=bob and expect as object in arr', () => {
   expect(collect('bob=bob', [])).toEqual([{

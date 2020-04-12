@@ -8,5 +8,6 @@ node_js:
 sudo: false
 scripts:
   - npm install codecov -g
+  - npm run test
 after_success:
   - codecov

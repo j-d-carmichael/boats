@@ -1,4 +1,4 @@
-const calculateIndentFromLineBreak = require('../src/calculateIndentFromLineBreak');
+const calculateIndentFromLineBreak = require('../calculateIndentFromLineBreak');
 
 describe('calculateIndentFromLineBreak', () => {
   it('check 4 space indent from start of file', () => {

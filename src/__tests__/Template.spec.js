@@ -1,4 +1,4 @@
-const Template = require('../src/Template');
+const Template = require('../Template');
 
 const string1 = `
 Weather: mixin('some/path', 321)

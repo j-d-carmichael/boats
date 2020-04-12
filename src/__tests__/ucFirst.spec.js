@@ -1,4 +1,4 @@
-const ucFirst = require('../src/ucFirst');
+const ucFirst = require('../ucFirst');
 
 describe('ucFirst', () => {
   it('uppercase a lowercase start', () => {
