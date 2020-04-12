@@ -6,3 +6,7 @@ node_js:
   - "node"
   - "12"
 sudo: false
+scripts:
+  - npm install codecov -g
+after_success:
+  - codecov
