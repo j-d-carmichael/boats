@@ -13,10 +13,8 @@ class UniqueOperationIds {
    */
   getUniqueOperationIdFromPath (filePath, stripValue, cwd) {
     cwd = cwd || process.cwd();
-    console.log(filePath)
     filePath = filePath.replace(cwd, '');
     filePath = removeFileExtension(filePath.replace(stripValue, ''));
-    console.log(filePath)
     let filePathParts = filePath.split('/');
     for (let i = 0; i < filePathParts.length; ++i) {
       if (filePathParts[i] !== '/') {

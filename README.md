@@ -13,6 +13,7 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
+- 2020/04/12 1.9.1: &#128558; left a console log in place
 - 2020/04/12 1.9.0: Expose convert to njk file ext, --convert_to_njk ./src
 - 2020/04/12 1.8.0: New tpl helper fileName & uniqueOpId bug fix for .njk files
 - 2020/04/07 1.7.5: Docs better examples readme links.
