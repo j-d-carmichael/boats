@@ -27,7 +27,7 @@ checkVersion(
     require('./init')
   } else {
     // parse the directory then validate and bundle with swagger-parser
-    const swagBundle = async (inputFile) => {
+    const swagBundle = async (inputFile, validate) => {
       try {
         return await bundlerSwaggerParse(
           inputFile,
@@ -35,7 +35,8 @@ checkVersion(
           {},
           program.indentation,
           program.exclude_version,
-          program.dereference
+          program.dereference,
+          validate
         )
       } catch (e) {
         console.error('Bundler error', e)
@@ -51,18 +52,7 @@ checkVersion(
       , boatsrc
     )
       .then(async (returnFile) => {
-        const writtenOutFilePath = await swagBundle(returnFile)
-        if (program.validate === 'on') {
-          if (program.type) {
-            if (program.type === 'asyncapi') {
-              await validate.asyncapi(
-                fs.readFileSync(writtenOutFilePath).toString()
-              )
-            } else if (['openapi', 'swagger'].indexOf(program.type) !== -1) {
-              await validate.openapi(returnFile)
-            }
-          }
-        }
+        const writtenOutFilePath = await swagBundle(returnFile, program.validate)
       })
       .catch((err) => {
         console.error(err)
