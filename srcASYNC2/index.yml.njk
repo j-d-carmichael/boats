@@ -1,8 +1,8 @@
 asyncapi: 2.0.0
 info:
-  title: Streetlights API
-  version: '1.0.0'
-  description: G2 RabbitMQ routing keys
+  title: {{ packageJson('name') }}
+  version: {{ packageJson('version') }}
+  description: {{ packageJson('description') }}
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
@@ -10,11 +10,11 @@ info:
 defaultContentType: application/json
 
 channels:
-  $ref: ./channels/index.yml
+  $ref: ./channels/index.yml.njk
 
 components:
   schemas:
-    $ref: ./components/schemas/index.yml
+    $ref: ./components/schemas/index.yml.njk
 
 {{ inject([{
  toAllOperations: {

@@ -18,7 +18,11 @@ checkVersion(
   'BOATS'
 ).then(() => {
   const program = require('./commander')(process.argv)
-  if (program.init) {
+  if (program.convert_to_njk) {
+    console.log(program.convert_to_njk)
+    const convert = require('./src/convertToNunjucks')
+    convert(program.convert_to_njk)
+  } else if (program.init) {
     // Return init function
     require('./init')
   } else {
