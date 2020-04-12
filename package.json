@@ -26,7 +26,7 @@
     "clean:build": "rm -fR ./build/*",
     "lint": "eslint *.js src/",
     "test": "npm run clean:build && npm run test:builds && npm run test:unit",
-    "test:unit": "NODE_ENV=TEST jest",
+    "test:unit": "jest",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
     "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2.yml -t asyncapi",
     "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_std.yml -s srcOA2/paths/",
