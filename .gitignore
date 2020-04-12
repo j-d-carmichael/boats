@@ -1,5 +1,6 @@
 # Not the gitkeep files
 !.gitkeep
+.package-lock.json
 
 # Ignore these files
 node_modules/
