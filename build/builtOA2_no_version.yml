@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.7.6
+  version: 1.8.0
   title: boats
   description: A sample API
   contact:
@@ -21,7 +21,8 @@ paths:
         - weather
       summary: weather search
       description: Search for weather objects
-      operationId: v1WeatherGetYml
+      operationId: v1WeatherGet
+      x-filename: get
       parameters:
         - $ref: '#/parameters/queryOffset'
         - $ref: '#/parameters/queryTextSearch'
@@ -45,10 +46,10 @@ paths:
         - weather
       summary: weather data
       description: Create a new weather record.
-      operationId: v1WeatherPostYml
+      operationId: v1WeatherPost
       parameters:
         - in: body
-          name: v1WeatherPostYml
+          name: v1WeatherPost
           description: Optional description in *Markdown*
           required: true
           schema:
@@ -66,7 +67,7 @@ paths:
         - weather
       summary: One weather object
       description: Get the full weather object
-      operationId: v1WeatherIdGetYml
+      operationId: v1WeatherIdGet
       produces:
         - application/json
       parameters:
@@ -83,13 +84,13 @@ paths:
         - weather
       summary: weather data
       description: Create a new weather record.
-      operationId: v1WeatherIdPutYml
+      operationId: v1WeatherIdPut
       produces:
         - application/json
       parameters:
         - $ref: '#/parameters/pathId'
         - in: body
-          name: v1WeatherIdPutYml
+          name: v1WeatherIdPut
           description: Optional description in *Markdown*
           required: true
           schema:
@@ -107,7 +108,7 @@ paths:
         - weather
       summary: lastest weather data
       description: Get the latest temperatures
-      operationId: v1WeatherLatestGetYml
+      operationId: v1WeatherLatestGet
       produces:
         - application/json
       responses:

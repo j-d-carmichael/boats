@@ -2,7 +2,7 @@ tags:
   - Weather
 summary: weather data
 description: Get the latest temperatures
-operationId: weatherGetYml
+operationId: weatherGet
 responses:
   '200':
     description: Successful fetch

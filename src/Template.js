@@ -5,6 +5,8 @@ const fs = require('fs-extra')
 const calculateIndentFromLineBreak = require('./calculateIndentFromLineBreak')
 const cloneObject = require('./cloneObject')
 const defaults = require('./defaults')
+const stripFromEnd = require('../src/stripFromEndOfString')
+
 
 class Template {
   /**
@@ -113,11 +115,14 @@ class Template {
    * @return string
    */
   stripNjkExtension (input) {
-    return (input.substring(input.length - 4) === '.njk') ?
-      input.substring(0, input.length - 4) :
-      input
+    return stripFromEnd(input, '.njk')
   }
 
+  /**
+   * After render use only, takes a rendered njk file and replaces the .yml.njk with .njk
+   * @param multiLineBlock
+   * @returns {*|void|string}
+   */
   stripNjkExtensionFrom$Refs (multiLineBlock) {
     const pattern = '.yml.njk'
     const regex = new RegExp(pattern, 'g')
@@ -225,6 +230,7 @@ class Template {
     env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'))
     env.addGlobal('autoTag', require('../nunjucksHelpers/autoTag'))
     env.addGlobal('inject', require('../nunjucksHelpers/inject'))
+    env.addGlobal('fileName', require('../nunjucksHelpers/fileName'))
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
     env.addGlobal('currentFilePointer', this.currentFilePointer)
 

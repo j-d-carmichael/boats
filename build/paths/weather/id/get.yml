@@ -2,7 +2,7 @@ tags:
   - Weather
 summary: weather data
 description: Get the latest temperatures
-operationId: weatherIdGetYml
+operationId: weatherIdGet
 parameters:
   - $ref: ../../../components/parameters/pathId.yml
 responses:

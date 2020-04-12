@@ -32,21 +32,3 @@ describe('getUniqueOperationIdFromPath', () => {
     );
   });
 });
-
-describe('removeFileExtension', () => {
-  it('Removes .yml from path provided', () => {
-    expect(
-      UniqueOperationIds.removeFileExtension('paths/v1/weather/get.yml')
-    ).toBe(
-      'paths/v1/weather/get'
-    );
-  });
-
-  it('Handles multiple . in path', () => {
-    expect(
-      UniqueOperationIds.removeFileExtension('paths/v1/weather/get.post.yml')
-    ).toBe(
-      'paths/v1/weather/get.post'
-    );
-  });
-});

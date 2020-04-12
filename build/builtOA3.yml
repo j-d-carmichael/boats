@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.7.6
+  version: 1.8.0
   title: boats
   description: A sample API
   contact:
@@ -22,7 +22,7 @@ paths:
         - Weather
       summary: weather data
       description: Get the latest temperatures
-      operationId: weatherGetYml
+      operationId: weatherGet
       responses:
         '200':
           description: Successful fetch
@@ -37,7 +37,7 @@ paths:
         - Weather
       summary: weather data
       description: Create a new weather record.
-      operationId: weatherPostYml
+      operationId: weatherPost
       requestBody:
         description: Optional description in *Markdown*
         required: true
@@ -60,7 +60,7 @@ paths:
         - Weather
       summary: weather data
       description: Get the latest temperatures
-      operationId: weatherIdGetYml
+      operationId: weatherIdGet
       parameters:
         - $ref: '#/components/parameters/pathId'
       responses:
@@ -77,7 +77,7 @@ paths:
         - Weather
       summary: weather data
       description: Create a new weather record.
-      operationId: weatherIdPutYml
+      operationId: weatherIdPut
       requestBody:
         description: Optional description in *Markdown*
         required: true
