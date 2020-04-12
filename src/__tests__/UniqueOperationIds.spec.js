@@ -1,4 +1,4 @@
-const UniqueOperationIds = require('../src/UniqueOperationIds');
+const UniqueOperationIds = require('../UniqueOperationIds');
 
 describe('getUniqueOperationIdFromPath', () => {
   it('standard action v1WeatherGet', () => {
