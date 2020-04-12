@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.9.1",
+  "version": "1.10.0",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -28,7 +28,7 @@
     "test": "npm run clean:build && npm run test:builds && npm run test:unit",
     "test:unit": "jest",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
-    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2.yml -t asyncapi",
+    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2.yml",
     "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_std.yml -s srcOA2/paths/",
     "test:build-cli:oa2:readonly": "node ./bin/cli.js -i ./srcOA2/index.readonly.yml.njk -o ./build/builtOA2_readonly.yml -s srcOA2/paths/",
     "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -s srcOA3/paths/",
@@ -64,7 +64,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "eslint": "^6.8.0",
-    "jest": "^25.2.7"
+    "jest": "^25.3.0"
   },
   "engines": {
     "node": "12"
