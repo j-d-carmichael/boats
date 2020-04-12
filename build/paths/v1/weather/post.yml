@@ -2,10 +2,10 @@ tags:
   - weather
 summary: weather data
 description: Create a new weather record.
-operationId: v1WeatherPostYml
+operationId: v1WeatherPost
 parameters:
   - in: body
-    name: v1WeatherPostYml
+    name: v1WeatherPost
     description: Optional description in *Markdown*
     required: true
     schema:

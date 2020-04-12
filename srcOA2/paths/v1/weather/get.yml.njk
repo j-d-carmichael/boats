@@ -3,6 +3,7 @@ tags:
 summary: weather search
 description: Search for weather objects
 operationId: {{ uniqueOpId() }}
+x-filename: {{ fileName() }}
 parameters:
   - $ref: ../../../parameters/queryOffset.yml.njk
   - $ref: ../../../parameters/queryTextSearch.yml.njk

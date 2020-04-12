@@ -2,7 +2,7 @@ tags:
   - Weather
 summary: weather data
 description: Create a new weather record.
-operationId: weatherIdPutYml
+operationId: weatherIdPut
 requestBody:
   description: Optional description in *Markdown*
   required: true

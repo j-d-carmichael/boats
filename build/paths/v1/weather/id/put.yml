@@ -2,13 +2,13 @@ tags:
   - weather
 summary: weather data
 description: Create a new weather record.
-operationId: v1WeatherIdPutYml
+operationId: v1WeatherIdPut
 produces:
   - application/json
 parameters:
   - $ref: ../../../../parameters/pathId.yml
   - in: body
-    name: v1WeatherIdPutYml
+    name: v1WeatherIdPut
     description: Optional description in *Markdown*
     required: true
     schema:

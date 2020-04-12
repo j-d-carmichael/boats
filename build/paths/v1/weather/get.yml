@@ -2,7 +2,8 @@ tags:
   - weather
 summary: weather search
 description: Search for weather objects
-operationId: v1WeatherGetYml
+operationId: v1WeatherGet
+x-filename: get
 parameters:
   - $ref: ../../../parameters/queryOffset.yml
   - $ref: ../../../parameters/queryTextSearch.yml

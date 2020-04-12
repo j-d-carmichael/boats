@@ -1,6 +1,6 @@
 description: When a new connection change occurs the new cache values are emitted in the payload
 subscribe:
-  operationId: ms_auth.cache.connection
+  operationId: {{fileName()}}
   message:
     contentType: application/json
     payload:

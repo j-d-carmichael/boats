@@ -2,7 +2,7 @@ tags:
   - weather
 summary: One weather object
 description: Get the full weather object
-operationId: v1WeatherIdGetYml
+operationId: v1WeatherIdGet
 produces:
   - application/json
 parameters:

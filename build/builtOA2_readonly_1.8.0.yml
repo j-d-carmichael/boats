@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.7.6
+  version: 1.8.0
   title: boats
   description: A sample API
   contact:
@@ -21,12 +21,11 @@ paths:
         - weather
       summary: weather search
       description: Search for weather objects
-      operationId: v1WeatherGetYml
+      operationId: v1WeatherGet
+      x-filename: get
       parameters:
         - $ref: '#/parameters/queryOffset'
         - $ref: '#/parameters/queryTextSearch'
-        - &ref_0
-          $ref: '#/parameters/headerSearchId'
       responses:
         '200':
           description: Successful fetch
@@ -38,76 +37,32 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Weather'
-        '404': &ref_1
+        '404': &ref_0
           description: Path & method combination not found
-    post:
-      tags:
-        - weather
-      summary: weather data
-      description: Create a new weather record.
-      operationId: v1WeatherPostYml
-      parameters:
-        - in: body
-          name: v1WeatherPostYml
-          description: Optional description in *Markdown*
-          required: true
-          schema:
-            $ref: '#/definitions/WeatherPost'
-      responses:
-        '200':
-          description: Successful temp creation
-          schema:
-            $ref: '#/definitions/Weather'
-        '422':
-          description: Invalid form data provided
   '/weather/id/{id}':
     get:
       tags:
         - weather
       summary: One weather object
       description: Get the full weather object
-      operationId: v1WeatherIdGetYml
+      operationId: v1WeatherIdGet
       produces:
         - application/json
       parameters:
         - $ref: '#/parameters/pathId'
-        - *ref_0
       responses:
         '200':
           description: Successful fetch
           schema:
             $ref: '#/definitions/Weather'
-        '404': *ref_1
-    put:
-      tags:
-        - weather
-      summary: weather data
-      description: Create a new weather record.
-      operationId: v1WeatherIdPutYml
-      produces:
-        - application/json
-      parameters:
-        - $ref: '#/parameters/pathId'
-        - in: body
-          name: v1WeatherIdPutYml
-          description: Optional description in *Markdown*
-          required: true
-          schema:
-            $ref: '#/definitions/WeatherPut'
-      responses:
-        '200':
-          description: Successful temp creation
-          schema:
-            $ref: '#/definitions/Weather'
-        '422':
-          description: Invalid form data provided
+        '404': *ref_0
   /weather/latest:
     get:
       tags:
         - weather
       summary: lastest weather data
       description: Get the latest temperatures
-      operationId: v1WeatherLatestGetYml
+      operationId: v1WeatherLatestGet
       produces:
         - application/json
       responses:

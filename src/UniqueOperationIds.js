@@ -1,7 +1,7 @@
-const path = require('path');
 const camelcase = require('camelcase');
 const ucFirst = require('./ucFirst');
 const lcFirst = require('./lcFirst');
+const removeFileExtension = require('./removeFileExtension')
 
 class UniqueOperationIds {
   /**
@@ -13,8 +13,10 @@ class UniqueOperationIds {
    */
   getUniqueOperationIdFromPath (filePath, stripValue, cwd) {
     cwd = cwd || process.cwd();
+    console.log(filePath)
     filePath = filePath.replace(cwd, '');
-    filePath = this.removeFileExtension(filePath.replace(stripValue, ''));
+    filePath = removeFileExtension(filePath.replace(stripValue, ''));
+    console.log(filePath)
     let filePathParts = filePath.split('/');
     for (let i = 0; i < filePathParts.length; ++i) {
       if (filePathParts[i] !== '/') {
@@ -22,15 +24,6 @@ class UniqueOperationIds {
       }
     }
     return lcFirst(filePathParts.join(''));
-  }
-
-  /**
-   *
-   * @param filePath
-   * @returns {*|void|string|never}
-   */
-  removeFileExtension (filePath) {
-    return filePath.replace(path.extname(filePath), '');
   }
 }
 
