@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-    version: 1.8.1
+    version: 1.9.0
     title: boats
     description: A sample API
     contact:
