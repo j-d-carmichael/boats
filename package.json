@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "Beautiful Open Api Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -50,6 +50,7 @@
     "asyncapi-parser": "^0.15.0",
     "camelcase": "^6.0.0",
     "commander": "^5.0.0",
+    "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
