@@ -11,10 +11,20 @@ info:
         name: Apache 2.0
         url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-host: api.example.com
-basePath: /v1
 schemes:
     - https
+host: api.example.com
+basePath: /v1
+
+securityDefinitions:
+    jwtToken:
+        type: apiKey
+        in: header
+        name: authorization
+    apiKey:
+        type: apiKey
+        in: header
+        name: x-api-key
 
 {#
     Note that here we are including the normal paths index,
@@ -30,7 +40,16 @@ parameters:
 definitions:
     $ref: definitions/index.yml.njk
 
-{{ inject([{
+{{
+  inject([{
+    toAllOperations: {
+      content: {
+        security: [{
+          jwtToken: []
+        }]
+      }
+    }
+  }, {
     toAllOperations: {
       excludePaths: ['/weather/latest'],
       includeMethods: ['get'],
@@ -42,7 +61,11 @@ definitions:
           '404': {
             description: 'Path & method combination not found'
           }
-        }
+        },
+        security: [{
+          apiKey: []
+        }]
       }
     }
-  }]) }}
+  }])
+}}

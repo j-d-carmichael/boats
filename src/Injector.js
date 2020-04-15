@@ -1,3 +1,5 @@
+const deepmerge = require('deepmerge')
+
 class Injector {
   init (inputObject) {
     if (!global.boatsInject) {
@@ -33,11 +35,7 @@ class Injector {
         if (inputObject.channels[channel][attribute]) {
           const pathAttribute = inputObject.channels[channel][attribute]
           if (typeof pathAttribute === 'object') {
-            if (Array.isArray(pathAttribute)) {
-              inputObject.channels[channel][attribute] = inputObject.channels[channel][attribute].concat(attributeValue)
-            } else {
-              inputObject.channels[channel][attribute] = Object.assign(pathAttribute, attributeValue)
-            }
+            inputObject.channels[channel][attribute] = deepmerge(pathAttribute, attributeValue)
           }
         } else {
           inputObject.channels[channel][attribute] = attributeValue
@@ -65,11 +63,7 @@ class Injector {
           if (inputObject.paths[path][method][attribute]) {
             const pathAttribute = inputObject.paths[path][method][attribute]
             if (typeof pathAttribute === 'object') {
-              if (Array.isArray(pathAttribute)) {
-                inputObject.paths[path][method][attribute] = inputObject.paths[path][method][attribute].concat(attributeValue)
-              } else {
-                inputObject.paths[path][method][attribute] = Object.assign(pathAttribute, attributeValue)
-              }
+              inputObject.paths[path][method][attribute] = deepmerge(pathAttribute, attributeValue)
             }
           } else {
             inputObject.paths[path][method][attribute] = attributeValue
