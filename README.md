@@ -84,16 +84,6 @@ Example to override the default tag delimiters
 }
 ```
 
-The default tag delimiters in BOATS are:
-```
-"blockStart": "<%",
-"blockEnd": "%>",
-"variableStart": "<$",
-"variableEnd": "$>",
-"commentStart": "<#",
-"commentEnd": "#>"
-```
-
 If you use the `.yml.njk`, you will want to just use the default tags from nunjucks. 
 
 The following just lets nunjucks pick the defaults (ie the ones in [their docs](https://mozilla.github.io/nunjucks/templating.html)) which then allow the ide to highlight the files correctly.:
@@ -106,6 +96,8 @@ The following just lets nunjucks pick the defaults (ie the ones in [their docs](
 ```
 
 #### Template functions built in
+
+TIP: The tpl helpers and the examples in this repo all use the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
 
 ##### Auto Index Files
 In async/swagger/openapi the channels/paths require an index file to register the routes.
