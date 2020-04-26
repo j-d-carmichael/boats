@@ -1,7 +1,7 @@
 asyncapi: 2.0.0
 info:
   title: boats
-  version: 1.11.0
+  version: 1.0.1
   description: >-
     Beautiful Open Api Template System - Write less yaml with BOATS and
     Nunjucks.
@@ -10,16 +10,16 @@ info:
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
 defaultContentType: application/json
 channels:
-  ms_auth.cache.connection:
+  /ms-auth/cache-connection:
     description: >-
       When a new connection change occurs the new cache values are emitted in
       the payload
     subscribe:
-      operationId: ms_auth.cache.connection
+      operationId: srcAsync2ChannelsMsAuthCacheConnection
       message:
         contentType: application/json
         payload:
-          $ref: '#/components/schemas/ms_auth.cache.connection'
+          $ref: '#/components/schemas/MsAuthCacheConnection'
     parameters:
       streetlightId:
         description: The ID of the streetlight.
@@ -27,7 +27,7 @@ channels:
           type: string
 components:
   schemas:
-    ms_auth.cache.connection:
+    MsAuthCacheConnection:
       type: object
       properties:
         username:

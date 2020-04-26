@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.11.0
+  version: 1.0.1
   title: boats
   description: A sample API
   contact:
@@ -24,8 +24,8 @@ paths:
       operationId: v1WeatherGet
       x-filename: get
       parameters:
-        - $ref: '#/parameters/queryOffset'
-        - $ref: '#/parameters/queryTextSearch'
+        - $ref: '#/parameters/QueryOffset'
+        - $ref: '#/parameters/QueryTextSearch'
       responses:
         '200':
           description: Successful fetch
@@ -36,7 +36,7 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/Weather'
+                  $ref: '#/definitions/WeatherModel'
         '404':
           description: Path & method combination not found
   '/weather/id/{id}':
@@ -49,12 +49,12 @@ paths:
       produces:
         - application/json
       parameters:
-        - $ref: '#/parameters/pathId'
+        - $ref: '#/parameters/PathId'
       responses:
         '200':
           description: Successful fetch
           schema:
-            $ref: '#/definitions/Weather'
+            $ref: '#/definitions/WeatherModel'
         '404':
           description: Path & method combination not found
   /weather/latest:
@@ -70,34 +70,34 @@ paths:
         '200':
           description: Successful fetch
           schema:
-            $ref: '#/definitions/Weathers'
+            $ref: '#/definitions/WeatherModels'
         '404':
           description: Temp not found
 parameters:
-  headerSearchId:
+  HeaderSearchId:
     in: header
     name: Search-Id
     type: string
-    description: Unique search id
+    description: 'Unique search {id}'
     x-example: 569eecd9-9962-4aed-a0f0-30476c6a82ed
-  queryOffset:
-    in: query
-    name: offset
-    required: false
-    type: integer
-    description: The number of items to skip before starting to collect the result set.
-  queryTextSearch:
-    in: query
-    name: textSearch
-    required: false
-    type: string
-    description: Search string to query
-  pathId:
+  PathId:
     in: path
     name: id
     type: integer
     required: true
     description: Numeric ID of object to fetch
+  QueryOffset:
+    in: query
+    name: offset
+    required: false
+    type: integer
+    description: The number of items to skip before starting to collect the result set.
+  QueryTextSearch:
+    in: query
+    name: textSearch
+    required: false
+    type: string
+    description: Search string to query
 definitions:
   GenericSearchMeta:
     properties:
@@ -107,7 +107,14 @@ definitions:
         type: number
       limit:
         type: number
-  Weather:
+  WeatherIdPut:
+    allOf:
+      - $ref: '#/definitions/WeatherPost'
+      - type: object
+        properties:
+          id:
+            type: integer
+  WeatherModel:
     type: object
     properties:
       id:
@@ -123,10 +130,10 @@ definitions:
         type: integer
       temperature:
         type: number
-  Weathers:
+  WeatherModels:
     type: array
     items:
-      $ref: '#/definitions/Weather'
+      $ref: '#/definitions/WeatherModel'
   WeatherPost:
     type: object
     properties:
@@ -141,10 +148,3 @@ definitions:
         type: integer
       temperature:
         type: number
-  WeatherPut:
-    allOf:
-      - $ref: '#/definitions/WeatherPost'
-      - type: object
-        properties:
-          id:
-            type: integer

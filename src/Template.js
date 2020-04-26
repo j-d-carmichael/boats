@@ -227,12 +227,15 @@ class Template {
 
     env.addGlobal('packageJson', require('../nunjucksHelpers/packageJson'))
 
-    env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'))
+    env.addGlobal('autoPathIndexer', require('../nunjucksHelpers/autoPathIndexer'))
+    env.addGlobal('autoChannelIndexer', require('../nunjucksHelpers/autoChannelIndexer'))
+    env.addGlobal('autoComponentIndexer', require('../nunjucksHelpers/autoComponentIndexer'))
     env.addGlobal('autoTag', require('../nunjucksHelpers/autoTag'))
+    env.addGlobal('currentFilePointer', this.currentFilePointer)
     env.addGlobal('inject', require('../nunjucksHelpers/inject'))
     env.addGlobal('fileName', require('../nunjucksHelpers/fileName'))
+    env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'))
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
-    env.addGlobal('currentFilePointer', this.currentFilePointer)
 
     const processEnvVars = cloneObject(process.env)
     for (let key in processEnvVars) {

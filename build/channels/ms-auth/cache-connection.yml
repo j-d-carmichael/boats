@@ -1,7 +1,7 @@
 description: When a new connection change occurs the new cache values are emitted in the payload
 subscribe:
-  operationId: {{fileName()}}
+  operationId: srcAsync2ChannelsMsAuthCacheConnection
   message:
     contentType: application/json
     payload:
-      $ref: ../components/schemas/{{fileName(true)}}
+      $ref: ../../components/schemas/ms-auth/cacheConnection.yml

@@ -9,7 +9,7 @@ responses:
     content: 
       application/json:
         schema:
-          $ref: ../../components/schemas/index.yml#/Weathers
+          $ref: ../../components/schemas/weather/models.yml
       
       
   '404':

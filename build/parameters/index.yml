@@ -1,8 +1,9 @@
-headerSearchId:
+HeaderSearchId:
   $ref: ./headerSearchId.yml
-queryOffset:
-  $ref: ./queryOffset.yml
-queryTextSearch:
-  $ref: ./queryTextSearch.yml
-pathId:
+PathId:
   $ref: ./pathId.yml
+QueryOffset:
+  $ref: ./queryOffset.yml
+QueryTextSearch:
+  $ref: ./queryTextSearch.yml
+

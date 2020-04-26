@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-    version: {{ packageJson('version') }}
+    version: 1.0.1
     title: {{ packageJson('name') }}
     description: A sample API
     contact:
@@ -55,7 +55,7 @@ definitions:
       includeMethods: ['get'],
       content: {
         parameters: [{
-          '$ref': '#/parameters/headerSearchId'
+          '$ref': '#/parameters/HeaderSearchId'
         }],
         responses: {
           '404': {

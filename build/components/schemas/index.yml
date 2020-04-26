@@ -1,22 +1,11 @@
 GenericSearchMeta:
   $ref: ./generic/searchMeta.yml
-
-Weather:
+WeatherModel:
   $ref: ./weather/model.yml
-
-Weathers: 
-  type: object
-  properties:
-    meta:
-      $ref: ./generic/searchMeta.yml
-    data:
-      type: array
-      items:
-        $ref: ./weather/model.yml
-  
-
+WeatherModels:
+  $ref: ./weather/models.yml
 WeatherPost:
   $ref: ./weather/post.yml
-
 WeatherPut:
   $ref: ./weather/put.yml
+
