@@ -13,6 +13,8 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
+- 2020/04/26 1.12.2: Dependency updates, moved to @asyncapi/parser from asyncapi-parser
+- 2020/04/26 1.12.1: Readme for npm
 - 2020/04/26 1.12.0: Auto indexer tpl helpers based on directory and file structure ([paths/index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk), [channels/index](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk), [components|definitions|parameters index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk)).. less donkey work.
 - 2020/04/15 1.11.0: Using deepmerge in the inector helper for more complex injections; [srcOA2/index.yml.njk](https://github.com/johndcarmichael/boats/tree/master/srcOA2)
 - 2020/04/12 1.10.0: Auto detection of input type, asyncapi, openapi or swagger. -t cli arg no longer present

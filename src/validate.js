@@ -36,7 +36,7 @@ class Validate {
       if (typeof input === 'object') {
         input = cloneObject(input)
       }
-      const parser = require('asyncapi-parser')
+      const parser = require('@asyncapi/parser')
       parser.parse(input)
         .then((data) => {
           resolve(data)
