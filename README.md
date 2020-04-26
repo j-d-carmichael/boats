@@ -107,6 +107,18 @@ The following just lets nunjucks pick the defaults (ie the ones in [their docs](
 
 #### Template functions built in
 
+##### Auto Index Files
+In async/swagger/openapi the channels/paths require an index file to register the routes.
+By the way [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser), unless you create an index file then the references to component/definitions will not look pretty and easily break other tools.
+Maintaining these index files is quite a monotonous chore, and very human error prone. 
+
+The index file is nothing more duplicate data; we already carefully name our folders and files to then manually go and type it all out again in a not fun to manage index file.
+
+The easiest way to explain this is to look at the examples and their outputs:
+- Paths indexer, https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk resulting in the compiled file: https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L18 This indexer expects to find single files within an end url segment folder to contain the avilable http verbs.
+- Channel indexer, https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk is slightly different to the paths as a single channel file is expected to contain all subscribe and publish data in on.
+- Components|definitions|parameters indexer https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk will create a UpperCamelCase index file.
+
 ##### inject
 
 Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L25
@@ -132,6 +144,13 @@ The mixin function assumes the 1st given argument to be the relative path to the
 All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg `var1`
 
 Mixin file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml) and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
+
+The mixin will automatically calculate indents. If you use a mixin for plural models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk), then an additional argument can be added to the end: 
+```
+{{ mixin("../../../mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
+```
+
+In most cases the additional indentation which not break anything, but if a clean partial output file is required...
 
 ##### packageJson
 Example use:
