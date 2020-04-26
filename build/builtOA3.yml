@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.11.0
+  version: 1.0.1
   title: boats
   description: A sample API
   contact:
@@ -16,7 +16,7 @@ tags:
   - name: weather
     description: Weather data
 paths:
-  /weather/:
+  /weather:
     get:
       tags:
         - Weather
@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Weathers'
+                $ref: '#/components/schemas/WeatherModels'
         '404':
           description: Temp not found
     post:
@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Weather'
+                $ref: '#/components/schemas/WeatherModel'
         '422':
           description: Invalid form data provided
   '/weather/id/{id}':
@@ -60,16 +60,16 @@ paths:
         - Weather
       summary: weather data
       description: Get the latest temperatures
-      operationId: weatherIdGet
+      operationId: weatherIdIdGet
       parameters:
-        - $ref: '#/components/parameters/pathId'
+        - $ref: '#/components/parameters/PathId'
       responses:
         '200':
           description: Successful fetch
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Weather'
+                $ref: '#/components/schemas/WeatherModel'
         '404':
           description: Temp not found
     put:
@@ -77,7 +77,7 @@ paths:
         - Weather
       summary: weather data
       description: Create a new weather record.
-      operationId: weatherIdPut
+      operationId: weatherIdIdPut
       requestBody:
         description: Optional description in *Markdown*
         required: true
@@ -91,12 +91,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Weather'
+                $ref: '#/components/schemas/WeatherModel'
         '422':
           description: Invalid form data provided
 components:
   parameters:
-    queryOffset:
+    PathId:
+      in: path
+      name: id
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of object to fetch
+    QueryOffset:
       in: query
       name: offset
       required: false
@@ -104,13 +111,6 @@ components:
         type: integer
         minimum: 0
       description: The number of items to skip before starting to collect the result set.
-    pathId:
-      in: path
-      name: id
-      schema:
-        type: integer
-      required: true
-      description: Numeric ID of object to fetch
   schemas:
     GenericSearchMeta:
       properties:
@@ -120,7 +120,7 @@ components:
           type: number
         limit:
           type: number
-    Weather:
+    WeatherModel:
       type: object
       properties:
         id:
@@ -136,7 +136,7 @@ components:
           type: integer
         temperature:
           type: number
-    Weathers:
+    WeatherModels:
       type: object
       properties:
         meta:
@@ -144,7 +144,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/Weather'
+            $ref: '#/components/schemas/WeatherModel'
     WeatherPost:
       type: object
       properties:

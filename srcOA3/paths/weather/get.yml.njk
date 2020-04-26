@@ -6,6 +6,6 @@ operationId: {{ uniqueOpId() }}
 responses:
   '200':
     description: Successful fetch
-    content: {{ mixin("../../mixins/response/json.yml.njk", "../../components/schemas/index.yml.njk#/Weathers") }}
+    content: {{ mixin("../../mixins/response/json.yml.njk", "../../components/schemas/weather/models.yml.njk") }}
   '404':
     description: Temp not found

@@ -6,10 +6,10 @@ operationId: {{ uniqueOpId() }}
 requestBody:
   description: Optional description in *Markdown*
   required: true
-  content: {{ mixin("../../../mixins/request/json.yml.njk", "../../../components/schemas/weather/put.yml.njk") }}
+  content: {{ mixin("../../../../mixins/request/json.yml.njk", "../../../../components/schemas/weather/put.yml.njk") }}
 responses:
   '200':
     description: Successful temp creation
-    content: {{ mixin("../../../mixins/response/json.yml.njk", "../../../components/schemas/weather/model.yml.njk") }}
+    content: {{ mixin("../../../../mixins/response/json.yml.njk", "../../../../components/schemas/weather/model.yml.njk") }}
   '422':
     description: Invalid form data provided

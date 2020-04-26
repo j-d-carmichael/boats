@@ -1,4 +1,5 @@
-queryOffset:
-  $ref: ./queryOffset.yml
-pathId:
+PathId:
   $ref: ./pathId.yml
+QueryOffset:
+  $ref: ./queryOffset.yml
+

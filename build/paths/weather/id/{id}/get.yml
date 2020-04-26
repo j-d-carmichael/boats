@@ -2,16 +2,16 @@ tags:
   - Weather
 summary: weather data
 description: Get the latest temperatures
-operationId: weatherIdGet
+operationId: weatherIdIdGet
 parameters:
-  - $ref: ../../../components/parameters/pathId.yml
+  - $ref: ../../../../components/parameters/pathId.yml
 responses:
   '200':
     description: Successful fetch
     content: 
       application/json:
         schema:
-          $ref: ../../../components/schemas/weather/model.yml
+          $ref: ../../../../components/schemas/weather/model.yml
       
       
   '404':

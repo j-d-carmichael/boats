@@ -2,7 +2,6 @@ const fs = require('fs-extra')
 const path = require('path')
 const bundlerSwaggerParse = require('./src/bundlerSwaggerParse')
 const Template = require('./src/Template')
-const validate = require('./src/validate')
 const dotenvFilePath = path.join(process.cwd(), '.env')
 const boatsrc = path.join(process.cwd(), '.boatsrc')
 const checkVersion = require('npm-tool-version-check').default
@@ -18,6 +17,23 @@ checkVersion(
   'BOATS'
 ).then(() => {
   const program = require('./commander')(process.argv)
+
+  const swagBundle = async (inputFile, validate) => {
+    try {
+      return await bundlerSwaggerParse(
+        inputFile,
+        program.output,
+        {},
+        program.indentation,
+        program.exclude_version,
+        program.dereference,
+        validate
+      )
+    } catch (e) {
+      console.error('Bundler error', e)
+    }
+  }
+
   if (program.convert_to_njk) {
     console.log(program.convert_to_njk)
     const convert = require('./src/convertToNunjucks')
@@ -27,21 +43,6 @@ checkVersion(
     require('./init')
   } else {
     // parse the directory then validate and bundle with swagger-parser
-    const swagBundle = async (inputFile, validate) => {
-      try {
-        return await bundlerSwaggerParse(
-          inputFile,
-          program.output,
-          {},
-          program.indentation,
-          program.exclude_version,
-          program.dereference,
-          validate
-        )
-      } catch (e) {
-        console.error('Bundler error', e)
-      }
-    }
     Template.directoryParse(
       program.input
       , program.output
@@ -52,7 +53,7 @@ checkVersion(
       , boatsrc
     )
       .then(async (returnFile) => {
-        const writtenOutFilePath = await swagBundle(returnFile, program.validate)
+        await swagBundle(returnFile, program.validate)
       })
       .catch((err) => {
         console.error(err)

@@ -15,13 +15,13 @@
     $ref: ./v1/weather/get.yml
 
 
-# Item specific routes, note the prefix /id/{id}
+# Item specific routes, note the prefix /{id}/{id}
 /weather/id/{id}:
   get:
     $ref: ./v1/weather/id/get.yml
 
 
-# As the above {id} is nested inside /id, we can now introduce another weather uri segment
+# As the above {id} is nested inside /{id}, we can now introduce another weather uri segment
 /weather/latest:
   get:
     $ref: ./v1/weather/latest/get.yml

@@ -2,14 +2,14 @@ tags:
   - Weather
 summary: weather data
 description: Create a new weather record.
-operationId: weatherIdPut
+operationId: weatherIdIdPut
 requestBody:
   description: Optional description in *Markdown*
   required: true
   content: 
     application/json:
       schema:
-        $ref: ../../../components/schemas/weather/put.yml
+        $ref: ../../../../components/schemas/weather/put.yml
     
 responses:
   '200':
@@ -17,7 +17,7 @@ responses:
     content: 
       application/json:
         schema:
-          $ref: ../../../components/schemas/weather/model.yml
+          $ref: ../../../../components/schemas/weather/model.yml
       
       
   '422':
