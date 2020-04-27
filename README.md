@@ -118,7 +118,7 @@ Path Indexer
 ```
 Channel Indexer
 ```
-{{ autoComponentIndexer() }}
+{{ autoChannelIndexer() }}
 ```
 Definition/Component/Parameter Indexer:
 ```
