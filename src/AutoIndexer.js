@@ -26,7 +26,7 @@ class AutoIndexer {
     return (fileName.split('.'))[0]
   }
 
-  buildPathsYamlString (cleanPaths, channels, components, paths) {
+  buildPathsYamlString (cleanPaths, channels, components, paths, remove) {
     let indexObject = {}
     cleanPaths.forEach((cleanPath) => {
       if (cleanPath) {
@@ -45,7 +45,8 @@ class AutoIndexer {
           }
         }
         if (components) {
-          indexObject[ucFirst(_.camelCase(removeFileExtension(cleanPath)))] = {
+          remove = remove || ''
+          indexObject[ucFirst(_.camelCase(removeFileExtension(cleanPath))).replace(remove, '')] = {
             $ref: `.${cleanPath}`
           }
         }
@@ -63,7 +64,8 @@ class AutoIndexer {
       cleanPaths,
       options.channels,
       options.components,
-      options.paths
+      options.paths,
+      options.remove
     )
   }
 }

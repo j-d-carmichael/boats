@@ -7,8 +7,8 @@ describe('Check to ensure the files are generated with the correct file names:',
   const paths = [
     ['build/builtOA2_readonly_1.0.1.yml', '5051492748b28a0a5cec1f0b16c3ba78'],
     ['build/builtOA2_std_1.0.1.yml', 'e13ba8f1d53390e36bf197d6df2e28ef'],
-    ['build/builtOA3_1.0.1.yml', '63aed2b78b2d73fd940cf86be7b8f85f'],
-    ['build/builtOA3.yml', '63aed2b78b2d73fd940cf86be7b8f85f'],
+    ['build/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
+    ['build/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['build/srcASYNC2_1.0.1.yml', 'a8f00f685b83ca438af7cd9b48a9b598']
   ]
   it('Check all files have been created', (done) => {
