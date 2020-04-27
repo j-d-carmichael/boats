@@ -1,8 +1,8 @@
 GenericSearchMeta:
   $ref: ./generic/searchMeta.yml
-WeatherModel:
+Weather:
   $ref: ./weather/model.yml
-WeatherModels:
+Weathers:
   $ref: ./weather/models.yml
 WeatherPost:
   $ref: ./weather/post.yml

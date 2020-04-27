@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WeatherModels'
+                $ref: '#/components/schemas/Weathers'
         '404':
           description: Temp not found
     post:
@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WeatherModel'
+                $ref: '#/components/schemas/Weather'
         '422':
           description: Invalid form data provided
   '/weather/id/{id}':
@@ -69,7 +69,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WeatherModel'
+                $ref: '#/components/schemas/Weather'
         '404':
           description: Temp not found
     put:
@@ -91,7 +91,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WeatherModel'
+                $ref: '#/components/schemas/Weather'
         '422':
           description: Invalid form data provided
 components:
@@ -120,7 +120,7 @@ components:
           type: number
         limit:
           type: number
-    WeatherModel:
+    Weather:
       type: object
       properties:
         id:
@@ -136,7 +136,7 @@ components:
           type: integer
         temperature:
           type: number
-    WeatherModels:
+    Weathers:
       type: object
       properties:
         meta:
@@ -144,7 +144,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/WeatherModel'
+            $ref: '#/components/schemas/Weather'
     WeatherPost:
       type: object
       properties:
