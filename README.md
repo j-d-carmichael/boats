@@ -111,6 +111,26 @@ The easiest way to explain this is to look at the examples and their outputs:
 - Channel indexer, https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk is slightly different to the paths as a single channel file is expected to contain all subscribe and publish data in on.
 - Components|definitions|parameters indexer https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk will create a UpperCamelCase index file.
 
+The 3 types of indexers:
+Path Indexer
+```
+{{ autoPathIndexer() }}
+```
+Channel Indexer
+```
+{{ autoComponentIndexer() }}
+```
+Definition/Component/Parameter Indexer:
+```
+{{ autoComponentIndexer() }}
+```
+If you have an older set of BOATS files then you might have named the model files without the word model, to strip model from the naming:
+```
+{{ autoComponentIndexer('Model') }}
+```
+
+
+
 ##### inject
 
 Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L25
