@@ -3,7 +3,7 @@ info:
   title: boats
   version: 1.0.1
   description: >-
-    Beautiful Open Api Template System - Write less yaml with BOATS and
+    Beautiful Open / Async Template System - Write less yaml with BOATS and
     Nunjucks.
   license:
     name: Apache 2.0
