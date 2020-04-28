@@ -1,9 +1,9 @@
 # BOATS
 
-Beautiful Open Api Template System (and AsyncAPI)
+Beautiful Open / Async Template System
 ___
 
-> Using a template engine when writing OpenAPI spec makes life a little less repetitive.
+> Using a template engine when writing Open/AsyncAPI spec makes life a little less repetitive.
 
 Full docsify documentation here: [https://johndcarmichael.github.io/boats/](https://johndcarmichael.github.io/boats/)
 
