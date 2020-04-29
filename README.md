@@ -47,7 +47,6 @@ Want to start with a bare bones repo then just install and add these scripts to 
   "version": "1.0.0",
   "scripts": {
     "boats": "boats",
-    "install:githooks": "cp ./githooks/* .git/hooks",
     "build:json": "boats -i ./src/index.yml -o ./build/awesome-api-d.json",
     "build:yaml": "boats -i ./src/index.yml -o ./build/awesome-api-d.yml",
     "build": "npm run build:json && npm run build:yaml"
