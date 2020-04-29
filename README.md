@@ -1,6 +1,6 @@
 # BOATS
 
-Beautiful Open / Async Template System (and AsyncAPI)
+Beautiful Open / Async Template System
 
 ## Summary
 
@@ -16,7 +16,7 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
  - Variables within y(a)ml files
  - See [built in functions](#template-functions-built-in) below for more
 
-(to use with AsyncAPI set the `--type asyncapi`)
+Point boats at an entry index file and let it compile the rest automatically, either AsyncApi, OpenAPI or Swagger
 
 ## Features
 
@@ -30,7 +30,7 @@ BOATS ships with a few features described below.
   ...
 ```
 
-### Init
+### Getting started 
 Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init command. The net result will be:
  - Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
  - Build scripts for JSON and YAML added to your package.json file for CLI use.
@@ -38,6 +38,26 @@ Want to just see a demo up and running on your machine with no real effort... Yo
 ```
 npm run boats -- --init
 ``` 
+
+Want to start with a bare bones repo then just install and add these scripts to get going:
+```json
+{
+  "name": "awesome-api-d",
+  "description": "Awesome API Documentation - written in openapi",
+  "version": "1.0.0",
+  "scripts": {
+    "boats": "boats",
+    "install:githooks": "cp ./githooks/* .git/hooks",
+    "build:json": "boats -i ./src/index.yml -o ./build/awesome-api-d.json",
+    "build:yaml": "boats -i ./src/index.yml -o ./build/awesome-api-d.yml",
+    "build": "npm run build:json && npm run build:yaml"
+  },
+  "dependencies": {
+    "boats": "latest"
+  }
+}
+```
+
 
 ### Dereference the output
 When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
