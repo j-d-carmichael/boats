@@ -17,6 +17,7 @@ module.exports = (args) => {
     .option('-v, --validate <state>', 'Validate OA 2/3 state "on" or "off"', /^(on|off)$/i, 'on')
     .option('-x, --exclude_version', 'By default the OA version is injected into the file name, this option stops this happening.')
     .option('--convert_to_njk <localDirectory>', 'Convert to .yml.njk, pass in a relative src folder eg: --convert_to_njk ./src')
+    .option('--convert_to_yml <localDirectory>', 'Converted to .yml.njk syntax but want to revert: --convert_to_yml ./src')
     .parse(args);
 
   return program;

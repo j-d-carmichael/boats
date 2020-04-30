@@ -36,8 +36,12 @@ checkVersion(
 
   if (program.convert_to_njk) {
     console.log(program.convert_to_njk)
-    const convert = require('./src/convertToNunjucks')
-    convert(program.convert_to_njk)
+    const convert = require('./src/convertToNunjucksOrYaml')
+    convert(program.convert_to_njk, 'njk')
+  } else if (program.convert_to_yml) {
+    console.log(program.convert_to_njk)
+    const convert = require('./src/convertToNunjucksOrYaml')
+    convert(program.convert_to_yml, 'yml')
   } else if (program.init) {
     // Return init function
     require('./init')
