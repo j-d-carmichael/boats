@@ -65,6 +65,16 @@ When building pass the `-d` or `--dereference` option and the compiled swagger d
 Errors are output to the console.
 
 ### Templating
+As Nunjucks is used as the tpl engine, this means if you use a smart IDE such as intellij you are able to utilize the syntax highlight of both yml and njk.
+
+If you come from a PHP world you will already be used to this with Twig, Blade or even back in the day with Smarty. These you will be used to viewing proper html syntax highlighting but at the same time good function/condition highlighting that the tpl engine offers.
+
+Set your IDE to use the twig syntax for *.njk files:
+![Settings panel](./images/njk_syntax_highlighting.png)
+
+Now your IDE will show both yaml and nunjucks styntax highlighting in one view without the swagger/openapi validator complaining but we can still jump through the files with "control+mouse click", eg:
+![Settings panel](./images/njk_yaml.png)
+
 Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files, write loops, use variables, whatever you need.
 BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also have the full power of the nunjucks templating functions available to you.
 
@@ -284,7 +294,7 @@ url: <$ host $>
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
-### CLI Tool
+### CLI features
 BOATS can be used as a cli tool via an npm script eg:
 
 package.json script
@@ -295,6 +305,17 @@ package.json script
 cli command:
 ```
 npm run build:yml
+```
+
+#### Switch extension types with a single command
+If you have an existing repository with .yml files and want to convert to .yml.njk you can convert all the file extensions, and the references with one command:
+```
+npm run boats -- --convert_to_njk ./src
+```
+
+To convert all back to yml:
+```
+npm run boats -- --convert_to_yml ./src
 ```
 
 #### Available commands
