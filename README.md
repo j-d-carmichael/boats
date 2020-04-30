@@ -134,7 +134,7 @@ Maintaining these index files is quite a monotonous chore, and very human error 
 The index file is nothing more duplicate data; we already carefully name our folders and files to then manually go and type it all out again in a not fun to manage index file.
 
 The easiest way to explain this is to look at the examples and their outputs:
-- Paths indexer, https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk resulting in the compiled file: https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L18 This indexer expects to find single files within an end url segment folder to contain the avilable http verbs.
+- Paths indexer, https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk resulting in the compiled file: https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L18 This indexer expects to find single files within an end url segment folder to contain the avilable http verbs. Also not the curly braces for dynamic url parameters: https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/weather/id/%7Bid%7D/get.yml.njk
 - Channel indexer, https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk is slightly different to the paths as a single channel file is expected to contain all subscribe and publish data in on.
 - Components|definitions|parameters indexer https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk will create a UpperCamelCase index file.
 
