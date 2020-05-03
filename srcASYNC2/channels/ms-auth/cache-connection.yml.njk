@@ -1,6 +1,12 @@
 description: When a new connection change occurs the new cache values are emitted in the payload
+publish:
+  operationId: {{uniqueOpId('Publish')}}
+  message:
+    contentType: application/json
+    payload:
+      $ref: ../../components/schemas/ms-auth/cacheConnection.yml.njk
 subscribe:
-  operationId: {{uniqueOpId()}}
+  operationId: {{uniqueOpId('Subscribe')}}
   message:
     contentType: application/json
     payload:

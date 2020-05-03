@@ -14,17 +14,34 @@ channels:
     description: >-
       When a new connection change occurs the new cache values are emitted in
       the payload
-    subscribe:
-      operationId: msAuthCacheConnection
+    publish:
+      operationId: msAuthCacheConnectionPublish
       message:
         contentType: application/json
         payload:
           $ref: '#/components/schemas/MsAuthCacheConnection'
-    parameters:
-      streetlightId:
-        description: The ID of the streetlight.
-        schema:
-          type: string
+    subscribe:
+      operationId: msAuthCacheConnectionSubscribe
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthCacheConnection'
+  /ms-auth/cache-user:
+    description: >-
+      When a new connection change occurs the new cache values are emitted in
+      the payload
+    publish:
+      operationId: msAuthCacheUserPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthCacheUser'
+    subscribe:
+      operationId: msAuthCacheUserSubscribe
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthCacheUser'
 components:
   schemas:
     MsAuthCacheConnection:
@@ -44,3 +61,10 @@ components:
                 type: string
               username:
                 type: string
+    MsAuthCacheUser:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string

@@ -13,6 +13,7 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
+- 2020/05/03 1.16.0: An additional unique operation id check during the bundle process.
 - 2020/05/03 1.15.0: Calculate the strip value based on the input type, src/paths or src/channels
 - 2020/04/30 1.14.0: Cli args --convert_to_njk <localDirectory> and --convert_to_yml <localDirectory> added and documented
 - 2020/04/27 1.13.0: New feature for the tpl helper: nunjucksHelpers/autoComponentIndexer.js to [remove](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk) a string from the def/comp/param. leaving [different naming](https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L123).
