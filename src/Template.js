@@ -5,8 +5,8 @@ const fs = require('fs-extra')
 const calculateIndentFromLineBreak = require('./calculateIndentFromLineBreak')
 const cloneObject = require('./cloneObject')
 const defaults = require('./defaults')
-const stripFromEnd = require('../src/stripFromEndOfString')
-
+const stripFromEnd = require('./stripFromEndOfString')
+const apiTypeFromString = require('./apiTypeFromString')
 
 class Template {
   /**
@@ -34,7 +34,8 @@ class Template {
       }
       inputFile = this.cleanInputString(inputFile)
       // ensure we parse the input file 1st as this typically contains the inject function
-      this.load(
+      // this will also allow us to determine the api type and correctly set the stripValue
+      stripValue = this.setDefaultStripValue(stripValue, this.load(
         fs.readFileSync(inputFile, 'utf8'),
         inputFile,
         originalIndent,
@@ -42,7 +43,8 @@ class Template {
         variables,
         helpFunctionPaths,
         boatsrc
-      )
+      ))
+
       let returnFileinput
       walker(path.dirname(inputFile))
         .on('file', (file) => {
@@ -70,6 +72,21 @@ class Template {
           )
         })
     })
+  }
+
+  setDefaultStripValue (stripValue, inputString) {
+    if (stripValue) {
+      return stripValue
+    }
+    switch (apiTypeFromString(inputString)) {
+      case 'swagger':
+        return 'src/paths/'
+      case 'openapi':
+        return 'src/paths/'
+      case 'asyncapi':
+        return 'src/channels/'
+    }
+    throw new Error('Non supported api type provided. BOATS only supports swagger/openapi/asyncapi')
   }
 
   /**
@@ -138,7 +155,6 @@ class Template {
    * @param customVars Custom variables passed to nunjucks
    * @param helpFunctionPaths
    * @param boatsrc Fully qualified path to .boatsrc file
-   * @returns {Promise<*>}
    */
   load (inputString, fileLocation, originalIndentation = 2, stripValue, customVars = {}, helpFunctionPaths = [], boatsrc) {
     this.currentFilePointer = fileLocation

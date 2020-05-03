@@ -8,10 +8,10 @@ const cloneObject = require('./cloneObject')
 class Validate {
   async decideThenvalidate (bundledJson) {
     if (bundledJson.asyncapi) {
-      return await this.asyncapi(bundledJson)
+      return this.asyncapi(bundledJson)
     }
     if (bundledJson.asyncapi || bundledJson.swagger) {
-      await this.openapi(bundledJson)
+      return this.openapi(bundledJson)
     }
   }
 
