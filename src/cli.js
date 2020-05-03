@@ -1,3 +1,4 @@
+require('colors')
 const fs = require('fs-extra')
 const path = require('path')
 const bundlerSwaggerParse = require('./bundlerSwaggerParse')
@@ -11,35 +12,22 @@ if (fs.pathExistsSync(dotenvFilePath)) {
   require('dotenv').config({ path: dotenvFilePath })
 }
 
+const program = require('./commander')(process.argv)
+
 checkVersion(
   require('../package.json').version,
   'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json',
   'BOATS'
-).then(() => {
-  const program = require('./commander')(process.argv)
+).then(async () => {
 
-  const swagBundle = async (inputFile, validate) => {
-    try {
-      return await bundlerSwaggerParse(
-        inputFile,
-        program.output,
-        {},
-        program.indentation,
-        program.exclude_version,
-        program.dereference,
-        validate
-      )
-    } catch (e) {
-      console.error('Bundler error', e)
-    }
-  }
+  console.log(``)
 
   if (program.convert_to_njk) {
-    console.log(program.convert_to_njk)
+    // Convert files to njk
     const convert = require('./convertToNunjucksOrYaml')
     convert(program.convert_to_njk, 'njk')
   } else if (program.convert_to_yml) {
-    console.log(program.convert_to_njk)
+    // Convert files to yaml
     const convert = require('./convertToNunjucksOrYaml')
     convert(program.convert_to_yml, 'yml')
   } else if (program.init) {
@@ -47,7 +35,7 @@ checkVersion(
     require('../init')
   } else {
     // parse the directory then validate and bundle with swagger-parser
-    Template.directoryParse(
+    const returnFile = await Template.directoryParse(
       program.input
       , program.output
       , program.indentation
@@ -56,12 +44,17 @@ checkVersion(
       , program.functions
       , boatsrc
     )
-      .then(async (returnFile) => {
-        await swagBundle(returnFile, program.validate)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    // bundle and validate
+    const pathWrittenTo = await bundlerSwaggerParse(
+      returnFile,
+      program.output,
+      {},
+      program.indentation,
+      program.exclude_version,
+      program.dereference,
+    )
+
+    console.log('Completed, the files were rendered, validated and bundled to: '.green + pathWrittenTo.green.bold)
   }
 }).catch(() => {
   process.exit(0)

@@ -9,7 +9,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     ['build/builtOA2_std_1.0.1.yml', 'e13ba8f1d53390e36bf197d6df2e28ef'],
     ['build/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['build/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
-    ['build/srcASYNC2_1.0.1.yml', '9b32650df4bcf361a4f5fb355c7d77d8']
+    ['build/srcASYNC2_1.0.1.yml', '98126fb769c131825c94d0b1774228a8']
   ]
   it('Check all files have been created', (done) => {
     for (let i = 0; i < paths.length; ++i) {
