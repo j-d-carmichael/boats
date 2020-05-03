@@ -16,7 +16,7 @@ checkVersion(
   'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json',
   'BOATS'
 ).then(() => {
-  const program = require('../commander')(process.argv)
+  const program = require('./commander')(process.argv)
 
   const swagBundle = async (inputFile, validate) => {
     try {
