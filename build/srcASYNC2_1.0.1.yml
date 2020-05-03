@@ -15,13 +15,13 @@ channels:
       When a new connection change occurs the new cache values are emitted in
       the payload
     publish:
-      operationId: msAuthCacheConnectionPublish
+      operationId: msAuthCacheConnection
       message:
         contentType: application/json
         payload:
           $ref: '#/components/schemas/MsAuthCacheConnection'
     subscribe:
-      operationId: msAuthCacheConnectionSubscribe
+      operationId: msAuthCacheConnection
       message:
         contentType: application/json
         payload:
@@ -31,13 +31,13 @@ channels:
       When a new connection change occurs the new cache values are emitted in
       the payload
     publish:
-      operationId: msAuthCacheUserPublish
+      operationId: msAuthCacheUser
       message:
         contentType: application/json
         payload:
           $ref: '#/components/schemas/MsAuthCacheUser'
     subscribe:
-      operationId: msAuthCacheUserSubscribe
+      operationId: msAuthCacheUser
       message:
         contentType: application/json
         payload:
