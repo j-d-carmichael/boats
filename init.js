@@ -58,9 +58,9 @@ if (srcAlreadyExists || buildAlreadyExists) {
       if (answers.updateName) {
         localPkgJson.name = name
       }
-      localPkgJson.scripts['build:json'] = 'boats -i ./src/index.yml -o ./build/api.json'
-      localPkgJson.scripts['build:yaml'] = 'boats -i ./src/index.yml -o ./build/api.yml'
-      localPkgJson.scripts['build:all'] = 'npm run build:json && npm run build:yaml'
+      localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml -o ./build/api.json'
+      localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml -o ./build/api.yml'
+      localPkgJson['scripts']['build:all'] = 'npm run build:json && npm run build:yaml'
 
       // Write the new json object to file
       fs.writeFileSync(localPkgJsonPath, JSON.stringify(localPkgJson, null, 4))

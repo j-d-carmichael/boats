@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -17,7 +17,7 @@
     "DDD",
     "Documentation-Driven Development"
   ],
-  "main": "index.js",
+  "main": "src/index.js",
   "bin": {
     "boats": "./bin/cli.js",
     "bundler": "./bin/cli.js"
@@ -30,7 +30,7 @@
     "test:unit": "jest --runInBand",
     "test:unit:single": "jest --collect-coverage false",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
-    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2.yml",
+    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2.yml -s srcASYNC2/channels/",
     "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_std.yml -s srcOA2/paths/",
     "test:build-cli:oa2:readonly": "node ./bin/cli.js -i ./srcOA2/index.readonly.yml.njk -o ./build/builtOA2_readonly.yml -s srcOA2/paths/",
     "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -s srcOA3/paths/",
@@ -49,14 +49,14 @@
   },
   "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
-    "@asyncapi/parser": "^0.18.1",
-    "commander": "^5.0.0",
+    "@asyncapi/parser": "^0.18.3",
+    "commander": "^5.1.0",
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
     "js-yaml": "^3.13.1",
-    "json-schema-ref-parser": "^8.0.0",
+    "json-schema-ref-parser": "^9.0.1",
     "lodash": "^4.17.15",
     "npm-tool-version-check": "^1.0.1",
     "nunjucks": "^3.2.1",
@@ -68,7 +68,7 @@
     "@babel/preset-env": "^7.9.5",
     "eslint": "^6.8.0",
     "hasha": "^5.2.0",
-    "jest": "^25.4.0"
+    "jest": "^25.5.4"
   },
   "engines": {
     "node": "12"

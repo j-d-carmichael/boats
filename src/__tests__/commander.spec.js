@@ -1,4 +1,4 @@
-const program = require('../../commander')
+const program = require('../commander')
 
 test('check the right stuff is returned', () => {
   const commanderReturn = program([

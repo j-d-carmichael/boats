@@ -1,10 +1,10 @@
-const Template = require('../Template');
+const Template = require('../Template')
 
 const string1 = `
 Weather: mixin('some/path', 321)
 
 Weathers: mixin('some/pther/path', 654654)
-`;
+`
 
 const string2 = `
 Weather: 
@@ -12,10 +12,10 @@ Weather:
 
 Weathers: 
   object: mixin('some/other/path', 654654)
-`;
+`
 describe('setMixinPositions', () => {
   it('match simple mixin', () => {
-    const response = JSON.stringify(Template.setMixinPositions(string1, 2));
+    const response = JSON.stringify(Template.setMixinPositions(string1, 2))
     expect(response).toBe(JSON.stringify([
       {
         index: 33,
@@ -27,11 +27,11 @@ describe('setMixinPositions', () => {
         match: 'mixin(\'some/pther/path\', 654654)',
         mixinLinePadding: '  '
       }
-    ]));
-  });
+    ]))
+  })
 
   it('match nested mixin', () => {
-    const response = JSON.stringify(Template.setMixinPositions(string2, 2));
+    const response = JSON.stringify(Template.setMixinPositions(string2, 2))
     expect(response).toBe(JSON.stringify([
       {
         index: 44,
@@ -43,9 +43,9 @@ describe('setMixinPositions', () => {
         match: 'mixin(\'some/other/path\', 654654)',
         mixinLinePadding: '  '
       }]
-    ));
-  });
-});
+    ))
+  })
+})
 
 describe('stripNjkExtension', () => {
   it('should remove the ext', function () {
@@ -67,11 +67,37 @@ describe('stripNjkExtension', () => {
 describe('getHelperFunctionNameFromPath', () => {
   it('should return untouched a valid string', () => {
     expect(Template.getHelperFunctionNameFromPath('/some/path/helpers/myCoolHelper.js'))
-      .toBe('myCoolHelper');
-  });
+      .toBe('myCoolHelper')
+  })
 
   it('should strip out non (alpha numeric _ )chars', () => {
     expect(Template.getHelperFunctionNameFromPath('/some/path/helpers/my-Cool$Helper!_.js'))
-      .toBe('myCoolHelper_');
-  });
-});
+      .toBe('myCoolHelper_')
+  })
+})
+
+describe('setDefaultStripValue', () => {
+  it('should return src/paths/', () => {
+    expect(Template.setDefaultStripValue(false, 'swagger file thing more words'))
+      .toBe('src/paths/')
+  })
+
+  it('should return src/paths/', () => {
+    expect(Template.setDefaultStripValue(false, 'openapi file thing more words'))
+      .toBe('src/paths/')
+  })
+
+  it('should return src/channels/', () => {
+    expect(Template.setDefaultStripValue(false, 'asyncapi file thing more words'))
+      .toBe('src/channels/')
+  })
+
+  it('should throw error', (done) => {
+    try {
+      Template.setDefaultStripValue(false, 'file thing more words')
+      done('Should have thrown an error')
+    } catch (e) {
+      done()
+    }
+  })
+})

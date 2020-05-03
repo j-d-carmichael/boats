@@ -15,7 +15,7 @@ channels:
       When a new connection change occurs the new cache values are emitted in
       the payload
     subscribe:
-      operationId: srcAsync2ChannelsMsAuthCacheConnection
+      operationId: msAuthCacheConnection
       message:
         contentType: application/json
         payload:

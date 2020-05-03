@@ -13,7 +13,7 @@ module.exports = (args) => {
     .option('-$, --variables [value]', 'Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987"', collect, [])
     .option('-f, --functions [filepath]', 'Array of helper function relative paths, eg "-f ./helperOne.js -f ./helperTwo"', helperFunctions, [])
     .option('-d, --dereference', 'Will pass the output via https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback')
-    .option('-s, --strip_value <strip>', 'The value removed from the file path to create the uniqueOpId', 'src/paths/')
+    .option('-s, --strip_value <strip>', 'The value removed from the file path to create the uniqueOpId, it not provided will be either src/paths/ or src/channels/ based on api type.', false)
     .option('-v, --validate <state>', 'Validate OA 2/3 state "on" or "off"', /^(on|off)$/i, 'on')
     .option('-x, --exclude_version', 'By default the OA version is injected into the file name, this option stops this happening.')
     .option('--convert_to_njk <localDirectory>', 'Convert to .yml.njk, pass in a relative src folder eg: --convert_to_njk ./src')
