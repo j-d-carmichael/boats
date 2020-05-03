@@ -1,12 +1,12 @@
 description: When a new connection change occurs the new cache values are emitted in the payload
 publish:
-  operationId: msAuthCacheUserPublish
+  operationId: msAuthCacheUser
   message:
     contentType: application/json
     payload:
       $ref: ../../components/schemas/ms-auth/cacheUser.yml
 subscribe:
-  operationId: msAuthCacheUserSubscribe
+  operationId: msAuthCacheUser
   message:
     contentType: application/json
     payload:

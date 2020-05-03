@@ -42,8 +42,16 @@ class UniqueOperationIds {
   checkOpIdsAreAllUnique (jsonInput) {
     const opIds = {}
     const addId = (pathOrChannel, action, id) => {
-      if (opIds[id]) {
-        throw new Error(`Duplicate operationId found:  ${pathOrChannel} : ${action} AND ${opIds[id]}`)
+      if (opIds[id] && ['publish', 'subscribe'].includes(action)) {
+        const permitA = pathOrChannel + ' : publish'
+        const permitB = pathOrChannel + ' : subscribe'
+        if (opIds[id] === permitA || opIds[id] === permitB) {
+          // handle
+        } else {
+          throw new Error(`AYNCAPI Duplicate operationId found:  ${pathOrChannel} : ${action} AND ${opIds[id]}`)
+        }
+      } else if (opIds[id]) {
+        throw new Error(`OPENAPI Duplicate operationId found:  ${pathOrChannel} : ${action} AND ${opIds[id]}`)
       }
       opIds[id] = pathOrChannel + ' : ' + action
     }
