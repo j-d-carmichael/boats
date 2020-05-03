@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
-const bundlerSwaggerParse = require('./src/bundlerSwaggerParse')
-const Template = require('./src/Template')
+const bundlerSwaggerParse = require('./bundlerSwaggerParse')
+const Template = require('./Template')
 const dotenvFilePath = path.join(process.cwd(), '.env')
 const boatsrc = path.join(process.cwd(), '.boatsrc')
 const checkVersion = require('npm-tool-version-check').default
@@ -12,11 +12,11 @@ if (fs.pathExistsSync(dotenvFilePath)) {
 }
 
 checkVersion(
-  require('./package.json').version,
+  require('../package.json').version,
   'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json',
   'BOATS'
 ).then(() => {
-  const program = require('./commander')(process.argv)
+  const program = require('../commander')(process.argv)
 
   const swagBundle = async (inputFile, validate) => {
     try {
@@ -36,15 +36,15 @@ checkVersion(
 
   if (program.convert_to_njk) {
     console.log(program.convert_to_njk)
-    const convert = require('./src/convertToNunjucksOrYaml')
+    const convert = require('./convertToNunjucksOrYaml')
     convert(program.convert_to_njk, 'njk')
   } else if (program.convert_to_yml) {
     console.log(program.convert_to_njk)
-    const convert = require('./src/convertToNunjucksOrYaml')
+    const convert = require('./convertToNunjucksOrYaml')
     convert(program.convert_to_yml, 'yml')
   } else if (program.init) {
     // Return init function
-    require('./init')
+    require('../init')
   } else {
     // parse the directory then validate and bundle with swagger-parser
     Template.directoryParse(
