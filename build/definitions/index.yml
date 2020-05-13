@@ -1,0 +1,13 @@
+GenericSearchMeta:
+  $ref: ./generic/searchMeta.yml
+StarWars:
+  $ref: ./star-wars/StarWars.yml
+WeatherIdPut:
+  $ref: ./weather/id/put.yml
+WeatherModel:
+  $ref: ./weather/model.yml
+WeatherModels:
+  $ref: ./weather/models.yml
+WeatherPost:
+  $ref: ./weather/post.yml
+
