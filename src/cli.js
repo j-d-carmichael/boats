@@ -14,11 +14,13 @@ if (fs.pathExistsSync(dotenvFilePath)) {
 
 const program = require('./commander')(process.argv)
 
-checkVersion(
+const promise = process.env.NODE_ENV === 'test' ? Promise.resolve(true) : checkVersion(
   require('../package.json').version,
   'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json',
   'BOATS'
-).then(async () => {
+)
+
+promise.then(async () => {
 
   console.log(``)
 
