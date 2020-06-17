@@ -66,7 +66,7 @@ exports.main = () => {
 };
 
 exports.fmtProp = (prop) => {
-  if (/^[a-zA-Z\$][a-zA-Z\$0-9_]+$/.test(prop)) {
+  if (/^[a-zA-Z\$][a-zA-Z\$0-9_]*$/.test(prop)) {
     return `.${prop}`;
   }
   if (/^[0-9]+$/.test(prop)) {
