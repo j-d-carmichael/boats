@@ -1,0 +1,85 @@
+swagger: "2.0"
+info:
+    version: 1.0.1
+    title: {{ packageJson('name') }}
+    description: A sample API
+    contact:
+        name: Swagger API Team
+        email: 'john@boats.io'
+        url: https://github.com/johndcarmichael/boats/
+    license:
+        name: Apache 2.0
+        url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+schemes:
+    - https
+host: api.example.com
+basePath: /v1
+
+securityDefinitions:
+    jwtToken:
+        type: apiKey
+        in: header
+        name: authorization
+    apiKey:
+        type: apiKey
+        in: header
+        name: x-api-key
+
+{#
+    Note that here we are including the normal paths index,
+    chase it through and you will see a usefull example of
+    using nunjucks set, extends and block features to
+    type less and more.
+    Compare this to the /src/OA2/index.readonly.yml.njk
+#}
+paths:
+    $ref: paths/index.yml.njk
+parameters:
+    $ref: parameters/index.yml.njk
+definitions:
+    $ref: definitions/index.yml.njk
+
+{{
+  inject([{
+    toAllOperations: {
+      content: {
+        security: [{
+          jwtToken: []
+        }]
+      }
+    }
+  }, {
+    toAllOperations: {
+      excludePaths: ['/weather/latest'],
+      includeMethods: ['get'],
+      content: {
+        parameters: [{
+          '$ref': '#/parameters/HeaderSearchId'
+        }],
+        responses: {
+          '404': {
+            description: 'Path & method combination not found'
+          }
+        },
+        security: [{
+          apiKey: []
+        }]
+      }
+    }
+  }, {
+    toAllOperations: {
+      content: '
+        x-template-permission: <$ uniqueOpId() $>
+        x-template-description: <$ uniqueOpId() $>
+        x-template-resolution:
+          a:
+            $ref: \'#/parameters/HeaderSearchId\'
+          b:
+            $ref: "#/parameters/HeaderSearchId"
+          c:
+            $ref: #/parameters/HeaderSearchId
+      '
+    }
+  }])
+}}
