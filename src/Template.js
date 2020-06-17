@@ -217,22 +217,17 @@ class Template {
    */
   nunjucksSetup () {
     let env = nunjucks.configure(this.nunjucksOptions(this.boatsrc))
-    env.addGlobal('mixin', require('../nunjucksHelpers/mixin'))
     env.addGlobal('mixinNumber', this.mixinNumber)
     env.addGlobal('mixinObject', this.mixinObject)
     env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)
-
-    env.addGlobal('packageJson', require('../nunjucksHelpers/packageJson'))
-
-    env.addGlobal('autoPathIndexer', require('../nunjucksHelpers/autoPathIndexer'))
-    env.addGlobal('autoChannelIndexer', require('../nunjucksHelpers/autoChannelIndexer'))
-    env.addGlobal('autoComponentIndexer', require('../nunjucksHelpers/autoComponentIndexer'))
-    env.addGlobal('autoTag', require('../nunjucksHelpers/autoTag'))
     env.addGlobal('currentFilePointer', this.currentFilePointer)
-    env.addGlobal('inject', require('../nunjucksHelpers/inject'))
-    env.addGlobal('fileName', require('../nunjucksHelpers/fileName'))
-    env.addGlobal('uniqueOpId', require('../nunjucksHelpers/uniqueOpId'))
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
+
+    const helpers = fs.readdirSync(path.join(__dirname, '../nunjucksHelpers/'))
+    for (const helper of helpers) {
+      const name = path.basename(helper).replace(/\..*/, '')
+      env.addGlobal(name, require(`../nunjucksHelpers/${name}`))
+    }
 
     const processEnvVars = cloneObject(process.env)
     for (let key in processEnvVars) {
