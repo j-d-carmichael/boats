@@ -1,0 +1,20 @@
+tags:
+  - weather
+summary: One weather object
+description: Get the full weather object
+operationId: v1WeatherIdGet
+produces:
+  - application/json
+parameters:
+  - $ref: ../../../../parameters/pathId.yml
+  - $ref: '../../../../parameters/index.yml#/HeaderSearchId'
+responses:
+  '200':
+    description: Successful fetch
+    schema:
+      $ref: ../../../../definitions/weather/model.yml
+  '404':
+    description: Path & method combination not found
+security:
+  - jwtToken: []
+  - apiKey: []

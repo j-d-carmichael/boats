@@ -1,0 +1,5 @@
+in: query
+name: textSearch
+required: false
+type: string
+description: Search string to query

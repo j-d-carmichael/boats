@@ -1,0 +1,17 @@
+asyncapi: 2.0.0
+info:
+  title: boats
+  version: 1.0.1
+  description: Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+defaultContentType: application/json
+
+channels:
+  $ref: ./channels/index.yml
+
+components:
+  schemas:
+    $ref: ./components/schemas/index.yml

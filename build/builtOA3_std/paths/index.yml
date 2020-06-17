@@ -1,0 +1,11 @@
+/weather:
+  get:
+    $ref: ./weather/get.yml
+  post:
+    $ref: ./weather/post.yml
+'/weather/id/{id}':
+  get:
+    $ref: './weather/id/{id}/get.yml'
+  put:
+    $ref: './weather/id/{id}/put.yml'
+

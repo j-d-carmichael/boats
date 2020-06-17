@@ -1,0 +1,11 @@
+GenericSearchMeta:
+  $ref: ./generic/searchMeta.yml
+Weather:
+  $ref: ./weather/model.yml
+Weathers:
+  $ref: ./weather/models.yml
+WeatherPost:
+  $ref: ./weather/post.yml
+WeatherPut:
+  $ref: ./weather/put.yml
+

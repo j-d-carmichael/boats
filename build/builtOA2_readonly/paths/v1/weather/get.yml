@@ -1,0 +1,22 @@
+tags:
+  - weather
+summary: weather search
+description: Search for weather objects
+operationId: v1WeatherGet
+x-filename: get
+parameters:
+  - $ref: ../../../parameters/queryOffset.yml
+  - $ref: ../../../parameters/queryTextSearch.yml
+responses:
+  '200':
+    description: Successful fetch
+    schema:
+      properties:
+        meta:
+          $ref: ../../../definitions/generic/searchMeta.yml
+        data:
+          type: array
+          items:
+            $ref: ../../../definitions/weather/model.yml
+  '404':
+    description: Path & method combination not found

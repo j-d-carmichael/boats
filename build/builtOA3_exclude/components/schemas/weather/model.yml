@@ -1,0 +1,15 @@
+type: object
+properties:
+  id:
+    type: integer
+  date:
+    type: string
+    format: date
+  location:
+    type: string
+  cloudCoverPercentage:
+    type: integer
+  humidityPercentage:
+    type: integer
+  temperature:
+    type: number

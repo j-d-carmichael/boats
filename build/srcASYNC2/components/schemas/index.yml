@@ -1,0 +1,5 @@
+MsAuthCacheConnection:
+  $ref: ./ms-auth/cacheConnection.yml
+MsAuthCacheUser:
+  $ref: ./ms-auth/cacheUser.yml
+
