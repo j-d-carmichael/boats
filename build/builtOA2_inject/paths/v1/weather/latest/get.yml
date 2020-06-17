@@ -14,3 +14,12 @@ responses:
     description: Temp not found
 security:
   - jwtToken: []
+x-template-permission: <$ uniqueOpId() $>
+x-template-description: <$ uniqueOpId() $>
+x-template-resolution:
+  a:
+    $ref: '../../../../parameters/index.yml#/HeaderSearchId'
+  b:
+    $ref: '../../../../parameters/index.yml#/HeaderSearchId'
+  c:
+    $ref: '../../../../parameters/index.yml#/HeaderSearchId'

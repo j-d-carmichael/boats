@@ -52,6 +52,15 @@ paths:
       security:
         - jwtToken: []
         - apiKey: []
+      x-template-permission: <$ uniqueOpId() $>
+      x-template-description: <$ uniqueOpId() $>
+      x-template-resolution:
+        a:
+          $ref: '#/parameters/HeaderSearchId'
+        b:
+          $ref: '#/parameters/HeaderSearchId'
+        c:
+          $ref: '#/parameters/HeaderSearchId'
     post:
       tags:
         - weather
@@ -74,6 +83,15 @@ paths:
           description: Invalid form data provided
       security:
         - jwtToken: []
+      x-template-permission: <$ uniqueOpId() $>
+      x-template-description: <$ uniqueOpId() $>
+      x-template-resolution:
+        a:
+          $ref: '#/parameters/HeaderSearchId'
+        b:
+          $ref: '#/parameters/HeaderSearchId'
+        c:
+          $ref: '#/parameters/HeaderSearchId'
   '/weather/id/{id}':
     get:
       tags:
@@ -96,6 +114,15 @@ paths:
       security:
         - jwtToken: []
         - apiKey: []
+      x-template-permission: <$ uniqueOpId() $>
+      x-template-description: <$ uniqueOpId() $>
+      x-template-resolution:
+        a:
+          $ref: '#/parameters/HeaderSearchId'
+        b:
+          $ref: '#/parameters/HeaderSearchId'
+        c:
+          $ref: '#/parameters/HeaderSearchId'
     put:
       tags:
         - weather
@@ -121,6 +148,15 @@ paths:
           description: Invalid form data provided
       security:
         - jwtToken: []
+      x-template-permission: <$ uniqueOpId() $>
+      x-template-description: <$ uniqueOpId() $>
+      x-template-resolution:
+        a:
+          $ref: '#/parameters/HeaderSearchId'
+        b:
+          $ref: '#/parameters/HeaderSearchId'
+        c:
+          $ref: '#/parameters/HeaderSearchId'
   /weather/latest:
     get:
       tags:
@@ -139,6 +175,15 @@ paths:
           description: Temp not found
       security:
         - jwtToken: []
+      x-template-permission: <$ uniqueOpId() $>
+      x-template-description: <$ uniqueOpId() $>
+      x-template-resolution:
+        a:
+          $ref: '#/parameters/HeaderSearchId'
+        b:
+          $ref: '#/parameters/HeaderSearchId'
+        c:
+          $ref: '#/parameters/HeaderSearchId'
 parameters:
   HeaderSearchId:
     in: header
