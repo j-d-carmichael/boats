@@ -24,7 +24,6 @@ module.exports = async (inputFile, outputFile, options = {}, indentation = 2, ex
     if (dereference) {
       bundled = await $RefParser.dereference(bundled)
     }
-    bundled = Injector.init(bundled)
     UniqueOperationIds.checkOpIdsAreAllUnique(bundled)
     await validate.decideThenvalidate(bundled)
 
