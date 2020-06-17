@@ -52,8 +52,8 @@ paths:
       security:
         - jwtToken: []
         - apiKey: []
-      x-template-permission: <$ uniqueOpId() $>
-      x-template-description: <$ uniqueOpId() $>
+      x-template-permission: v1WeatherGet
+      x-template-description: v1WeatherGet
       x-template-resolution:
         a:
           $ref: '#/parameters/HeaderSearchId'
@@ -83,8 +83,8 @@ paths:
           description: Invalid form data provided
       security:
         - jwtToken: []
-      x-template-permission: <$ uniqueOpId() $>
-      x-template-description: <$ uniqueOpId() $>
+      x-template-permission: v1WeatherPost
+      x-template-description: v1WeatherPost
       x-template-resolution:
         a:
           $ref: '#/parameters/HeaderSearchId'
@@ -114,8 +114,8 @@ paths:
       security:
         - jwtToken: []
         - apiKey: []
-      x-template-permission: <$ uniqueOpId() $>
-      x-template-description: <$ uniqueOpId() $>
+      x-template-permission: v1WeatherIdGet
+      x-template-description: v1WeatherIdGet
       x-template-resolution:
         a:
           $ref: '#/parameters/HeaderSearchId'
@@ -148,8 +148,8 @@ paths:
           description: Invalid form data provided
       security:
         - jwtToken: []
-      x-template-permission: <$ uniqueOpId() $>
-      x-template-description: <$ uniqueOpId() $>
+      x-template-permission: v1WeatherIdPut
+      x-template-description: v1WeatherIdPut
       x-template-resolution:
         a:
           $ref: '#/parameters/HeaderSearchId'
@@ -175,8 +175,8 @@ paths:
           description: Temp not found
       security:
         - jwtToken: []
-      x-template-permission: <$ uniqueOpId() $>
-      x-template-description: <$ uniqueOpId() $>
+      x-template-permission: v1WeatherLatestGet
+      x-template-description: v1WeatherLatestGet
       x-template-resolution:
         a:
           $ref: '#/parameters/HeaderSearchId'

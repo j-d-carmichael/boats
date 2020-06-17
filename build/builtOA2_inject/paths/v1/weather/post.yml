@@ -19,8 +19,8 @@ responses:
     description: Invalid form data provided
 security:
   - jwtToken: []
-x-template-permission: <$ uniqueOpId() $>
-x-template-description: <$ uniqueOpId() $>
+x-template-permission: v1WeatherPost
+x-template-description: v1WeatherPost
 x-template-resolution:
   a:
     $ref: '../../../parameters/index.yml#/HeaderSearchId'

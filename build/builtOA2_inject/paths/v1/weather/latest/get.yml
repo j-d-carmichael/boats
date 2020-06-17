@@ -14,8 +14,8 @@ responses:
     description: Temp not found
 security:
   - jwtToken: []
-x-template-permission: <$ uniqueOpId() $>
-x-template-description: <$ uniqueOpId() $>
+x-template-permission: v1WeatherLatestGet
+x-template-description: v1WeatherLatestGet
 x-template-resolution:
   a:
     $ref: '../../../../parameters/index.yml#/HeaderSearchId'

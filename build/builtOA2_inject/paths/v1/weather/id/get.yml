@@ -18,8 +18,8 @@ responses:
 security:
   - jwtToken: []
   - apiKey: []
-x-template-permission: <$ uniqueOpId() $>
-x-template-description: <$ uniqueOpId() $>
+x-template-permission: v1WeatherIdGet
+x-template-description: v1WeatherIdGet
 x-template-resolution:
   a:
     $ref: '../../../../parameters/index.yml#/HeaderSearchId'
