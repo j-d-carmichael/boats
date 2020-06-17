@@ -52,7 +52,10 @@ paths:
       security:
         - jwtToken: []
         - apiKey: []
-      x-template-permission: v1WeatherGet
+      x-autoTag: V1
+      x-fileName: get
+      x-uniqueOpId: v1WeatherGet
+      x-template-permission: readV1WeatherGet
       x-template-description: v1WeatherGet
       x-template-resolution:
         a:
@@ -83,7 +86,10 @@ paths:
           description: Invalid form data provided
       security:
         - jwtToken: []
-      x-template-permission: v1WeatherPost
+      x-autoTag: V1
+      x-fileName: post
+      x-uniqueOpId: v1WeatherPost
+      x-template-permission: modifyV1WeatherPost
       x-template-description: v1WeatherPost
       x-template-resolution:
         a:
@@ -114,7 +120,10 @@ paths:
       security:
         - jwtToken: []
         - apiKey: []
-      x-template-permission: v1WeatherIdGet
+      x-autoTag: V1
+      x-fileName: get
+      x-uniqueOpId: v1WeatherIdGet
+      x-template-permission: readV1WeatherIdGet
       x-template-description: v1WeatherIdGet
       x-template-resolution:
         a:
@@ -148,7 +157,10 @@ paths:
           description: Invalid form data provided
       security:
         - jwtToken: []
-      x-template-permission: v1WeatherIdPut
+      x-autoTag: V1
+      x-fileName: put
+      x-uniqueOpId: v1WeatherIdPut
+      x-template-permission: modifyV1WeatherIdPut
       x-template-description: v1WeatherIdPut
       x-template-resolution:
         a:
@@ -175,7 +187,10 @@ paths:
           description: Temp not found
       security:
         - jwtToken: []
-      x-template-permission: v1WeatherLatestGet
+      x-autoTag: V1
+      x-fileName: get
+      x-uniqueOpId: v1WeatherLatestGet
+      x-template-permission: readV1WeatherLatestGet
       x-template-description: v1WeatherLatestGet
       x-template-resolution:
         a:

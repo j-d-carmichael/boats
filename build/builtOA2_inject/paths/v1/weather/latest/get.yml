@@ -14,7 +14,10 @@ responses:
     description: Temp not found
 security:
   - jwtToken: []
-x-template-permission: v1WeatherLatestGet
+x-autoTag: V1
+x-fileName: get
+x-uniqueOpId: v1WeatherLatestGet
+x-template-permission: readV1WeatherLatestGet
 x-template-description: v1WeatherLatestGet
 x-template-resolution:
   a:

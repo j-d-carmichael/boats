@@ -22,7 +22,10 @@ responses:
     description: Invalid form data provided
 security:
   - jwtToken: []
-x-template-permission: v1WeatherIdPut
+x-autoTag: V1
+x-fileName: put
+x-uniqueOpId: v1WeatherIdPut
+x-template-permission: modifyV1WeatherIdPut
 x-template-description: v1WeatherIdPut
 x-template-resolution:
   a:

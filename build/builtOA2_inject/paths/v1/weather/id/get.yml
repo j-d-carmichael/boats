@@ -18,7 +18,10 @@ responses:
 security:
   - jwtToken: []
   - apiKey: []
-x-template-permission: v1WeatherIdGet
+x-autoTag: V1
+x-fileName: get
+x-uniqueOpId: v1WeatherIdGet
+x-template-permission: readV1WeatherIdGet
 x-template-description: v1WeatherIdGet
 x-template-resolution:
   a:

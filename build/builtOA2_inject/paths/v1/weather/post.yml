@@ -19,7 +19,10 @@ responses:
     description: Invalid form data provided
 security:
   - jwtToken: []
-x-template-permission: v1WeatherPost
+x-autoTag: V1
+x-fileName: post
+x-uniqueOpId: v1WeatherPost
+x-template-permission: modifyV1WeatherPost
 x-template-description: v1WeatherPost
 x-template-resolution:
   a:
