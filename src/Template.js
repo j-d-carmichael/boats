@@ -31,9 +31,7 @@ class Template {
   ) {
     return new Promise((resolve, reject) => {
       if (!inputFile || !output) {
-        throw new Error(
-          'You must pass an input file and output directory when parsing multiple files.'
-        )
+        throw new Error('You must pass an input file and output directory when parsing multiple files.')
       }
 
       this.originalIndentation = originalIndent
