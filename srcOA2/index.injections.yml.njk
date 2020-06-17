@@ -70,8 +70,8 @@ definitions:
   }, {
     toAllOperations: {
       content: '
-        x-template-permission: <$ uniqueOpId() $>
-        x-template-description: <$ uniqueOpId() $>
+        x-template-permission: {{ uniqueOpId() }}
+        x-template-description: {{ uniqueOpId() }}
         x-template-resolution:
           a:
             $ref: \'#/parameters/HeaderSearchId\'

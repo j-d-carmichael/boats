@@ -591,148 +591,148 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built build/builtOA2_inject/api_1.0.1.yml', async () => {
     const infile = jsYaml.safeLoad(fs.readFileSync('build/builtOA2_inject/api_1.0.1.yml', 'utf8'))
-    expect(infile.swagger).toBe('2.0')
-    expect(infile.info.version).toBe('1.0.1')
-    expect(infile.info.title).toBe('boats')
-    expect(infile.info.description).toBe('A sample API')
-    expect(infile.info.contact.name).toBe('Swagger API Team')
-    expect(infile.info.contact.email).toBe('john@boats.io')
-    expect(infile.info.contact.url).toBe('https://github.com/johndcarmichael/boats/')
-    expect(infile.info.license.name).toBe('Apache 2.0')
-    expect(infile.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0.html')
-    expect(infile.schemes[0]).toBe('https')
-    expect(infile.host).toBe('api.example.com')
-    expect(infile.basePath).toBe('/v1')
-    expect(infile.securityDefinitions.jwtToken.type).toBe('apiKey')
-    expect(infile.securityDefinitions.jwtToken.in).toBe('header')
-    expect(infile.securityDefinitions.jwtToken.name).toBe('authorization')
-    expect(infile.securityDefinitions.apiKey.type).toBe('apiKey')
-    expect(infile.securityDefinitions.apiKey.in).toBe('header')
-    expect(infile.securityDefinitions.apiKey.name).toBe('x-api-key')
-    expect(infile.paths['/weather/'].get.tags[0]).toBe('weather')
-    expect(infile.paths['/weather/'].get.summary).toBe('weather search')
-    expect(infile.paths['/weather/'].get.description).toBe('Search for weather objects')
-    expect(infile.paths['/weather/'].get.operationId).toBe('v1WeatherGet')
-    expect(infile.paths['/weather/'].get['x-filename']).toBe('get')
-    expect(infile.paths['/weather/'].get.parameters[0].$ref).toBe('#/parameters/QueryOffset')
-    expect(infile.paths['/weather/'].get.parameters[1].$ref).toBe('#/parameters/QueryTextSearch')
-    expect(infile.paths['/weather/'].get.parameters[2].$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/'].get.responses[200].description).toBe('Successful fetch')
-    expect(infile.paths['/weather/'].get.responses[200].schema.properties.meta.$ref).toBe('#/definitions/GenericSearchMeta')
-    expect(infile.paths['/weather/'].get.responses[200].schema.properties.data.type).toBe('array')
-    expect(infile.paths['/weather/'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel')
-    expect(infile.paths['/weather/'].get.responses[404].description).toBe('Path & method combination not found')
-    expect(infile.paths['/weather/'].get['x-template-permission']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/'].get['x-template-description']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/'].post.tags[0]).toBe('weather')
-    expect(infile.paths['/weather/'].post.summary).toBe('weather data')
-    expect(infile.paths['/weather/'].post.description).toBe('Create a new weather record.')
-    expect(infile.paths['/weather/'].post.operationId).toBe('v1WeatherPost')
-    expect(infile.paths['/weather/'].post.parameters[0].in).toBe('body')
-    expect(infile.paths['/weather/'].post.parameters[0].name).toBe('v1WeatherPost')
-    expect(infile.paths['/weather/'].post.parameters[0].description).toBe('Optional description in *Markdown*')
-    expect(infile.paths['/weather/'].post.parameters[0].required).toBe(true)
-    expect(infile.paths['/weather/'].post.parameters[0].schema.$ref).toBe('#/definitions/WeatherPost')
-    expect(infile.paths['/weather/'].post.responses[200].description).toBe('Successful temp creation')
-    expect(infile.paths['/weather/'].post.responses[200].schema.$ref).toBe('#/definitions/WeatherModel')
-    expect(infile.paths['/weather/'].post.responses[422].description).toBe('Invalid form data provided')
-    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/'].post['x-template-description']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/'].post['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/'].post['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/'].post['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].get.tags[0]).toBe('weather')
-    expect(infile.paths['/weather/id/{id}'].get.summary).toBe('One weather object')
-    expect(infile.paths['/weather/id/{id}'].get.description).toBe('Get the full weather object')
-    expect(infile.paths['/weather/id/{id}'].get.operationId).toBe('v1WeatherIdGet')
-    expect(infile.paths['/weather/id/{id}'].get.produces[0]).toBe('application/json')
-    expect(infile.paths['/weather/id/{id}'].get.parameters[0].$ref).toBe('#/parameters/PathId')
-    expect(infile.paths['/weather/id/{id}'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch')
-    expect(infile.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel')
-    expect(infile.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found')
-    expect(infile.paths['/weather/id/{id}'].get['x-template-permission']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/id/{id}'].get['x-template-description']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].put.tags[0]).toBe('weather')
-    expect(infile.paths['/weather/id/{id}'].put.summary).toBe('weather data')
-    expect(infile.paths['/weather/id/{id}'].put.description).toBe('Create a new weather record.')
-    expect(infile.paths['/weather/id/{id}'].put.operationId).toBe('v1WeatherIdPut')
-    expect(infile.paths['/weather/id/{id}'].put.produces[0]).toBe('application/json')
-    expect(infile.paths['/weather/id/{id}'].put.parameters[0].$ref).toBe('#/parameters/PathId')
-    expect(infile.paths['/weather/id/{id}'].put.parameters[1].in).toBe('body')
-    expect(infile.paths['/weather/id/{id}'].put.parameters[1].name).toBe('v1WeatherIdPut')
-    expect(infile.paths['/weather/id/{id}'].put.parameters[1].description).toBe('Optional description in *Markdown*')
-    expect(infile.paths['/weather/id/{id}'].put.parameters[1].required).toBe(true)
-    expect(infile.paths['/weather/id/{id}'].put.parameters[1].schema.$ref).toBe('#/definitions/WeatherIdPut')
-    expect(infile.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation')
-    expect(infile.paths['/weather/id/{id}'].put.responses[200].schema.$ref).toBe('#/definitions/WeatherModel')
-    expect(infile.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided')
-    expect(infile.paths['/weather/id/{id}'].put['x-template-permission']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/id/{id}'].put['x-template-description']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/latest'].get.tags[0]).toBe('weather')
-    expect(infile.paths['/weather/latest'].get.summary).toBe('lastest weather data')
-    expect(infile.paths['/weather/latest'].get.description).toBe('Get the latest temperatures')
-    expect(infile.paths['/weather/latest'].get.operationId).toBe('v1WeatherLatestGet')
-    expect(infile.paths['/weather/latest'].get.produces[0]).toBe('application/json')
-    expect(infile.paths['/weather/latest'].get.responses[200].description).toBe('Successful fetch')
-    expect(infile.paths['/weather/latest'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModels')
-    expect(infile.paths['/weather/latest'].get.responses[404].description).toBe('Temp not found')
-    expect(infile.paths['/weather/latest'].get['x-template-permission']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/latest'].get['x-template-description']).toBe('<$ uniqueOpId() $>')
-    expect(infile.paths['/weather/latest'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/latest'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.paths['/weather/latest'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId')
-    expect(infile.parameters.HeaderSearchId.in).toBe('header')
-    expect(infile.parameters.HeaderSearchId.name).toBe('Search-Id')
-    expect(infile.parameters.HeaderSearchId.type).toBe('string')
-    expect(infile.parameters.HeaderSearchId.description).toBe('Unique search {id}')
-    expect(infile.parameters.HeaderSearchId['x-example']).toBe('569eecd9-9962-4aed-a0f0-30476c6a82ed')
-    expect(infile.parameters.PathId.in).toBe('path')
-    expect(infile.parameters.PathId.name).toBe('id')
-    expect(infile.parameters.PathId.type).toBe('integer')
-    expect(infile.parameters.PathId.required).toBe(true)
-    expect(infile.parameters.PathId.description).toBe('Numeric ID of object to fetch')
-    expect(infile.parameters.QueryOffset.in).toBe('query')
-    expect(infile.parameters.QueryOffset.name).toBe('offset')
-    expect(infile.parameters.QueryOffset.required).toBe(false)
-    expect(infile.parameters.QueryOffset.type).toBe('integer')
-    expect(infile.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.')
-    expect(infile.parameters.QueryTextSearch.in).toBe('query')
-    expect(infile.parameters.QueryTextSearch.name).toBe('textSearch')
-    expect(infile.parameters.QueryTextSearch.required).toBe(false)
-    expect(infile.parameters.QueryTextSearch.type).toBe('string')
-    expect(infile.parameters.QueryTextSearch.description).toBe('Search string to query')
-    expect(infile.definitions.GenericSearchMeta.properties.totalResultCount.type).toBe('number')
-    expect(infile.definitions.GenericSearchMeta.properties.offset.type).toBe('number')
-    expect(infile.definitions.GenericSearchMeta.properties.limit.type).toBe('number')
-    expect(infile.definitions.WeatherIdPut.allOf[0].$ref).toBe('#/definitions/WeatherPost')
-    expect(infile.definitions.WeatherIdPut.allOf[1].type).toBe('object')
-    expect(infile.definitions.WeatherIdPut.allOf[1].properties.id.type).toBe('integer')
-    expect(infile.definitions.WeatherModel.type).toBe('object')
-    expect(infile.definitions.WeatherModel.properties.id.type).toBe('integer')
-    expect(infile.definitions.WeatherModel.properties.date.type).toBe('string')
-    expect(infile.definitions.WeatherModel.properties.date.format).toBe('date')
-    expect(infile.definitions.WeatherModel.properties.location.type).toBe('string')
-    expect(infile.definitions.WeatherModel.properties.cloudCoverPercentage.type).toBe('integer')
-    expect(infile.definitions.WeatherModel.properties.humidityPercentage.type).toBe('integer')
-    expect(infile.definitions.WeatherModel.properties.temperature.type).toBe('number')
-    expect(infile.definitions.WeatherModels.type).toBe('array')
-    expect(infile.definitions.WeatherModels.items.$ref).toBe('#/definitions/WeatherModel')
-    expect(infile.definitions.WeatherPost.type).toBe('object')
-    expect(infile.definitions.WeatherPost.properties.date.type).toBe('string')
-    expect(infile.definitions.WeatherPost.properties.date.format).toBe('date')
-    expect(infile.definitions.WeatherPost.properties.location.type).toBe('string')
-    expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer')
-    expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer')
-    expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number')
+    expect(infile.swagger).toBe('2.0');
+    expect(infile.info.version).toBe('1.0.1');
+    expect(infile.info.title).toBe('boats');
+    expect(infile.info.description).toBe('A sample API');
+    expect(infile.info.contact.name).toBe('Swagger API Team');
+    expect(infile.info.contact.email).toBe('john@boats.io');
+    expect(infile.info.contact.url).toBe('https://github.com/johndcarmichael/boats/');
+    expect(infile.info.license.name).toBe('Apache 2.0');
+    expect(infile.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0.html');
+    expect(infile.schemes[0]).toBe('https');
+    expect(infile.host).toBe('api.example.com');
+    expect(infile.basePath).toBe('/v1');
+    expect(infile.securityDefinitions.jwtToken.type).toBe('apiKey');
+    expect(infile.securityDefinitions.jwtToken.in).toBe('header');
+    expect(infile.securityDefinitions.jwtToken.name).toBe('authorization');
+    expect(infile.securityDefinitions.apiKey.type).toBe('apiKey');
+    expect(infile.securityDefinitions.apiKey.in).toBe('header');
+    expect(infile.securityDefinitions.apiKey.name).toBe('x-api-key');
+    expect(infile.paths['/weather/'].get.tags[0]).toBe('weather');
+    expect(infile.paths['/weather/'].get.summary).toBe('weather search');
+    expect(infile.paths['/weather/'].get.description).toBe('Search for weather objects');
+    expect(infile.paths['/weather/'].get.operationId).toBe('v1WeatherGet');
+    expect(infile.paths['/weather/'].get['x-filename']).toBe('get');
+    expect(infile.paths['/weather/'].get.parameters[0].$ref).toBe('#/parameters/QueryOffset');
+    expect(infile.paths['/weather/'].get.parameters[1].$ref).toBe('#/parameters/QueryTextSearch');
+    expect(infile.paths['/weather/'].get.parameters[2].$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].get.responses[200].description).toBe('Successful fetch');
+    expect(infile.paths['/weather/'].get.responses[200].schema.properties.meta.$ref).toBe('#/definitions/GenericSearchMeta');
+    expect(infile.paths['/weather/'].get.responses[200].schema.properties.data.type).toBe('array');
+    expect(infile.paths['/weather/'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel');
+    expect(infile.paths['/weather/'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(infile.paths['/weather/'].get['x-template-permission']).toBe('v1WeatherGet');
+    expect(infile.paths['/weather/'].get['x-template-description']).toBe('v1WeatherGet');
+    expect(infile.paths['/weather/'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].post.tags[0]).toBe('weather');
+    expect(infile.paths['/weather/'].post.summary).toBe('weather data');
+    expect(infile.paths['/weather/'].post.description).toBe('Create a new weather record.');
+    expect(infile.paths['/weather/'].post.operationId).toBe('v1WeatherPost');
+    expect(infile.paths['/weather/'].post.parameters[0].in).toBe('body');
+    expect(infile.paths['/weather/'].post.parameters[0].name).toBe('v1WeatherPost');
+    expect(infile.paths['/weather/'].post.parameters[0].description).toBe('Optional description in *Markdown*');
+    expect(infile.paths['/weather/'].post.parameters[0].required).toBe(true);
+    expect(infile.paths['/weather/'].post.parameters[0].schema.$ref).toBe('#/definitions/WeatherPost');
+    expect(infile.paths['/weather/'].post.responses[200].description).toBe('Successful temp creation');
+    expect(infile.paths['/weather/'].post.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
+    expect(infile.paths['/weather/'].post.responses[422].description).toBe('Invalid form data provided');
+    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('v1WeatherPost');
+    expect(infile.paths['/weather/'].post['x-template-description']).toBe('v1WeatherPost');
+    expect(infile.paths['/weather/'].post['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].post['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].post['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].get.tags[0]).toBe('weather');
+    expect(infile.paths['/weather/id/{id}'].get.summary).toBe('One weather object');
+    expect(infile.paths['/weather/id/{id}'].get.description).toBe('Get the full weather object');
+    expect(infile.paths['/weather/id/{id}'].get.operationId).toBe('v1WeatherIdGet');
+    expect(infile.paths['/weather/id/{id}'].get.produces[0]).toBe('application/json');
+    expect(infile.paths['/weather/id/{id}'].get.parameters[0].$ref).toBe('#/parameters/PathId');
+    expect(infile.paths['/weather/id/{id}'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
+    expect(infile.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
+    expect(infile.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-permission']).toBe('v1WeatherIdGet');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-description']).toBe('v1WeatherIdGet');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].put.tags[0]).toBe('weather');
+    expect(infile.paths['/weather/id/{id}'].put.summary).toBe('weather data');
+    expect(infile.paths['/weather/id/{id}'].put.description).toBe('Create a new weather record.');
+    expect(infile.paths['/weather/id/{id}'].put.operationId).toBe('v1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put.produces[0]).toBe('application/json');
+    expect(infile.paths['/weather/id/{id}'].put.parameters[0].$ref).toBe('#/parameters/PathId');
+    expect(infile.paths['/weather/id/{id}'].put.parameters[1].in).toBe('body');
+    expect(infile.paths['/weather/id/{id}'].put.parameters[1].name).toBe('v1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put.parameters[1].description).toBe('Optional description in *Markdown*');
+    expect(infile.paths['/weather/id/{id}'].put.parameters[1].required).toBe(true);
+    expect(infile.paths['/weather/id/{id}'].put.parameters[1].schema.$ref).toBe('#/definitions/WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
+    expect(infile.paths['/weather/id/{id}'].put.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
+    expect(infile.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-permission']).toBe('v1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-description']).toBe('v1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/latest'].get.tags[0]).toBe('weather');
+    expect(infile.paths['/weather/latest'].get.summary).toBe('lastest weather data');
+    expect(infile.paths['/weather/latest'].get.description).toBe('Get the latest temperatures');
+    expect(infile.paths['/weather/latest'].get.operationId).toBe('v1WeatherLatestGet');
+    expect(infile.paths['/weather/latest'].get.produces[0]).toBe('application/json');
+    expect(infile.paths['/weather/latest'].get.responses[200].description).toBe('Successful fetch');
+    expect(infile.paths['/weather/latest'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModels');
+    expect(infile.paths['/weather/latest'].get.responses[404].description).toBe('Temp not found');
+    expect(infile.paths['/weather/latest'].get['x-template-permission']).toBe('v1WeatherLatestGet');
+    expect(infile.paths['/weather/latest'].get['x-template-description']).toBe('v1WeatherLatestGet');
+    expect(infile.paths['/weather/latest'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/latest'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/latest'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.parameters.HeaderSearchId.in).toBe('header');
+    expect(infile.parameters.HeaderSearchId.name).toBe('Search-Id');
+    expect(infile.parameters.HeaderSearchId.type).toBe('string');
+    expect(infile.parameters.HeaderSearchId.description).toBe('Unique search {id}');
+    expect(infile.parameters.HeaderSearchId['x-example']).toBe('569eecd9-9962-4aed-a0f0-30476c6a82ed');
+    expect(infile.parameters.PathId.in).toBe('path');
+    expect(infile.parameters.PathId.name).toBe('id');
+    expect(infile.parameters.PathId.type).toBe('integer');
+    expect(infile.parameters.PathId.required).toBe(true);
+    expect(infile.parameters.PathId.description).toBe('Numeric ID of object to fetch');
+    expect(infile.parameters.QueryOffset.in).toBe('query');
+    expect(infile.parameters.QueryOffset.name).toBe('offset');
+    expect(infile.parameters.QueryOffset.required).toBe(false);
+    expect(infile.parameters.QueryOffset.type).toBe('integer');
+    expect(infile.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(infile.parameters.QueryTextSearch.in).toBe('query');
+    expect(infile.parameters.QueryTextSearch.name).toBe('textSearch');
+    expect(infile.parameters.QueryTextSearch.required).toBe(false);
+    expect(infile.parameters.QueryTextSearch.type).toBe('string');
+    expect(infile.parameters.QueryTextSearch.description).toBe('Search string to query');
+    expect(infile.definitions.GenericSearchMeta.properties.totalResultCount.type).toBe('number');
+    expect(infile.definitions.GenericSearchMeta.properties.offset.type).toBe('number');
+    expect(infile.definitions.GenericSearchMeta.properties.limit.type).toBe('number');
+    expect(infile.definitions.WeatherIdPut.allOf[0].$ref).toBe('#/definitions/WeatherPost');
+    expect(infile.definitions.WeatherIdPut.allOf[1].type).toBe('object');
+    expect(infile.definitions.WeatherIdPut.allOf[1].properties.id.type).toBe('integer');
+    expect(infile.definitions.WeatherModel.type).toBe('object');
+    expect(infile.definitions.WeatherModel.properties.id.type).toBe('integer');
+    expect(infile.definitions.WeatherModel.properties.date.type).toBe('string');
+    expect(infile.definitions.WeatherModel.properties.date.format).toBe('date');
+    expect(infile.definitions.WeatherModel.properties.location.type).toBe('string');
+    expect(infile.definitions.WeatherModel.properties.cloudCoverPercentage.type).toBe('integer');
+    expect(infile.definitions.WeatherModel.properties.humidityPercentage.type).toBe('integer');
+    expect(infile.definitions.WeatherModel.properties.temperature.type).toBe('number');
+    expect(infile.definitions.WeatherModels.type).toBe('array');
+    expect(infile.definitions.WeatherModels.items.$ref).toBe('#/definitions/WeatherModel');
+    expect(infile.definitions.WeatherPost.type).toBe('object');
+    expect(infile.definitions.WeatherPost.properties.date.type).toBe('string');
+    expect(infile.definitions.WeatherPost.properties.date.format).toBe('date');
+    expect(infile.definitions.WeatherPost.properties.location.type).toBe('string');
+    expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
+    expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
+    expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number');
   })
 })
