@@ -70,7 +70,11 @@ definitions:
   }, {
     toAllOperations: {
       content: '
-        x-template-permission: {{ uniqueOpId() }}
+        x-autoTag: {{ autoTag() }}
+        x-fileName: {{ fileName() }}
+        x-uniqueOpId: {{ uniqueOpId() }}
+
+        x-template-permission: {{ routePermission() }}
         x-template-description: {{ uniqueOpId() }}
         x-template-resolution:
           a:
