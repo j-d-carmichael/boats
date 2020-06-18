@@ -1,5 +1,0 @@
-in: path
-name: id
-type: integer
-required: true
-description: Numeric ID of object to fetch

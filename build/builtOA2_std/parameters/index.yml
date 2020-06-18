@@ -1,9 +1,0 @@
-HeaderSearchId:
-  $ref: ./headerSearchId.yml
-PathId:
-  $ref: ./pathId.yml
-QueryOffset:
-  $ref: ./queryOffset.yml
-QueryTextSearch:
-  $ref: ./queryTextSearch.yml
-

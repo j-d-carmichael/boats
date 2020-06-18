@@ -1,7 +1,0 @@
-properties:
-  meta:
-    $ref: 
-  data:
-    type: array
-    items:
-      $ref: 

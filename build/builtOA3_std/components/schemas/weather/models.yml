@@ -1,9 +1,0 @@
-type: object
-properties:
-  meta:
-    $ref: ../generic/searchMeta.yml
-  data:
-    type: array
-    items:
-      $ref: ./model.yml
-
