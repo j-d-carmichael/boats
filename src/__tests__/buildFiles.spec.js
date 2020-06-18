@@ -12,7 +12,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     ['build/builtOA2_no_version/builtOA2_no_version.yml', '11470a2cbe1cf278551e996ce777892c'],
     ['build/builtOA3_std/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['build/builtOA3_exclude/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
-    ['build/builtOA2_inject/api_1.0.1.yml', '5cf12a88ce2eb18dda109c9e6c475a04'],
+    ['build/builtOA2_inject/api_1.0.1.yml', '1dfc0e41bb4310a437524a591d8dc88b'],
   ]
 
   it('Check all files have been created', (done) => {
@@ -639,7 +639,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/'].post.responses[200].description).toBe('Successful temp creation');
     expect(infile.paths['/weather/'].post.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
     expect(infile.paths['/weather/'].post.responses[422].description).toBe('Invalid form data provided');
-    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('modifyV1WeatherPost');
+    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('manageV1WeatherPost');
     expect(infile.paths['/weather/'].post['x-template-description']).toBe('v1WeatherPost');
     expect(infile.paths['/weather/'].post['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].post['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
@@ -673,7 +673,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
     expect(infile.paths['/weather/id/{id}'].put.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
     expect(infile.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
-    expect(infile.paths['/weather/id/{id}'].put['x-template-permission']).toBe('modifyV1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-permission']).toBe('manageV1WeatherIdPut');
     expect(infile.paths['/weather/id/{id}'].put['x-template-description']).toBe('v1WeatherIdPut');
     expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');

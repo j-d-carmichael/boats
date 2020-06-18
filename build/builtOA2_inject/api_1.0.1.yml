@@ -89,7 +89,7 @@ paths:
       x-autoTag: V1
       x-fileName: post
       x-uniqueOpId: v1WeatherPost
-      x-template-permission: modifyV1WeatherPost
+      x-template-permission: manageV1WeatherPost
       x-template-description: v1WeatherPost
       x-template-resolution:
         a:
@@ -160,7 +160,7 @@ paths:
       x-autoTag: V1
       x-fileName: put
       x-uniqueOpId: v1WeatherIdPut
-      x-template-permission: modifyV1WeatherIdPut
+      x-template-permission: manageV1WeatherIdPut
       x-template-description: v1WeatherIdPut
       x-template-resolution:
         a:

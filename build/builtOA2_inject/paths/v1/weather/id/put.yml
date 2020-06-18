@@ -25,7 +25,7 @@ security:
 x-autoTag: V1
 x-fileName: put
 x-uniqueOpId: v1WeatherIdPut
-x-template-permission: modifyV1WeatherIdPut
+x-template-permission: manageV1WeatherIdPut
 x-template-description: v1WeatherIdPut
 x-template-resolution:
   a:
