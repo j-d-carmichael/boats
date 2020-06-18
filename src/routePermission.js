@@ -4,15 +4,16 @@ const UniqueOperationIds = require('./UniqueOperationIds');
 
 const methodToPrefix = {
   get: 'read',
-  post: 'modify',
-  put: 'modify',
+  post: 'manage',
+  put: 'manage',
+  patch: 'manage',
   delete: 'delete',
 }
 
 module.exports = (filePath, stripValue, tail) => {
   const opId = UniqueOperationIds.getUniqueOperationIdFromPath(filePath, stripValue, tail)
   const method = path.basename(filePath).replace(/\..*/, '').toLowerCase()
-  const prefix = methodToPrefix[method] || 'modify'
+  const prefix = methodToPrefix[method] || 'manage'
 
   return `${prefix}${ucFirst(opId)}`
 }
