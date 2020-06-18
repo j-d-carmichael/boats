@@ -174,7 +174,8 @@ If you have an older set of BOATS files then you might have named the model file
 
 ##### inject
 
-The inject helper allows you to inject content to many operations from a single block. In the example above we are injecting a header parameter to every path method:
+The inject helper allows you to inject content to many operations from a single block.  
+Anatomy of the injection:
 ```yaml
 {{
   inject([
@@ -204,7 +205,7 @@ The inject helper allows you to inject content to many operations from a single 
   ])
 }}
 ```
-
+In the example below we are injecting a header parameter to every path method:  
 Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L43
 
 For openapi, the content will be merged/concat/injected into paths that are not excluded.
