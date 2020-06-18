@@ -38,7 +38,7 @@ class Template {
       this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX
       this.helpFunctionPaths = helpFunctionPaths || []
       this.variables = variables || {}
-      this.boatsrc = boatsrc || ''
+      this.boatsrc = this.getBoatsConfig(boatsrc)
 
       inputFile = this.cleanInputString(inputFile)
       this.inputFile = inputFile
@@ -213,9 +213,8 @@ class Template {
    * @param boatsrc Exact path to a .boatsrc file
    */
   nunjucksSetup () {
-    const boatsConfig = this.getBoatsConfig(this.boatsrc)
-    let env = nunjucks.configure(boatsConfig.nunjucksOptions)
-    env.addGlobal('boatsConfig', boatsConfig)
+    let env = nunjucks.configure(this.boatsrc.nunjucksOptions)
+    env.addGlobal('boatsConfig', this.boatsrc)
     env.addGlobal('mixinNumber', this.mixinNumber)
     env.addGlobal('mixinObject', this.mixinObject)
     env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)

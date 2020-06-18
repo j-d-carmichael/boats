@@ -12,7 +12,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     ['build/builtOA2_no_version/builtOA2_no_version.yml', '11470a2cbe1cf278551e996ce777892c'],
     ['build/builtOA3_std/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['build/builtOA3_exclude/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
-    ['build/builtOA2_inject/api_1.0.1.yml', '92d592539232288fb5187273929b5b59'],
+    ['build/builtOA2_inject/api_1.0.1.yml', '7089bfa5f3e0e3ad5057e8f523772911'],
   ]
 
   it('Check all files have been created', (done) => {
@@ -625,7 +625,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/'].get['x-autoTag']).toBe('V1');
     expect(infile.paths['/weather/'].get['x-fileName']).toBe('get');
     expect(infile.paths['/weather/'].get['x-uniqueOpId']).toBe('v1WeatherGet');
-    expect(infile.paths['/weather/'].get['x-template-permission']).toBe('publicReadV1WeatherGet');
+    expect(infile.paths['/weather/'].get['x-template-permission']).toBe('readV1WeatherGet');
     expect(infile.paths['/weather/'].get['x-template-description']).toBe('v1WeatherGet');
     expect(infile.paths['/weather/'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
@@ -646,7 +646,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/'].post['x-autoTag']).toBe('V1');
     expect(infile.paths['/weather/'].post['x-fileName']).toBe('post');
     expect(infile.paths['/weather/'].post['x-uniqueOpId']).toBe('v1WeatherPost');
-    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('newV1WeatherPost');
+    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('createV1WeatherPost');
     expect(infile.paths['/weather/'].post['x-template-description']).toBe('v1WeatherPost');
     expect(infile.paths['/weather/'].post['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].post['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
@@ -665,7 +665,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].get['x-autoTag']).toBe('V1');
     expect(infile.paths['/weather/id/{id}'].get['x-fileName']).toBe('get');
     expect(infile.paths['/weather/id/{id}'].get['x-uniqueOpId']).toBe('v1WeatherIdGet');
-    expect(infile.paths['/weather/id/{id}'].get['x-template-permission']).toBe('publicReadV1WeatherIdGet');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-permission']).toBe('readV1WeatherIdGet');
     expect(infile.paths['/weather/id/{id}'].get['x-template-description']).toBe('v1WeatherIdGet');
     expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
@@ -705,7 +705,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/latest'].get['x-autoTag']).toBe('V1');
     expect(infile.paths['/weather/latest'].get['x-fileName']).toBe('get');
     expect(infile.paths['/weather/latest'].get['x-uniqueOpId']).toBe('v1WeatherLatestGet');
-    expect(infile.paths['/weather/latest'].get['x-template-permission']).toBe('publicReadV1WeatherLatestGet');
+    expect(infile.paths['/weather/latest'].get['x-template-permission']).toBe('readV1WeatherLatestGet');
     expect(infile.paths['/weather/latest'].get['x-template-description']).toBe('v1WeatherLatestGet');
     expect(infile.paths['/weather/latest'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/latest'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
@@ -754,5 +754,6 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number');
+
   })
 })
