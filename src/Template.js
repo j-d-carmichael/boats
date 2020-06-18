@@ -199,8 +199,8 @@ class Template {
       let json = fs.readJsonSync(boatsrc)
       if (json.nunjucksOptions) {
         json.nunjucksOptions = Object.assign(baseOptions, json.nunjucksOptions)
-        return json
       }
+      return json
     } catch (e) {
       return {}
     }
