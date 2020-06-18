@@ -38,13 +38,13 @@ promise.then(async () => {
   } else {
     // parse the directory then validate and bundle with swagger-parser
     const returnFile = await Template.directoryParse(
-      program.input
-      , program.output
-      , program.indentation
-      , program.strip_value
-      , program.variables
-      , program.functions
-      , boatsrc
+      program.input,
+      program.output,
+      program.indentation,
+      program.strip_value,
+      program.variables,
+      program.functions,
+      boatsrc,
     )
     // bundle and validate
     const pathWrittenTo = await bundlerSwaggerParse(
@@ -58,6 +58,7 @@ promise.then(async () => {
 
     console.log('Completed, the files were rendered, validated and bundled to: '.green + pathWrittenTo.green.bold)
   }
-}).catch(() => {
-  process.exit(0)
+}).catch(error => {
+  console.trace(error)
+  process.exit(1)
 })
