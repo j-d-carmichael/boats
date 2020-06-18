@@ -94,8 +94,8 @@ Additionally, when using the `.yml.njk` ext you will also want to back back to t
 
 #### .boatsrc 
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
- 
-Example to override the default tag delimiters
+
+Example:
 ```json
 {
   "nunjucksOptions": {
@@ -107,20 +107,34 @@ Example to override the default tag delimiters
       "commentStart": "[#",
       "commentEnd": "#]"
     }
+  },
+  "permissionConfig": {
+    "routePrefix": {
+      "get": "read",
+      "post": "create",
+      "put": "update",
+      "patch": "update",
+      "delete": "delete"
+    }
   }
 }
 ```
 
-If you use the `.yml.njk`, you will want to just use the default tags from nunjucks. 
+The `nunjucksOptions` section can overwrite the default nunjucks tag delimiters.  
+THe `permissionConfig` option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above).  
+All config options are optional.  
 
-The following just lets nunjucks pick the defaults (ie the ones in [their docs](https://mozilla.github.io/nunjucks/templating.html)) which then allow the ide to highlight the files correctly.:
+If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
 ```json
- {
-   "nunjucksOptions": {
-     "tags": {}
-   }
+{
+  "nunjucksOptions": {
+    "tags": {}
+  }
 }
 ```
+This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).  
+
+
 
 #### Template functions built in
 
@@ -160,13 +174,107 @@ If you have an older set of BOATS files then you might have named the model file
 
 ##### inject
 
-Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L25
-
-The inject helper allows you to inject content to many operations from a single block. In the example above we are injecting a header parameter to every path method.
+The inject helper allows you to inject content to many operations from a single block.  
+Anatomy of the injection:
+```yaml
+{{
+  inject([
+    {
+      toAllOperations: {
+        content: {                # Required - the content to inject to each
+          security: [{            # path or channel, filtered by the options
+            apiKey: []            # below.
+          }]
+        },
+        exclude: [                # Optional - string array containing channels
+          '/user_messages'        # to exclude (exact match)
+          '/system_information'
+        ],
+        excludePaths: [           # Optional - string array containing paths
+          '/users',               # to exclude (exact match)
+          '/admin/:adminId'
+        ],
+        includeMethods: [         # Optional - string array containing method
+          'post',                 # whitelist (default is all methods)
+          'put',
+          'patch',
+          'delete'
+        ]
+      }
+    }
+  ])
+}}
+```
+In the example below we are injecting a header parameter to every path method:  
+Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L43
 
 For openapi, the content will be merged/concat/injected into paths that are not excluded.
 
 For asyncapi, the content will be merged/concat/injected into [channels](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/index.yml#L19).
+
+Content is either a JSON representation of the YAML content to inject, or a string:
+```yaml
+# index.yaml
+# ...
+
+{{
+  inject([
+
+    # add auth to all routes
+    {
+      toAllOperations: {
+        content: {
+          security: [{
+            jwtToken: []
+          }]
+        }
+      }
+    },
+
+    # add x-write and api key to all post, put, patch, delete calls to routes
+    # except for /users
+    {
+      toAllOperations: {
+        excludePaths: ['/users'],
+        includeMethods: ['post','put','patch','delete'],
+        content: {
+          x-write-required: '{{ routePermission() }}'
+          security: [{
+            apiKey: []
+          }]
+        }
+      }
+    },
+
+    # add defaults to all routes
+    {
+      toAllOperations: {
+        content: '
+          tags:
+            - {{ autoTag() }}
+          summary: {{ myCustomAutoSummary() }}
+          operationId: {{ uniqueOpId() }}
+          description: |
+            {{ myCustomDescription() }}
+          responses:
+            '404':
+              description: Not found
+              schema:
+                $ref: #/common/404.yml.njk
+            '401':
+              description: Unauthenticated
+              schema:
+                $ref: #/common/401.yml.njk
+            '418':
+              description: Error brewing coffee
+              schema:
+                $ref: #/common/418.yml.njk
+        '
+      }
+    }
+  ])
+}}
+```
 
 Type less do more.
 
@@ -240,6 +348,17 @@ The following path:
 `src/paths/temperature/europe/get.yml`
 Results in:
 `Temperature`
+
+
+##### routePermission
+Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control:
+```yaml
+tags:
+  - <$ autoTag() $>
+description: List all users
+x-auth-permission: <$ routePermission() $>
+```
+
 
 #### Custom template functions (your own)
 It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
