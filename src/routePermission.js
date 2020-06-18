@@ -1,19 +1,22 @@
 const path = require('path')
 const ucFirst = require('./ucFirst')
-const UniqueOperationIds = require('./UniqueOperationIds');
+const UniqueOperationIds = require('./UniqueOperationIds')
 
-const methodToPrefix = {
-  get: 'read',
-  post: 'manage',
-  put: 'manage',
-  patch: 'manage',
-  delete: 'delete',
-}
-
-module.exports = (filePath, stripValue, tail) => {
+module.exports = (boatsrc, filePath, stripValue, tail) => {
+  const permissionConfig = boatsrc && boatsrc.permissionConfig && boatsrc.permissionConfig.routePrefix
+  const prefixConfig = Object.assign(
+    {
+      get: 'read',
+      post: 'create',
+      put: 'update',
+      patch: 'update',
+      delete: 'delete',
+    },
+    permissionConfig
+  )
   const opId = UniqueOperationIds.getUniqueOperationIdFromPath(filePath, stripValue, tail)
   const method = path.basename(filePath).replace(/\..*/, '').toLowerCase()
-  const prefix = methodToPrefix[method] || 'manage'
+  const prefix = prefixConfig[method] || method
 
   return `${prefix}${ucFirst(opId)}`
 }

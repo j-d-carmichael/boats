@@ -59,7 +59,8 @@ class Template {
             }
             fs.outputFileSync(outputFile, rendered)
           } catch (e) {
-            reject(e)
+            console.error(`Error parsing nunjucks file ${file}: `)
+            return reject(e)
           }
         })
         .on('error', (er, entry) => {
@@ -147,14 +148,9 @@ class Template {
     this.mixinNumber = 0
     this.nunjucksSetup()
 
-    try {
-      let renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile)
+    let renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile)
 
-      return this.stripNjkExtensionFrom$Refs(renderedYaml)
-    } catch (e) {
-      console.error(`Error parsing nunjucks file ${fileLocation}: `)
-      throw e
-    }
+    return this.stripNjkExtensionFrom$Refs(renderedYaml)
   }
 
   /**
@@ -187,7 +183,7 @@ class Template {
    * @param boatsrc
    * @returns {{autoescape: boolean, tags: {blockStart: string, commentStart: string, variableEnd: string, variableStart: string, commentEnd: string, blockEnd: string}}|({autoescape: boolean, tags: {blockStart: string, commentStart: string, variableEnd: string, variableStart: string, commentEnd: string, blockEnd: string}} & Template.nunjucksOptions)}
    */
-  nunjucksOptions (boatsrc = '') {
+  getBoatsConfig (boatsrc = '') {
     let baseOptions = {
       autoescape: false,
       tags: {
@@ -202,10 +198,11 @@ class Template {
     try {
       let json = fs.readJsonSync(boatsrc)
       if (json.nunjucksOptions) {
-        return Object.assign(baseOptions, json.nunjucksOptions)
+        json.nunjucksOptions = Object.assign(baseOptions, json.nunjucksOptions)
+        return json
       }
     } catch (e) {
-      return baseOptions
+      return {}
     }
   }
 
@@ -216,7 +213,9 @@ class Template {
    * @param boatsrc Exact path to a .boatsrc file
    */
   nunjucksSetup () {
-    let env = nunjucks.configure(this.nunjucksOptions(this.boatsrc))
+    const boatsConfig = this.getBoatsConfig(this.boatsrc)
+    let env = nunjucks.configure(boatsConfig.nunjucksOptions)
+    env.addGlobal('boatsConfig', boatsConfig)
     env.addGlobal('mixinNumber', this.mixinNumber)
     env.addGlobal('mixinObject', this.mixinObject)
     env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)

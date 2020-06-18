@@ -12,7 +12,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     ['build/builtOA2_no_version/builtOA2_no_version.yml', '11470a2cbe1cf278551e996ce777892c'],
     ['build/builtOA3_std/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['build/builtOA3_exclude/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
-    ['build/builtOA2_inject/api_1.0.1.yml', '1dfc0e41bb4310a437524a591d8dc88b'],
+    ['build/builtOA2_inject/api_1.0.1.yml', '92d592539232288fb5187273929b5b59'],
   ]
 
   it('Check all files have been created', (done) => {
@@ -622,11 +622,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/'].get.responses[200].schema.properties.data.type).toBe('array');
     expect(infile.paths['/weather/'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel');
     expect(infile.paths['/weather/'].get.responses[404].description).toBe('Path & method combination not found');
-    expect(infile.paths['/weather/'].get['x-template-permission']).toBe('readV1WeatherGet');
+    expect(infile.paths['/weather/'].get['x-autoTag']).toBe('V1');
+    expect(infile.paths['/weather/'].get['x-fileName']).toBe('get');
+    expect(infile.paths['/weather/'].get['x-uniqueOpId']).toBe('v1WeatherGet');
+    expect(infile.paths['/weather/'].get['x-template-permission']).toBe('publicReadV1WeatherGet');
     expect(infile.paths['/weather/'].get['x-template-description']).toBe('v1WeatherGet');
     expect(infile.paths['/weather/'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].get['x-json-content-test']).toBe('v1WeatherGet');
     expect(infile.paths['/weather/'].post.tags[0]).toBe('weather');
     expect(infile.paths['/weather/'].post.summary).toBe('weather data');
     expect(infile.paths['/weather/'].post.description).toBe('Create a new weather record.');
@@ -639,11 +643,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/'].post.responses[200].description).toBe('Successful temp creation');
     expect(infile.paths['/weather/'].post.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
     expect(infile.paths['/weather/'].post.responses[422].description).toBe('Invalid form data provided');
-    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('manageV1WeatherPost');
+    expect(infile.paths['/weather/'].post['x-autoTag']).toBe('V1');
+    expect(infile.paths['/weather/'].post['x-fileName']).toBe('post');
+    expect(infile.paths['/weather/'].post['x-uniqueOpId']).toBe('v1WeatherPost');
+    expect(infile.paths['/weather/'].post['x-template-permission']).toBe('newV1WeatherPost');
     expect(infile.paths['/weather/'].post['x-template-description']).toBe('v1WeatherPost');
     expect(infile.paths['/weather/'].post['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].post['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/'].post['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/'].post['x-json-content-test']).toBe('v1WeatherPost');
     expect(infile.paths['/weather/id/{id}'].get.tags[0]).toBe('weather');
     expect(infile.paths['/weather/id/{id}'].get.summary).toBe('One weather object');
     expect(infile.paths['/weather/id/{id}'].get.description).toBe('Get the full weather object');
@@ -654,11 +662,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
     expect(infile.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
     expect(infile.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found');
-    expect(infile.paths['/weather/id/{id}'].get['x-template-permission']).toBe('readV1WeatherIdGet');
+    expect(infile.paths['/weather/id/{id}'].get['x-autoTag']).toBe('V1');
+    expect(infile.paths['/weather/id/{id}'].get['x-fileName']).toBe('get');
+    expect(infile.paths['/weather/id/{id}'].get['x-uniqueOpId']).toBe('v1WeatherIdGet');
+    expect(infile.paths['/weather/id/{id}'].get['x-template-permission']).toBe('publicReadV1WeatherIdGet');
     expect(infile.paths['/weather/id/{id}'].get['x-template-description']).toBe('v1WeatherIdGet');
     expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/id/{id}'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].get['x-json-content-test']).toBe('v1WeatherIdGet');
     expect(infile.paths['/weather/id/{id}'].put.tags[0]).toBe('weather');
     expect(infile.paths['/weather/id/{id}'].put.summary).toBe('weather data');
     expect(infile.paths['/weather/id/{id}'].put.description).toBe('Create a new weather record.');
@@ -673,11 +685,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
     expect(infile.paths['/weather/id/{id}'].put.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
     expect(infile.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
-    expect(infile.paths['/weather/id/{id}'].put['x-template-permission']).toBe('manageV1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put['x-autoTag']).toBe('V1');
+    expect(infile.paths['/weather/id/{id}'].put['x-fileName']).toBe('put');
+    expect(infile.paths['/weather/id/{id}'].put['x-uniqueOpId']).toBe('v1WeatherIdPut');
+    expect(infile.paths['/weather/id/{id}'].put['x-template-permission']).toBe('updateV1WeatherIdPut');
     expect(infile.paths['/weather/id/{id}'].put['x-template-description']).toBe('v1WeatherIdPut');
     expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/id/{id}'].put['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/id/{id}'].put['x-json-content-test']).toBe('v1WeatherIdPut');
     expect(infile.paths['/weather/latest'].get.tags[0]).toBe('weather');
     expect(infile.paths['/weather/latest'].get.summary).toBe('lastest weather data');
     expect(infile.paths['/weather/latest'].get.description).toBe('Get the latest temperatures');
@@ -686,11 +702,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/latest'].get.responses[200].description).toBe('Successful fetch');
     expect(infile.paths['/weather/latest'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModels');
     expect(infile.paths['/weather/latest'].get.responses[404].description).toBe('Temp not found');
-    expect(infile.paths['/weather/latest'].get['x-template-permission']).toBe('readV1WeatherLatestGet');
+    expect(infile.paths['/weather/latest'].get['x-autoTag']).toBe('V1');
+    expect(infile.paths['/weather/latest'].get['x-fileName']).toBe('get');
+    expect(infile.paths['/weather/latest'].get['x-uniqueOpId']).toBe('v1WeatherLatestGet');
+    expect(infile.paths['/weather/latest'].get['x-template-permission']).toBe('publicReadV1WeatherLatestGet');
     expect(infile.paths['/weather/latest'].get['x-template-description']).toBe('v1WeatherLatestGet');
     expect(infile.paths['/weather/latest'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/latest'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
     expect(infile.paths['/weather/latest'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(infile.paths['/weather/latest'].get['x-json-content-test']).toBe('v1WeatherLatestGet');
     expect(infile.parameters.HeaderSearchId.in).toBe('header');
     expect(infile.parameters.HeaderSearchId.name).toBe('Search-Id');
     expect(infile.parameters.HeaderSearchId.type).toBe('string');
