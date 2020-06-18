@@ -2,5 +2,9 @@
   "nunjucksOptions": {
     "tags": {
     }
+  },
+  "permissionConfig": {
+    "routePrefix": {
+    }
   }
 }

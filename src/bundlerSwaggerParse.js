@@ -3,7 +3,6 @@ const YAML = require('js-yaml')
 const fs = require('fs-extra')
 const $RefParser = require('json-schema-ref-parser')
 const getFilePath = require('./getOutputName')
-const Injector = require('./Injector')
 const validate = require('./validate')
 const UniqueOperationIds = require('./UniqueOperationIds')
 
@@ -24,7 +23,6 @@ module.exports = async (inputFile, outputFile, options = {}, indentation = 2, ex
     if (dereference) {
       bundled = await $RefParser.dereference(bundled)
     }
-    bundled = Injector.init(bundled)
     UniqueOperationIds.checkOpIdsAreAllUnique(bundled)
     await validate.decideThenvalidate(bundled)
 

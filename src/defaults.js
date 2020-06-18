@@ -4,6 +4,3 @@ module.exports = {
   DEFAULT_ORIGINAL_INDENTATION: 2,
   DEFAULT_MIXIN_VAR_PREFIX: 'var'
 }
-
-
-

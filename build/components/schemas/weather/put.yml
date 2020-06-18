@@ -1,6 +1,0 @@
-allOf:
-  - $ref: ./post.yml
-  - type: object
-    properties:
-      id:
-        type: integer
