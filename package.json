@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.16.2",
+  "version": "1.17.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -24,8 +24,9 @@
   "scripts": {
     "install:githooks": "cp ./githooks/* .git/hooks",
     "clean:build": "rm -fR ./build/*",
-    "lint": "eslint *.js src/",
-    "test": "npm run clean:build && NODE_ENV=test npm run test:builds && npm run test:unit",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+    "test": "npm run lint:fix && npm run clean:build && NODE_ENV=test npm run test:builds && npm run test:unit",
     "test:unit": "NODE_ENV=test jest --runInBand",
     "test:unit:single": "NODE_ENV=test jest --collect-coverage false",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version && npm run test:build-cli:oa2:inject",
@@ -65,9 +66,8 @@
     "walker": "^1.0.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "eslint": "^6.8.0",
+    "eslint": "^7.2.0",
+    "eslint-plugin-node": "^11.1.0",
     "hasha": "^5.2.0",
     "jest": "^25.5.4"
   },

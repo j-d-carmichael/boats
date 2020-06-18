@@ -3,7 +3,6 @@ const YAML = require('js-yaml')
 const fs = require('fs-extra')
 const $RefParser = require('json-schema-ref-parser')
 const getFilePath = require('./getOutputName')
-const Injector = require('./Injector')
 const validate = require('./validate')
 const UniqueOperationIds = require('./UniqueOperationIds')
 

@@ -60,5 +60,4 @@ promise.then(async () => {
   }
 }).catch(error => {
   console.trace(error)
-  process.exit(1)
 })

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 /*
  * Read a YAML file and output expects for tests
