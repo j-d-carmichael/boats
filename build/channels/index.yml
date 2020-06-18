@@ -1,5 +1,0 @@
-/ms-auth/cache-connection:
-  $ref: ./ms-auth/cache-connection.yml
-/ms-auth/cache-user:
-  $ref: ./ms-auth/cache-user.yml
-

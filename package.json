@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.16.1",
+  "version": "1.16.2",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -13,7 +13,6 @@
     "bundle",
     "nunjucks",
     "yml",
-    "yaml",
     "DDD",
     "Documentation-Driven Development"
   ],
@@ -26,16 +25,17 @@
     "install:githooks": "cp ./githooks/* .git/hooks",
     "clean:build": "rm -fR ./build/*",
     "lint": "eslint *.js src/",
-    "test": "npm run clean:build && npm run test:builds && npm run test:unit",
-    "test:unit": "jest --runInBand",
-    "test:unit:single": "jest --collect-coverage false",
-    "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version",
-    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2.yml -s srcASYNC2/channels/",
-    "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_std.yml -s srcOA2/paths/",
-    "test:build-cli:oa2:readonly": "node ./bin/cli.js -i ./srcOA2/index.readonly.yml.njk -o ./build/builtOA2_readonly.yml -s srcOA2/paths/",
-    "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -s srcOA3/paths/",
-    "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_no_version.yml -x -s srcOA2/paths/",
-    "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3.yml -x -s srcOA3/paths/",
+    "test": "npm run clean:build && NODE_ENV=test npm run test:builds && npm run test:unit",
+    "test:unit": "NODE_ENV=test jest --runInBand",
+    "test:unit:single": "NODE_ENV=test jest --collect-coverage false",
+    "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version && npm run test:build-cli:oa2:inject",
+    "test:build-cli:asyncapi:std": "node ./bin/cli.js -i ./srcASYNC2/index.yml.njk -o ./build/srcASYNC2/srcASYNC2.yml -s srcASYNC2/channels/",
+    "test:build-cli:oa2:inject": "node ./bin/cli.js -i ./srcOA2/index.injections.yml.njk -o ./build/builtOA2_inject/api.yml -s srcOA2/paths/",
+    "test:build-cli:oa2:readonly": "node ./bin/cli.js -i ./srcOA2/index.readonly.yml.njk -o ./build/builtOA2_readonly/builtOA2_readonly.yml -s srcOA2/paths/",
+    "test:build-cli:oa2:std": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_std/builtOA2_std.yml -s srcOA2/paths/",
+    "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js -i ./srcOA2/index.yml.njk -o ./build/builtOA2_no_version/builtOA2_no_version.yml -x -s srcOA2/paths/",
+    "test:build-cli:oa3:std": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3_std/builtOA3.yml -s srcOA3/paths/",
+    "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js -i ./srcOA3/index.yml.njk -o ./build/builtOA3_exclude/builtOA3.yml -x -s srcOA3/paths/",
     "prepublishOnly": "npm run test"
   },
   "repository": {

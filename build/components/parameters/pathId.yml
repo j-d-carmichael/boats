@@ -1,6 +1,0 @@
-in: path
-name: id
-schema:
-  type: integer
-required: true
-description: Numeric ID of object to fetch

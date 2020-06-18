@@ -14,11 +14,13 @@ if (fs.pathExistsSync(dotenvFilePath)) {
 
 const program = require('./commander')(process.argv)
 
-checkVersion(
+const promise = process.env.NODE_ENV === 'test' ? Promise.resolve(true) : checkVersion(
   require('../package.json').version,
   'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json',
   'BOATS'
-).then(async () => {
+)
+
+promise.then(async () => {
 
   console.log(``)
 
@@ -36,13 +38,13 @@ checkVersion(
   } else {
     // parse the directory then validate and bundle with swagger-parser
     const returnFile = await Template.directoryParse(
-      program.input
-      , program.output
-      , program.indentation
-      , program.strip_value
-      , program.variables
-      , program.functions
-      , boatsrc
+      program.input,
+      program.output,
+      program.indentation,
+      program.strip_value,
+      program.variables,
+      program.functions,
+      boatsrc,
     )
     // bundle and validate
     const pathWrittenTo = await bundlerSwaggerParse(
@@ -56,6 +58,7 @@ checkVersion(
 
     console.log('Completed, the files were rendered, validated and bundled to: '.green + pathWrittenTo.green.bold)
   }
-}).catch(() => {
-  process.exit(0)
+}).catch(error => {
+  console.trace(error)
+  process.exit(1)
 })
