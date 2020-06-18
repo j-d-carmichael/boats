@@ -85,5 +85,11 @@ definitions:
             $ref: #/parameters/HeaderSearchId
       '
     }
+  }, {
+    toAllOperations: {
+      content: {
+        'x-json-content-test': '{{ uniqueOpId() }}'
+      }
+    }
   }])
 }}
