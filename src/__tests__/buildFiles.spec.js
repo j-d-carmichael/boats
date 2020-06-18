@@ -7,12 +7,12 @@ jest.setTimeout(60 * 1000); // in milliseconds
 describe('Check to ensure the files are generated with the correct file names:', () => {
   const paths = [
     ['build/srcASYNC2/srcASYNC2_1.0.1.yml', '3fc5db29e653a5f6e816ca65720a3a99'],
-    ['build/builtOA2_std/builtOA2_std_1.0.1.yml', '11470a2cbe1cf278551e996ce777892c'],
-    ['build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', '5051492748b28a0a5cec1f0b16c3ba78'],
-    ['build/builtOA2_no_version/builtOA2_no_version.yml', '11470a2cbe1cf278551e996ce777892c'],
+    ['build/builtOA2_std/builtOA2_std_1.0.1.yml', 'ba452acbff0251d85105c8dd0fe793cd'],
+    ['build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', 'f5ea75fe701702d3c6fb183cd98b5689'],
+    ['build/builtOA2_no_version/builtOA2_no_version.yml', 'ba452acbff0251d85105c8dd0fe793cd'],
     ['build/builtOA3_std/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['build/builtOA3_exclude/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
-    ['build/builtOA2_inject/api_1.0.1.yml', '7089bfa5f3e0e3ad5057e8f523772911'],
+    ['build/builtOA2_inject/api_1.0.1.yml', '926f38b802c9f0ffa0ce2e16e9f7b22d'],
   ];
 
   it('Check all files have been created', (done) => {
@@ -203,6 +203,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number');
+    expect(infile.definitions.StarWars.type).toBe('object');
   });
 
   it('built builtOA2_readonly_1.0.1.yml', async () => {
@@ -291,6 +292,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number');
+    expect(infile.definitions.StarWars.type).toBe('object');
   });
 
   it('built builtOA2_no_version.yml', async () => {
@@ -413,6 +415,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number');
+    expect(infile.definitions.StarWars.type).toBe('object');
   });
 
   it('built builtOA3_1.0.1.yml', async () => {
@@ -754,6 +757,6 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number');
-
+    expect(infile.definitions.StarWars.type).toBe('object');
   });
 });

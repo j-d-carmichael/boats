@@ -26,7 +26,7 @@ class AutoIndexer {
     return (fileName.split('.'))[0];
   }
 
-  buildPathsYamlString(cleanPaths, channels, components, paths, remove) {
+  buildPathsYamlString(cleanPaths, channels, components, paths, trimOpts) {
     let indexObject = {};
     cleanPaths.forEach((cleanPath) => {
       if (cleanPath) {
@@ -45,9 +45,13 @@ class AutoIndexer {
           };
         }
         if (components) {
-          remove = remove || '';
-          const path = new RegExp(method + '$', 'i').test(_.camelCase(dir)) ? cleanPath.replace(filename, '') : cleanPath;
-          indexObject[ucFirst(_.camelCase(removeFileExtension(path))).replace(remove, '')] = {
+          //remove = remove || '';
+          let _path = cleanPath;
+          if (trimOpts && trimOpts.dropBaseName && new RegExp(method + '$', 'i').test(_.camelCase(dir))) {
+            _path = cleanPath.replace(filename, '');
+          }
+          const trim = typeof trimOpts === 'string' ? trimOpts : '';
+          indexObject[ucFirst(_.camelCase(removeFileExtension(_path))).replace(trim, '')] = {
             $ref: `.${cleanPath}`
           };
         }
