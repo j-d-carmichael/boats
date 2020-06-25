@@ -1,0 +1,12 @@
+tags:
+  - starWars
+summary: get star wars details
+description: get star wars details
+operationId: { { uniqueOpId() } }
+responses:
+  "200":
+    description: Successful fetch
+    schema:
+      $ref: ../../../definitions/star-wars/StarWars.yml.njk
+  "404":
+    description: start not found
