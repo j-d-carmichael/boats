@@ -34,12 +34,12 @@ describe('setMixinPositions', () => {
     const response = JSON.stringify(Template.setMixinPositions(string2, 2))
     expect(response).toBe(JSON.stringify([
       {
-        index: 44,
+        index: 43,
         match: 'mixin(\'some/path\', 321)',
         mixinLinePadding: '  '
       },
       {
-        index: 99,
+        index: 97,
         match: 'mixin(\'some/other/path\', 654654)',
         mixinLinePadding: '  '
       }]

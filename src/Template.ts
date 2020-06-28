@@ -16,7 +16,7 @@ import fileName from '@/nunjucksHelpers/fileName'
 import inject from '@/nunjucksHelpers/inject'
 import mixin from '@/nunjucksHelpers/mixin'
 import packageJson from '@/nunjucksHelpers/packageJson'
-import routePermission from '@/routePermission'
+import routePermission from '@/nunjucksHelpers/routePermission'
 import uniqueOpId from '@/nunjucksHelpers/uniqueOpId'
 
 // No types found for walker
@@ -73,7 +73,6 @@ class Template {
       let returnFileinput: string
       walker(path.dirname(inputFile))
         .on('file', (file: string) => {
-          console.log(file)
           try {
             const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
             const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file)

@@ -63,23 +63,10 @@ class Injector {
       const newPath = `${path.dirname(rootRef)}/index.yml#/${path.basename(rootRef)}`
       return `${ref}${relativePathToRoot}/${newPath}`
     })
-    let renderedString
-    try {
-      renderedString = renderString(
-        content,
-        {}
-      )
-    } catch (e) {
-      console.log(`
-
-
-${content}
-
-
-`)
-      console.error(e)
-      throw e
-    }
+    const renderedString = renderString(
+      content,
+      {}
+    )
 
     const injectionContent = jsYaml.safeLoad(renderedString)
 
