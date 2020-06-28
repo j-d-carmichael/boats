@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import _ from 'lodash'
 import ucFirst from '@/ucFirst'
 import lcFirst from '@/lcFirst'
 import removeFileExtension from '@/removeFileExtension'
 
 class UniqueOperationIds {
-  getUniqueOperationIdFromPath (filePath: string, stripValue: string, tail= '', cwd?: string): string {
+  getUniqueOperationIdFromPath (filePath: string, stripValue: string, tail = '', cwd?: string): string {
     tail = tail || ''
     cwd = cwd || process.cwd()
     filePath = filePath.replace(cwd, '')

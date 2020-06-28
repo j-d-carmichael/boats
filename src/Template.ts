@@ -73,6 +73,7 @@ class Template {
       let returnFileinput: string
       walker(path.dirname(inputFile))
         .on('file', (file: string) => {
+          console.log(file)
           try {
             const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output))
             const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file)

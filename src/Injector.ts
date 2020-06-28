@@ -33,7 +33,6 @@ class Injector {
     let jsonTemplate = jsYaml.safeLoad(yaml)
 
     const relativePathToRoot = path.relative(path.dirname(inputPath), path.dirname(inputIndexYaml))
-
     for (const { toAllOperations } of global.boatsInject) {
       if (this.shouldInject(toAllOperations, inputPath)) {
         jsonTemplate = this.mergeInjection(jsonTemplate, relativePathToRoot, toAllOperations.content)
@@ -60,13 +59,29 @@ class Injector {
     if (typeof content === 'object') {
       content = JSON.stringify(content)
     }
-
     content = content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
       const newPath = `${path.dirname(rootRef)}/index.yml#/${path.basename(rootRef)}`
       return `${ref}${relativePathToRoot}/${newPath}`
     })
+    let renderedString
+    try {
+      renderedString = renderString(
+        content,
+        {}
+      )
+    } catch (e) {
+      console.log(`
 
-    const injectionContent = jsYaml.safeLoad(renderString(content, {}))
+
+${content}
+
+
+`)
+      console.error(e)
+      throw e
+    }
+
+    const injectionContent = jsYaml.safeLoad(renderedString)
 
     return deepmerge(jsonTemplate, injectionContent)
   }
