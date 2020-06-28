@@ -1,4 +1,4 @@
-const cloneobject = require('../cloneObject');
+import cloneobject from '../cloneObject';
 
 describe('cloneObject', () => {
   it('compare cloned object to original', () => {

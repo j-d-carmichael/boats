@@ -1,8 +1,6 @@
 import path from 'path'
 import fs from 'fs-extra'
 
-const program = require('./commander')
-
 const getVersion = (jsonObj: any, excludeVersion: boolean): string => {
   let swagVersion = ''
   if (excludeVersion) {
@@ -10,10 +8,10 @@ const getVersion = (jsonObj: any, excludeVersion: boolean): string => {
   }
   if (jsonObj.info.version) {
     swagVersion = jsonObj.info.version
-  } else if (!program.Version) {
+  } else {
     let packageJson
     try {
-      packageJson = JSON.parse(fs.readFileSync('./package.json'))
+      packageJson = JSON.parse(fs.readFileSync('./package.json').toString('utf8'))
     } catch (e) {
       packageJson = {}
     }

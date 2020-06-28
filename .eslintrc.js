@@ -3,7 +3,9 @@ module.exports = {
   parser: '@typescript-eslint/parser',
 
   // Which files to not lint
-  ignorePatterns: [],
+  ignorePatterns: [
+    'src/__tests__/**/*.*'
+  ],
 
   parserOptions: {
     // Allows for the parsing of modern ECMAScript features

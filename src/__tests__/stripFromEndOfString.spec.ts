@@ -1,4 +1,4 @@
-const stripFromEnd = require('../stripFromEndOfString')
+import stripFromEnd from '../stripFromEndOfString'
 
 describe('stripFromEndOfString', () => {
   it('.yml.njk', () => {

@@ -29,8 +29,8 @@
  *   expect(itemToTest.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0.html');
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs'
+import path from 'path'
 
 exports.main = () => {
   const jsYaml = require('js-yaml');
@@ -64,7 +64,7 @@ exports.main = () => {
   });
 };
 
-exports.fmtProp = (prop) => {
+exports.fmtProp = (prop: any) => {
   if (/^[a-zA-Z\$][a-zA-Z\$0-9_]*$/.test(prop)) {
     return `.${prop}`;
   }
@@ -74,7 +74,7 @@ exports.fmtProp = (prop) => {
   return `['${prop}']`;
 };
 
-exports.fmtString = (value) => {
+exports.fmtString = (value: any) => {
   if (typeof value === 'string') {
     let quote;
     if (!/'/.test(value)) {
@@ -93,10 +93,10 @@ exports.fmtString = (value) => {
 };
 
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
-exports.flatten = (data) => {
-  const result = {};
+exports.flatten = (data: any) => {
+  const result: any = {};
 
-  const recurse = (cur, prop) => {
+  const recurse = (cur: any, prop: string) => {
     if (Object(cur) !== cur) {
       result[prop] = exports.fmtString(cur);
     } else if (Array.isArray(cur)) {

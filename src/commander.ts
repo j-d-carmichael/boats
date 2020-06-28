@@ -8,7 +8,7 @@ export default (args: any[]): any => {
 
     .option('-i, --input [path]', 'The relative path to the main input file eg "./src/index.yml"')
 
-    .option('-o, --output [path]', `The relative path to the main output file eg "./built/bundled.yml" 
+    .option('-o, --output [path]', `The relative path to the main output file eg "./built/bundled.yml"
                             (if json_refs is not used the output directory will also contain the compiled tpl files)`)
 
     .option('-$, --variables [value]', 'Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987"', collect, [])

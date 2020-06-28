@@ -1,4 +1,4 @@
-const Template = require('../Template')
+import Template from '../Template'
 
 const string1 = `
 Weather: mixin('some/path', 321)
@@ -7,10 +7,10 @@ Weathers: mixin('some/pther/path', 654654)
 `
 
 const string2 = `
-Weather: 
+Weather:
   object: mixin('some/path', 321)
 
-Weathers: 
+Weathers:
   object: mixin('some/other/path', 654654)
 `
 describe('setMixinPositions', () => {
@@ -78,23 +78,23 @@ describe('getHelperFunctionNameFromPath', () => {
 
 describe('setDefaultStripValue', () => {
   it('should return src/paths/', () => {
-    expect(Template.setDefaultStripValue(false, 'swagger file thing more words'))
+    expect(Template.setDefaultStripValue(undefined, 'swagger file thing more words'))
       .toBe('src/paths/')
   })
 
   it('should return src/paths/', () => {
-    expect(Template.setDefaultStripValue(false, 'openapi file thing more words'))
+    expect(Template.setDefaultStripValue(undefined, 'openapi file thing more words'))
       .toBe('src/paths/')
   })
 
   it('should return src/channels/', () => {
-    expect(Template.setDefaultStripValue(false, 'asyncapi file thing more words'))
+    expect(Template.setDefaultStripValue(undefined, 'asyncapi file thing more words'))
       .toBe('src/channels/')
   })
 
   it('should throw error', (done) => {
     try {
-      Template.setDefaultStripValue(false, 'file thing more words')
+      Template.setDefaultStripValue(undefined, 'file thing more words')
       done('Should have thrown an error')
     } catch (e) {
       done()

@@ -8,6 +8,17 @@ import stripFromEndOfString from '@/stripFromEndOfString'
 import apiTypeFromString from '@/apiTypeFromString'
 import Injector from '@/Injector'
 
+import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer'
+import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer'
+import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer'
+import autoTag from '@/nunjucksHelpers/autoTag'
+import fileName from '@/nunjucksHelpers/fileName'
+import inject from '@/nunjucksHelpers/inject'
+import mixin from '@/nunjucksHelpers/mixin'
+import packageJson from '@/nunjucksHelpers/packageJson'
+import routePermission from '@/routePermission'
+import uniqueOpId from '@/nunjucksHelpers/uniqueOpId'
+
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const walker = require('walker')
@@ -16,11 +27,13 @@ class Template {
   originalIndentation: number
   mixinVarNamePrefix: string
   helpFunctionPaths: string[]
-  variables: any
+  variables: any[]
   boatsrc: any
   inputFile: string
   stripValue: string
-  currentFilePointer: number
+  currentFilePointer: string
+  mixinObject: any[]
+  mixinNumber: number
 
   /**
    * Parses all files in a folder against the nunjuck tpl engine and outputs in a mirrored path the in provided outputDirectory
@@ -37,7 +50,7 @@ class Template {
     output: string,
     originalIndent = defaults.DEFAULT_ORIGINAL_INDENTATION,
     stripValue = defaults.DEFAULT_STRIP_VALUE,
-    variables: Record<string, unknown>,
+    variables: any[],
     helpFunctionPaths: string[],
     boatsrc: any
   ): Promise<string> {
@@ -48,7 +61,7 @@ class Template {
       this.originalIndentation = originalIndent
       this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX
       this.helpFunctionPaths = helpFunctionPaths || []
-      this.variables = variables || {}
+      this.variables = variables || []
       this.boatsrc = this.getBoatsConfig(boatsrc)
       this.inputFile = inputFile = this.cleanInputString(inputFile)
 
@@ -168,7 +181,7 @@ class Template {
    * @param originalIndentation The original indentation setting, defaults to 2
    * @returns {Array}
    */
-  setMixinPositions (str: string, originalIndentation = 2) {
+  setMixinPositions (str: string, originalIndentation = 2): any[] {
     const regexp = RegExp(/(mixin\(.*\))/, 'g')
     let matches
     const matched: any[] = []
@@ -230,23 +243,30 @@ class Template {
     env.addGlobal('currentFilePointer', this.currentFilePointer)
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
 
-    const helpers = fs.readdirSync(path.join(__dirname, '../nunjucksHelpers/'))
-    for (const helper of helpers) {
-      const name = path.basename(helper).replace(/\..*/, '')
-      env.addGlobal(name, require('./src/nunjucksHelpers'))
-    }
+    // helpers
+    env.addGlobal('autoChannelIndexer', autoChannelIndexer)
+    env.addGlobal('autoComponentIndexer', autoComponentIndexer)
+    env.addGlobal('autoPathIndexer', autoPathIndexer)
+    env.addGlobal('autoTag', autoTag)
+    env.addGlobal('fileName', fileName)
+    env.addGlobal('inject', inject)
+    env.addGlobal('mixin', mixin)
+    env.addGlobal('packageJson', packageJson)
+    env.addGlobal('routePermission', routePermission)
+    env.addGlobal('uniqueOpId', uniqueOpId)
 
     const processEnvVars = cloneObject(process.env)
     for (const key in processEnvVars) {
       env.addGlobal(key, processEnvVars[key])
     }
-    if (Array.isArray(this.customVars)) {
-      this.customVars.forEach((varObj) => {
+    if (Array.isArray(this.variables)) {
+      this.variables.forEach((varObj) => {
         const keys = Object.keys(varObj)
         env.addGlobal(keys[0], varObj[keys[0]])
       })
     }
     this.helpFunctionPaths.forEach((filePath) => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       env.addGlobal(this.getHelperFunctionNameFromPath(filePath), require(filePath))
     })
   }

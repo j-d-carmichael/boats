@@ -1,4 +1,4 @@
-const lcFirst = require('../lcFirst');
+import lcFirst from '../lcFirst';
 
 describe('lcFirst', () => {
   it('lowercase an uppercase start', () => {
