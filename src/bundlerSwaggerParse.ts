@@ -49,6 +49,6 @@ export default async (inputFile: string, outputFile: string, options = {}, inden
     return pathToWriteTo
   } catch (e) {
     console.error(JSON.stringify(bundled, undefined, 2))
-    console.error(e)
+    throw e;
   }
 }
