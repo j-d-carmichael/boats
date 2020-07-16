@@ -13,6 +13,8 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
+- 2020/06/28 1.18.1: feat: Bump tool check version to 1.1.1
+- 2020/06/28 1.18.0: feat: Conversion to typescript
 - 2020/06/18 1.17.0: feat: Allow njk templating in injected content and a new function routePermission()
 - 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example) 
 - 2020/05/03 1.16.0: feat: An additional unique operation id check during the bundle process.
