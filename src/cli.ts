@@ -65,7 +65,7 @@ if (process.env.NODE_ENV === 'test') {
     packageJson.version,
     'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json',
     'BOATS'
-  ).then(async () => {
-    parseCli().catch(catchHandle)
-  }).catch(catchHandle)
+  )
+  .then(parseCli)
+  .catch(catchHandle)
 }
