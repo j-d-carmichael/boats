@@ -1,7 +1,8 @@
 import path from 'path'
 import fs from 'fs-extra'
+import { JSON } from '@/interfaces/generic';
 
-const getVersion = (jsonObj: any, excludeVersion: boolean): string => {
+const getVersion = (jsonObj: JSON, excludeVersion: boolean): string => {
   let swagVersion = ''
   if (excludeVersion) {
     return swagVersion
@@ -24,11 +25,11 @@ const getVersion = (jsonObj: any, excludeVersion: boolean): string => {
   return '_' + swagVersion
 }
 
-const getFileName = (filePath: string, openApiJson: any, excludeVersion: boolean): string => {
+const getFileName = (filePath: string, openApiJson: JSON, excludeVersion: boolean): string => {
   const name = path.basename(filePath).replace(path.extname(filePath), '')
   return name + getVersion(openApiJson, excludeVersion) + path.extname(filePath)
 }
 
-export default (filePath: string, openApiJson: any, excludeVersion: boolean): string => {
+export default (filePath: string, openApiJson: JSON, excludeVersion: boolean): string => {
   return path.join(path.dirname(filePath), getFileName(filePath, openApiJson, excludeVersion))
 }

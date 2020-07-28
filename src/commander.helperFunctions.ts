@@ -7,7 +7,7 @@ import path from 'path'
  * @param arr Always an array is given
  * @returns {*}
  */
-export default (val: any, arr: any[]): any[] => {
+export default (val: string, arr: any[]): any[] => {
   const filePath = path.join(process.cwd(), val)
   if (!fs.pathExistsSync(filePath)) {
     throw new Error('Helper function could not be found: ' + filePath)

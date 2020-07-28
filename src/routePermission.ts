@@ -1,10 +1,11 @@
 import path from 'path'
 import ucFirst from '@/ucFirst'
 import UniqueOperationIds from '@/UniqueOperationIds'
+import { JSON, BoatsRC } from '@/interfaces/generic';
 
-export default (boatsrc: any, filePath: string, stripValue: string, tail: string) => {
+export default (boatsrc: BoatsRC, filePath: string, stripValue: string, tail: string): string => {
   const permissionConfig = boatsrc && boatsrc.permissionConfig && boatsrc.permissionConfig.routePrefix
-  const prefixConfig = Object.assign(
+  const prefixConfig: JSON = Object.assign(
     {
       get: 'read',
       post: 'create',
