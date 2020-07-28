@@ -21,6 +21,8 @@
 /weather/id/{id}:
   get:
     $ref: ./v1/weather/id/get.yml.njk
+  delete:
+    $ref: ./v1/weather/id/delete.yml.njk
 {% if write %}
   put:
     $ref: ./v1/weather/id/put.yml.njk

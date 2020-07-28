@@ -15,7 +15,9 @@ class Injector {
    */
   injectAndRender (inputPath: string, inputIndexYaml: string): string {
     const fullPath = path.join(process.cwd(), inputPath)
-    const yaml = render(fullPath)
+    const relativePathToRoot = path.relative(path.dirname(inputPath), path.dirname(inputIndexYaml))
+
+    const yaml = this.convertRootRefToRelative(render(fullPath), relativePathToRoot)
 
     if (!global.boatsInject) {
       return yaml
@@ -32,7 +34,6 @@ class Injector {
 
     let jsonTemplate = jsYaml.safeLoad(yaml)
 
-    const relativePathToRoot = path.relative(path.dirname(inputPath), path.dirname(inputIndexYaml))
     for (const { toAllOperations } of global.boatsInject) {
       if (this.shouldInject(toAllOperations, inputPath)) {
         jsonTemplate = this.mergeInjection(jsonTemplate, relativePathToRoot, toAllOperations.content)
@@ -59,14 +60,9 @@ class Injector {
     if (typeof content === 'object') {
       content = JSON.stringify(content)
     }
-    content = content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
-      const newPath = `${path.dirname(rootRef)}/index.yml#/${path.basename(rootRef)}`
-      return `${ref}${relativePathToRoot}/${newPath}`
-    })
-    const renderedString = renderString(
-      content,
-      {}
-    )
+
+    content = this.convertRootRefToRelative(content, relativePathToRoot);
+    const renderedString = renderString(content, {})
 
     const injectionContent = jsYaml.safeLoad(renderedString)
 
@@ -131,6 +127,13 @@ class Injector {
           this.fileToRouteMap[fullPath] = route
         }
       })
+    })
+  }
+
+  convertRootRefToRelative (content: string, relativePathToRoot: string) {
+    return content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
+      const newPath = `${path.dirname(rootRef)}/index.yml#/${path.basename(rootRef)}`
+      return `${ref}${relativePathToRoot}/${newPath}`
     })
   }
 }

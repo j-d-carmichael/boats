@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.18.4",
+  "version": "1.18.5",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -23,13 +23,13 @@
   },
   "scripts": {
     "install:githooks": "cp ./githooks/* .git/hooks",
-    "clean:test:build": "rm -fR ./test-build/*",
     "build:tocs": "npx doctoc .",
     "build": "rm -fR ./build && ttsc -p . --declaration --declarationDir build",
     "build:watch": "ttsc --watch -p .",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
-    "test": "npm run lint:fix && npm run clean:test:build && NODE_ENV=test npm run test:builds && npm run test:unit",
+    "test": "npm run lint:fix && npm run build && npm run test:clean && NODE_ENV=test npm run test:builds && npm run test:unit",
+    "test:clean": "rm -fR ./test-build/*",
     "test:unit": "NODE_ENV=test jest --runInBand",
     "test:unit:single": "NODE_ENV=test jest --collect-coverage false",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version && npm run test:build-cli:oa2:inject",

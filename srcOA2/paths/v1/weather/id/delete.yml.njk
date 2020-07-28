@@ -1,0 +1,23 @@
+tags:
+  - weather
+summary: weather set to rain
+description: Reset awful sunny weather to excellent rainy weather
+operationId: {{ uniqueOpId() }}
+x-filename: {{ fileName() }}
+parameters:
+  - $ref: '#/parameters/PathId'
+  - $ref: '#/parameters/QueryOffset'
+  - $ref: '#/parameters/QueryTextSearch'
+  - in: query
+    name: areYouSure
+    required: true
+    type: string
+  - in: query
+    name: areYouSureSure
+    required: true
+    type: string
+responses:
+  '200':
+    description: Deleted
+  '404':
+    description: Temp not found
