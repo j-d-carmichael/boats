@@ -3,6 +3,8 @@
     "tags": {
     }
   },
+  "jsonSchemaRefParserBundleOpts": {
+  },
   "permissionConfig": {
     "routePrefix": {
     }
