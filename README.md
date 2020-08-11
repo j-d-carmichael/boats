@@ -57,6 +57,18 @@ Want to start with a bare bones repo then just install and add these scripts to 
 }
 ```
 
+### json-schema-ref-parser bundle and options
+
+All openapi content is run through the bundle function found in https://github.com/APIDevTools/json-schema-ref-parser
+
+The [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) offers a few options that can be passed in.
+
+In boats, you are able to pass these options in via 3 methods:
+ - Create a .env file containing a JSON string of the options object under `jsonSchemaRefParserBundleOpts`
+ - Create a process.env variable `jsonSchemaRefParserBundleOpts` containing a JSON string of the options
+ - Add to your .boatsrc "jsonSchemaRefParserBundleOpts": { ... options }
+
+The options passed in should be valid [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) options.
 
 ### Dereference the output
 When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
@@ -108,6 +120,7 @@ Example:
       "commentEnd": "#]"
     }
   },
+  "jsonSchemaRefParserBundleOpts": {},
   "permissionConfig": {
     "routePrefix": {
       "get": "read",
