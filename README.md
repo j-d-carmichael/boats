@@ -13,7 +13,9 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
-- 2020/06/28 1.18.1: feat: Bump tool check version to 1.1.1
+- 2020/08/11 1.19.0: feat: pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17) via process.env or .boatsrc file allowing header injection for url resolution
+- 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files 
+- 2020/06/28 1.18.1: chore: Bump tool check version to 1.1.1
 - 2020/06/28 1.18.0: feat: Conversion to typescript
 - 2020/06/18 1.17.0: feat: Allow njk templating in injected content and a new function routePermission()
 - 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example) 
