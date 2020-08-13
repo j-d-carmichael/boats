@@ -6,7 +6,7 @@ jest.setTimeout(60 * 1000) // in milliseconds
 
 describe('Check to ensure the files are generated with the correct file names:', () => {
   const paths = [
-    ['test-build/srcASYNC2/srcASYNC2_1.0.1.yml', '3fc5db29e653a5f6e816ca65720a3a99'],
+    ['test-build/srcASYNC2/srcASYNC2_1.0.1.yml', '98126fb769c131825c94d0b1774228a8'],
     ['test-build/builtOA2_std/builtOA2_std_1.0.1.yml', '54e8652c21b42c409d9f9b426a0ad534'],
     ['test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', 'd33421153f092e72790a54b4cf160ffc'],
     ['test-build/builtOA2_no_version/builtOA2_no_version.yml', '54e8652c21b42c409d9f9b426a0ad534'],
@@ -14,6 +14,7 @@ describe('Check to ensure the files are generated with the correct file names:',
     ['test-build/builtOA3_exclude/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['test-build/builtOA2_inject/api_1.0.1.yml', '4e53b851f7810608af8dd216623bfa71'],
   ]
+
 
   it('Check all files have been created', (done) => {
     for (let i = 0; i < paths.length; ++i) {
@@ -48,39 +49,40 @@ describe('Check to ensure the files are generated with the correct file names:',
   })
 
   it('built srcASYNC2_1.0.1.yml', async () => {
-    const infile: any = jsYaml.safeLoad(fs.readFileSync('test-build/srcASYNC2/srcASYNC2_1.0.1.yml', 'utf8'))
-    expect(infile.asyncapi).toBe('2.0.0')
-    expect(infile.info.title).toBe('boats')
-    expect(infile.info.version).toBe('1.0.1')
-    expect(infile.info.description).toBe('Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.')
-    expect(infile.info.license.name).toBe('Apache 2.0')
-    expect(infile.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0')
-    expect(infile.defaultContentType).toBe('application/json')
-    expect(infile.channels['/ms-auth/cache-connection'].description).toBe('When a new connection change occurs the new cache values are emitted in the payload')
-    expect(infile.channels['/ms-auth/cache-connection'].publish.operationId).toBe('msAuthCacheConnection')
-    expect(infile.channels['/ms-auth/cache-connection'].publish.message.contentType).toBe('application/json')
-    expect(infile.channels['/ms-auth/cache-connection'].publish.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheConnection')
-    expect(infile.channels['/ms-auth/cache-connection'].subscribe.operationId).toBe('msAuthCacheConnection')
-    expect(infile.channels['/ms-auth/cache-connection'].subscribe.message.contentType).toBe('application/json')
-    expect(infile.channels['/ms-auth/cache-connection'].subscribe.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheConnection')
-    expect(infile.channels['/ms-auth/cache-user'].description).toBe('When a new connection change occurs the new cache values are emitted in the payload')
-    expect(infile.channels['/ms-auth/cache-user'].publish.operationId).toBe('msAuthCacheUser')
-    expect(infile.channels['/ms-auth/cache-user'].publish.message.contentType).toBe('application/json')
-    expect(infile.channels['/ms-auth/cache-user'].publish.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheUser')
-    expect(infile.channels['/ms-auth/cache-user'].subscribe.operationId).toBe('msAuthCacheUser')
-    expect(infile.channels['/ms-auth/cache-user'].subscribe.message.contentType).toBe('application/json')
-    expect(infile.channels['/ms-auth/cache-user'].subscribe.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheUser')
-    expect(infile.components.schemas.MsAuthCacheConnection.type).toBe('object')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.username.type).toBe('string')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.connections.type).toBe('array')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.connections.items.type).toBe('object')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.type).toBe('string')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.format).toBe('date')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.state.type).toBe('string')
-    expect(infile.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.username.type).toBe('string')
-    expect(infile.components.schemas.MsAuthCacheUser.type).toBe('object')
-    expect(infile.components.schemas.MsAuthCacheUser.properties.username.type).toBe('string')
-    expect(infile.components.schemas.MsAuthCacheUser.properties.email.type).toBe('string')
+    const itemToTest: any = jsYaml.safeLoad(fs.readFileSync('test-build/srcASYNC2/srcASYNC2_1.0.1.yml', 'utf8'))
+    expect(itemToTest.asyncapi).toBe('2.0.0');
+    expect(itemToTest.info.title).toBe('boats');
+    expect(itemToTest.info.version).toBe('1.0.1');
+    expect(itemToTest.info.description).toBe('Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.');
+    expect(itemToTest.info.license.name).toBe('Apache 2.0');
+    expect(itemToTest.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0');
+    expect(itemToTest.defaultContentType).toBe('application/json');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].description).toBe('When a new connection change occurs the new cache values are emitted in the payload');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].publish.operationId).toBe('msAuthCacheConnectionPublish');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].publish.message.contentType).toBe('application/json');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].publish.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheConnection');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.operationId).toBe('msAuthCacheConnectionSubscribe');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.message.contentType).toBe('application/json');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheConnection');
+    expect(itemToTest.channels['/ms-auth/cache-user'].description).toBe('When a new connection change occurs the new cache values are emitted in the payload');
+    expect(itemToTest.channels['/ms-auth/cache-user'].publish.operationId).toBe('msAuthCacheUserPublish');
+    expect(itemToTest.channels['/ms-auth/cache-user'].publish.message.contentType).toBe('application/json');
+    expect(itemToTest.channels['/ms-auth/cache-user'].publish.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheUser');
+    expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.operationId).toBe('msAuthCacheUserSubscribe');
+    expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.message.contentType).toBe('application/json');
+    expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheUser');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.type).toBe('object');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.username.type).toBe('string');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.type).toBe('array');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.type).toBe('object');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.type).toBe('string');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.format).toBe('date');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.state.type).toBe('string');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.username.type).toBe('string');
+    expect(itemToTest.components.schemas.MsAuthCacheUser.type).toBe('object');
+    expect(itemToTest.components.schemas.MsAuthCacheUser.properties.username.type).toBe('string');
+    expect(itemToTest.components.schemas.MsAuthCacheUser.properties.email.type).toBe('string');
+
   })
 
   it('built builtOA2_std_1.0.1.yml', async () => {
