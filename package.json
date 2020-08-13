@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.19.0",
+  "version": "1.20.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -53,7 +53,7 @@
   },
   "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
-    "@asyncapi/parser": "^0.18.3",
+    "@asyncapi/parser": "^1.0.0-rc.1",
     "colors": "^1.4.0",
     "commander": "^5.1.0",
     "deepmerge": "^4.2.2",

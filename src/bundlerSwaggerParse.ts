@@ -3,7 +3,6 @@ import YAML from 'js-yaml';
 import fs from 'fs-extra';
 import getOutputName from '@/getOutputName';
 import validate from '@/validate';
-import UniqueOperationIds from '@/UniqueOperationIds';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const $RefParser = require('json-schema-ref-parser');
@@ -25,7 +24,7 @@ export default async (inputFile: string, outputFile: string, options = $RefParse
     if (dereference) {
       bundled = await $RefParser.dereference(bundled);
     }
-    UniqueOperationIds.checkOpIdsAreAllUnique(bundled);
+
     await validate.decideThenvalidate(bundled);
 
     let contents;
