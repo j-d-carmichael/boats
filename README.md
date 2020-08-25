@@ -13,6 +13,7 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
+- 2020/08/13 1.20.2: fix: --init script
 - 2020/08/13 1.20.0: feat: now uses the new https://www.npmjs.com/package/@asyncapi/parser which enforces all operationId to all be unique and brings in Types.
 - 2020/08/11 1.19.0: feat: pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17) via process.env or .boatsrc file allowing header injection for url resolution
 - 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files 
