@@ -7,12 +7,12 @@ jest.setTimeout(60 * 1000) // in milliseconds
 describe('Check to ensure the files are generated with the correct file names:', () => {
   const paths = [
     ['test-build/srcASYNC2/srcASYNC2_1.0.1.yml', '98126fb769c131825c94d0b1774228a8'],
-    ['test-build/builtOA2_std/builtOA2_std_1.0.1.yml', '54e8652c21b42c409d9f9b426a0ad534'],
+    ['test-build/builtOA2_std/builtOA2_std_1.0.1.yml', 'e75f7e9314859e395bc2fecc14b2f799'],
     ['test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', 'd33421153f092e72790a54b4cf160ffc'],
-    ['test-build/builtOA2_no_version/builtOA2_no_version.yml', '54e8652c21b42c409d9f9b426a0ad534'],
+    ['test-build/builtOA2_no_version/builtOA2_no_version.yml', 'e75f7e9314859e395bc2fecc14b2f799'],
     ['test-build/builtOA3_std/builtOA3_1.0.1.yml', '3af08fac9d2500ca3ddf431adeece189'],
     ['test-build/builtOA3_exclude/builtOA3.yml', '3af08fac9d2500ca3ddf431adeece189'],
-    ['test-build/builtOA2_inject/api_1.0.1.yml', '4e53b851f7810608af8dd216623bfa71'],
+    ['test-build/builtOA2_inject/api_1.0.1.yml', '1b1e2ba89a569c4db3fd8a65177e4e31'],
   ]
 
 
