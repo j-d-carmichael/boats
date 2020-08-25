@@ -17,3 +17,4 @@ responses:
       $ref: ../../../definitions/weather/model.yml.njk
   '422':
     description: Invalid form data provided
+x-permission: {{ routePermission({removeMethod: true}) }}
