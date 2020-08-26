@@ -2,6 +2,7 @@ import _ from 'lodash';
 import ucFirst from '@/ucFirst';
 import lcFirst from '@/lcFirst';
 import removeFileExtension from '@/removeFileExtension';
+import { methods } from '@/constants/methods';
 
 class UniqueOperationIds {
   getUniqueOperationIdFromPath (filePath: string, stripValue: string, tail = '', cwd?: string, removeMethod?: boolean): string {
@@ -16,7 +17,6 @@ class UniqueOperationIds {
       }
     }
     if (removeMethod) {
-      const methods = ['get', 'post', 'put', 'update', 'patch', 'delete'];
       if (methods.includes(filePathParts[filePathParts.length - 1].toLowerCase())) {
         filePathParts.pop();
       }

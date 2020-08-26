@@ -51,6 +51,13 @@ definitions:
     }
   }, {
     toAllOperations: {
+      includeOnlyPaths: ['/weather/id/**'],
+      content: {
+        'x-permission': '{{ routePermission({removeMethod: true}) }}'
+      }
+    }
+  }, {
+    toAllOperations: {
       excludePaths: ['/weather/latest'],
       includeMethods: ['get'],
       content: {

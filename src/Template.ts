@@ -167,7 +167,7 @@ class Template {
    * @param inputString The string to parse
    * @param fileLocation The file location the string derived from
    */
-  renderFile (inputString: string, fileLocation: string) {
+  renderFile (inputString: string, fileLocation: string, ) {
     this.currentFilePointer = fileLocation
     this.mixinObject = this.setMixinPositions(inputString, this.originalIndentation)
     this.mixinNumber = 0
@@ -175,7 +175,7 @@ class Template {
     this.indentNumber = 0
     this.nunjucksSetup()
 
-    const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile)
+    const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile, this.boatsrc)
 
     return this.stripNjkExtensionFrom$Refs(renderedYaml)
   }

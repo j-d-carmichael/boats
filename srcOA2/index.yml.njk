@@ -43,6 +43,7 @@ definitions:
 {{
   inject([{
     toAllOperations: {
+      includeOnlyPaths: ['/weather/**'],
       content: {
         security: [{
           jwtToken: []
@@ -52,7 +53,6 @@ definitions:
   }, {
     toAllOperations: {
       excludePaths: ['/weather/latest'],
-      includeMethods: ['get'],
       content: {
         parameters: [{
           '$ref': '#/parameters/HeaderSearchId'
