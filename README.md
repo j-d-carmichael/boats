@@ -30,14 +30,14 @@ BOATS ships with a few features described below.
   ...
 ```
 
-### Getting started 
+### Getting started
 Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init command. The net result will be:
  - Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
  - Build scripts for JSON and YAML added to your package.json file for CLI use.
 
 ```
 npm run boats -- --init
-``` 
+```
 
 Want to start with a bare bones repo then just install and add these scripts to get going:
 ```json
@@ -92,19 +92,19 @@ BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also 
 
 If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
-#### File ext. 
+#### File ext.
 You may use `.yaml` or `.yml`.
 
 You may also use, since version 1.50, the nunjucks extension, but only on .yml (not .yaml), eg: `something.yml.njk`.
 
-Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig mapping in you settings for file types). 
+Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig mapping in you settings for file types).
 
 Adding the `.yml.njk` allows the ide to easily use the yaml and nunjucks highlighting in 1 which is pretty cool.
 
 Additionally, when using the `.yml.njk` ext you will also want to back back to the default njk tags by not setting any tags in your `.boatsrc` file
 
 
-#### .boatsrc 
+#### .boatsrc
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
 
 Example:
@@ -133,9 +133,9 @@ Example:
 }
 ```
 
-The `nunjucksOptions` section can overwrite the default nunjucks tag delimiters.  
-THe `permissionConfig` option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above).  
-All config options are optional.  
+The `nunjucksOptions` section can overwrite the default nunjucks tag delimiters.
+THe `permissionConfig` option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above).
+All config options are optional.
 
 If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
 ```json
@@ -145,7 +145,7 @@ If you use the `.yml.njk`, you will want to just use the default tags from nunju
   }
 }
 ```
-This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).  
+This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
 
 
 
@@ -156,7 +156,7 @@ TIP: The tpl helpers and the examples in this repo all use the [default nunjucks
 ##### Auto Index Files
 In async/swagger/openapi the channels/paths require an index file to register the routes.
 By the way [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser), unless you create an index file then the references to component/definitions will not look pretty and easily break other tools.
-Maintaining these index files is quite a monotonous chore, and very human error prone. 
+Maintaining these index files is quite a monotonous chore, and very human error prone.
 
 The index file is nothing more duplicate data; we already carefully name our folders and files to then manually go and type it all out again in a not fun to manage index file.
 
@@ -187,7 +187,7 @@ If you have an older set of BOATS files then you might have named the model file
 
 ##### inject
 
-The inject helper allows you to inject content to many operations from a single block.  
+The inject helper allows you to inject content to many operations from a single block.
 Anatomy of the injection:
 ```yaml
 {{
@@ -218,7 +218,7 @@ Anatomy of the injection:
   ])
 }}
 ```
-In the example below we are injecting a header parameter to every path method:  
+In the example below we are injecting a header parameter to every path method:
 Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L43
 
 For openapi, the content will be merged/concat/injected into paths that are not excluded.
@@ -305,7 +305,7 @@ All additional arguments are passed as numbers variables to the Nunjucks templat
 
 Mixin file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml) and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
 
-The mixin will automatically calculate indents. If you use a mixin for plural models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk), then an additional argument can be added to the end: 
+The mixin will automatically calculate indents. If you use a mixin for plural models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk), then an additional argument can be added to the end:
 ```
 {{ mixin("../../../mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
 ```
@@ -320,7 +320,7 @@ info:
   version: <$ packageJson('version') $>
 ```
 
-Returns the value of an expected attribute to be found in your `package.json` or throws an error. 
+Returns the value of an expected attribute to be found in your `package.json` or throws an error.
 
 ##### uniqueOpId
 Example use:
@@ -331,7 +331,7 @@ summary: Temperature data
 description: Get the latest temperature
 operationId: <$ uniqueOpId() $>
 ```
-The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system. 
+The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system.
 The path leading up to the entry point is always removed.
 In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "src/paths/".
 
@@ -362,6 +362,65 @@ The following path:
 Results in:
 `Temperature`
 
+###### optionalProps
+
+Allows inheritance from a referenced object definition but makes all properties optional, i.e, it drops the required object prop.
+
+Usage:
+
+```yaml
+{{ optionalProps() }}
+```
+
+With OA3 inheritance
+
+```yml
+allOf:
+  - {{ optionalProps() }}
+```
+
+Example
+
+Given a referenced file defined as follows:
+
+`post.yml`
+
+```yaml
+type: object
+required:
+  - name
+  - coordinates
+properties:
+  name:
+    type: string
+  coordinates:
+    type: array
+    items:
+      type: string
+```
+
+And the helper used as follows:
+
+`patch.yml`
+
+```yaml
+{{ optionalProps('./post.yml.njk') }}
+```
+
+Will produce
+
+`patch.yml`
+
+```yml
+type: object
+properties:
+  name:
+    type: string
+  coordinates:
+    type: array
+    items:
+      type: string
+```
 
 ##### routePermission
 Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control:
@@ -461,13 +520,13 @@ Usage: boats [options]
 Options:
   --init                      Inject a skeleton yml structure to the current directory named /src/...
   -i, --input [path]          The relative path to the main input file eg "./src/index.yml"
-  -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml" 
+  -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml"
                               (if json_refs is not used the output directory will also contain the compiled tpl files)
   -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
   -d, --dereference           Will pass the output via https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback
   -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
   -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
-  -t, --type [type]           The validator type, asyncapi or openapi, default is openapi 
+  -t, --type [type]           The validator type, asyncapi or openapi, default is openapi
   -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
   -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
   -V, --version               output the version number
