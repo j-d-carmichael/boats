@@ -8,8 +8,12 @@
 ## The index.readonly.yml.njk sets a var write to be false which results in the output not printing the post/put routes.. aka the write routes.
 ## This is a very handy feature to ensure as little human error as possible when maintaining public/private apis to the same data set.
 
+/v1/star-wars/:
+  get:
+    $ref: ./v1/star-wars/get.yml.njk
+
 # General routes to search and create items
-/weather/:
+/weather:
   get:
     $ref: ./v1/weather/get.yml.njk
 {% if write %}
@@ -27,6 +31,10 @@
   put:
     $ref: ./v1/weather/id/put.yml.njk
 {% endif %}
+
+/weather/id/{id}/pattern:
+  get:
+    $ref: ./v1/weather/id/pattern/get.yml.njk
 
 # As the above {id} is nested inside /{id}, we can now introduce another weather uri segment
 /weather/latest:
