@@ -16,10 +16,11 @@ Full docsify documentation here: [https://johndcarmichael.github.io/boats/](http
 ## Examples
 Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcASYNC2
-- https://github.com/johndcarmichael/boats/tree/master/srcOA2 (note the readonly use of nunjucks extend here)
+- https://github.com/johndcarmichael/boats/tree/master/srcOA2
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
+- 2020/08/26 1.23.0: feat: Add prefix to permissions `{{ routePermission({prefix: 'ms-authentication', removeMethod: true}) }}`
 - 2020/08/26 1.22.0: feat: tpl helper [optionalProps](https://johndcarmichael.github.io/boats/#/?id=optionalprops) added AND [glob pattern matching for the injector](https://johndcarmichael.github.io/boats/#/?id=inject), aka wildcards
 - 2020/08/25 1.21.0: feat: options added to routePermission helper: x-permission: `{{ routePermission({removeMethod: true}) }}` strips the method off the generated permission name.
 - 2020/08/13 1.20.4: docs: readme

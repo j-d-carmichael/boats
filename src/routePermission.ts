@@ -1,9 +1,10 @@
 import path from 'path';
+import _ from 'lodash';
 import ucFirst from '@/ucFirst';
 import UniqueOperationIds from '@/UniqueOperationIds';
 import { BoatsRC, JSON } from '@/interfaces/generic';
 
-export default (boatsrc: BoatsRC, filePath: string, stripValue: string, tail: string, removeMethod: boolean): string => {
+export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix = '', tail = '', removeMethod: boolean): string => {
   const permissionConfig = boatsrc && boatsrc.permissionConfig && boatsrc.permissionConfig.routePrefix;
   const prefixConfig: JSON = Object.assign(
     {
@@ -17,7 +18,9 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, tail: st
   );
   const opId = UniqueOperationIds.getUniqueOperationIdFromPath(filePath, stripValue, tail, undefined, removeMethod);
   const method = path.basename(filePath).replace(/\..*/, '').toLowerCase();
-  const prefix = prefixConfig[method] || method;
-
-  return `${prefix}${ucFirst(opId)}`;
+  const calculatedPrefix = prefixConfig[method] || method;
+  if (prefix === '') {
+    return `${calculatedPrefix}${ucFirst(opId)}`;
+  }
+  return _.camelCase(prefix) + ucFirst(`${calculatedPrefix}${ucFirst(opId)}`);
 }
