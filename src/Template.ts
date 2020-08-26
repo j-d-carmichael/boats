@@ -18,6 +18,7 @@ import mixin from '@/nunjucksHelpers/mixin'
 import packageJson from '@/nunjucksHelpers/packageJson'
 import routePermission from '@/nunjucksHelpers/routePermission'
 import uniqueOpId from '@/nunjucksHelpers/uniqueOpId'
+import optionalProps from './nunjucksHelpers/optionalProps'
 
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -34,6 +35,8 @@ class Template {
   currentFilePointer: string
   mixinObject: any[]
   mixinNumber: number
+  indentObject: any[]
+  indentNumber: number
 
   /**
    * Parses all files in a folder against the nunjuck tpl engine and outputs in a mirrored path the in provided outputDirectory
@@ -168,6 +171,8 @@ class Template {
     this.currentFilePointer = fileLocation
     this.mixinObject = this.setMixinPositions(inputString, this.originalIndentation)
     this.mixinNumber = 0
+    this.indentObject = this.setIndentPositions(inputString, 0)
+    this.indentNumber = 0
     this.nunjucksSetup()
 
     const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile)
@@ -196,6 +201,33 @@ class Template {
         mixinObj.mixinLinePadding += ' '
       }
       matched.push(mixinObj)
+    }
+    return matched
+  }
+
+  /**
+   *
+   * @param str The string to look for helpers that need indentations
+   * @param originalIndentation The original indentation setting, defaults to 2
+   * @returns {Array}
+   */
+  setIndentPositions (str: string, originalIndentation = 0): any[] {
+    const regexp = RegExp(/(optionalProps\(.*\))/, 'g')
+    let matches
+    const matched: any[] = []
+    const preparedString = str.split('\n').map(s => /^\s*\-/.test(s)? s.replace('-', ' '): s).join('\n')
+
+    while ((matches = regexp.exec(preparedString)) !== null) {
+      const indentObject = {
+        index: regexp.lastIndex,
+        match: matches[0],
+        linePadding: '',
+      }
+      const indent = calculateIndentFromLineBreak(preparedString, indentObject.index) + originalIndentation
+      for (let i = 0; i < indent; ++i) {
+        indentObject.linePadding += ' '
+      }
+      matched.push(indentObject)
     }
     return matched
   }
@@ -239,6 +271,8 @@ class Template {
     env.addGlobal('boatsConfig', this.boatsrc)
     env.addGlobal('mixinNumber', this.mixinNumber)
     env.addGlobal('mixinObject', this.mixinObject)
+    env.addGlobal('indentNumber', this.indentNumber)
+    env.addGlobal('indentObject', this.indentObject)
     env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)
     env.addGlobal('currentFilePointer', this.currentFilePointer)
     env.addGlobal('uniqueOpIdStripValue', this.stripValue)
@@ -250,6 +284,7 @@ class Template {
     env.addGlobal('autoTag', autoTag)
     env.addGlobal('fileName', fileName)
     env.addGlobal('inject', inject)
+    env.addGlobal('optionalProps', optionalProps)
     env.addGlobal('mixin', mixin)
     env.addGlobal('packageJson', packageJson)
     env.addGlobal('routePermission', routePermission)

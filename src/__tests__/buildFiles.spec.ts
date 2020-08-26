@@ -227,6 +227,10 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number')
+
+    // optionProps helper test
+    expect(infile.definitions.LocationPost.required).toBeDefined;
+    expect(infile.definitions.LocationPatch.required).toBeUndefined;
   })
 
   it('built builtOA2_readonly_1.0.1.yml', async () => {
@@ -337,6 +341,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number')
+    // optionProps helper test
+    expect(infile.definitions.LocationPost.required).toBeDefined;
+    expect(infile.definitions.LocationPatch.required).toBeUndefined;
   })
 
   it('built builtOA2_no_version.yml', async () => {
@@ -481,6 +488,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number')
+    // optionProps helper test
+    expect(infile.definitions.LocationPost.required).toBeDefined;
+    expect(infile.definitions.LocationPatch.required).toBeUndefined;
   })
 
   it('built builtOA3_1.0.1.yml', async () => {
@@ -568,6 +578,10 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.components.schemas.WeatherPut.allOf[0].$ref).toBe('#/components/schemas/WeatherPost')
     expect(infile.components.schemas.WeatherPut.allOf[1].type).toBe('object')
     expect(infile.components.schemas.WeatherPut.allOf[1].properties.id.type).toBe('integer')
+    // optionProps helper test
+    expect(infile.components.schemas.LocationPost.required).toBeDefined;
+    expect(infile.components.schemas.LocationPatch.required).toBeUndefined;
+    expect(infile.components.schemas.LocationPut.allOf[0].required).toBeUndefined;
   })
 
   it('built builtOA3.yml', async () => {
@@ -655,6 +669,10 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.components.schemas.WeatherPut.allOf[0].$ref).toBe('#/components/schemas/WeatherPost')
     expect(infile.components.schemas.WeatherPut.allOf[1].type).toBe('object')
     expect(infile.components.schemas.WeatherPut.allOf[1].properties.id.type).toBe('integer')
+    // optionProps helper test
+    expect(infile.components.schemas.LocationPost.required).toBeDefined;
+    expect(infile.components.schemas.LocationPatch.required).toBeUndefined;
+    expect(infile.components.schemas.LocationPut.allOf[0].required).toBeUndefined;
   })
 
   it('built test-build/builtOA2_inject/api_1.0.1.yml', async () => {
@@ -853,5 +871,8 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer')
     expect(infile.definitions.WeatherPost.properties.temperature.type).toBe('number')
+    // optionProps helper test
+    expect(infile.definitions.LocationPost.required).toBeDefined;
+    expect(infile.definitions.LocationPatch.required).toBeUndefined;
   })
 })
