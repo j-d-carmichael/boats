@@ -51,9 +51,9 @@ const questions = [{
 
 inquirer.prompt(questions).then((answers) => {
   if (answers.installConfirm) {
-    fs.copySync(path.join(__dirname, '.boatsrc'), path.join(pwd, '/.boatsrc'))
+    fs.copySync(path.join(__dirname, '../../.boatsrc'), path.join(pwd, '/.boatsrc'))
     console.log('Completed: Injected a .boatsrc file')
-    fs.copySync(path.join(__dirname, (answers.oaType === 'Swagger 2.0') ? 'srcOA2' : 'srcOA3'), srcPath)
+    fs.copySync(path.join(__dirname, '../../', (answers.oaType === 'Swagger 2.0') ? 'srcOA2' : 'srcOA3'), srcPath)
     console.log('Completed: Installed boats skeleton files to ' + srcPath)
     fs.ensureDirSync(buildPath)
     console.log('Completed: Created a build output directory')
@@ -61,9 +61,9 @@ inquirer.prompt(questions).then((answers) => {
     if (answers.updateName) {
       localPkgJson.name = name
     }
-    localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml -o ./build/api.json'
-    localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml -o ./build/api.yml'
-    localPkgJson['scripts']['build:all'] = 'npm run build:json && npm run build:yaml'
+    localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml.njk -o ./build/${npm_package_name}.json'
+    localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml.njk -o ./build/${npm_package_name}.yml'
+    localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml'
 
     // Write the new json object to file
     fs.writeFileSync(localPkgJsonPath, JSON.stringify(localPkgJson, null, 4))
