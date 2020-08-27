@@ -7,7 +7,7 @@ import defaults from '@/defaults'
 import stripFromEndOfString from '@/stripFromEndOfString'
 import apiTypeFromString from '@/apiTypeFromString'
 import Injector from '@/Injector'
-
+import * as _ from 'lodash'
 import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer'
 import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer'
 import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer'
@@ -268,27 +268,6 @@ class Template {
    */
   nunjucksSetup () {
     const env = nunjucks.configure(this.boatsrc.nunjucksOptions)
-    env.addGlobal('boatsConfig', this.boatsrc)
-    env.addGlobal('mixinNumber', this.mixinNumber)
-    env.addGlobal('mixinObject', this.mixinObject)
-    env.addGlobal('indentNumber', this.indentNumber)
-    env.addGlobal('indentObject', this.indentObject)
-    env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)
-    env.addGlobal('currentFilePointer', this.currentFilePointer)
-    env.addGlobal('uniqueOpIdStripValue', this.stripValue)
-
-    // helpers
-    env.addGlobal('autoChannelIndexer', autoChannelIndexer)
-    env.addGlobal('autoComponentIndexer', autoComponentIndexer)
-    env.addGlobal('autoPathIndexer', autoPathIndexer)
-    env.addGlobal('autoTag', autoTag)
-    env.addGlobal('fileName', fileName)
-    env.addGlobal('inject', inject)
-    env.addGlobal('optionalProps', optionalProps)
-    env.addGlobal('mixin', mixin)
-    env.addGlobal('packageJson', packageJson)
-    env.addGlobal('routePermission', routePermission)
-    env.addGlobal('uniqueOpId', uniqueOpId)
 
     const processEnvVars = cloneObject(process.env)
     for (const key in processEnvVars) {
@@ -304,6 +283,27 @@ class Template {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       env.addGlobal(this.getHelperFunctionNameFromPath(filePath), require(filePath))
     })
+
+    env.addGlobal('boatsConfig', this.boatsrc)
+    env.addGlobal('mixinNumber', this.mixinNumber)
+    env.addGlobal('mixinObject', this.mixinObject)
+    env.addGlobal('indentNumber', this.indentNumber)
+    env.addGlobal('indentObject', this.indentObject)
+    env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix)
+    env.addGlobal('currentFilePointer', this.currentFilePointer)
+    env.addGlobal('uniqueOpIdStripValue', this.stripValue)
+    env.addGlobal('autoChannelIndexer', autoChannelIndexer)
+    env.addGlobal('autoComponentIndexer', autoComponentIndexer)
+    env.addGlobal('autoPathIndexer', autoPathIndexer)
+    env.addGlobal('autoTag', autoTag)
+    env.addGlobal('fileName', fileName)
+    env.addGlobal('inject', inject)
+    env.addGlobal('optionalProps', optionalProps)
+    env.addGlobal('mixin', mixin)
+    env.addGlobal('packageJson', packageJson)
+    env.addGlobal('routePermission', routePermission)
+    env.addGlobal('uniqueOpId', uniqueOpId)
+    env.addGlobal('_', _)
   }
 
   /**
