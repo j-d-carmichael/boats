@@ -1,8 +1,9 @@
-import commander from 'commander'
+import { createCommand } from 'commander'
 import collect from '@/commander.collect'
 import helperFunctions from '@/commander.helperFunctions'
 
 export default (args: any[]): any => {
+  const commander = createCommand();
   commander
     .option('--init', 'Inject a skeleton yml structure to the current directory named /src/...')
 
@@ -18,6 +19,7 @@ export default (args: any[]): any => {
     .option('-x, --exclude_version', 'By default the OA version is injected into the file name, this option stops this happening.')
     .option('--convert_to_njk <localDirectory>', 'Convert to .yml.njk, pass in a relative src folder eg: --convert_to_njk ./src')
     .option('--convert_to_yml <localDirectory>', 'Converted to .yml.njk syntax but want to revert: --convert_to_yml ./src')
+    .option('-y, --yes', 'Assumes yes to any questions prompted by the tool (skip version check).')
     .parse(args);
 
   return commander;
