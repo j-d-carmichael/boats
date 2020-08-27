@@ -7,7 +7,7 @@ import defaults from '@/defaults'
 import stripFromEndOfString from '@/stripFromEndOfString'
 import apiTypeFromString from '@/apiTypeFromString'
 import Injector from '@/Injector'
-
+import _ from 'lodash'
 import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer'
 import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer'
 import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer'
@@ -289,6 +289,7 @@ class Template {
     env.addGlobal('packageJson', packageJson)
     env.addGlobal('routePermission', routePermission)
     env.addGlobal('uniqueOpId', uniqueOpId)
+    env.addGlobal('_', _)
 
     const processEnvVars = cloneObject(process.env)
     for (const key in processEnvVars) {
