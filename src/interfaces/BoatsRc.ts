@@ -1,3 +1,5 @@
+import { StringStyle } from '@/enums/StringStyle';
+
 export type JSON = { [key: string]: any };
 
 export interface BoatsRC {
@@ -19,5 +21,7 @@ export interface BoatsRC {
       patch?: string;
       delete?: string;
     };
+    usePackageJsonNameAsPrefix?: boolean
+    permissionStyle?: StringStyle
   };
 }
