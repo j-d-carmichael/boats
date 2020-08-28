@@ -22,4 +22,6 @@ Example files can be found here:
 - https://github.com/johndcarmichael/boats/tree/master/srcOA3
 
 ## Last publish reason
-Please view the [changelog](https://johndcarmichael.github.io/boats/#/?id=changelog) 
+v2 now injects the `package.json > name` as a prefix to permissions unless instructed not. 
+
+Please view the [changelog](https://johndcarmichael.github.io/boats/#/?id=changelog) for more details. 
