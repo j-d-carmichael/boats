@@ -17,7 +17,7 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix =
     permissionConfig
   );
   const mainPrefixes = [];
-  const usePackageJsonNameAsPrefix = typeof boatsrc.permissionConfig.usePackageJsonNameAsPrefix === 'undefined' ? true : boatsrc.permissionConfig.usePackageJsonNameAsPrefix;
+  const usePackageJsonNameAsPrefix = typeof boatsrc?.permissionConfig?.usePackageJsonNameAsPrefix === 'undefined' ? true : boatsrc.permissionConfig.usePackageJsonNameAsPrefix;
   if (usePackageJsonNameAsPrefix) {
     mainPrefixes.push(packageJson.name);
   }
