@@ -59,12 +59,12 @@ class UniqueOperationIds {
     switch (style) {
       case StringStyle.kebabCase:
         return lcFirst(filePathParts.join('-'));
-      case StringStyle.camelCase:
-        return lcFirst(filePathParts.join(''));
       case StringStyle.PascalCase:
         return filePathParts.join('');
       case StringStyle.snakeCase:
         return filePathParts.join('_');
+      case StringStyle.camelCase:
+        return lcFirst(filePathParts.join(''));
     }
   }
 
