@@ -34,7 +34,7 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix =
     tail,
     undefined,
     removeMethod,
-    boatsrc.permissionConfig.permissionStyle,
+    boatsrc?.permissionConfig?.permissionStyle,
     mainPrefixes
   );
 }
