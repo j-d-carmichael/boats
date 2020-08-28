@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "1.25.0",
+  "version": "1.25.3",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -40,7 +40,6 @@
     "test:build-cli:oa2:std:exclude-version": "node ./bin/cli.js --yes -i ./srcOA2/index.yml.njk -o ./test-build/builtOA2_no_version/builtOA2_no_version.yml -x -s srcOA2/paths/",
     "test:build-cli:oa3:std": "node ./bin/cli.js --yes -i ./srcOA3/index.yml.njk -o ./test-build/builtOA3_std/builtOA3.yml -s srcOA3/paths/",
     "test:build-cli:oa3:std:exclude-version": "node ./bin/cli.js --yes -i ./srcOA3/index.yml.njk -o ./test-build/builtOA3_exclude/builtOA3.yml -x -s srcOA3/paths/",
-    "prepare": "npm run build",
     "prepublishOnly": "npm run build && npm run test"
   },
   "repository": {
