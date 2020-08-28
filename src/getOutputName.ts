@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs-extra'
-import { JSON } from '@/interfaces/generic';
+import { JSON } from '@/interfaces/BoatsRc';
 
 const getVersion = (jsonObj: JSON, excludeVersion: boolean): string => {
   let swagVersion = ''

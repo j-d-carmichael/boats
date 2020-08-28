@@ -1,4 +1,4 @@
-import { JSON } from './generic';
+import { JSON } from './BoatsRc';
 
 export interface InjectorConfig {
   toAllOperations: {
