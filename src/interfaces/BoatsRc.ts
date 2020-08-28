@@ -23,5 +23,6 @@ export interface BoatsRC {
     };
     usePackageJsonNameAsPrefix?: boolean
     permissionStyle?: StringStyle
+    permissionSegmentStyle?: StringStyle
   };
 }

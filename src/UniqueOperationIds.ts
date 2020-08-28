@@ -6,6 +6,7 @@ import { StringStyle } from '@/enums/StringStyle';
 import ucFirst from '@/ucFirst';
 
 class UniqueOperationIds {
+  // eslint-disable-next-line max-lines-per-function
   getUniqueOperationIdFromPath (
     filePath: string,
     stripValue: string,
@@ -13,6 +14,7 @@ class UniqueOperationIds {
     cwd?: string,
     removeMethod?: boolean,
     style: StringStyle = StringStyle.camelCase,
+    segmentStyle: StringStyle = StringStyle.camelCase,
     prefixes?: string[]
   ): string {
     tail = tail || '';
@@ -26,8 +28,21 @@ class UniqueOperationIds {
     }
     for (let i = 0; i < filePathParts.length; ++i) {
       if (filePathParts[i] !== '/') {
-        filePathParts[i] = _.camelCase(this.removeCurlys(filePathParts[i]));
-        // upper case for camel and pascal
+        switch (segmentStyle){
+          case StringStyle.snakeCase:
+            filePathParts[i] = _.snakeCase(this.removeCurlys(filePathParts[i]));
+            break;
+          case StringStyle.PascalCase:
+            filePathParts[i] = ucFirst(_.camelCase(this.removeCurlys(filePathParts[i])));
+            break;
+          case StringStyle.kebabCase:
+            filePathParts[i] = _.kebabCase(this.removeCurlys(filePathParts[i]));
+            break;
+          default:
+            filePathParts[i] = _.camelCase(this.removeCurlys(filePathParts[i]));
+            break;
+        }
+        // upper case for camel and pascal for overall styling
         if ([StringStyle.camelCase, StringStyle.PascalCase].includes(style)) {
           filePathParts[i] = ucFirst(filePathParts[i]);
         }
