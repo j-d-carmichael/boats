@@ -5,7 +5,20 @@ import { BoatsRC, JSON } from '@/interfaces/BoatsRc';
 const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix = '', tail = '', removeMethod: boolean): string => {
-  const permissionConfig = boatsrc && boatsrc.permissionConfig && boatsrc.permissionConfig.routePrefix;
+  const permissionConfig = boatsrc && boatsrc.permissionConfig || {};
+  /**
+   * DEPRECATIONS WARNINGS
+   */
+  if(typeof permissionConfig.usePackageJsonNameAsPrefix !== 'undefined'){
+    console.warn('Deprecation warning: permissionConfig.usePackageJsonNameAsPrefix will be removed in the future, please use permissionConfig.globalPrefix')
+    permissionConfig.globalPrefix = permissionConfig.usePackageJsonNameAsPrefix
+  }
+  if(typeof permissionConfig.routePrefix !== 'undefined'){
+    console.warn('Deprecation warning: permissionConfig.routePrefix will be removed in the future, please use permissionConfig.methodAlias')
+    permissionConfig.methodAlias = permissionConfig.routePrefix
+  }
+
+  const methodAlias = permissionConfig.methodAlias || {};
   const prefixConfig: JSON = Object.assign(
     {
       get: 'read',
@@ -14,15 +27,17 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix =
       patch: 'update',
       delete: 'delete',
     },
-    permissionConfig
+    methodAlias
   );
   const mainPrefixes = [];
-  const usePackageJsonNameAsPrefix = typeof boatsrc?.permissionConfig?.usePackageJsonNameAsPrefix === 'undefined' ? true : boatsrc.permissionConfig.usePackageJsonNameAsPrefix;
-  if (usePackageJsonNameAsPrefix) {
+  const usePackageName = typeof permissionConfig.globalPrefix === 'undefined' || permissionConfig.globalPrefix === true;
+  if (usePackageName) {
     mainPrefixes.push(packageJson.name);
+  } else if (typeof permissionConfig.globalPrefix === 'string') {
+    mainPrefixes.push(permissionConfig.globalPrefix);
   }
   if (prefix !== '') {
-    mainPrefixes.push(packageJson.name);
+    mainPrefixes.push(prefix);
   }
   const method = path.basename(filePath).replace(/\..*/, '').toLowerCase();
   const calculatedPrefix = prefixConfig[method] || method;

@@ -2,6 +2,14 @@ import { StringStyle } from '@/enums/StringStyle';
 
 export type JSON = { [key: string]: any };
 
+interface MethodAlias {
+  get?: string;
+  post?: string;
+  put?: string;
+  patch?: string;
+  delete?: string;
+}
+
 export interface BoatsRC {
   nunjucksOptions?: {
     tags?: {
@@ -14,14 +22,10 @@ export interface BoatsRC {
     };
   };
   permissionConfig?: {
-    routePrefix?: {
-      get?: string;
-      post?: string;
-      put?: string;
-      patch?: string;
-      delete?: string;
-    };
-    usePackageJsonNameAsPrefix?: boolean
+    routePrefix?: MethodAlias // to be deprecated, use methodAlias instead
+    methodAlias?: MethodAlias
+    globalPrefix?: string | boolean
+    usePackageJsonNameAsPrefix?: boolean // to be deprecated, use globalPrefix instead
     permissionStyle?: StringStyle
     permissionSegmentStyle?: StringStyle
   };
