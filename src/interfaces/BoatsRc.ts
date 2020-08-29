@@ -22,6 +22,7 @@ export interface BoatsRC {
       commentStart?: string;
       commentEnd?: string;
     };
+    [key: string]: any
   };
   jsonSchemaRefParserBundleOpts?: $RefParser.Options,
   permissionConfig?: {

@@ -5,12 +5,10 @@
   },
   "jsonSchemaRefParserBundleOpts": {
   },
+  "permissionConfig": {
+    "globalPrefix": false
+  },
   "picomatchOptions": {
     "bash": true
-  },
-  "permissionConfig": {
-    "routePrefix": {
-    },
-    "usePackageJsonNameAsPrefix": false
   }
 }

@@ -3,16 +3,12 @@ import { BoatsRC } from './interfaces/BoatsRc';
 import fs from 'fs-extra';
 import path from 'path';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
+import deepmerge from 'deepmerge';
 
 class GetCheckCorrectBoatsRc {
   boatsRc: BoatsRC;
-
-  /**
-   * Finds, parses and validates the boatsrc file
-   */
-  getBoatsConfig () {
-    const boatsrc = path.join(process.cwd(), '.boatsrc');
-    const baseOptions = {
+  defaultRc: BoatsRC = {
+    nunjucksOptions: {
       autoescape: false,
       tags: {
         blockStart: '<%',
@@ -22,12 +18,30 @@ class GetCheckCorrectBoatsRc {
         commentStart: '{#',
         commentEnd: '#}',
       },
-    };
+    },
+    permissionConfig: {
+      permissionStyle: StringStyle.camelCase,
+      permissionSegmentStyle: StringStyle.camelCase,
+      methodAliasPosition: MethodAliasPosition.AfterGlobalPrefix,
+    }
+  };
+
+  /**
+   * Finds, parses and validates the boatsrc file
+   */
+  getBoatsConfig () {
+    const boatsrc = path.join(process.cwd(), '.boatsrc');
     try {
-      const json = fs.readJsonSync(boatsrc);
-      if (json.nunjucksOptions) {
-        json.nunjucksOptions = Object.assign(baseOptions, json.nunjucksOptions);
+      const boatsRcJson: BoatsRC = fs.readJsonSync(boatsrc);
+      const json = deepmerge(this.defaultRc, boatsRcJson);
+      if (boatsRcJson.nunjucksOptions.tags) {
+        // as merging an {} into a full {} leaves the full {} intact
+        // in this specific use-case the user wants an empty {} to revert
+        // to nunjucks default tpl tags
+        json.nunjucksOptions.tags = boatsRcJson.nunjucksOptions.tags;
       }
+      json.nunjucksOptions.tags;
+      console.log(json);
       return this.parse(json);
     } catch (e) {
       return {};
