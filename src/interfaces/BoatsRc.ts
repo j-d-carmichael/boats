@@ -33,4 +33,5 @@ export interface BoatsRC {
     permissionStyle?: StringStyle;
     permissionSegmentStyle?: StringStyle;
   };
+  picomatchOptions?: any
 }

@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge';
 import jsYaml from 'js-yaml';
 import picomatch from 'picomatch';
 import { render, renderString } from 'nunjucks';
+import { BoatsRC } from '@/interfaces/BoatsRc';
 
 class Injector {
   fileToRouteMap: any;
@@ -14,7 +15,7 @@ class Injector {
   /**
    * Render the base template and inject content if provided
    */
-  injectAndRender (inputPath: string, inputIndexYaml: string, boatsRc: any): string {
+  injectAndRender (inputPath: string, inputIndexYaml: string, boatsRc: BoatsRC): string {
     const fullPath = path.join(process.cwd(), inputPath);
     const relativePathToRoot = path.relative(path.dirname(inputPath), path.dirname(inputIndexYaml));
     const picomatchOptions = boatsRc.picomatchOptions || { bash: true };
