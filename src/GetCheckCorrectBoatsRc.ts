@@ -41,7 +41,6 @@ class GetCheckCorrectBoatsRc {
         json.nunjucksOptions.tags = boatsRcJson.nunjucksOptions.tags;
       }
       json.nunjucksOptions.tags;
-      console.log(json);
       return this.parse(json);
     } catch (e) {
       return {};
