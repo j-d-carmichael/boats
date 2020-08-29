@@ -10,25 +10,30 @@ class UniqueOperationIds {
   getUniqueOperationIdFromPath (
     filePath: string,
     stripValue: string,
-    tail = '',
+    tails: string | string[] = '',
     cwd?: string,
     removeMethod?: boolean,
     style: StringStyle = StringStyle.camelCase,
     segmentStyle: StringStyle = StringStyle.camelCase,
     prefixes?: string[]
   ): string {
-    tail = tail || '';
+    if (typeof tails === 'string') {
+      tails = [tails];
+    }
+    tails = tails.filter((tail) => {
+      return tail.length > 0;
+    });
     cwd = cwd || process.cwd();
     filePath = filePath.replace(cwd, '');
     filePath = removeFileExtension(filePath.replace(stripValue, ''));
     let filePathParts = filePath.split('/');
     // inject the prefixes if given
-    if(prefixes && prefixes.length > 0){
-      filePathParts = prefixes.concat(filePathParts)
+    if (prefixes && prefixes.length > 0) {
+      filePathParts = prefixes.concat(filePathParts);
     }
     for (let i = 0; i < filePathParts.length; ++i) {
       if (filePathParts[i] !== '/') {
-        switch (segmentStyle){
+        switch (segmentStyle) {
           case StringStyle.snakeCase:
             filePathParts[i] = _.snakeCase(this.removeCurlys(filePathParts[i]));
             break;
@@ -53,8 +58,8 @@ class UniqueOperationIds {
         filePathParts.pop();
       }
     }
-    if (tail) {
-      filePathParts.push(tail);
+    if (tails) {
+      filePathParts = filePathParts.concat(tails);
     }
     switch (style) {
       case StringStyle.kebabCase:

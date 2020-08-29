@@ -2,6 +2,7 @@ import { StringStyle } from '@/enums/StringStyle';
 import { BoatsRC } from './interfaces/BoatsRc';
 import fs from 'fs-extra';
 import path from 'path';
+import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 
 class GetCheckCorrectBoatsRc {
   boatsRc: BoatsRC;
@@ -37,6 +38,7 @@ class GetCheckCorrectBoatsRc {
     this.boatsRc = boatsRc;
     this.permissionConfigStyleCheck();
     this.permissionConfigPrefixesCheck();
+    this.permissionConfigAliasChecks();
     this.jsonSchemaRefParserBundleOpts();
     return this.boatsRc;
   }
@@ -67,6 +69,13 @@ class GetCheckCorrectBoatsRc {
       console.warn('Deprecation warning: permissionConfig.routePrefix will be removed in the future, please use permissionConfig.methodAlias');
       this.boatsRc.permissionConfig.methodAlias = this.boatsRc.permissionConfig.routePrefix;
       delete this.boatsRc.permissionConfig.routePrefix;
+    }
+  }
+
+  permissionConfigAliasChecks () {
+    this.boatsRc.permissionConfig = this.boatsRc.permissionConfig || {};
+    if (!this.boatsRc.permissionConfig.methodAliasPosition) {
+      this.boatsRc.permissionConfig.methodAliasPosition = MethodAliasPosition.AfterGlobalPrefix;
     }
   }
 

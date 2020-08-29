@@ -1,9 +1,10 @@
-import { StringStyle } from '@/enums/StringStyle';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
+import { StringStyle } from '@/enums/StringStyle';
+import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 
 export type JSON = { [key: string]: any };
 
-interface MethodAlias {
+export interface MethodAlias {
   get?: string;
   post?: string;
   put?: string;
@@ -24,11 +25,12 @@ export interface BoatsRC {
   };
   jsonSchemaRefParserBundleOpts?: $RefParser.Options,
   permissionConfig?: {
-    routePrefix?: MethodAlias // to be deprecated, use methodAlias instead
-    methodAlias?: MethodAlias
-    globalPrefix?: string | boolean
-    usePackageJsonNameAsPrefix?: boolean // to be deprecated, use globalPrefix instead
-    permissionStyle?: StringStyle
-    permissionSegmentStyle?: StringStyle
+    routePrefix?: MethodAlias; // to be deprecated, use methodAlias instead
+    methodAlias?: MethodAlias;
+    methodAliasPosition?: MethodAliasPosition;
+    globalPrefix?: string | boolean;
+    usePackageJsonNameAsPrefix?: boolean; // to be deprecated, use globalPrefix instead
+    permissionStyle?: StringStyle;
+    permissionSegmentStyle?: StringStyle;
   };
 }

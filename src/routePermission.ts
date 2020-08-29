@@ -1,6 +1,7 @@
 import path from 'path';
 import UniqueOperationIds from '@/UniqueOperationIds';
 import { BoatsRC, JSON } from '@/interfaces/BoatsRc';
+import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require(path.join(process.cwd(), 'package.json'));
 
@@ -29,11 +30,19 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix =
   }
   const method = path.basename(filePath).replace(/\..*/, '').toLowerCase();
   const calculatedPrefix = prefixConfig[method] || method;
-  mainPrefixes.push(calculatedPrefix);
+  const tails = [];
+  if (tail) {
+    tails.push(tail);
+  }
+  if (boatsrc?.permissionConfig?.methodAliasPosition === MethodAliasPosition.EndOfPermissionString) {
+    tails.push(calculatedPrefix);
+  } else {
+    mainPrefixes.push(calculatedPrefix);
+  }
   return UniqueOperationIds.getUniqueOperationIdFromPath(
     filePath,
     stripValue,
-    tail,
+    tails,
     undefined,
     removeMethod,
     boatsrc?.permissionConfig?.permissionStyle,
