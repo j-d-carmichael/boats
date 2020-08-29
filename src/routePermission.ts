@@ -6,18 +6,6 @@ const packageJson = require(path.join(process.cwd(), 'package.json'));
 
 export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix = '', tail = '', removeMethod: boolean): string => {
   const permissionConfig = boatsrc && boatsrc.permissionConfig || {};
-  /**
-   * DEPRECATIONS WARNINGS
-   */
-  if(typeof permissionConfig.usePackageJsonNameAsPrefix !== 'undefined'){
-    console.warn('Deprecation warning: permissionConfig.usePackageJsonNameAsPrefix will be removed in the future, please use permissionConfig.globalPrefix')
-    permissionConfig.globalPrefix = permissionConfig.usePackageJsonNameAsPrefix
-  }
-  if(typeof permissionConfig.routePrefix !== 'undefined'){
-    console.warn('Deprecation warning: permissionConfig.routePrefix will be removed in the future, please use permissionConfig.methodAlias')
-    permissionConfig.methodAlias = permissionConfig.routePrefix
-  }
-
   const methodAlias = permissionConfig.methodAlias || {};
   const prefixConfig: JSON = Object.assign(
     {
@@ -42,7 +30,6 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix =
   const method = path.basename(filePath).replace(/\..*/, '').toLowerCase();
   const calculatedPrefix = prefixConfig[method] || method;
   mainPrefixes.push(calculatedPrefix);
-
   return UniqueOperationIds.getUniqueOperationIdFromPath(
     filePath,
     stripValue,

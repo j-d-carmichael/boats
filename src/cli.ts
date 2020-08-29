@@ -1,16 +1,17 @@
 import bundlerSwaggerParse from '@/bundlerSwaggerParse';
 import commander from '@/commander';
 import convertToNunjucksOrYaml from '@/convertToNunjucksOrYaml';
-import getBundlerOptions from '@/getBundlerOptions';
 import Template from '@/Template';
 import fs from 'fs-extra';
 import checkVersion from 'npm-tool-version-check';
 import path from 'path';
 import packageJson from '../package.json';
 import 'colors';
+import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
+import { BoatsRC } from '@/interfaces/BoatsRc';
 
 const dotenvFilePath = path.join(process.cwd(), '.env');
-const boatsrc = path.join(process.cwd(), '.boatsrc');
+const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
 const remoteBoatsPackageJson = 'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json';
 
 // If a .env file exists call dotenv package to set into the env vars
@@ -44,13 +45,13 @@ const parseCli = async () => {
       program.strip_value,
       program.variables,
       program.functions,
-      boatsrc
+      boatsRc
     );
 
     const pathWrittenTo = await bundlerSwaggerParse(
       returnFile,
       program.output,
-      getBundlerOptions(boatsrc),
+      boatsRc.jsonSchemaRefParserBundleOpts,
       program.indentation,
       program.exclude_version,
       program.dereference

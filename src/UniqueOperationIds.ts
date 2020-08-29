@@ -63,7 +63,7 @@ class UniqueOperationIds {
         return filePathParts.join('');
       case StringStyle.snakeCase:
         return filePathParts.join('_');
-      case StringStyle.camelCase:
+      default:
         return lcFirst(filePathParts.join(''));
     }
   }

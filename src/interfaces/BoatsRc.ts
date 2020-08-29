@@ -1,4 +1,5 @@
 import { StringStyle } from '@/enums/StringStyle';
+import $RefParser from '@apidevtools/json-schema-ref-parser';
 
 export type JSON = { [key: string]: any };
 
@@ -21,6 +22,7 @@ export interface BoatsRC {
       commentEnd?: string;
     };
   };
+  jsonSchemaRefParserBundleOpts?: $RefParser.Options,
   permissionConfig?: {
     routePrefix?: MethodAlias // to be deprecated, use methodAlias instead
     methodAlias?: MethodAlias
