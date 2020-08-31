@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
+import { BoatsRC } from '@/interfaces/BoatsRc';
 
 const pwd = process.cwd();
 const srcPath = path.join(pwd, '/src');
@@ -52,16 +53,16 @@ const questions = [{
 inquirer.prompt(questions).then((answers) => {
   if (answers.installConfirm) {
     // write boatsrc to disc
-    const boatsrcDefault = {
-      'nunjucksOptions': {
-        'tags': {}
+    const boatsrcDefault: BoatsRC = {
+      nunjucksOptions: {
+        tags: {}
       },
-      'jsonSchemaRefParserBundleOpts': {},
-      'picomatchOptions': {
-        'bash': true
+      jsonSchemaRefParserBundleOpts: {},
+      picomatchOptions: {
+        bash: true
       },
-      'permissionConfig': {
-        'routePrefix': {}
+      permissionConfig: {
+        globalPrefix: true
       }
     };
     fs.writeFileSync(path.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
