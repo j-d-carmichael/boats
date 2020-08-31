@@ -28,6 +28,7 @@
     "build:watch": "ttsc --watch -p .",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+    "format": "prettier 'src/**/*.(ts|json)' --write",
     "test": "npm run lint:fix && npm run build && npm run test:clean && npm run test:builds && npm run test:unit",
     "test:clean": "rm -fR ./test-build/*",
     "test:unit": "NODE_ENV=test jest --runInBand",
