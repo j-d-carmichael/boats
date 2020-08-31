@@ -7,7 +7,7 @@ import ucFirst from '@/ucFirst';
 
 class UniqueOperationIds {
   // eslint-disable-next-line max-lines-per-function
-  getUniqueOperationIdFromPath (
+  getUniqueOperationIdFromPath(
     filePath: string,
     stripValue: string,
     tails: string | string[] = '',
@@ -76,7 +76,7 @@ class UniqueOperationIds {
   /**
    * Strings the path param curlies from a folder name
    */
-  removeCurlys (input: string): string {
+  removeCurlys(input: string): string {
     return input.replace('{', '').replace('}', '');
   }
 }

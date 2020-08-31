@@ -49,7 +49,7 @@ class Template {
    * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
    * @param boatsrc
    */
-  directoryParse (
+  directoryParse(
     inputFile: string,
     output: string,
     originalIndent = defaults.DEFAULT_ORIGINAL_INDENTATION,
@@ -98,7 +98,7 @@ class Template {
     });
   }
 
-  setDefaultStripValue (stripValue?: string, inputString?: string): string {
+  setDefaultStripValue(stripValue?: string, inputString?: string): string {
     if (stripValue) {
       return stripValue;
     }
@@ -118,7 +118,7 @@ class Template {
    * @param relativeFilePath
    * @returns {string|*}
    */
-  cleanInputString (relativeFilePath: string) {
+  cleanInputString(relativeFilePath: string) {
     if (relativeFilePath.substring(0, 2) === './') {
       return relativeFilePath.substring(2, relativeFilePath.length);
     }
@@ -136,11 +136,9 @@ class Template {
    * @param outputDirectory
    * @returns {*}
    */
-  calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string) {
+  calculateOutputFile(inputFile: string, currentFile: string, outputDirectory: string) {
     const inputDir = path.dirname(inputFile);
-    return this.stripNjkExtension(
-      path.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, ''))
-    );
+    return this.stripNjkExtension(path.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, '')));
   }
 
   /**
@@ -148,7 +146,7 @@ class Template {
    * @param input
    * @return string
    */
-  stripNjkExtension (input: string) {
+  stripNjkExtension(input: string) {
     return stripFromEndOfString(input, '.njk');
   }
 
@@ -157,7 +155,7 @@ class Template {
    * @param multiLineBlock
    * @returns {*|void|string}
    */
-  stripNjkExtensionFrom$Refs (multiLineBlock: string) {
+  stripNjkExtensionFrom$Refs(multiLineBlock: string) {
     const pattern = '.yml.njk';
     const regex = new RegExp(pattern, 'g');
     return multiLineBlock.replace(regex, '.yml');
@@ -168,7 +166,7 @@ class Template {
    * @param inputString The string to parse
    * @param fileLocation The file location the string derived from
    */
-  renderFile (inputString: string, fileLocation: string,) {
+  renderFile(inputString: string, fileLocation: string) {
     this.currentFilePointer = fileLocation;
     this.mixinObject = this.setMixinPositions(inputString, this.originalIndentation);
     this.mixinNumber = 0;
@@ -187,7 +185,7 @@ class Template {
    * @param originalIndentation The original indentation setting, defaults to 2
    * @returns {Array}
    */
-  setMixinPositions (str: string, originalIndentation = 2): any[] {
+  setMixinPositions(str: string, originalIndentation = 2): any[] {
     const regexp = RegExp(/(mixin\(.*\))/, 'g');
     let matches;
     const matched: any[] = [];
@@ -212,11 +210,14 @@ class Template {
    * @param originalIndentation The original indentation setting, defaults to 2
    * @returns {Array}
    */
-  setIndentPositions (str: string, originalIndentation = 0): any[] {
+  setIndentPositions(str: string, originalIndentation = 0): any[] {
     const regexp = RegExp(/(optionalProps\(.*\))/, 'g');
     let matches;
     const matched: any[] = [];
-    const preparedString = str.split('\n').map(s => /^\s*\-/.test(s) ? s.replace('-', ' ') : s).join('\n');
+    const preparedString = str
+      .split('\n')
+      .map((s) => (/^\s*\-/.test(s) ? s.replace('-', ' ') : s))
+      .join('\n');
 
     while ((matches = regexp.exec(preparedString)) !== null) {
       const indentObject = {
@@ -236,7 +237,7 @@ class Template {
   /**
    * Sets up the tpl engine for the current file being rendered
    */
-  nunjucksSetup () {
+  nunjucksSetup() {
     const env = nunjucks.configure(this.boatsrc.nunjucksOptions);
 
     const processEnvVars = cloneObject(process.env);
@@ -280,7 +281,7 @@ class Template {
    * Returns an alpha numeric underscore helper function name
    * @param filePath
    */
-  getHelperFunctionNameFromPath (filePath: string) {
+  getHelperFunctionNameFromPath(filePath: string) {
     return path.basename(filePath, path.extname(filePath)).replace(/[^0-9a-z_]/gi, '');
   }
 }

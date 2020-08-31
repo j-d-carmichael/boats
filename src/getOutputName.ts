@@ -1,35 +1,35 @@
-import path from 'path'
-import fs from 'fs-extra'
+import path from 'path';
+import fs from 'fs-extra';
 import { JSON } from '@/interfaces/BoatsRc';
 
 const getVersion = (jsonObj: JSON, excludeVersion: boolean): string => {
-  let swagVersion = ''
+  let swagVersion = '';
   if (excludeVersion) {
-    return swagVersion
+    return swagVersion;
   }
   if (jsonObj.info.version) {
-    swagVersion = jsonObj.info.version
+    swagVersion = jsonObj.info.version;
   } else {
-    let packageJson
+    let packageJson;
     try {
-      packageJson = JSON.parse(fs.readFileSync('./package.json').toString('utf8'))
+      packageJson = JSON.parse(fs.readFileSync('./package.json').toString('utf8'));
     } catch (e) {
-      packageJson = {}
+      packageJson = {};
     }
     if (packageJson.version) {
-      swagVersion = packageJson.version
+      swagVersion = packageJson.version;
     } else {
-      return swagVersion
+      return swagVersion;
     }
   }
-  return '_' + swagVersion
-}
+  return '_' + swagVersion;
+};
 
 const getFileName = (filePath: string, openApiJson: JSON, excludeVersion: boolean): string => {
-  const name = path.basename(filePath).replace(path.extname(filePath), '')
-  return name + getVersion(openApiJson, excludeVersion) + path.extname(filePath)
-}
+  const name = path.basename(filePath).replace(path.extname(filePath), '');
+  return name + getVersion(openApiJson, excludeVersion) + path.extname(filePath);
+};
 
 export default (filePath: string, openApiJson: JSON, excludeVersion: boolean): string => {
-  return path.join(path.dirname(filePath), getFileName(filePath, openApiJson, excludeVersion))
-}
+  return path.join(path.dirname(filePath), getFileName(filePath, openApiJson, excludeVersion));
+};

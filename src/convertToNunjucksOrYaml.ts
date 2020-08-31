@@ -50,4 +50,4 @@ export default (dir: string, type: 'yml' | 'njk'): void => {
         }
       });
     });
-}
+};

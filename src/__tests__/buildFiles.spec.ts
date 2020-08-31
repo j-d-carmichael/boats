@@ -53,36 +53,59 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.asyncapi).toBe('2.0.0');
     expect(itemToTest.info.title).toBe('boats');
     expect(itemToTest.info.version).toBe('1.0.1');
-    expect(itemToTest.info.description).toBe('Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.');
+    expect(itemToTest.info.description).toBe(
+      'Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.'
+    );
     expect(itemToTest.info.license.name).toBe('Apache 2.0');
     expect(itemToTest.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0');
     expect(itemToTest.defaultContentType).toBe('application/json');
-    expect(itemToTest.channels['/ms-auth/cache-connection'].description).toBe('When a new connection change occurs the new cache values are emitted in the payload');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].description).toBe(
+      'When a new connection change occurs the new cache values are emitted in the payload'
+    );
     expect(itemToTest.channels['/ms-auth/cache-connection'].publish.operationId).toBe('msAuthCacheConnectionPublish');
     expect(itemToTest.channels['/ms-auth/cache-connection'].publish.message.contentType).toBe('application/json');
-    expect(itemToTest.channels['/ms-auth/cache-connection'].publish.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheConnection');
-    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.operationId).toBe('msAuthCacheConnectionSubscribe');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].publish.message.payload.$ref).toBe(
+      '#/components/schemas/MsAuthCacheConnection'
+    );
+    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.operationId).toBe(
+      'msAuthCacheConnectionSubscribe'
+    );
     expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.message.contentType).toBe('application/json');
-    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheConnection');
-    expect(itemToTest.channels['/ms-auth/cache-user'].description).toBe('When a new connection change occurs the new cache values are emitted in the payload');
+    expect(itemToTest.channels['/ms-auth/cache-connection'].subscribe.message.payload.$ref).toBe(
+      '#/components/schemas/MsAuthCacheConnection'
+    );
+    expect(itemToTest.channels['/ms-auth/cache-user'].description).toBe(
+      'When a new connection change occurs the new cache values are emitted in the payload'
+    );
     expect(itemToTest.channels['/ms-auth/cache-user'].publish.operationId).toBe('msAuthCacheUserPublish');
     expect(itemToTest.channels['/ms-auth/cache-user'].publish.message.contentType).toBe('application/json');
-    expect(itemToTest.channels['/ms-auth/cache-user'].publish.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheUser');
+    expect(itemToTest.channels['/ms-auth/cache-user'].publish.message.payload.$ref).toBe(
+      '#/components/schemas/MsAuthCacheUser'
+    );
     expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.operationId).toBe('msAuthCacheUserSubscribe');
     expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.message.contentType).toBe('application/json');
-    expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.message.payload.$ref).toBe('#/components/schemas/MsAuthCacheUser');
+    expect(itemToTest.channels['/ms-auth/cache-user'].subscribe.message.payload.$ref).toBe(
+      '#/components/schemas/MsAuthCacheUser'
+    );
     expect(itemToTest.components.schemas.MsAuthCacheConnection.type).toBe('object');
     expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.username.type).toBe('string');
     expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.type).toBe('array');
     expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.type).toBe('object');
-    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.type).toBe('string');
-    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.format).toBe('date');
-    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.state.type).toBe('string');
-    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.username.type).toBe('string');
+    expect(
+      itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.type
+    ).toBe('string');
+    expect(
+      itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.updated.format
+    ).toBe('date');
+    expect(itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.state.type).toBe(
+      'string'
+    );
+    expect(
+      itemToTest.components.schemas.MsAuthCacheConnection.properties.connections.items.properties.username.type
+    ).toBe('string');
     expect(itemToTest.components.schemas.MsAuthCacheUser.type).toBe('object');
     expect(itemToTest.components.schemas.MsAuthCacheUser.properties.username.type).toBe('string');
     expect(itemToTest.components.schemas.MsAuthCacheUser.properties.email.type).toBe('string');
-
   });
 
   it('built builtOA2_std_1.0.1.yml', async () => {
@@ -111,7 +134,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/v1/star-wars/'].get.operationId).toBe('v1StarWarsGet');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].schema.$ref).toBe('#/definitions/StarWars');
-    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/v1/star-wars/'].get.parameters[0].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather'].get.summary).toBe('weather search');
@@ -122,9 +147,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather'].get.parameters[1].$ref).toBe('#/parameters/QueryTextSearch');
     expect(itemToTest.paths['/weather'].get.parameters[2].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe('#/definitions/GenericSearchMeta');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe(
+      '#/definitions/GenericSearchMeta'
+    );
     expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.type).toBe('array');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
     expect(itemToTest.paths['/weather'].get.responses[404].description).toBe('Path & method combination not found');
     expect(itemToTest.paths['/weather'].post.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather'].post.summary).toBe('weather data');
@@ -150,10 +179,14 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].delete.summary).toBe('weather set to rain');
-    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe('Reset awful sunny weather to excellent rainy weather');
+    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe(
+      'Reset awful sunny weather to excellent rainy weather'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.operationId).toBe('v1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-filename']).toBe('delete');
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[0].$ref).toBe('#/parameters/PathId');
@@ -169,7 +202,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[4].type).toBe('string');
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[5].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].delete.responses[200].description).toBe('Deleted');
-    expect(itemToTest.paths['/weather/id/{id}'].delete.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].delete.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].put.summary).toBe('weather data');
     expect(itemToTest.paths['/weather/id/{id}'].put.description).toBe('Create a new weather record.');
@@ -178,13 +213,17 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].in).toBe('body');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].name).toBe('v1WeatherIdPut');
-    expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].description).toBe('Optional description in *Markdown*');
+    expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].description).toBe(
+      'Optional description in *Markdown*'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].required).toBe(true);
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].schema.$ref).toBe('#/definitions/WeatherIdPut');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[2].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}'].put.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].put.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.summary).toBe('One weather object');
@@ -194,8 +233,12 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/latest'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/latest'].get.summary).toBe('lastest weather data');
     expect(itemToTest.paths['/weather/latest'].get.description).toBe('Get the latest temperatures');
@@ -218,7 +261,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.parameters.QueryOffset.name).toBe('offset');
     expect(itemToTest.parameters.QueryOffset.required).toBe(false);
     expect(itemToTest.parameters.QueryOffset.type).toBe('integer');
-    expect(itemToTest.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(itemToTest.parameters.QueryOffset.description).toBe(
+      'The number of items to skip before starting to collect the result set.'
+    );
     expect(itemToTest.parameters.QueryTextSearch.in).toBe('query');
     expect(itemToTest.parameters.QueryTextSearch.name).toBe('textSearch');
     expect(itemToTest.parameters.QueryTextSearch.required).toBe(false);
@@ -250,11 +295,12 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.definitions.WeatherPost.properties.location.type).toBe('string');
     expect(itemToTest.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(itemToTest.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
-
   });
 
   it('built builtOA2_readonly_1.0.1.yml', async () => {
-    const itemToTest: any = jsYaml.safeLoad(fs.readFileSync('test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', 'utf8'));
+    const itemToTest: any = jsYaml.safeLoad(
+      fs.readFileSync('test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', 'utf8')
+    );
     expect(itemToTest.swagger).toBe('2.0');
     expect(itemToTest.info.version).toBe('1.0.1');
     expect(itemToTest.info.title).toBe('boats');
@@ -273,7 +319,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/v1/star-wars/'].get.operationId).toBe('v1StarWarsGet');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].schema.$ref).toBe('#/definitions/StarWars');
-    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather'].get.summary).toBe('weather search');
     expect(itemToTest.paths['/weather'].get.description).toBe('Search for weather objects');
@@ -282,9 +330,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather'].get.parameters[0].$ref).toBe('#/parameters/QueryOffset');
     expect(itemToTest.paths['/weather'].get.parameters[1].$ref).toBe('#/parameters/QueryTextSearch');
     expect(itemToTest.paths['/weather'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe('#/definitions/GenericSearchMeta');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe(
+      '#/definitions/GenericSearchMeta'
+    );
     expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.type).toBe('array');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
     expect(itemToTest.paths['/weather'].get.responses[404].description).toBe('Path & method combination not found');
     expect(itemToTest.paths['/weather/id/{id}'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].get.summary).toBe('One weather object');
@@ -294,10 +346,14 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].get.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].delete.summary).toBe('weather set to rain');
-    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe('Reset awful sunny weather to excellent rainy weather');
+    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe(
+      'Reset awful sunny weather to excellent rainy weather'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.operationId).toBe('v1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-filename']).toBe('delete');
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[0].$ref).toBe('#/parameters/PathId');
@@ -320,8 +376,12 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.produces[0]).toBe('application/json');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/latest'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/latest'].get.summary).toBe('lastest weather data');
     expect(itemToTest.paths['/weather/latest'].get.description).toBe('Get the latest temperatures');
@@ -344,7 +404,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.parameters.QueryOffset.name).toBe('offset');
     expect(itemToTest.parameters.QueryOffset.required).toBe(false);
     expect(itemToTest.parameters.QueryOffset.type).toBe('integer');
-    expect(itemToTest.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(itemToTest.parameters.QueryOffset.description).toBe(
+      'The number of items to skip before starting to collect the result set.'
+    );
     expect(itemToTest.parameters.QueryTextSearch.in).toBe('query');
     expect(itemToTest.parameters.QueryTextSearch.name).toBe('textSearch');
     expect(itemToTest.parameters.QueryTextSearch.required).toBe(false);
@@ -377,11 +439,12 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(itemToTest.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(itemToTest.definitions.WeatherPost.properties.temperature.type).toBe('number');
-
   });
 
   it('built builtOA2_no_version.yml', async () => {
-    const itemToTest: any = jsYaml.safeLoad(fs.readFileSync('test-build/builtOA2_no_version/builtOA2_no_version.yml', 'utf8'));
+    const itemToTest: any = jsYaml.safeLoad(
+      fs.readFileSync('test-build/builtOA2_no_version/builtOA2_no_version.yml', 'utf8')
+    );
     expect(itemToTest.swagger).toBe('2.0');
     expect(itemToTest.info.version).toBe('1.0.1');
     expect(itemToTest.info.title).toBe('boats');
@@ -406,7 +469,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/v1/star-wars/'].get.operationId).toBe('v1StarWarsGet');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].schema.$ref).toBe('#/definitions/StarWars');
-    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/v1/star-wars/'].get.parameters[0].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather'].get.summary).toBe('weather search');
@@ -417,9 +482,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather'].get.parameters[1].$ref).toBe('#/parameters/QueryTextSearch');
     expect(itemToTest.paths['/weather'].get.parameters[2].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe('#/definitions/GenericSearchMeta');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe(
+      '#/definitions/GenericSearchMeta'
+    );
     expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.type).toBe('array');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
     expect(itemToTest.paths['/weather'].get.responses[404].description).toBe('Path & method combination not found');
     expect(itemToTest.paths['/weather'].post.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather'].post.summary).toBe('weather data');
@@ -445,10 +514,14 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].delete.summary).toBe('weather set to rain');
-    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe('Reset awful sunny weather to excellent rainy weather');
+    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe(
+      'Reset awful sunny weather to excellent rainy weather'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.operationId).toBe('v1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-filename']).toBe('delete');
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[0].$ref).toBe('#/parameters/PathId');
@@ -464,7 +537,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[4].type).toBe('string');
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[5].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].delete.responses[200].description).toBe('Deleted');
-    expect(itemToTest.paths['/weather/id/{id}'].delete.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].delete.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].put.summary).toBe('weather data');
     expect(itemToTest.paths['/weather/id/{id}'].put.description).toBe('Create a new weather record.');
@@ -473,13 +548,17 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].in).toBe('body');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].name).toBe('v1WeatherIdPut');
-    expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].description).toBe('Optional description in *Markdown*');
+    expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].description).toBe(
+      'Optional description in *Markdown*'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].required).toBe(true);
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].schema.$ref).toBe('#/definitions/WeatherIdPut');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[2].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}'].put.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].put.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.summary).toBe('One weather object');
@@ -489,8 +568,12 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/latest'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/latest'].get.summary).toBe('lastest weather data');
     expect(itemToTest.paths['/weather/latest'].get.description).toBe('Get the latest temperatures');
@@ -513,7 +596,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.parameters.QueryOffset.name).toBe('offset');
     expect(itemToTest.parameters.QueryOffset.required).toBe(false);
     expect(itemToTest.parameters.QueryOffset.type).toBe('integer');
-    expect(itemToTest.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(itemToTest.parameters.QueryOffset.description).toBe(
+      'The number of items to skip before starting to collect the result set.'
+    );
     expect(itemToTest.parameters.QueryTextSearch.in).toBe('query');
     expect(itemToTest.parameters.QueryTextSearch.name).toBe('textSearch');
     expect(itemToTest.parameters.QueryTextSearch.required).toBe(false);
@@ -567,7 +652,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather'].get.description).toBe('Get the latest temperatures');
     expect(infile.paths['/weather'].get.operationId).toBe('weatherGet');
     expect(infile.paths['/weather'].get.responses[200].description).toBe('Successful fetch');
-    expect(infile.paths['/weather'].get.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weathers');
+    expect(infile.paths['/weather'].get.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weathers'
+    );
     expect(infile.paths['/weather'].get.responses[404].description).toBe('Temp not found');
     expect(infile.paths['/weather'].post.tags[0]).toBe('Weather');
     expect(infile.paths['/weather'].post.summary).toBe('weather data');
@@ -575,9 +662,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather'].post.operationId).toBe('weatherPost');
     expect(infile.paths['/weather'].post.requestBody.description).toBe('Optional description in *Markdown*');
     expect(infile.paths['/weather'].post.requestBody.required).toBe(true);
-    expect(infile.paths['/weather'].post.requestBody.content['application/json'].schema.$ref).toBe('#/components/schemas/WeatherPost');
+    expect(infile.paths['/weather'].post.requestBody.content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/WeatherPost'
+    );
     expect(infile.paths['/weather'].post.responses[200].description).toBe('Successful temp creation');
-    expect(infile.paths['/weather'].post.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weather');
+    expect(infile.paths['/weather'].post.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weather'
+    );
     expect(infile.paths['/weather'].post.responses[422].description).toBe('Invalid form data provided');
     expect(infile.paths['/weather/id/{id}'].get.tags[0]).toBe('Weather');
     expect(infile.paths['/weather/id/{id}'].get.summary).toBe('weather data');
@@ -585,7 +676,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].get.operationId).toBe('weatherIdIdGet');
     expect(infile.paths['/weather/id/{id}'].get.parameters[0].$ref).toBe('#/components/parameters/PathId');
     expect(infile.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
-    expect(infile.paths['/weather/id/{id}'].get.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weather');
+    expect(infile.paths['/weather/id/{id}'].get.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weather'
+    );
     expect(infile.paths['/weather/id/{id}'].get.responses[404].description).toBe('Temp not found');
     expect(infile.paths['/weather/id/{id}'].put.tags[0]).toBe('Weather');
     expect(infile.paths['/weather/id/{id}'].put.summary).toBe('weather data');
@@ -593,9 +686,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].put.operationId).toBe('weatherIdIdPut');
     expect(infile.paths['/weather/id/{id}'].put.requestBody.description).toBe('Optional description in *Markdown*');
     expect(infile.paths['/weather/id/{id}'].put.requestBody.required).toBe(true);
-    expect(infile.paths['/weather/id/{id}'].put.requestBody.content['application/json'].schema.$ref).toBe('#/components/schemas/WeatherPut');
+    expect(infile.paths['/weather/id/{id}'].put.requestBody.content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/WeatherPut'
+    );
     expect(infile.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
-    expect(infile.paths['/weather/id/{id}'].put.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weather');
+    expect(infile.paths['/weather/id/{id}'].put.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weather'
+    );
     expect(infile.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
     expect(infile.components.parameters.PathId.in).toBe('path');
     expect(infile.components.parameters.PathId.name).toBe('id');
@@ -607,7 +704,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.components.parameters.QueryOffset.required).toBe(false);
     expect(infile.components.parameters.QueryOffset.schema.type).toBe('integer');
     expect(infile.components.parameters.QueryOffset.schema.minimum).toBe(0);
-    expect(infile.components.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(infile.components.parameters.QueryOffset.description).toBe(
+      'The number of items to skip before starting to collect the result set.'
+    );
     expect(infile.components.schemas.GenericSearchMeta.properties.totalResultCount.type).toBe('number');
     expect(infile.components.schemas.GenericSearchMeta.properties.offset.type).toBe('number');
     expect(infile.components.schemas.GenericSearchMeta.properties.limit.type).toBe('number');
@@ -654,7 +753,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather'].get.description).toBe('Get the latest temperatures');
     expect(infile.paths['/weather'].get.operationId).toBe('weatherGet');
     expect(infile.paths['/weather'].get.responses[200].description).toBe('Successful fetch');
-    expect(infile.paths['/weather'].get.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weathers');
+    expect(infile.paths['/weather'].get.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weathers'
+    );
     expect(infile.paths['/weather'].get.responses[404].description).toBe('Temp not found');
     expect(infile.paths['/weather'].post.tags[0]).toBe('Weather');
     expect(infile.paths['/weather'].post.summary).toBe('weather data');
@@ -662,9 +763,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather'].post.operationId).toBe('weatherPost');
     expect(infile.paths['/weather'].post.requestBody.description).toBe('Optional description in *Markdown*');
     expect(infile.paths['/weather'].post.requestBody.required).toBe(true);
-    expect(infile.paths['/weather'].post.requestBody.content['application/json'].schema.$ref).toBe('#/components/schemas/WeatherPost');
+    expect(infile.paths['/weather'].post.requestBody.content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/WeatherPost'
+    );
     expect(infile.paths['/weather'].post.responses[200].description).toBe('Successful temp creation');
-    expect(infile.paths['/weather'].post.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weather');
+    expect(infile.paths['/weather'].post.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weather'
+    );
     expect(infile.paths['/weather'].post.responses[422].description).toBe('Invalid form data provided');
     expect(infile.paths['/weather/id/{id}'].get.tags[0]).toBe('Weather');
     expect(infile.paths['/weather/id/{id}'].get.summary).toBe('weather data');
@@ -672,7 +777,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].get.operationId).toBe('weatherIdIdGet');
     expect(infile.paths['/weather/id/{id}'].get.parameters[0].$ref).toBe('#/components/parameters/PathId');
     expect(infile.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
-    expect(infile.paths['/weather/id/{id}'].get.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weather');
+    expect(infile.paths['/weather/id/{id}'].get.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weather'
+    );
     expect(infile.paths['/weather/id/{id}'].get.responses[404].description).toBe('Temp not found');
     expect(infile.paths['/weather/id/{id}'].put.tags[0]).toBe('Weather');
     expect(infile.paths['/weather/id/{id}'].put.summary).toBe('weather data');
@@ -680,9 +787,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.paths['/weather/id/{id}'].put.operationId).toBe('weatherIdIdPut');
     expect(infile.paths['/weather/id/{id}'].put.requestBody.description).toBe('Optional description in *Markdown*');
     expect(infile.paths['/weather/id/{id}'].put.requestBody.required).toBe(true);
-    expect(infile.paths['/weather/id/{id}'].put.requestBody.content['application/json'].schema.$ref).toBe('#/components/schemas/WeatherPut');
+    expect(infile.paths['/weather/id/{id}'].put.requestBody.content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/WeatherPut'
+    );
     expect(infile.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
-    expect(infile.paths['/weather/id/{id}'].put.responses[200].content['application/json'].schema.$ref).toBe('#/components/schemas/Weather');
+    expect(infile.paths['/weather/id/{id}'].put.responses[200].content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/Weather'
+    );
     expect(infile.paths['/weather/id/{id}'].put.responses[422].description).toBe('Invalid form data provided');
     expect(infile.components.parameters.PathId.in).toBe('path');
     expect(infile.components.parameters.PathId.name).toBe('id');
@@ -694,7 +805,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(infile.components.parameters.QueryOffset.required).toBe(false);
     expect(infile.components.parameters.QueryOffset.schema.type).toBe('integer');
     expect(infile.components.parameters.QueryOffset.schema.minimum).toBe(0);
-    expect(infile.components.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(infile.components.parameters.QueryOffset.description).toBe(
+      'The number of items to skip before starting to collect the result set.'
+    );
     expect(infile.components.schemas.GenericSearchMeta.properties.totalResultCount.type).toBe('number');
     expect(infile.components.schemas.GenericSearchMeta.properties.offset.type).toBe('number');
     expect(infile.components.schemas.GenericSearchMeta.properties.limit.type).toBe('number');
@@ -748,7 +861,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/v1/star-wars/'].get.operationId).toBe('v1StarWarsGet');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/v1/star-wars/'].get.responses[200].schema.$ref).toBe('#/definitions/StarWars');
-    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/v1/star-wars/'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/v1/star-wars/'].get.parameters[0].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/v1/star-wars/'].get['x-autoTag']).toBe('V1');
     expect(itemToTest.paths['/v1/star-wars/'].get['x-fileName']).toBe('get');
@@ -768,9 +883,13 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather'].get.parameters[1].$ref).toBe('#/parameters/QueryTextSearch');
     expect(itemToTest.paths['/weather'].get.parameters[2].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe('#/definitions/GenericSearchMeta');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.meta.$ref).toBe(
+      '#/definitions/GenericSearchMeta'
+    );
     expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.type).toBe('array');
-    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe('#/definitions/WeatherModel');
+    expect(itemToTest.paths['/weather'].get.responses[200].schema.properties.data.items.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
     expect(itemToTest.paths['/weather'].get.responses[404].description).toBe('Path & method combination not found');
     expect(itemToTest.paths['/weather'].get['x-autoTag']).toBe('V1');
     expect(itemToTest.paths['/weather'].get['x-fileName']).toBe('get');
@@ -812,20 +931,30 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].description).toBe('Successful fetch');
     expect(itemToTest.paths['/weather/id/{id}'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].get['x-permission']).toBe('readV1WeatherId');
     expect(itemToTest.paths['/weather/id/{id}'].get['x-autoTag']).toBe('V1');
     expect(itemToTest.paths['/weather/id/{id}'].get['x-fileName']).toBe('get');
     expect(itemToTest.paths['/weather/id/{id}'].get['x-uniqueOpId']).toBe('v1WeatherIdGet');
     expect(itemToTest.paths['/weather/id/{id}'].get['x-template-permission']).toBe('readV1WeatherIdGet');
     expect(itemToTest.paths['/weather/id/{id}'].get['x-template-description']).toBe('v1WeatherIdGet');
-    expect(itemToTest.paths['/weather/id/{id}'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(itemToTest.paths['/weather/id/{id}'].get['x-template-resolution'].a.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}'].get['x-template-resolution'].b.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}'].get['x-template-resolution'].c.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].get['x-json-content-test']).toBe('v1WeatherIdGet');
     expect(itemToTest.paths['/weather/id/{id}'].delete.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].delete.summary).toBe('weather set to rain');
-    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe('Reset awful sunny weather to excellent rainy weather');
+    expect(itemToTest.paths['/weather/id/{id}'].delete.description).toBe(
+      'Reset awful sunny weather to excellent rainy weather'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete.operationId).toBe('v1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-filename']).toBe('delete');
     expect(itemToTest.paths['/weather/id/{id}'].delete.parameters[0].$ref).toBe('#/parameters/PathId');
@@ -847,9 +976,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-uniqueOpId']).toBe('v1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-permission']).toBe('deleteV1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-description']).toBe('v1WeatherIdDelete');
-    expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-resolution'].a.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-resolution'].b.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}'].delete['x-template-resolution'].c.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].delete['x-json-content-test']).toBe('v1WeatherIdDelete');
     expect(itemToTest.paths['/weather/id/{id}'].put.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}'].put.summary).toBe('weather data');
@@ -859,7 +994,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].in).toBe('body');
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].name).toBe('v1WeatherIdPut');
-    expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].description).toBe('Optional description in *Markdown*');
+    expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].description).toBe(
+      'Optional description in *Markdown*'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].required).toBe(true);
     expect(itemToTest.paths['/weather/id/{id}'].put.parameters[1].schema.$ref).toBe('#/definitions/WeatherIdPut');
     expect(itemToTest.paths['/weather/id/{id}'].put.responses[200].description).toBe('Successful temp creation');
@@ -871,9 +1008,15 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}'].put['x-uniqueOpId']).toBe('v1WeatherIdPut');
     expect(itemToTest.paths['/weather/id/{id}'].put['x-template-permission']).toBe('updateV1WeatherIdPut');
     expect(itemToTest.paths['/weather/id/{id}'].put['x-template-description']).toBe('v1WeatherIdPut');
-    expect(itemToTest.paths['/weather/id/{id}'].put['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}'].put['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}'].put['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(itemToTest.paths['/weather/id/{id}'].put['x-template-resolution'].a.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}'].put['x-template-resolution'].b.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}'].put['x-template-resolution'].c.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
     expect(itemToTest.paths['/weather/id/{id}'].put['x-json-content-test']).toBe('v1WeatherIdPut');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.summary).toBe('One weather object');
@@ -883,17 +1026,27 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[0].$ref).toBe('#/parameters/PathId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.parameters[1].$ref).toBe('#/parameters/HeaderSearchId');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].description).toBe('Successful fetch');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe('#/definitions/WeatherModel');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe('Path & method combination not found');
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[200].schema.$ref).toBe(
+      '#/definitions/WeatherModel'
+    );
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get.responses[404].description).toBe(
+      'Path & method combination not found'
+    );
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-permission']).toBe('readV1WeatherIdPattern');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-autoTag']).toBe('V1');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-fileName']).toBe('get');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-uniqueOpId']).toBe('v1WeatherIdPatternGet');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-permission']).toBe('readV1WeatherIdPatternGet');
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-description']).toBe('v1WeatherIdPatternGet');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-resolution'].a.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-resolution'].b.$ref).toBe('#/parameters/HeaderSearchId');
-    expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-resolution'].c.$ref).toBe('#/parameters/HeaderSearchId');
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-resolution'].a.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-resolution'].b.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
+    expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-template-resolution'].c.$ref).toBe(
+      '#/parameters/HeaderSearchId'
+    );
     expect(itemToTest.paths['/weather/id/{id}/pattern'].get['x-json-content-test']).toBe('v1WeatherIdPatternGet');
     expect(itemToTest.paths['/weather/latest'].get.tags[0]).toBe('weather');
     expect(itemToTest.paths['/weather/latest'].get.summary).toBe('lastest weather data');
@@ -926,7 +1079,9 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.parameters.QueryOffset.name).toBe('offset');
     expect(itemToTest.parameters.QueryOffset.required).toBe(false);
     expect(itemToTest.parameters.QueryOffset.type).toBe('integer');
-    expect(itemToTest.parameters.QueryOffset.description).toBe('The number of items to skip before starting to collect the result set.');
+    expect(itemToTest.parameters.QueryOffset.description).toBe(
+      'The number of items to skip before starting to collect the result set.'
+    );
     expect(itemToTest.parameters.QueryTextSearch.in).toBe('query');
     expect(itemToTest.parameters.QueryTextSearch.name).toBe('textSearch');
     expect(itemToTest.parameters.QueryTextSearch.required).toBe(false);

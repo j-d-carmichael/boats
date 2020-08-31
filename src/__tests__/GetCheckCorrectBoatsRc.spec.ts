@@ -3,16 +3,16 @@ import CheckBoatsRcAndCorrect from '@/GetCheckCorrectBoatsRc';
 it('should warn about the invalid string style types', async () => {
   // @ts-ignore
   global.console = {
-    warn: jest.fn()
+    warn: jest.fn(),
   };
   CheckBoatsRcAndCorrect.parse({
     nunjucksOptions: {
-      tags: {}
+      tags: {},
     },
     permissionConfig: {
       // @ts-ignore
-      permissionStyle: 'snakeCase'
-    }
+      permissionStyle: 'snakeCase',
+    },
   });
   expect(global.console.warn).toHaveBeenCalled();
 });
@@ -20,16 +20,16 @@ it('should warn about the invalid string style types', async () => {
 it('should warn and write old config naming to new', async () => {
   // @ts-ignore
   global.console = {
-    warn: jest.fn()
+    warn: jest.fn(),
   };
   const newRc = CheckBoatsRcAndCorrect.parse({
     nunjucksOptions: {
-      tags: {}
+      tags: {},
     },
     permissionConfig: {
       usePackageJsonNameAsPrefix: true,
-      routePrefix: {}
-    }
+      routePrefix: {},
+    },
   });
   expect(global.console.warn).toHaveBeenCalled();
   expect(newRc.permissionConfig.usePackageJsonNameAsPrefix).toBe(undefined);

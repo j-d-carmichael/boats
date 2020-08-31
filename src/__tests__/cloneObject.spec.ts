@@ -6,11 +6,8 @@ describe('cloneObject', () => {
       dog: 'eats cat',
       cat: 'gets eaten',
       nests: {
-        contain: [
-          'birds',
-          'crazy people'
-        ]
-      }
+        contain: ['birds', 'crazy people'],
+      },
     };
     expect(cloneobject(objectA)).toEqual(objectA);
   });

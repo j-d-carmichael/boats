@@ -1,18 +1,18 @@
 export default (str: string): string | boolean => {
-  const regex = new RegExp(/swagger|openapi|asyncapi/gm)
+  const regex = new RegExp(/swagger|openapi|asyncapi/gm);
   if (regex.test(str)) {
-    const swagger = new RegExp(/swagger/gm)
+    const swagger = new RegExp(/swagger/gm);
     if (swagger.test(str)) {
-      return 'swagger'
+      return 'swagger';
     }
-    const openapi = new RegExp(/openapi/gm)
+    const openapi = new RegExp(/openapi/gm);
     if (openapi.test(str)) {
-      return 'openapi'
+      return 'openapi';
     }
-    const asyncapi = new RegExp(/asyncapi/gm)
+    const asyncapi = new RegExp(/asyncapi/gm);
     if (asyncapi.test(str)) {
-      return 'asyncapi'
+      return 'asyncapi';
     }
   }
-  return false
-}
+  return false;
+};

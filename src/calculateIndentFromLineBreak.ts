@@ -1,23 +1,23 @@
 export default (str: string, pointer: number): number => {
-  let spaceStart = false
-  let spaceStartPointer = 0
-  let spaceEndPointer = 0
+  let spaceStart = false;
+  let spaceStartPointer = 0;
+  let spaceEndPointer = 0;
   for (let i = pointer; i >= 0; --i) {
     if (str[i] === ' ' && !spaceStart) {
-      spaceStart = true
-      spaceStartPointer = i
+      spaceStart = true;
+      spaceStartPointer = i;
     } else if (str[i] === '\n' || i === 0) {
-      spaceEndPointer = i
+      spaceEndPointer = i;
       if (str[i] === '\n' && i === 0 && spaceStartPointer > 2) {
-        ++spaceEndPointer
+        ++spaceEndPointer;
       } else if (str[i] !== '\n' && i === 0 && spaceStartPointer > 0) {
-        --spaceEndPointer
+        --spaceEndPointer;
       }
-      break
+      break;
     } else if (str[i] !== ' ') {
-      spaceStart = false
-      spaceStartPointer = 0
+      spaceStart = false;
+      spaceStartPointer = 0;
     }
   }
-  return (spaceStartPointer === 0) ? 0 : spaceStartPointer - spaceEndPointer
-}
+  return spaceStartPointer === 0 ? 0 : spaceStartPointer - spaceEndPointer;
+};

@@ -17,7 +17,14 @@ const $RefParser = require('json-schema-ref-parser');
  * @param dereference
  * @returns {Promise<string>}
  */
-export default async (inputFile: string, outputFile: string, options = $RefParser.Options, indentation = 2, excludeVersion: boolean, dereference: boolean): Promise<string> => {
+export default async (
+  inputFile: string,
+  outputFile: string,
+  options = $RefParser.Options,
+  indentation = 2,
+  excludeVersion: boolean,
+  dereference: boolean
+): Promise<string> => {
   let bundled;
   try {
     bundled = await $RefParser.bundle(inputFile, options);
@@ -32,22 +39,15 @@ export default async (inputFile: string, outputFile: string, options = $RefParse
       contents = JSON.stringify(bundled, null, indentation);
     } else {
       contents = YAML.safeDump(bundled, {
-        indent: indentation
+        indent: indentation,
       });
     }
     fs.ensureDirSync(path.dirname(outputFile));
-    const pathToWriteTo = getOutputName(
-      outputFile,
-      bundled,
-      excludeVersion
-    );
-    fs.writeFileSync(
-      pathToWriteTo,
-      contents
-    );
+    const pathToWriteTo = getOutputName(outputFile, bundled, excludeVersion);
+    fs.writeFileSync(pathToWriteTo, contents);
     return pathToWriteTo;
   } catch (e) {
     console.error(JSON.stringify(bundled, undefined, 2));
     throw e;
   }
-}
+};
