@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
+import { BoatsRC } from '@/interfaces/BoatsRc';
 
 const pwd = process.cwd();
 const srcPath = path.join(pwd, '/src');
@@ -64,7 +65,7 @@ inquirer
   .then((answers) => {
     if (answers.installConfirm) {
       // write boatsrc to disc
-      const boatsrcDefault = {
+      const boatsrcDefault: BoatsRC = {
         nunjucksOptions: {
           tags: {},
         },
@@ -73,7 +74,7 @@ inquirer
           bash: true,
         },
         permissionConfig: {
-          routePrefix: {},
+          globalPrefix: true,
         },
       };
       fs.writeFileSync(path.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));

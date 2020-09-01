@@ -8,12 +8,12 @@ jest.setTimeout(60 * 1000); // in milliseconds
 describe('Check to ensure the files are generated with the correct file names:', () => {
   const paths = [
     ['test-build/srcASYNC2/srcASYNC2_1.0.1.yml', '98126fb769c131825c94d0b1774228a8'],
-    ['test-build/builtOA2_std/builtOA2_std_1.0.1.yml', 'dd57eb4550657773026ad0a1eec90784'],
+    ['test-build/builtOA2_std/builtOA2_std_1.0.1.yml', '2d52db00ddf873bd7fe421dddf52ca35'],
     ['test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml', '87baaf9f9974424c944b2e5a1a906579'],
-    ['test-build/builtOA2_no_version/builtOA2_no_version.yml', 'dd57eb4550657773026ad0a1eec90784'],
+    ['test-build/builtOA2_no_version/builtOA2_no_version.yml', '2d52db00ddf873bd7fe421dddf52ca35'],
     ['test-build/builtOA3_std/builtOA3_1.0.1.yml', '30d02452f886b1941483fba11c983953'],
     ['test-build/builtOA3_exclude/builtOA3.yml', '30d02452f886b1941483fba11c983953'],
-    ['test-build/builtOA2_inject/api_1.0.1.yml', '722134f1f62909c4261362cb9287f54f'],
+    ['test-build/builtOA2_inject/api_1.0.1.yml', 'd0ab7c79d21bc103337438c3d1bddaed'],
   ];
 
   it('Check all files have been created', (done) => {
@@ -24,28 +24,6 @@ describe('Check to ensure the files are generated with the correct file names:',
       }
     }
     done();
-  });
-
-  it('Should have the correct file hashes', async (done) => {
-    // If these tests fail the either:
-    // A) The test_swagger.yml has changed
-    // B) The tpl for the typescipt server has change
-    // C) Something broke when building the said files
-    const mismatched = [];
-    for (let i = 0; i < paths.length; ++i) {
-      const filePath = paths[i][0];
-      const fileHash = paths[i][1];
-      const hash = await hasha.fromFile(path.join(process.cwd(), filePath), { algorithm: 'md5' });
-      if (hash !== fileHash) {
-        const wrong = `Hash mis-match for file ${filePath}. Expected hash ${fileHash} but got ${hash}`;
-        mismatched.push(wrong);
-      }
-    }
-    if (mismatched.length > 0) {
-      done(mismatched);
-    } else {
-      done();
-    }
   });
 
   it('built srcASYNC2_1.0.1.yml', async () => {
@@ -1114,5 +1092,27 @@ describe('Check to ensure the files are generated with the correct file names:',
     expect(itemToTest.definitions.WeatherPost.properties.cloudCoverPercentage.type).toBe('integer');
     expect(itemToTest.definitions.WeatherPost.properties.humidityPercentage.type).toBe('integer');
     expect(itemToTest.definitions.WeatherPost.properties.temperature.type).toBe('number');
+  });
+
+  it('Should have the correct file hashes', async (done) => {
+    // If these tests fail the either:
+    // A) The test_swagger.yml has changed
+    // B) The tpl for the typescipt server has change
+    // C) Something broke when building the said files
+    const mismatched = [];
+    for (let i = 0; i < paths.length; ++i) {
+      const filePath = paths[i][0];
+      const fileHash = paths[i][1];
+      const hash = await hasha.fromFile(path.join(process.cwd(), filePath), { algorithm: 'md5' });
+      if (hash !== fileHash) {
+        const wrong = `Hash mis-match for file ${filePath}. Expected hash ${fileHash} but got ${hash}`;
+        mismatched.push(wrong);
+      }
+    }
+    if (mismatched.length > 0) {
+      done(mismatched);
+    } else {
+      done();
+    }
   });
 });
