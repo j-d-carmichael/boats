@@ -110,23 +110,23 @@ class Injector {
 
     let rules;
     if (/channels/.test(inputPath)) {
-      rules = { exclude: injectRule.exclude, route: injectRule.excludeChannels, only: injectRule.includeOnlyChannels };
+      rules = { exclude: injectRule.excludeChannels, include: injectRule.includeOnlyChannels };
     } else if (/paths/.test(inputPath)) {
-      rules = { route: injectRule.excludePaths, only: injectRule.includeOnlyPaths };
+      rules = { exclude: injectRule.excludePaths, include: injectRule.includeOnlyPaths };
     } else {
       return true;
     }
 
     // Exclude paths
-    if (this.globCheck(operationName, rules.route, picomatchOptions)) {
+    if (this.globCheck(operationName, rules.exclude, picomatchOptions)) {
       return false;
     }
     // Exclude (channel only)
-    if (rules.exclude && this.globCheck(operationName, rules.exclude, picomatchOptions)) {
+    if (injectRule.exclude && this.globCheck(operationName, injectRule.exclude, picomatchOptions)) {
       return false;
     }
     // Specifically include a path
-    if (rules.only?.length > 0 && !this.globCheck(operationName, rules.only, picomatchOptions)) {
+    if (injectRule.include?.length > 0 && !this.globCheck(operationName, rules.include, picomatchOptions)) {
       return false;
     }
     // include method
