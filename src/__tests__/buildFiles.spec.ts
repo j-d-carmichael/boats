@@ -6,26 +6,6 @@ import jsYaml from 'js-yaml';
 jest.setTimeout(60 * 1000); // in milliseconds
 
 describe('Check to ensure the files are generated with the correct file names:', () => {
-  const paths = [
-    'test-build/srcASYNC2/srcASYNC2_1.0.1.yml',
-    'test-build/builtOA2_std/builtOA2_std_1.0.1.yml',
-    'test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml',
-    'test-build/builtOA2_no_version/builtOA2_no_version.yml',
-    'test-build/builtOA3_std/builtOA3_1.0.1.yml',
-    'test-build/builtOA3_exclude/builtOA3.yml',
-    'test-build/builtOA2_inject/api_1.0.1.yml',
-  ];
-
-  it('Check all files have been created', (done) => {
-    for (let i = 0; i < paths.length; ++i) {
-      const filePath = paths[i][0];
-      if (!fs.pathExistsSync(filePath)) {
-        done('Not found filePath: ' + filePath);
-      }
-    }
-    done();
-  });
-
   it('built srcASYNC2_1.0.1.yml', async () => {
     const infile: any = jsYaml.safeLoad(fs.readFileSync('test-build/srcASYNC2/srcASYNC2_1.0.1.yml', 'utf8'));
     expect(infile).toEqual({
