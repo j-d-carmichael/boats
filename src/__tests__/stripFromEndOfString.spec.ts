@@ -1,4 +1,4 @@
-import stripFromEnd from '../stripFromEndOfString'
+import stripFromEnd from '../stripFromEndOfString';
 
 describe('stripFromEndOfString', () => {
   it('.yml.njk', () => {

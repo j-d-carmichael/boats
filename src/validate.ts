@@ -5,7 +5,7 @@ import { OpenAPI } from 'openapi-types';
 import parser from '@asyncapi/parser';
 
 class Validate {
-  async decideThenvalidate (bundledJson: Record<string, unknown>) {
+  async decideThenvalidate(bundledJson: Record<string, unknown>) {
     if (bundledJson.asyncapi) {
       return this.asyncapi(JSON.stringify(bundledJson));
     }
@@ -14,12 +14,12 @@ class Validate {
     }
   }
 
-  openapi (input: Record<string, unknown>) {
+  openapi(input: Record<string, unknown>) {
     return new Promise((resolve, reject) => {
       if (typeof input === 'object') {
         input = cloneObject(input);
       }
-      validate(input as unknown as OpenAPI.Document, {})
+      validate((input as unknown) as OpenAPI.Document, {})
         .then((data) => {
           resolve(data);
         })
@@ -29,9 +29,10 @@ class Validate {
     });
   }
 
-  asyncapi (input: string) {
+  asyncapi(input: string) {
     return new Promise((resolve, reject) => {
-      parser.parse(input)
+      parser
+        .parse(input)
         .then((data: any) => {
           resolve(data);
         })

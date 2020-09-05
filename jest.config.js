@@ -8,10 +8,9 @@ module.exports = {
   ],
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/*/*.{js,ts}',
+    'src/**/**.{js,ts}',
   ],
   coverageDirectory: 'coverage',
-
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
@@ -19,18 +18,17 @@ module.exports = {
     '/node_modules/',
     '/build/'
   ],
-
   testMatch: [
-    '**/__tests__/*.spec.ts',
+    '**/*.spec.(js|jsx|ts|tsx)',
   ],
-
   testPathIgnorePatterns: [
     '/node_modules/',
     '/build/',
   ],
-
   testEnvironment: 'node',
-
+  modulePathIgnorePatterns: [
+    '/build/',
+  ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },

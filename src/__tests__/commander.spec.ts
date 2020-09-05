@@ -1,33 +1,33 @@
-import program from '../commander'
-import helperFunctions from '@/commander.helperFunctions'
+import program from '../commander';
+import helperFunctions from '@/commander.helperFunctions';
 
 jest.mock('@/commander.helperFunctions', () => (path: string) => [path]);
 
 describe('cli param parsing', () => {
   it('check the right stuff is returned', () => {
-    const commanderReturn = program([
-      'node','myscript',
-      '--init',
-      '-i', 'bill',
-      '-o', 'ben',
-      '-x',
-    ])
-    expect(commanderReturn.init).toBe(true)
-    expect(commanderReturn.input).toBe('bill')
-    expect(commanderReturn.output).toBe('ben')
-    expect(commanderReturn.exclude_version).toBe(true)
+    const commanderReturn = program(['node', 'myscript', '--init', '-i', 'bill', '-o', 'ben', '-x']);
+    expect(commanderReturn.init).toBe(true);
+    expect(commanderReturn.input).toBe('bill');
+    expect(commanderReturn.output).toBe('ben');
+    expect(commanderReturn.exclude_version).toBe(true);
   });
 
   it('all the short options', () => {
     // shorts
     const commanderReturn = program([
-      'node', 'myscript',
-      '-i', 'inpath',
-      '-o', 'outpath',
-      '-$', 'variables',
-      '-f', './egal',
+      'node',
+      'myscript',
+      '-i',
+      'inpath',
+      '-o',
+      'outpath',
+      '-$',
+      'variables',
+      '-f',
+      './egal',
       '-d',
-      '-s', '/home/bobthebuilder',
+      '-s',
+      '/home/bobthebuilder',
       '-x',
       '-y',
     ]);
@@ -44,17 +44,25 @@ describe('cli param parsing', () => {
   it('all the long options', () => {
     // longs
     const commanderReturn = program([
-      'node', 'myscript',
+      'node',
+      'myscript',
       '--init',
-      '--input', 'inpath',
-      '--output', 'outpath',
-      '--variables', 'variables',
-      '--functions', './egal',
+      '--input',
+      'inpath',
+      '--output',
+      'outpath',
+      '--variables',
+      'variables',
+      '--functions',
+      './egal',
       '--dereference',
-      '--strip_value', '/home/bobthebuilder',
+      '--strip_value',
+      '/home/bobthebuilder',
       '--exclude_version',
-      '--convert_to_njk', '/remote_directory_njk',
-      '--convert_to_yml', '/remote_directory_yml',
+      '--convert_to_njk',
+      '/remote_directory_njk',
+      '--convert_to_yml',
+      '/remote_directory_yml',
       '--yes',
     ]);
 

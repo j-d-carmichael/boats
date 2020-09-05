@@ -1,4 +1,3 @@
-
 /*
  * Read a YAML file and output expects for tests
  *
@@ -29,8 +28,8 @@
  *   expect(itemToTest.info.license.url).toBe('https://www.apache.org/licenses/LICENSE-2.0.html');
  */
 
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs';
+import path from 'path';
 
 exports.main = () => {
   const jsYaml = require('js-yaml');
@@ -113,7 +112,9 @@ exports.flatten = (data: any) => {
         isEmpty = false;
         recurse(cur[p], prop ? prop + exports.fmtProp(p) : p);
       }
-      if (isEmpty) {result[prop] = {};}
+      if (isEmpty) {
+        result[prop] = {};
+      }
     }
   };
   recurse(data, '');

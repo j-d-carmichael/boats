@@ -4,6 +4,6 @@
  */
 declare namespace NodeJS {
   export interface Global {
-    boatsInject: any
+    boatsInject: any;
   }
 }
