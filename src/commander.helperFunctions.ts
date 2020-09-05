@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
-import path from 'path'
+import fs from 'fs-extra';
+import path from 'path';
 
 /**
  * Breaks strings on = sign and returns as a key value object into the arr arg
@@ -8,10 +8,10 @@ import path from 'path'
  * @returns {*}
  */
 export default (val: string, arr: any[]): any[] => {
-  const filePath = path.join(process.cwd(), val)
+  const filePath = path.join(process.cwd(), val);
   if (!fs.pathExistsSync(filePath)) {
-    throw new Error('Helper function could not be found: ' + filePath)
+    throw new Error('Helper function could not be found: ' + filePath);
   }
-  arr.push(filePath)
-  return arr
-}
+  arr.push(filePath);
+  return arr;
+};

@@ -23,13 +23,13 @@ class GetCheckCorrectBoatsRc {
       permissionStyle: StringStyle.camelCase,
       permissionSegmentStyle: StringStyle.camelCase,
       methodAliasPosition: MethodAliasPosition.AfterGlobalPrefix,
-    }
+    },
   };
 
   /**
    * Finds, parses and validates the boatsrc file
    */
-  getBoatsConfig () {
+  getBoatsConfig() {
     const boatsrc = path.join(process.cwd(), '.boatsrc');
     try {
       const boatsRcJson: BoatsRC = fs.readJsonSync(boatsrc);
@@ -47,7 +47,7 @@ class GetCheckCorrectBoatsRc {
     }
   }
 
-  parse (boatsRc: BoatsRC): BoatsRC {
+  parse(boatsRc: BoatsRC): BoatsRC {
     this.boatsRc = boatsRc;
     this.permissionConfigStyleCheck();
     this.permissionConfigPrefixesCheck();
@@ -56,14 +56,14 @@ class GetCheckCorrectBoatsRc {
     return this.boatsRc;
   }
 
-  stringStyleCheck (input: string): void {
+  stringStyleCheck(input: string): void {
     if (!Object.values(StringStyle).includes(input as any)) {
       console.warn(`WARNING: StringStyle provided does not match any of the available options, provided "${input}"`);
       console.warn(`Available styles: ${Object.values(StringStyle)}`);
     }
   }
 
-  permissionConfigStyleCheck (): void {
+  permissionConfigStyleCheck(): void {
     if (this.boatsRc?.permissionConfig?.permissionStyle) {
       this.stringStyleCheck(this.boatsRc.permissionConfig.permissionStyle);
     }
@@ -72,27 +72,31 @@ class GetCheckCorrectBoatsRc {
     }
   }
 
-  permissionConfigPrefixesCheck (): void {
+  permissionConfigPrefixesCheck(): void {
     if (typeof this.boatsRc?.permissionConfig?.usePackageJsonNameAsPrefix !== 'undefined') {
-      console.warn('Deprecation warning: permissionConfig.usePackageJsonNameAsPrefix will be removed in the future, please use permissionConfig.globalPrefix');
+      console.warn(
+        'Deprecation warning: permissionConfig.usePackageJsonNameAsPrefix will be removed in the future, please use permissionConfig.globalPrefix'
+      );
       this.boatsRc.permissionConfig.globalPrefix = this.boatsRc.permissionConfig.usePackageJsonNameAsPrefix;
       delete this.boatsRc.permissionConfig.usePackageJsonNameAsPrefix;
     }
     if (typeof this.boatsRc.permissionConfig.routePrefix !== 'undefined') {
-      console.warn('Deprecation warning: permissionConfig.routePrefix will be removed in the future, please use permissionConfig.methodAlias');
+      console.warn(
+        'Deprecation warning: permissionConfig.routePrefix will be removed in the future, please use permissionConfig.methodAlias'
+      );
       this.boatsRc.permissionConfig.methodAlias = this.boatsRc.permissionConfig.routePrefix;
       delete this.boatsRc.permissionConfig.routePrefix;
     }
   }
 
-  permissionConfigAliasChecks () {
+  permissionConfigAliasChecks() {
     this.boatsRc.permissionConfig = this.boatsRc.permissionConfig || {};
     if (!this.boatsRc.permissionConfig.methodAliasPosition) {
       this.boatsRc.permissionConfig.methodAliasPosition = MethodAliasPosition.AfterGlobalPrefix;
     }
   }
 
-  jsonSchemaRefParserBundleOpts (): void {
+  jsonSchemaRefParserBundleOpts(): void {
     if (process.env.jsonSchemaRefParserBundleOpts) {
       try {
         this.boatsRc.jsonSchemaRefParserBundleOpts = JSON.parse(process.env.jsonSchemaRefParserBundleOpts);

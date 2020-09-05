@@ -1,4 +1,4 @@
 export enum MethodAliasPosition {
-  AfterGlobalPrefix= 'afterGlobalPrefix',
-  EndOfPermissionString= 'endOfPermissionString',
+  AfterGlobalPrefix = 'afterGlobalPrefix',
+  EndOfPermissionString = 'endOfPermissionString',
 }

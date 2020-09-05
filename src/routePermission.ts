@@ -5,19 +5,25 @@ import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require(path.join(process.cwd(), 'package.json'));
 
-export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix = '', tail = '', removeMethod: boolean): string => {
-  const permissionConfig = boatsrc && boatsrc.permissionConfig || {};
+const defaultPrefix = {
+  get: 'read',
+  post: 'create',
+  put: 'update',
+  patch: 'update',
+  delete: 'delete',
+};
+
+export default (
+  boatsrc: BoatsRC,
+  filePath: string,
+  stripValue: string,
+  prefix = '',
+  tail = '',
+  removeMethod: boolean
+): string => {
+  const permissionConfig = (boatsrc && boatsrc.permissionConfig) || {};
   const methodAlias = permissionConfig.methodAlias || {};
-  const prefixConfig: JSON = Object.assign(
-    {
-      get: 'read',
-      post: 'create',
-      put: 'update',
-      patch: 'update',
-      delete: 'delete',
-    },
-    methodAlias
-  );
+  const prefixConfig: JSON = Object.assign(defaultPrefix, methodAlias);
   const mainPrefixes = [];
   const usePackageName = typeof permissionConfig.globalPrefix === 'undefined' || permissionConfig.globalPrefix === true;
   if (usePackageName) {
@@ -49,4 +55,4 @@ export default (boatsrc: BoatsRC, filePath: string, stripValue: string, prefix =
     boatsrc?.permissionConfig?.permissionSegmentStyle,
     mainPrefixes
   );
-}
+};

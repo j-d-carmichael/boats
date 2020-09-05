@@ -22,9 +22,9 @@ export interface BoatsRC {
       commentStart?: string;
       commentEnd?: string;
     };
-    [key: string]: any
+    [key: string]: any;
   };
-  jsonSchemaRefParserBundleOpts?: $RefParser.Options,
+  jsonSchemaRefParserBundleOpts?: $RefParser.Options;
   permissionConfig?: {
     routePrefix?: MethodAlias; // to be deprecated, use methodAlias instead
     methodAlias?: MethodAlias;
@@ -34,5 +34,5 @@ export interface BoatsRC {
     permissionStyle?: StringStyle;
     permissionSegmentStyle?: StringStyle;
   };
-  picomatchOptions?: any
+  picomatchOptions?: any;
 }

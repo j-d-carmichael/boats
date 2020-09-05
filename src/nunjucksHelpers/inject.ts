@@ -13,7 +13,9 @@ export default function (conf: InjectorConfig[]): string {
       }
     });
     if (warn) {
-      console.error('DEPRECATION WARNING: The inject helper will soon no longer support "exclude: []" please use "excludeChannels: []" instead. This feature will be removed in a future release');
+      console.error(
+        'DEPRECATION WARNING: The inject helper will soon no longer support "exclude: []" please use "excludeChannels: []" instead. This feature will be removed in a future release'
+      );
     }
   }
   return '';

@@ -5,13 +5,13 @@
  * @returns {*}
  */
 export default (val: string, arr: any[]): any[] => {
-  const parts = val.split('=')
-  const obj: any = {}
+  const parts = val.split('=');
+  const obj: any = {};
   if (parts.length === 1) {
-    obj[parts[0].trim()] = true
+    obj[parts[0].trim()] = true;
   } else {
-    obj[parts.shift().trim()] = parts.join().trim()
+    obj[parts.shift().trim()] = parts.join().trim();
   }
-  arr.push(obj)
-  return arr
-}
+  arr.push(obj);
+  return arr;
+};

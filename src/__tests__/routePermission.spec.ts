@@ -1,20 +1,20 @@
-import routePermission from "@/routePermission";
+import routePermission from '@/routePermission';
 
 it('should return the global then the prefix then the rest without the method - all camelCased', async () => {
-  const r= routePermission(
+  const r = routePermission(
     {
       nunjucksOptions: {
-        tags: {}
+        tags: {},
       },
       permissionConfig: {
-        globalPrefix: 'hello'
-      }
+        globalPrefix: 'hello',
+      },
     },
     'src/paths/weather-is-bad/get.yml',
     'src/paths',
     'bob',
     '',
     true
-  )
-  expect(r).toBe('helloBobReadWeatherIsBad')
+  );
+  expect(r).toBe('helloBobReadWeatherIsBad');
 });
