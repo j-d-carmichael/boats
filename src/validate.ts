@@ -9,7 +9,7 @@ class Validate {
     if (bundledJson.asyncapi) {
       return this.asyncapi(JSON.stringify(bundledJson));
     }
-    if (bundledJson.asyncapi || bundledJson.swagger) {
+    if (bundledJson.openapi || bundledJson.swagger) {
       return this.openapi(bundledJson);
     }
   }

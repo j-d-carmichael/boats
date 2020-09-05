@@ -8,14 +8,14 @@ import { BoatsRC } from '@/interfaces/BoatsRc';
 class Injector {
   fileToRouteMap: any;
 
-  constructor() {
+  constructor () {
     this.fileToRouteMap = {};
   }
 
   /**
    * Render the base template and inject content if provided
    */
-  injectAndRender(inputPath: string, inputIndexYaml: string, boatsRc: BoatsRC): string {
+  injectAndRender (inputPath: string, inputIndexYaml: string, boatsRc: BoatsRC): string {
     const fullPath = path.join(process.cwd(), inputPath);
     const relativePathToRoot = path.relative(path.dirname(inputPath), path.dirname(inputIndexYaml));
     const picomatchOptions = boatsRc.picomatchOptions || { bash: true };
@@ -54,7 +54,7 @@ class Injector {
    *
    * @return {object}  Merged JSON of the template
    */
-  mergeInjection(jsonTemplate: any, relativePathToRoot: string, content: string | any): any {
+  mergeInjection (jsonTemplate: any, relativePathToRoot: string, content: string | any): any {
     if (!jsonTemplate || !content) {
       return jsonTemplate;
     }
@@ -71,7 +71,7 @@ class Injector {
     return deepmerge(jsonTemplate, injectionContent);
   }
 
-  buildInjectRuleObject(injection: any): any {
+  buildInjectRuleObject (injection: any): any {
     return {
       exclude: [] /* << deprecated and will be removed in the a future release */,
       excludeChannels: [],
@@ -83,6 +83,14 @@ class Injector {
     };
   }
 
+  shouldSkipMethod (injectRule: any, method: string): boolean {
+    if (injectRule.includeMethods.length) {
+      const methodsRegex = new RegExp(`\\b(${injectRule.includeMethods.join('|')})\\b`, 'i');
+      return !methodsRegex.test(method);
+    }
+    return false;
+  }
+
   /**
    * Checks if the content should be injected
    *
@@ -92,7 +100,7 @@ class Injector {
    * @param  {object}   picomatchOptions  node_modules/@types/picomatch/index.d.ts  PicomatchOptions  not exported from the types
    * @return {boolean}  True if the path satisfies the rule
    */
-  shouldInject(injection: any, inputPath: string, picomatchOptions: any) {
+  shouldInject (injection: any, inputPath: string, picomatchOptions: any) {
     if (!injection) {
       return false;
     }
@@ -100,51 +108,63 @@ class Injector {
     const operationName = this.fileToRouteMap[inputPath];
     const methodName = path.basename(inputPath).replace(/\..*/, '');
 
-    const shouldSkipMethod = (method: string): boolean => {
-      if (injectRule.includeMethods.length) {
-        const methodsRegex = new RegExp(`\\b(${injectRule.includeMethods.join('|')})\\b`, 'i');
-        return !methodsRegex.test(method);
-      }
+    if (/channels/.test(inputPath) && this.shouldInjectToChannels(operationName, injectRule, methodName, picomatchOptions) === false) {
       return false;
-    };
+    }
+    if (/paths/.test(inputPath) && this.shouldInjectToPaths(operationName, injectRule, methodName, picomatchOptions) === false) {
+      return false;
+    }
+    return true;
+  }
 
-    if (/channels/.test(inputPath)) {
-      // Exclude paths
-      if (this.globCheck(operationName, injectRule.excludeChannels, picomatchOptions)) {
-        return false;
-      }
-      if (this.globCheck(operationName, injectRule.exclude, picomatchOptions)) {
-        return false;
-      }
-      // Specifically include a path
-      if (
-        injectRule.includeOnlyChannels.length > 0 &&
-        !this.globCheck(operationName, injectRule.includeOnlyChannels, picomatchOptions)
-      ) {
-        return false;
-      }
-      // include method
-      if (shouldSkipMethod(methodName)) {
-        return false;
-      }
+  /**
+   * Returns false when the channel should not be injected into
+   * else returns true
+   */
+  shouldInjectToChannels (operationName: string, injectRule: any, methodName: string, picomatchOptions: any) {
+    // Exclude channels
+    if (this.globCheck(operationName, injectRule.excludeChannels, picomatchOptions)) {
+      return false;
     }
-    if (/paths/.test(inputPath)) {
-      // Exclude a path completely
-      if (this.globCheck(operationName, injectRule.excludePaths, picomatchOptions)) {
-        return false;
-      }
-      // Specifically include a path
-      if (
-        injectRule.includeOnlyPaths.length > 0 &&
-        !this.globCheck(operationName, injectRule.includeOnlyPaths, picomatchOptions)
-      ) {
-        return false;
-      }
-      // include method
-      if (shouldSkipMethod(methodName)) {
-        return false;
-      }
+    if (this.globCheck(operationName, injectRule.exclude, picomatchOptions)) {
+      return false;
     }
+    // Specifically include a channel
+    if (
+      injectRule.includeOnlyChannels.length > 0 &&
+      !this.globCheck(operationName, injectRule.includeOnlyChannels, picomatchOptions)
+    ) {
+      return false;
+    }
+    // include method
+    if (this.shouldSkipMethod(injectRule, methodName)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Returns false when the path should not be injected into
+   * else returns true
+   */
+  shouldInjectToPaths (operationName: string, injectRule: any, methodName: string, picomatchOptions: any) {
+    // Exclude a path completely
+    if (this.globCheck(operationName, injectRule.excludePaths, picomatchOptions)) {
+      return false;
+    }
+    // Specifically include a path
+    if (
+      injectRule.includeOnlyPaths.length > 0 &&
+      !this.globCheck(operationName, injectRule.includeOnlyPaths, picomatchOptions)
+    ) {
+      return false;
+    }
+    // include method
+    if (this.shouldSkipMethod(injectRule, methodName)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -154,7 +174,7 @@ class Injector {
    * @param haystack
    * @param picoOptions node_modules/@types/picomatch/index.d.ts  PicomatchOptions  not exported from the types
    */
-  globCheck(needle: string, haystack: string[], picoOptions: any): boolean {
+  globCheck (needle: string, haystack: string[], picoOptions: any): boolean {
     let resp = false;
     if (typeof needle !== 'string') {
       // catch for tpl not included in a manual index file
@@ -176,7 +196,7 @@ class Injector {
    * @param {string}  yaml       The YAML of a path or channel index
    * @param {string}  inputPath  Path to YAML index file
    */
-  mapIndex(yaml: string, inputPath: string) {
+  mapIndex (yaml: string, inputPath: string) {
     const indexRoute = path.dirname(inputPath);
     const index = jsYaml.safeLoad(yaml);
     Object.entries(index).forEach(([route, methods]) => {
@@ -189,7 +209,7 @@ class Injector {
     });
   }
 
-  convertRootRefToRelative(content: string, relativePathToRoot: string) {
+  convertRootRefToRelative (content: string, relativePathToRoot: string) {
     return content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
       const newPath = `${path.dirname(rootRef)}/index.yml#/${path.basename(rootRef)}`;
       return `${ref}${relativePathToRoot}/${newPath}`;

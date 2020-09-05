@@ -1,0 +1,98 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "boats",
+    "version": "1.0.1",
+    "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "/ms-auth/cache-connection": {
+      "description": "When a new connection change occurs the new cache values are emitted in the payload",
+      "publish": {
+        "operationId": "msAuthCacheConnectionPublish",
+        "message": {
+          "contentType": "application/json",
+          "payload": {
+            "$ref": "#/components/schemas/MsAuthCacheConnection"
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "msAuthCacheConnectionSubscribe",
+        "message": {
+          "contentType": "application/json",
+          "payload": {
+            "$ref": "#/components/schemas/MsAuthCacheConnection"
+          }
+        }
+      }
+    },
+    "/ms-auth/cache-user": {
+      "description": "When a new connection change occurs the new cache values are emitted in the payload",
+      "publish": {
+        "operationId": "msAuthCacheUserPublish",
+        "message": {
+          "contentType": "application/json",
+          "payload": {
+            "$ref": "#/components/schemas/MsAuthCacheUser"
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "msAuthCacheUserSubscribe",
+        "message": {
+          "contentType": "application/json",
+          "payload": {
+            "$ref": "#/components/schemas/MsAuthCacheUser"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MsAuthCacheConnection": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "connections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "updated": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "MsAuthCacheUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
