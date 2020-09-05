@@ -108,32 +108,43 @@ class Injector {
       return false;
     };
 
-    let rules;
     if (/channels/.test(inputPath)) {
-      rules = { exclude: injectRule.excludeChannels, include: injectRule.includeOnlyChannels };
-    } else if (/paths/.test(inputPath)) {
-      rules = { exclude: injectRule.excludePaths, include: injectRule.includeOnlyPaths };
-    } else {
-      return true;
+      // Exclude paths
+      if (this.globCheck(operationName, injectRule.excludeChannels, picomatchOptions)) {
+        return false;
+      }
+      if (this.globCheck(operationName, injectRule.exclude, picomatchOptions)) {
+        return false;
+      }
+      // Specifically include a path
+      if (
+        injectRule.includeOnlyChannels.length > 0 &&
+        !this.globCheck(operationName, injectRule.includeOnlyChannels, picomatchOptions)
+      ) {
+        return false;
+      }
+      // include method
+      if (shouldSkipMethod(methodName)) {
+        return false;
+      }
     }
-
-    // Exclude paths
-    if (this.globCheck(operationName, rules.exclude, picomatchOptions)) {
-      return false;
+    if (/paths/.test(inputPath)) {
+      // Exclude a path completely
+      if (this.globCheck(operationName, injectRule.excludePaths, picomatchOptions)) {
+        return false;
+      }
+      // Specifically include a path
+      if (
+        injectRule.includeOnlyPaths.length > 0 &&
+        !this.globCheck(operationName, injectRule.includeOnlyPaths, picomatchOptions)
+      ) {
+        return false;
+      }
+      // include method
+      if (shouldSkipMethod(methodName)) {
+        return false;
+      }
     }
-    // Exclude (channel only)
-    if (injectRule.exclude && this.globCheck(operationName, injectRule.exclude, picomatchOptions)) {
-      return false;
-    }
-    // Specifically include a path
-    if (injectRule.include?.length > 0 && !this.globCheck(operationName, rules.include, picomatchOptions)) {
-      return false;
-    }
-    // include method
-    if (shouldSkipMethod(methodName)) {
-      return false;
-    }
-
     return true;
   }
 
