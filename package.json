@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -88,6 +88,7 @@
     "eslint-plugin-deprecate": "^0.7.0",
     "hasha": "^5.2.0",
     "jest": "^26.4.2",
+    "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
     "ttypescript": "^1.5.11",
     "typescript": "^4.0.2"
