@@ -23,7 +23,7 @@ if (fs.pathExistsSync(dotenvFilePath)) {
 const parseCli = async () => {
   const program = commander(process.argv);
 
-  if (program.program.yes) {
+  if (program.yes) {
     process.env.npm_tool_version_check__quiet = 'true';
   }
 
