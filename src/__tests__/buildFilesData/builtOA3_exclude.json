@@ -28,9 +28,7 @@
   "paths": {
     "/weather": {
       "get": {
-        "tags": [
-          "Weather"
-        ],
+        "tags": ["Weather"],
         "summary": "weather data",
         "description": "Get the latest temperatures",
         "operationId": "weatherGet",
@@ -51,9 +49,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Weather"
-        ],
+        "tags": ["Weather"],
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "weatherPost",
@@ -87,9 +83,7 @@
     },
     "/weather/id/{id}": {
       "get": {
-        "tags": [
-          "Weather"
-        ],
+        "tags": ["Weather"],
         "summary": "weather data",
         "description": "Get the latest temperatures",
         "operationId": "weatherIdIdGet",
@@ -115,9 +109,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Weather"
-        ],
+        "tags": ["Weather"],
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "weatherIdIdPut",
@@ -202,10 +194,7 @@
       },
       "LocationPost": {
         "type": "object",
-        "required": [
-          "name",
-          "coordinates"
-        ],
+        "required": ["name", "coordinates"],
         "properties": {
           "name": {
             "type": "string"

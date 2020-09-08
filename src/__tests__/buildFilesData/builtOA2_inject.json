@@ -14,9 +14,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "host": "api.example.com",
   "basePath": "/v1",
   "securityDefinitions": {
@@ -34,9 +32,7 @@
   "paths": {
     "/v1/star-wars/": {
       "get": {
-        "tags": [
-          "starWars"
-        ],
+        "tags": ["starWars"],
         "summary": "get star wars details",
         "description": "get star wars details",
         "operationId": "v1StarWarsGet",
@@ -85,9 +81,7 @@
     },
     "/weather": {
       "get": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "weather search",
         "description": "Search for weather objects",
         "operationId": "v1WeatherGet",
@@ -151,9 +145,7 @@
         "x-json-content-test": "v1WeatherGet"
       },
       "post": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "v1WeatherPost",
@@ -206,15 +198,11 @@
     },
     "/weather/id/{id}": {
       "get": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "One weather object",
         "description": "Get the full weather object",
         "operationId": "v1WeatherIdGet",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "#/parameters/PathId"
@@ -262,9 +250,7 @@
         "x-json-content-test": "v1WeatherIdGet"
       },
       "delete": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "weather set to rain",
         "description": "Reset awful sunny weather to excellent rainy weather",
         "operationId": "v1WeatherIdDelete",
@@ -325,15 +311,11 @@
         "x-json-content-test": "v1WeatherIdDelete"
       },
       "put": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "v1WeatherIdPut",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "#/parameters/PathId"
@@ -386,15 +368,11 @@
     },
     "/weather/id/{id}/pattern": {
       "get": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "One weather object",
         "description": "Get the full weather object",
         "operationId": "v1WeatherIdPatternGet",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "#/parameters/PathId"
@@ -444,15 +422,11 @@
     },
     "/weather/latest": {
       "get": {
-        "tags": [
-          "weather"
-        ],
+        "tags": ["weather"],
         "summary": "lastest weather data",
         "description": "Get the latest temperatures",
         "operationId": "v1WeatherLatestGet",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful fetch",
@@ -549,10 +523,7 @@
     },
     "LocationPost": {
       "type": "object",
-      "required": [
-        "name",
-        "coordinates"
-      ],
+      "required": ["name", "coordinates"],
       "properties": {
         "name": {
           "type": "string"
