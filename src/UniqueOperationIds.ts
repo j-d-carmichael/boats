@@ -2,6 +2,7 @@ import _ from 'lodash';
 import lcFirst from '@/lcFirst';
 import removeFileExtension from '@/removeFileExtension';
 import { methods } from '@/constants/methods';
+import { sep } from 'path';
 import { StringStyle } from '@/enums/StringStyle';
 import ucFirst from '@/ucFirst';
 
@@ -26,13 +27,13 @@ class UniqueOperationIds {
     cwd = cwd || process.cwd();
     filePath = filePath.replace(cwd, '');
     filePath = removeFileExtension(filePath.replace(stripValue, ''));
-    let filePathParts = filePath.split('/');
+    let filePathParts = filePath.split(sep);
     // inject the prefixes if given
     if (prefixes && prefixes.length > 0) {
       filePathParts = prefixes.concat(filePathParts);
     }
     for (let i = 0; i < filePathParts.length; ++i) {
-      if (filePathParts[i] !== '/') {
+      if (filePathParts[i] !== sep) {
         switch (segmentStyle) {
           case StringStyle.snakeCase:
             filePathParts[i] = _.snakeCase(this.removeCurlys(filePathParts[i]));
