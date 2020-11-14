@@ -37,6 +37,8 @@ const parseCli = async () => {
   } else if (program.convert_to_yml) {
     // Convert files to yaml
     convertToNunjucksOrYaml(program.convert_to_yml, 'yml');
+  } else if(program.injectSnippet) {
+
   } else if (program.init) {
     // Return init function
     require('./init');
