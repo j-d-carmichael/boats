@@ -7,7 +7,7 @@ produces:
 parameters:
   - $ref: ../../../parameters/pathId.yml
   - in: body
-    targetName: {{ uniqueOpId() }}
+    name: {{ uniqueOpId() }}
     required: true
     schema:
       $ref: ../../../definitions/~~$ targetName $~~/put.yml

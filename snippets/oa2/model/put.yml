@@ -1,5 +1,5 @@
 allOf:
   - $ref: ./baseAttributes.yml
   - type: object
-      properties:
-      #  add your PUT specific props here
+    properties:
+      #  add your POST specific props here, or delete if no additional props required
