@@ -1,6 +1,6 @@
 tags:
   - {{ autoTag() }}
-summary: List all ~~$ modelName $~~s
+summary: List all ~~$ targetName $~~s
 description: List all roles in the system
 operationId: {{ uniqueOpId() }}
 parameters:
@@ -11,4 +11,4 @@ responses:
   '200':
     description: All roles and permissions
     schema:
-      $ref: ../../../definitions/~~$ modelName $~~/model.yml
+      $ref: ../../../definitions/~~$ targetName $~~/model.yml

@@ -7,53 +7,62 @@ import path from 'path';
 const walker = require('walker');
 
 interface ISnippets {
-  relativeTarget: string,
-  snippet: string,
+  snippetName: string,
+  relativeTargetPath: string,
   targetName: string
 }
 
-class Snippets {
+export default class Snippets {
   constructor (input: ISnippets) {
     this.nunjucksSetup();
     const target = this.copySnippet(
-      input.relativeTarget,
-      input.snippet,
+      input.snippetName,
+      input.relativeTargetPath,
       input.targetName
     );
-    this.renderPlacedSnippet(target);
+    this.renderPlacedSnippet(target, input)
+      .then(() => {
+        console.log('Done');
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }
 
-  nunjucksSetup () {
+  nunjucksSetup (): void {
     nunjucks.configure({
-      blockStart: '~~%',
-      blockEnd: '%~~',
-      variableStart: '~~$',
-      variableEnd: '$~~',
-      commentStart: '~~#',
-      commentEnd: '#~~',
+      tags: {
+        blockStart: '~~%',
+        blockEnd: '%~~',
+        variableStart: '~~$',
+        variableEnd: '$~~',
+        commentStart: '~~#',
+        commentEnd: '#~~',
+      }
     });
   }
 
   copySnippet (
-    relativeTarget: string,
-    snippet: string,
+    snippetName: string,
+    relativeTargetPath: string,
     targetName: string
-  ): void {
-    const targetPath = path.join(process.cwd(), srcPath, targetName);
+  ): string {
+    const targetPath = path.join(process.cwd(), relativeTargetPath, targetName);
     fs.ensureDirSync(targetPath);
     fs.copySync(
-      path.join(__dirname, '../../snippets', snippet),
+      path.join(__dirname, '../../snippets', snippetName),
       targetPath
     );
+    return targetPath
   }
 
-  renderPlacedSnippet (targetPath, data) {
+  renderPlacedSnippet (targetPath: string, data: Record<any, any>): Promise<void> {
     return new Promise((resolve, reject) => {
       walker(targetPath)
         .on('file', (file: string) => {
           try {
-            const rendered = renderString(fs.readFileSync(file, 'utf8'), file);
-            fs.outputFileSync(outputFile, rendered);
+            const rendered = renderString(fs.readFileSync(file, 'utf8'), data);
+            fs.outputFileSync(file, rendered);
           } catch (e) {
             console.error(`Error parsing nunjucks file ${file}: `);
             return reject(e);
@@ -63,10 +72,8 @@ class Snippets {
           reject(er + ' on entry ' + entry);
         })
         .on('end', () => {
-          resolve(this.stripNjkExtension(returnFileinput));
+          resolve();
         });
     });
   }
 }
-
-export default Snippets();
