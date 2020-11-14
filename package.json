@@ -22,6 +22,7 @@
     "bundler": "./bin/cli.js"
   },
   "scripts": {
+    "prepare": "npm run build",
     "install:githooks": "cp ./githooks/* .git/hooks",
     "build:tocs": "npx doctoc .",
     "build": "rm -fR ./build && ttsc -p . --declaration --declarationDir build",

@@ -1,0 +1,11 @@
+tags:
+  - {{ autoTag() }}
+summary: Delete a ~~$ targetName $~~
+operationId: {{ uniqueOpId() }}
+parameters:
+  - $ref: ../../../parameters/pathId.yml
+produces:
+  - application/json
+responses:
+  '200':
+    description: ~~$ targetName $~~ deleted
