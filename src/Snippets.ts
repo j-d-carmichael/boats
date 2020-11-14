@@ -9,7 +9,7 @@ const walker = require('walker');
 interface ISnippets {
   injectSnippet: string,
   relativeTargetPath: string,
-  name: string
+  targetName: string
 }
 
 export default class Snippets {
@@ -18,7 +18,7 @@ export default class Snippets {
     const target = this.copySnippet(
       input.injectSnippet,
       input.relativeTargetPath,
-      input.name
+      input.targetName
     );
     this.renderPlacedSnippet(target, input)
       .then(() => {
