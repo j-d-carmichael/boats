@@ -1,6 +1,6 @@
 tags:
   - {{ autoTag() }}
-summary: Delete a ~~$ targetName $~~
+summary: Delete a ~~$ name $~~
 operationId: {{ uniqueOpId() }}
 parameters:
   - $ref: ../../../parameters/pathId.yml
@@ -8,4 +8,4 @@ produces:
   - application/json
 responses:
   '200':
-    description: ~~$ targetName $~~ deleted
+    description: ~~$ name $~~ deleted

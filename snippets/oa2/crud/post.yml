@@ -1,17 +1,17 @@
 tags:
   - {{ autoTag() }}
-summary: Create a new ~~$ targetName $~~
+summary: Create a new ~~$ name $~~
 operationId: {{ uniqueOpId() }}
 parameters:
   - in: body
     name: {{ uniqueOpId() }}
     required: true
     schema:
-      $ref: ../../definitions/~~$ targetName $~~/post.yml
+      $ref: ../../definitions/~~$ name $~~/post.yml
 produces:
   - application/json
 responses:
   '200':
     description: All roles and permissions
     schema:
-      $ref: ../../definitions/~~$ targetName $~~/model.yml
+      $ref: ../../definitions/~~$ name $~~/model.yml

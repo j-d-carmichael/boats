@@ -2,6 +2,7 @@ import { createCommand } from 'commander';
 import collect from '@/commander.collect';
 import helperFunctions from '@/commander.helperFunctions';
 
+// eslint-disable-next-line max-lines-per-function
 export default (args: any[]): any => {
   const commander = createCommand();
   commander
@@ -25,6 +26,18 @@ export default (args: any[]): any => {
       'Will pass the output via https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback'
     )
     .option(
+      '-I, --injectSnippet <snippet>',
+      'Eg boats -I oa2/crud -R ./src/paths -N user'
+    )
+    .option(
+      '-R, --relativeTargetPath <snippet>',
+      'Eg boats -I oa2/crud -R ./src/paths -N user'
+    )
+    .option(
+      '-N, --name <snippet>',
+      'Eg boats -I oa2/crud -R ./src/paths -N user'
+    )
+    .option(
       '-s, --strip_value <strip>',
       'The value removed from the file path to create the uniqueOpId, it not provided will be either src/paths/ or src/channels/ based on api type.',
       false
@@ -44,6 +57,5 @@ export default (args: any[]): any => {
     .option('-y, --yes', 'Assumes yes to any questions prompted by the tool (skip version check).')
 
     .parse(args);
-
   return commander;
 };

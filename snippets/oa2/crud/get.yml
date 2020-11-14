@@ -9,4 +9,4 @@ responses:
   '200':
     description: All roles and permissions
     schema:
-      $ref: ../../definitions/~~$ targetName $~~/models.yml
+      $ref: ../../definitions/~~$ name $~~/models.yml

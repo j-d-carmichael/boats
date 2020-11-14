@@ -9,6 +9,7 @@ import packageJson from '../package.json';
 import 'colors';
 import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
+import Snippets from '@/Snippets';
 
 const dotenvFilePath = path.join(process.cwd(), '.env');
 const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
@@ -38,7 +39,8 @@ const parseCli = async () => {
     // Convert files to yaml
     convertToNunjucksOrYaml(program.convert_to_yml, 'yml');
   } else if(program.injectSnippet) {
-
+    // Snippets
+    new Snippets(program)
   } else if (program.init) {
     // Return init function
     require('./init');

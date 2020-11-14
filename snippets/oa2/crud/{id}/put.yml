@@ -1,6 +1,6 @@
 tags:
   - {{ autoTag() }}
-summary: Update ~~$ targetName $~~
+summary: Update ~~$ name $~~
 operationId: {{ uniqueOpId() }}
 produces:
   - application/json
@@ -10,9 +10,9 @@ parameters:
     name: {{ uniqueOpId() }}
     required: true
     schema:
-      $ref: ../../../definitions/~~$ targetName $~~/put.yml
+      $ref: ../../../definitions/~~$ name $~~/put.yml
 responses:
   '200':
-    description: Update ~~$ targetName $~~
+    description: Update ~~$ name $~~
     schema:
-      $ref: ../../../definitions/~~$ targetName $~~/model.yml
+      $ref: ../../../definitions/~~$ name $~~/model.yml

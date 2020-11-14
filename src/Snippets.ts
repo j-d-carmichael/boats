@@ -7,18 +7,18 @@ import path from 'path';
 const walker = require('walker');
 
 interface ISnippets {
-  snippetName: string,
+  injectSnippet: string,
   relativeTargetPath: string,
-  targetName: string
+  name: string
 }
 
 export default class Snippets {
   constructor (input: ISnippets) {
     this.nunjucksSetup();
     const target = this.copySnippet(
-      input.snippetName,
+      input.injectSnippet,
       input.relativeTargetPath,
-      input.targetName
+      input.name
     );
     this.renderPlacedSnippet(target, input)
       .then(() => {
@@ -45,9 +45,9 @@ export default class Snippets {
   copySnippet (
     snippetName: string,
     relativeTargetPath: string,
-    targetName: string
+    name: string
   ): string {
-    const targetPath = path.join(process.cwd(), relativeTargetPath, targetName);
+    const targetPath = path.join(process.cwd(), relativeTargetPath, name);
     fs.ensureDirSync(targetPath);
     fs.copySync(
       path.join(__dirname, '../../snippets', snippetName),
