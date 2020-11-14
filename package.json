@@ -1,12 +1,13 @@
 {
   "name": "boats",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
     "openapi",
     "openapi2",
     "openapi3",
+    "snippets",
     "swagger",
     "openapi template",
     "yaml",
@@ -22,6 +23,7 @@
     "bundler": "./bin/cli.js"
   },
   "scripts": {
+    "prepare": "npm run build",
     "install:githooks": "cp ./githooks/* .git/hooks",
     "build:tocs": "npx doctoc .",
     "build": "rm -fR ./build && ttsc -p . --declaration --declarationDir build",
@@ -54,7 +56,7 @@
   },
   "homepage": "https://github.com/johndcarmichael/boats#readme",
   "dependencies": {
-    "@asyncapi/parser": "1.0.0-rc.5",
+    "@asyncapi/parser": "^1.1.1",
     "colors": "1.4.0",
     "commander": "6.1.0",
     "deepmerge": "4.2.2",
