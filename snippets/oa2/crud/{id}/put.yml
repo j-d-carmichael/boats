@@ -1,0 +1,18 @@
+tags:
+  - {{ autoTag() }}
+summary: Update ~~$ targetName $~~
+operationId: {{ uniqueOpId() }}
+produces:
+  - application/json
+parameters:
+  - $ref: ../../../parameters/pathId.yml
+  - in: body
+    name: {{ uniqueOpId() }}
+    required: true
+    schema:
+      $ref: ../../../definitions/~~$ targetName $~~/put.yml
+responses:
+  '200':
+    description: Update ~~$ targetName $~~
+    schema:
+      $ref: ../../../definitions/~~$ targetName $~~/model.yml
