@@ -34,7 +34,7 @@ export default (args: any[]): any => {
       'Eg boats -I oa2/crud -R ./src/paths -N user'
     )
     .option(
-      '-N, --nameTarget <snippet>',
+      '-N, --targetName <snippet>',
       'Eg boats -I oa2/crud -R ./src/paths -N user'
     )
     .option(
