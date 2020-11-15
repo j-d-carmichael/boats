@@ -154,10 +154,10 @@ class SnippetsFetch {
     if (input.substring(0, 8) === 'https://') {
       return await this.gitFetch(input);
     } else {
-      const localSnippetPath = path.join(__dirname, '../../snippets', input);
+      const localSnippetPath = path.join(process.cwd(), input);
       // check local exists
       if (!fs.existsSync(localSnippetPath)) {
-        throw new Error('Local snippet could not be found in the version of boats you are running: ' + localSnippetPath);
+        throw new Error('Local snippet could not be found: ' + localSnippetPath);
       }
       return localSnippetPath;
     }
