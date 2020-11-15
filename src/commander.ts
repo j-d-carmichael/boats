@@ -30,6 +30,10 @@ export default (args: any[]): any => {
       'Eg "boats -I oa2/crud -R ./src/paths -N user" or "boats -I https://github/some/snippet.git -R ./src/paths -N user"'
     )
     .option(
+      '-S, --subSnippetPath <snippet>',
+      'The subdir in the target to extract eg "boats -I https://github/some/snippet.git -S oa2/crud -R ./src/paths -N user"'
+    )
+    .option(
       '-R, --relativeTargetPath <snippet>',
       'Eg boats -I oa2/crud -R ./src/paths -N user'
     )

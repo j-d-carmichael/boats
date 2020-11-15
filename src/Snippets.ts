@@ -9,6 +9,7 @@ const walker = require('walker');
 
 interface ISnippets {
   injectSnippet: string,
+  subSnippetPath?: string,
   relativeTargetPath: string,
   targetName: string
 }
@@ -18,6 +19,7 @@ export default class Snippets {
     this.nunjucksSetup();
     this.copySnippet(
       input.injectSnippet,
+      input.subSnippetPath,
       input.relativeTargetPath,
       input.targetName
     ).then((target) => {
@@ -46,12 +48,11 @@ export default class Snippets {
     });
   }
 
-  async copySnippet (
-    snippetName: string,
-    relativeTargetPath: string,
-    name: string
-  ): Promise<string> {
-    const localSnippetPath = await SnippetsFetch.resolve(snippetName);
+  async copySnippet (snippetName: string, subSnippetPath = '', relativeTargetPath: string, name: string): Promise<string> {
+    let localSnippetPath = await SnippetsFetch.resolve(snippetName);
+    if (subSnippetPath !== '') {
+      localSnippetPath = path.join(localSnippetPath, subSnippetPath);
+    }
     const targetPath = path.join(process.cwd(), relativeTargetPath, name);
     fs.ensureDirSync(targetPath);
     const filter = (src: string): boolean => {
