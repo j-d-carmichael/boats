@@ -14,19 +14,27 @@ interface CommandRunResolve {
   outputErrorString: string;
 }
 
-export default (program: string, args: string[] = []): Promise<CommandRunResolve> => {
+export default (program: string, args: string[] = [], quiet = false): Promise<CommandRunResolve> => {
   return new Promise((resolve, reject) => {
-    console.log(`[commandRun] ${program} ${args.join(' ')}`);
+    if (!quiet) {
+      console.log(`[commandRun] ${program} ${args.join(' ')}`);
+    }
 
     const command = spawn(program, args);
     let outputString = '';
     let outputErrorString = '';
     command.stdout.on('data', function(data: any) {
       outputString += String(data);
+      if (!quiet) {
+        console.log(String(data));
+      }
     });
 
     command.stderr.on('data', function(data: any) {
       outputErrorString += String(data);
+      if (!quiet) {
+        console.error(String(data));
+      }
     });
 
     command.on('close', function(code: number) {

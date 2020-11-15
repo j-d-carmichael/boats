@@ -45,7 +45,7 @@ class SnippetsFetch {
    */
   public async hasGit () {
     try {
-      await commandRun('git', ['--help']);
+      await commandRun('git', ['--help'], true);
       return true;
     } catch (e) {
       console.error('Git command not found on this operating system, please install git to continue.');
