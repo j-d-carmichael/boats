@@ -1,5 +1,0 @@
-allOf:
-  - $ref: ./baseAttributes.yml
-  - type: object
-    properties:
-      #  add your POST specific props here, or delete if no additional props required

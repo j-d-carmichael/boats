@@ -16,11 +16,15 @@
   },
   "host": "api.example.com",
   "basePath": "/v1",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/v1/star-wars/": {
       "get": {
-        "tags": ["starWars"],
+        "tags": [
+          "starWars"
+        ],
         "summary": "get star wars details",
         "description": "get star wars details",
         "operationId": "v1StarWarsGet",
@@ -39,7 +43,9 @@
     },
     "/weather": {
       "get": {
-        "tags": ["weather"],
+        "tags": [
+          "weather"
+        ],
         "summary": "weather search",
         "description": "Search for weather objects",
         "operationId": "v1WeatherGet",
@@ -56,6 +62,7 @@
           "200": {
             "description": "Successful fetch",
             "schema": {
+              "type": "object",
               "properties": {
                 "meta": {
                   "$ref": "#/definitions/GenericSearchMeta"
@@ -77,11 +84,15 @@
     },
     "/weather/id/{id}": {
       "get": {
-        "tags": ["weather"],
+        "tags": [
+          "weather"
+        ],
         "summary": "One weather object",
         "description": "Get the full weather object",
         "operationId": "v1WeatherIdGet",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "$ref": "#/parameters/PathId"
@@ -100,7 +111,9 @@
         }
       },
       "delete": {
-        "tags": ["weather"],
+        "tags": [
+          "weather"
+        ],
         "summary": "weather set to rain",
         "description": "Reset awful sunny weather to excellent rainy weather",
         "operationId": "v1WeatherIdDelete",
@@ -140,11 +153,15 @@
     },
     "/weather/id/{id}/pattern": {
       "get": {
-        "tags": ["weather"],
+        "tags": [
+          "weather"
+        ],
         "summary": "One weather object",
         "description": "Get the full weather object",
         "operationId": "v1WeatherIdPatternGet",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "$ref": "#/parameters/PathId"
@@ -165,11 +182,15 @@
     },
     "/weather/latest": {
       "get": {
-        "tags": ["weather"],
+        "tags": [
+          "weather"
+        ],
         "summary": "lastest weather data",
         "description": "Get the latest temperatures",
         "operationId": "v1WeatherLatestGet",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "Successful fetch",
@@ -216,6 +237,7 @@
   },
   "definitions": {
     "GenericSearchMeta": {
+      "type": "object",
       "properties": {
         "totalResultCount": {
           "type": "number"
@@ -244,7 +266,10 @@
     },
     "LocationPost": {
       "type": "object",
-      "required": ["name", "coordinates"],
+      "required": [
+        "name",
+        "coordinates"
+      ],
       "properties": {
         "name": {
           "type": "string"

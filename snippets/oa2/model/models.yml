@@ -1,1 +1,0 @@
-{{ mixin('../../mixins/pagination.yml', '../generic/searchMeta.yml', './model.yml') }}
