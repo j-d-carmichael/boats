@@ -14,7 +14,7 @@ class SnippetsFetch {
    * Returns the folder to store the git repos in
    */
   public getCacheFolder () {
-    this.targetGitCacheDir = path.join(__dirname, GIT_DIRECTORY_SNIPPET_CACHE);
+    this.targetGitCacheDir = path.join(process.cwd(), GIT_DIRECTORY_SNIPPET_CACHE);
     return this.targetGitCacheDir;
   }
 

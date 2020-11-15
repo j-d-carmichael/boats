@@ -1,1 +1,1 @@
-export const GIT_DIRECTORY_SNIPPET_CACHE = '.snippet-cache';
+export const GIT_DIRECTORY_SNIPPET_CACHE = '.boats-snippet-cache';
