@@ -23,9 +23,7 @@ class SnippetsFetch {
    */
   public calculateLocalDirectoryFromUrl (url: string): string {
     const camelCaseUrl = camelCaseStringReplacement(url, ['/', ':', '.', '-', '?', '#']);
-    const dir = path.join(this.getCacheFolder(), camelCaseUrl);
-    fs.ensureDirSync(dir);
-    return dir;
+    return path.join(this.getCacheFolder(), camelCaseUrl);
   }
 
   /**
