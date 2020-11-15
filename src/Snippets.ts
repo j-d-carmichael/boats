@@ -1,6 +1,7 @@
 import nunjucks, { renderString } from 'nunjucks';
 import fs from 'fs-extra';
 import path from 'path';
+import SnippetsFetch from '@/SnippetsFetch';
 
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -15,18 +16,21 @@ interface ISnippets {
 export default class Snippets {
   constructor (input: ISnippets) {
     this.nunjucksSetup();
-    const target = this.copySnippet(
+    this.copySnippet(
       input.injectSnippet,
       input.relativeTargetPath,
       input.targetName
-    );
-    this.renderPlacedSnippet(target, input)
-      .then(() => {
-        console.log('Done');
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    ).then((target) => {
+      this.renderPlacedSnippet(target, input)
+        .then(() => {
+          console.log('Done');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }).catch((e) => {
+      console.error(e);
+    });
   }
 
   nunjucksSetup (): void {
@@ -37,23 +41,25 @@ export default class Snippets {
         variableStart: '~~$',
         variableEnd: '$~~',
         commentStart: '~~#',
-        commentEnd: '#~~',
+        commentEnd: '#~~'
       }
     });
   }
 
-  copySnippet (
+  async copySnippet (
     snippetName: string,
     relativeTargetPath: string,
     name: string
-  ): string {
+  ): Promise<string> {
+    const localSnippetPath = await SnippetsFetch.resolve(snippetName);
     const targetPath = path.join(process.cwd(), relativeTargetPath, name);
     fs.ensureDirSync(targetPath);
-    fs.copySync(
-      path.join(__dirname, '../../snippets', snippetName),
-      targetPath
-    );
-    return targetPath
+    const filter = (src: string): boolean => {
+      // do not return true for .git paths
+      return src.indexOf('.git') === -1;
+    };
+    fs.copySync(localSnippetPath, targetPath, { filter });
+    return targetPath;
   }
 
   renderPlacedSnippet (targetPath: string, data: Record<any, any>): Promise<void> {
