@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import jsYaml from 'js-yaml';
+import deepmerge from 'deepmerge';
 
 export default function(): string {
   const tplGlobals = this.env.globals;
@@ -18,10 +19,7 @@ export default function(): string {
       if (content && content['type'] !== 'object') {
         throw new TypeError('Referenced item must be an object: ' + injectPath);
       }
-      main = {
-        ...main,
-        ...content
-      };
+      main = deepmerge(main, content);
     }
   }
 
