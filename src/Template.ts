@@ -14,6 +14,7 @@ import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer';
 import autoTag from '@/nunjucksHelpers/autoTag';
 import fileName from '@/nunjucksHelpers/fileName';
 import inject from '@/nunjucksHelpers/inject';
+import merge from '@/nunjucksHelpers/merge';
 import mixin from '@/nunjucksHelpers/mixin';
 import packageJson from '@/nunjucksHelpers/packageJson';
 import routePermission from '@/nunjucksHelpers/routePermission';
@@ -265,6 +266,7 @@ class Template {
     env.addGlobal('fileName', fileName);
     env.addGlobal('inject', inject);
     env.addGlobal('optionalProps', optionalProps);
+    env.addGlobal('merge', merge);
     env.addGlobal('mixin', mixin);
     env.addGlobal('packageJson', packageJson);
     env.addGlobal('routePermission', routePermission);
