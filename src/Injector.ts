@@ -192,7 +192,7 @@ class Injector {
       let methodsToCheck: string[];
       if (typeof hay === 'string') {
         stringToCheck = hay;
-      } else if (typeof hay === 'object' && hay.path && hay.methods) {
+      } else if (typeof hay === 'object' && hay.path && hay.methods && Array.isArray(hay.methods)) {
         stringToCheck = hay.path;
         methodsToCheck = hay.methods.map((method: string) => method.toLowerCase());
       } else {
