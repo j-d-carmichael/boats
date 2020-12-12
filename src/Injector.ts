@@ -196,7 +196,7 @@ class Injector {
         stringToCheck = hay.path;
         methodsToCheck = hay.methods.map((method: string) => method.toLowerCase());
       } else {
-        throw new Error('Invalid inject object, expected either a string or {path: string, methods: string[]}. Got instead: ' + hay);
+        throw new Error('Invalid inject object passed to globCheck, expected either a string or {path: string, methods: string[]}. Got instead: ' + JSON.stringify(hay));
       }
       const isMatch = picomatch(stringToCheck, picoOptions);
       if (isMatch(needle)) {
