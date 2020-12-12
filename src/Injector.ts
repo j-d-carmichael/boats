@@ -192,11 +192,11 @@ class Injector {
       let methodsToCheck: string[];
       if (typeof hay === 'string') {
         stringToCheck = hay;
-      } else if (typeof hay === 'object' && hay.path) {
+      } else if (typeof hay === 'object' && hay.path && hay.methods) {
         stringToCheck = hay.path;
         methodsToCheck = hay.methods.map((method: string) => method.toLowerCase());
       } else {
-        throw new Error('Invalid inject object, expected either a string or {path: "/some/path"}. Got instead: ' + hay);
+        throw new Error('Invalid inject object, expected either a string or {path: string, methods: string[]}. Got instead: ' + hay);
       }
       const isMatch = picomatch(stringToCheck, picoOptions);
       if (isMatch(needle)) {
