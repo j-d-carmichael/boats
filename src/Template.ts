@@ -20,6 +20,7 @@ import packageJson from '@/nunjucksHelpers/packageJson';
 import routePermission from '@/nunjucksHelpers/routePermission';
 import uniqueOpId from '@/nunjucksHelpers/uniqueOpId';
 import optionalProps from './nunjucksHelpers/optionalProps';
+import pickProps from './nunjucksHelpers/pickProps';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 
 // No types found for walker
@@ -212,7 +213,7 @@ class Template {
    * @returns {Array}
    */
   setIndentPositions (str: string, originalIndentation = 0): any[] {
-    const regexp = RegExp(/(optionalProps\(.*\))/, 'g');
+    const regexp = RegExp(/((optionalProps|pickProps)\(.*\))/, 'g');
     let matches;
     const matched: any[] = [];
     const preparedString = str
@@ -266,6 +267,7 @@ class Template {
     env.addGlobal('fileName', fileName);
     env.addGlobal('inject', inject);
     env.addGlobal('optionalProps', optionalProps);
+    env.addGlobal('pickProps', pickProps);
     env.addGlobal('merge', merge);
     env.addGlobal('mixin', mixin);
     env.addGlobal('packageJson', packageJson);
