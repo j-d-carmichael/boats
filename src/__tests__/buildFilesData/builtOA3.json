@@ -28,7 +28,9 @@
   "paths": {
     "/weather": {
       "get": {
-        "tags": ["Weather"],
+        "tags": [
+          "Weather"
+        ],
         "summary": "weather data",
         "description": "Get the latest temperatures",
         "operationId": "weatherGet",
@@ -49,7 +51,9 @@
         }
       },
       "post": {
-        "tags": ["Weather"],
+        "tags": [
+          "Weather"
+        ],
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "weatherPost",
@@ -83,7 +87,9 @@
     },
     "/weather/id/{id}": {
       "get": {
-        "tags": ["Weather"],
+        "tags": [
+          "Weather"
+        ],
         "summary": "weather data",
         "description": "Get the latest temperatures",
         "operationId": "weatherIdIdGet",
@@ -109,7 +115,9 @@
         }
       },
       "put": {
-        "tags": ["Weather"],
+        "tags": [
+          "Weather"
+        ],
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "weatherIdIdPut",
@@ -189,12 +197,62 @@
             "items": {
               "type": "string"
             }
+          },
+          "description": {
+            "type": "string"
           }
         }
       },
+      "LocationPicked": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "location": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
       "LocationPost": {
         "type": "object",
-        "required": ["name", "coordinates"],
+        "required": [
+          "name",
+          "coordinates"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -204,6 +262,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "description": {
+            "type": "string"
           }
         }
       },
@@ -220,6 +281,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "description": {
+                "type": "string"
               }
             }
           },
@@ -242,6 +306,9 @@
                         "items": {
                           "type": "string"
                         }
+                      },
+                      "description": {
+                        "type": "string"
                       }
                     }
                   }

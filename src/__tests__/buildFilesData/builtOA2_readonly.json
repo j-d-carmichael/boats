@@ -282,6 +282,17 @@
         }
       }
     },
+    "LocationPut": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "StarWars": {
       "type": "object",
       "properties": {
