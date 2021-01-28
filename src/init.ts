@@ -12,10 +12,10 @@ const buildAlreadyExists = fs.pathExistsSync(srcPath);
 if (srcAlreadyExists || buildAlreadyExists) {
   throw new Error(
     'Process stopped as ' +
-      srcAlreadyExists +
-      ' &/or' +
-      buildPath +
-      'already found. Installation cannot run with these folders existing.'
+    srcAlreadyExists +
+    ' &/or' +
+    buildPath +
+    'already found. Installation cannot run with these folders existing.'
   );
 }
 
@@ -33,31 +33,31 @@ const questions = [
     name: 'name',
     message: 'Enter the name of the api file, press enter to use the current package.json name attribute:',
     default: localPkgJson.name,
-    validate: function (value: any) {
+    validate: function(value: any) {
       return (typeof value === 'string' && value.length > 1) || 'Please enter a name longer than 1 character';
-    },
+    }
   },
   {
     type: 'confirm',
     name: 'updateName',
     message:
       'The current package.json name does not match the api name entered. Would you the package.json name to be updated too?',
-    when: function (answers: any) {
+    when: function(answers: any) {
       return answers.name !== localPkgJson.name;
-    },
+    }
   },
   {
     type: 'list',
     name: 'oaType',
-    choices: ['Swagger 2.0', 'OpenAPI 3.0.0'],
+    choices: ['Swagger 2.0', 'OpenAPI 3.0.0']
   },
   {
     type: 'confirm',
     name: 'installConfirm',
     message:
       'Press Y and enter to install. This will make a copy of the template files to ./src, an output directory ./build and a config file ./.boatsrc',
-    default: false,
-  },
+    default: false
+  }
 ];
 
 inquirer
@@ -67,15 +67,15 @@ inquirer
       // write boatsrc to disc
       const boatsrcDefault: BoatsRC = {
         nunjucksOptions: {
-          tags: {},
+          tags: {}
         },
         jsonSchemaRefParserBundleOpts: {},
         picomatchOptions: {
-          bash: true,
+          bash: true
         },
         permissionConfig: {
-          globalPrefix: true,
-        },
+          globalPrefix: true
+        }
       };
       fs.writeFileSync(path.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
       console.log('Completed: Injected a .boatsrc file');
@@ -90,6 +90,11 @@ inquirer
       localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml.njk -o ./build/${npm_package_name}.json';
       localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml.njk -o ./build/${npm_package_name}.yml';
       localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml';
+
+      // ensure the licence and private field is correct in the package.json
+      // we assume private by default and let the user correct otherwise.
+      delete localPkgJson.license;
+      localPkgJson.private = true;
 
       // Write the new json object to file
       fs.writeFileSync(localPkgJsonPath, JSON.stringify(localPkgJson, null, 4));
