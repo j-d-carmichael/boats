@@ -58,10 +58,10 @@
   "dependencies": {
     "@asyncapi/parser": "^1.1.1",
     "colors": "1.4.0",
-    "commander": "7.0.0",
+    "commander": "6.1.0",
     "deepmerge": "4.2.2",
     "dotenv": "8.2.0",
-    "fs-extra": "9.1.0",
+    "fs-extra": "9.0.1",
     "inquirer": "7.3.3",
     "js-yaml": "3.14.0",
     "json-schema-ref-parser": "9.0.6",
