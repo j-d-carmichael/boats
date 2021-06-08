@@ -318,6 +318,46 @@
           }
         ]
       },
+      "WeatherDiscriminator": {
+        "type": "object",
+        "discriminator": {
+          "mapping": {
+            "typeOne": "#/components/schemas/WeatherPolymorphicmodelOne",
+            "typeTwo": "#/components/schemas/WeatherPolymorphicmodelTwo"
+          },
+          "propertyName": "selector"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/WeatherPolymorphicmodelOne"
+          },
+          {
+            "$ref": "#/components/schemas/WeatherPolymorphicmodelTwo"
+          }
+        ]
+      },
+      "WeatherPolymorphicmodelOne": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "selector": {
+            "type": "string"
+          }
+        }
+      },
+      "WeatherPolymorphicmodelTwo": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "selector": {
+            "type": "string"
+          }
+        }
+      },
       "Weather": {
         "type": "object",
         "properties": {
