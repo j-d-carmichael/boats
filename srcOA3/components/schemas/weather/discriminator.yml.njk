@@ -1,8 +1,8 @@
 type: object
 discriminator:
     mapping:
-        typeOne: polymorphicmodel_one.yml.njk
-        typeTwo: polymorphicmodel_two.yml.njk
+        typeOne: {{ schemaRefGenerator("polymorphicmodel_one.yml.njk") }}
+        typeTwo: {{ schemaRefGenerator("polymorphicmodel_two.yml.njk") }}
     propertyName: selector
 oneOf:
 - $ref: polymorphicmodel_one.yml.njk

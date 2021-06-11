@@ -6,6 +6,22 @@ import ucFirst from '@/ucFirst';
 import removeFileExtension from '@/removeFileExtension';
 import { GetIndexYamlOptions } from '@/interfaces/GetIndexYamlOptions';
 
+function getMethodFromFileName(fileName: string): string {
+  return fileName.split('.')[0];
+}
+
+export function buildIndexFromPath(cleanPath: string, trimOpts?: any) {
+  const dir = path.dirname(cleanPath);
+  const filename = path.basename(cleanPath);
+  const method = getMethodFromFileName(filename);
+  let _path = cleanPath;
+  if (trimOpts && trimOpts.dropBaseName && new RegExp(method + '$', 'i').test(_.camelCase(dir))) {
+    _path = cleanPath.replace(filename, '');
+  }
+  const trim = typeof trimOpts === 'string' ? trimOpts : '';
+  return ucFirst(_.camelCase(removeFileExtension(_path))).replace(trim, '');
+}
+
 class AutoIndexer {
   getFiles(dir: string) {
     const dirents = readdirSync(dir, { withFileTypes: true });
@@ -22,17 +38,13 @@ class AutoIndexer {
     });
   }
 
-  getMethodFromFileName(fileName: string): string {
-    return fileName.split('.')[0];
-  }
-
   buildPathsYamlString(cleanPaths: string[], channels?: any, components?: any, paths?: any, trimOpts?: any) {
     const indexObject: any = {};
     cleanPaths.forEach((cleanPath) => {
       if (cleanPath) {
         const dir = path.dirname(cleanPath);
         const filename = path.basename(cleanPath);
-        const method = this.getMethodFromFileName(filename);
+        const method = getMethodFromFileName(filename);
         if (paths) {
           indexObject[dir] = indexObject[dir] || {};
           indexObject[dir][method] = {
@@ -45,13 +57,7 @@ class AutoIndexer {
           };
         }
         if (components) {
-          //remove = remove || '';
-          let _path = cleanPath;
-          if (trimOpts && trimOpts.dropBaseName && new RegExp(method + '$', 'i').test(_.camelCase(dir))) {
-            _path = cleanPath.replace(filename, '');
-          }
-          const trim = typeof trimOpts === 'string' ? trimOpts : '';
-          indexObject[ucFirst(_.camelCase(removeFileExtension(_path))).replace(trim, '')] = {
+          indexObject[buildIndexFromPath(cleanPath, trimOpts)] = {
             $ref: `.${cleanPath}`,
           };
         }
