@@ -1,0 +1,10 @@
+application/json:
+  schema:
+    type: object
+    properties:
+      included:
+        $ref: {{ mixinDirectory }}/standard.yml.njk
+      data:
+        type: array
+        items:
+          $ref: {{ var1 }}
