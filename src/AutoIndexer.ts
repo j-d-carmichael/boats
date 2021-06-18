@@ -1,26 +1,10 @@
 import { readdirSync } from 'fs';
 import path from 'path';
 import YAML from 'js-yaml';
-import _ from 'lodash';
-import ucFirst from '@/ucFirst';
 import removeFileExtension from '@/removeFileExtension';
 import { GetIndexYamlOptions } from '@/interfaces/GetIndexYamlOptions';
-
-function getMethodFromFileName(fileName: string): string {
-  return fileName.split('.')[0];
-}
-
-export function buildIndexFromPath(cleanPath: string, trimOpts?: any) {
-  const dir = path.dirname(cleanPath);
-  const filename = path.basename(cleanPath);
-  const method = getMethodFromFileName(filename);
-  let _path = cleanPath;
-  if (trimOpts && trimOpts.dropBaseName && new RegExp(method + '$', 'i').test(_.camelCase(dir))) {
-    _path = cleanPath.replace(filename, '');
-  }
-  const trim = typeof trimOpts === 'string' ? trimOpts : '';
-  return ucFirst(_.camelCase(removeFileExtension(_path))).replace(trim, '');
-}
+import buildIndexFromPath from '@/utils/buildIndexFromPath';
+import getMethodFromFileName from '@/utils/getMethodFromFileName';
 
 class AutoIndexer {
   getFiles(dir: string) {
