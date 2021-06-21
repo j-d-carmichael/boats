@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer';
 import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer';
 import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer';
-import schemaComponentRefGenerator from '@/nunjucksHelpers/schemaComponentRefGenerator';
+import schemaRef from '@/nunjucksHelpers/schemaRef';
 import autoTag from '@/nunjucksHelpers/autoTag';
 import fileName from '@/nunjucksHelpers/fileName';
 import inject from '@/nunjucksHelpers/inject';
@@ -264,7 +264,7 @@ class Template {
     env.addGlobal('autoChannelIndexer', autoChannelIndexer);
     env.addGlobal('autoComponentIndexer', autoComponentIndexer);
     env.addGlobal('autoPathIndexer', autoPathIndexer);
-    env.addGlobal('schemaComponentRefGenerator', schemaComponentRefGenerator);
+    env.addGlobal('schemaRef', schemaRef);
     env.addGlobal('autoTag', autoTag);
     env.addGlobal('fileName', fileName);
     env.addGlobal('inject', inject);
