@@ -29,19 +29,19 @@
  */
 
 import fs from 'fs';
-import path from 'path';
+import upath from 'upath';
 
 exports.main = () => {
   const jsYaml = require('js-yaml');
 
   const input = process.argv[2];
   const output = process.argv[3];
-  const fullInPath = path.join(process.cwd(), input || '');
-  const fullOutPath = path.join(process.cwd(), output || '');
+  const fullInPath = upath.join(process.cwd(), input || '');
+  const fullOutPath = upath.join(process.cwd(), output || '');
 
   if (!input || !fs.existsSync(fullInPath)) {
     console.error(input ? `File found ${fullInPath}` : 'Input required');
-    console.error(`usage: ${path.basename(process.argv[1])} inputYaml [output]`);
+    console.error(`usage: ${upath.basename(process.argv[1])} inputYaml [output]`);
     process.exit(1);
   }
 

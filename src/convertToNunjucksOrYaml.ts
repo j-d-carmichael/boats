@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import path from 'path';
+import upath from 'upath';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const walker = require('walker');
@@ -31,7 +31,7 @@ const toYml = (file: string) => {
 };
 
 export default (dir: string, type: 'yml' | 'njk'): void => {
-  dir = path.join(process.cwd(), dir);
+  dir = upath.join(process.cwd(), dir);
   console.log('Converting: ' + dir);
   const files: string[] = [];
   walker(dir)

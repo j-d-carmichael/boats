@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import buildIndexFromPath from '@/utils/buildIndexFromPath';
 
 interface RefGeneratorOptions {
@@ -6,10 +6,10 @@ interface RefGeneratorOptions {
 }
 
 export default function (currentFilePointer: string, fileName: string, options: RefGeneratorOptions) {
-  const dir = path.dirname(currentFilePointer);
+  const dir = upath.dirname(currentFilePointer);
 
   const lastSegment = dir.substring(dir.indexOf(options.componentsPath) + options.componentsPath.length);
 
-  const fullPath = path.normalize(path.join(lastSegment, fileName));
+  const fullPath = upath.normalize(upath.join(lastSegment, fileName));
   return `"#/${options.componentsPath}/${buildIndexFromPath(fullPath, {})}"`;
 }

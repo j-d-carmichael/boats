@@ -4,14 +4,14 @@ import convertToNunjucksOrYaml from '@/convertToNunjucksOrYaml';
 import Template from '@/Template';
 import fs from 'fs-extra';
 import checkVersion from 'npm-tool-version-check';
-import path from 'path';
+import upath from 'upath';
 import packageJson from '../package.json';
 import 'colors';
 import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import Snippets from '@/Snippets';
 
-const dotenvFilePath = path.join(process.cwd(), '.env');
+const dotenvFilePath = upath.join(process.cwd(), '.env');
 const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
 const remoteBoatsPackageJson = 'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json';
 

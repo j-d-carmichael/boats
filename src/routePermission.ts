@@ -1,9 +1,9 @@
-import path from 'path';
+import upath from 'upath';
 import UniqueOperationIds from '@/UniqueOperationIds';
 import { BoatsRC, JSON } from '@/interfaces/BoatsRc';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageJson = require(path.join(process.cwd(), 'package.json'));
+const packageJson = require(upath.join(process.cwd(), 'package.json'));
 
 const defaultPrefix = {
   get: 'read',
@@ -34,7 +34,7 @@ export default (
   if (prefix !== '') {
     mainPrefixes.push(prefix);
   }
-  const method = path.basename(filePath).replace(/\..*/, '').toLowerCase();
+  const method = upath.basename(filePath).replace(/\..*/, '').toLowerCase();
   const calculatedPrefix = prefixConfig[method] || method;
   const tails = [];
   if (tail) {

@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import YAML from 'js-yaml';
 import fs from 'fs-extra';
 import getOutputName from '@/getOutputName';
@@ -35,14 +35,14 @@ export default async (
     await validate.decideThenvalidate(bundled);
 
     let contents;
-    if (path.extname(outputFile) === '.json') {
+    if (upath.extname(outputFile) === '.json') {
       contents = JSON.stringify(bundled, null, indentation);
     } else {
       contents = YAML.safeDump(bundled, {
         indent: indentation,
       });
     }
-    fs.ensureDirSync(path.dirname(outputFile));
+    fs.ensureDirSync(upath.dirname(outputFile));
     const pathToWriteTo = getOutputName(outputFile, bundled, excludeVersion);
     fs.writeFileSync(pathToWriteTo, contents);
     return pathToWriteTo;

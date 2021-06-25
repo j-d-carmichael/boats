@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import fs from 'fs-extra';
 import jsYaml from 'js-yaml';
 import deepmerge from 'deepmerge';
@@ -11,7 +11,7 @@ export default function(): string {
   for (const key in arguments) {
     if (arguments.hasOwnProperty(key)) {
       // eslint-disable-next-line prefer-rest-params
-      const injectPath = path.join(path.dirname(tplGlobals.currentFilePointer), arguments[key]);
+      const injectPath = upath.join(upath.dirname(tplGlobals.currentFilePointer), arguments[key]);
       if (!fs.pathExistsSync(injectPath)) {
         throw new Error('Path not found when trying to make optional: ' + injectPath);
       }
