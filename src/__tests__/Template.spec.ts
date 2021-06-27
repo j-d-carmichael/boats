@@ -21,11 +21,13 @@ describe('setMixinPositions', () => {
         {
           index: 33,
           match: "mixin('some/path', 321)",
+          mixinPath: "some/path",
           mixinLinePadding: '  ',
         },
         {
           index: 77,
           match: "mixin('some/pther/path', 654654)",
+          mixinPath: "some/pther/path",
           mixinLinePadding: '  ',
         },
       ])
@@ -39,11 +41,13 @@ describe('setMixinPositions', () => {
         {
           index: 43,
           match: "mixin('some/path', 321)",
+          mixinPath: "some/path",
           mixinLinePadding: '  ',
         },
         {
           index: 97,
           match: "mixin('some/other/path', 654654)",
+          mixinPath: "some/other/path",
           mixinLinePadding: '  ',
         },
       ])
