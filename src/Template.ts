@@ -189,13 +189,14 @@ class Template {
    * @returns {Array}
    */
   setMixinPositions (str: string, originalIndentation = 2): any[] {
-    const regexp = RegExp(/(mixin\(.*\))/, 'g');
+    const regexp = RegExp(/(mixin\(["'`]([^"`']*)["'`].*\))/, 'g');
     let matches;
     const matched: any[] = [];
     while ((matches = regexp.exec(str)) !== null) {
       const mixinObj = {
         index: regexp.lastIndex,
         match: matches[0],
+        mixinPath: matches[2],
         mixinLinePadding: ''
       };
       const indent = calculateIndentFromLineBreak(str, mixinObj.index) + originalIndentation;

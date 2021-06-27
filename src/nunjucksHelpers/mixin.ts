@@ -2,6 +2,8 @@ import path from 'path';
 import fs from 'fs-extra';
 import nunjucks from 'nunjucks';
 
+const mixinDirectoryKey = 'mixinDirectory';
+
 export default function (): string {
   const tplGlobals = this.env.globals;
   // eslint-disable-next-line prefer-rest-params
@@ -9,7 +11,13 @@ export default function (): string {
   if (!fs.pathExistsSync(renderPath)) {
     throw new Error('Path not found when trying to render mixin: ' + renderPath);
   }
+
   const vars: any = {};
+
+  const mixinObj = tplGlobals.mixinObject[tplGlobals.mixinNumber];
+
+  vars[mixinDirectoryKey] = path.dirname(mixinObj.mixinPath)
+
   let skipAutoIndex = false;
   for (let i = 1; i < arguments.length; ++i) {
     if (arguments[i] === '--skip-auto-indent') {
@@ -27,7 +35,7 @@ export default function (): string {
   } else {
     const parts = rendered.split('\n');
     parts.forEach((part, i) => {
-      parts[i] = tplGlobals.mixinObject[tplGlobals.mixinNumber].mixinLinePadding + part;
+      parts[i] = mixinObj.mixinLinePadding + part;
     });
     ++this.env.globals.mixinNumber;
     return replaceVal + parts.join('\n');
