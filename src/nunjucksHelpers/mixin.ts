@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import fs from 'fs-extra';
 import nunjucks from 'nunjucks';
 
@@ -7,7 +7,7 @@ const mixinDirectoryKey = 'mixinDirectory';
 export default function (): string {
   const tplGlobals = this.env.globals;
   // eslint-disable-next-line prefer-rest-params
-  const renderPath = path.join(path.dirname(tplGlobals.currentFilePointer), arguments[0]);
+  const renderPath = upath.join(upath.dirname(tplGlobals.currentFilePointer), arguments[0]);
   if (!fs.pathExistsSync(renderPath)) {
     throw new Error('Path not found when trying to render mixin: ' + renderPath);
   }
@@ -16,7 +16,7 @@ export default function (): string {
 
   const mixinObj = tplGlobals.mixinObject[tplGlobals.mixinNumber];
 
-  vars[mixinDirectoryKey] = path.dirname(mixinObj.mixinPath)
+  vars[mixinDirectoryKey] = upath.dirname(mixinObj.mixinPath)
 
   let skipAutoIndex = false;
   for (let i = 1; i < arguments.length; ++i) {

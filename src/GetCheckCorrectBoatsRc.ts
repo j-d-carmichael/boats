@@ -1,7 +1,7 @@
 import { StringStyle } from '@/enums/StringStyle';
 import { BoatsRC } from './interfaces/BoatsRc';
 import fs from 'fs-extra';
-import path from 'path';
+import upath from 'upath';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 import deepmerge from 'deepmerge';
 
@@ -30,7 +30,7 @@ class GetCheckCorrectBoatsRc {
    * Finds, parses and validates the boatsrc file
    */
   getBoatsConfig() {
-    const boatsrc = path.join(process.cwd(), '.boatsrc');
+    const boatsrc = upath.join(process.cwd(), '.boatsrc');
     try {
       const boatsRcJson: BoatsRC = fs.readJsonSync(boatsrc);
       const json = deepmerge(this.defaultRc, boatsRcJson);

@@ -1,14 +1,14 @@
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
-import path from 'path';
+import upath from 'upath';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import boatsPackageJson from '../package.json';
 import { spawn } from 'child_process';
 
-const pwd = process.cwd();
-const srcPath = path.join(pwd, '/src');
+const pwd = upath.toUnix(process.cwd());
+const srcPath = upath.join(pwd, '/src');
 const srcAlreadyExists = fs.pathExistsSync(srcPath);
-const buildPath = path.join(pwd, '/build');
+const buildPath = upath.join(pwd, '/build');
 const buildAlreadyExists = fs.pathExistsSync(srcPath);
 
 const npmInstall = () => new Promise<number>((resolve, reject) => {
@@ -35,7 +35,7 @@ if (srcAlreadyExists || buildAlreadyExists) {
   );
 }
 
-const localPkgJsonPath = path.join(pwd, 'package.json');
+const localPkgJsonPath = upath.join(pwd, 'package.json');
 if (!fs.pathExistsSync(localPkgJsonPath)) {
   throw new Error('Error: No package.json file found. Please add a package.json file to continue');
 }
@@ -106,14 +106,14 @@ const questions = [
         globalPrefix: true
       }
     };
-    fs.writeFileSync(path.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
+    fs.writeFileSync(upath.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
     console.log('Completed: Injected a .boatsrc file');
     if (answers.oaType === 'Swagger 2.0') {
-      fs.copySync(path.join(__dirname, '../../srcOA2'), srcPath);
+      fs.copySync(upath.join(__dirname, '../../srcOA2'), srcPath);
     } else if (answers.oaType === 'OpenAPI 3.0.0') {
-      fs.copySync(path.join(__dirname, '../../srcOA3'), srcPath);
+      fs.copySync(upath.join(__dirname, '../../srcOA3'), srcPath);
     } else if (answers.oaType === 'AsyncAPI 2.0.0') {
-      fs.copySync(path.join(__dirname, '../../srcASYNC2'), srcPath);
+      fs.copySync(upath.join(__dirname, '../../srcASYNC2'), srcPath);
     }
     console.log('Completed: Installed boats skeleton files to ' + srcPath);
     fs.ensureDirSync(buildPath);

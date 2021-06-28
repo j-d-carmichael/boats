@@ -1,13 +1,17 @@
 {
+  "ts-node": {
+    "transpileOnly": true,
+    "compiler": "ttypescript"
+  },
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ES2019",
     "module": "commonjs",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
     "sourceMap": false,
     "outDir": "build",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "resolveJsonModule": true,
     "importHelpers": true,
     "experimentalDecorators": true,

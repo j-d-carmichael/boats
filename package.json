@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "2.11.0",
+  "version": "2.12.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -26,15 +26,15 @@
     "prepare": "npm run build",
     "install:githooks": "cp ./githooks/* .git/hooks",
     "build:tocs": "npx doctoc .",
-    "build": "rm -fR ./build && ttsc -p . --declaration --declarationDir build",
+    "build": "rimraf -fR ./build && ttsc -p . --declaration --declarationDir build",
     "build:watch": "ttsc --watch -p .",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --quiet --fix",
     "format": "prettier 'src/**/*.(ts|json)' --write",
     "test": "npm run lint:fix && npm run build && npm run test:clean && npm run test:builds && npm run test:unit",
-    "test:clean": "rm -fR ./test-build/*",
-    "test:unit": "NODE_ENV=test jest --runInBand",
-    "test:unit:single": "NODE_ENV=test jest --collect-coverage false",
+    "test:clean": "rimraf -fR ./test-build/*",
+    "test:unit": "cross-env NODE_ENV=test jest --runInBand",
+    "test:unit:single": "cross-env NODE_ENV=test jest --collect-coverage false",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version && npm run test:build-cli:oa2:inject",
     "test:build-cli:asyncapi:std": "node ./bin/cli.js --yes -i ./srcASYNC2/index.yml.njk -o ./test-build/srcASYNC2/srcASYNC2.yml -s srcASYNC2/channels/",
     "test:build-cli:oa2:inject": "node ./bin/cli.js --yes -i ./srcOA2/index.injections.yml.njk -o ./test-build/builtOA2_inject/api.yml -s srcOA2/paths/",
@@ -71,6 +71,7 @@
     "picomatch": "2.2.2",
     "swagger-parser": "10.0.1",
     "tslib": "2.0.1",
+    "upath": "^2.0.1",
     "walker": "1.0.7"
   },
   "devDependencies": {
@@ -86,12 +87,16 @@
     "@typescript-eslint/parser": "^4.3.0",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "codecov": "^3.7.2",
+    "cross-env": "^7.0.3",
     "eslint": "^7.10.0",
     "eslint-plugin-deprecate": "^0.7.0",
     "hasha": "^5.2.1",
     "jest": "^26.4.2",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.4.1",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^3.9.0",
     "ttypescript": "^1.5.12",
     "typescript": "^4.0.3"
   }

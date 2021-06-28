@@ -6,5 +6,6 @@
 .git
 .git*
 .git/*
-__tests__/
 githooks/
+src/*
+test-build/*
