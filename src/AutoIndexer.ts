@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import path from 'path';
+import upath from 'upath';
 import YAML from 'js-yaml';
 import removeFileExtension from '@/removeFileExtension';
 import { GetIndexYamlOptions } from '@/interfaces/GetIndexYamlOptions';
@@ -10,7 +10,7 @@ class AutoIndexer {
   getFiles(dir: string) {
     const dirents = readdirSync(dir, { withFileTypes: true });
     const files: any = dirents.map((dirent) => {
-      const res = path.resolve(dir, dirent.name);
+      const res = upath.resolve(dir, dirent.name);
       return dirent.isDirectory() ? this.getFiles(res) : res;
     });
     return Array.prototype.concat(...files);
@@ -26,8 +26,8 @@ class AutoIndexer {
     const indexObject: any = {};
     cleanPaths.forEach((cleanPath) => {
       if (cleanPath) {
-        const dir = path.dirname(cleanPath);
-        const filename = path.basename(cleanPath);
+        const dir = upath.dirname(cleanPath);
+        const filename = upath.basename(cleanPath);
         const method = getMethodFromFileName(filename);
         if (paths) {
           indexObject[dir] = indexObject[dir] || {};
@@ -56,8 +56,8 @@ class AutoIndexer {
    * Returns a string from an auto-built yaml file
    */
   getIndexYaml(indexFile: string, options: GetIndexYamlOptions) {
-    const absoluteIndexFilePath = path.join(process.cwd(), indexFile);
-    const dir = path.join(process.cwd(), path.dirname(indexFile));
+    const absoluteIndexFilePath = upath.join(process.cwd(), indexFile);
+    const dir = upath.join(process.cwd(), upath.dirname(indexFile));
     const files = this.getFiles(dir);
     const cleanPaths = this.cleanFilePaths(dir, files, absoluteIndexFilePath);
     return this.buildPathsYamlString(cleanPaths, options.channels, options.components, options.paths, options.remove);

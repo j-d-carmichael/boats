@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import lcFirst from '@/lcFirst';
+import upath from 'upath';
 import removeFileExtension from '@/removeFileExtension';
 import { methods } from '@/constants/methods';
-import { sep } from 'path';
+import { sep } from 'upath';
 import { StringStyle } from '@/enums/StringStyle';
 import ucFirst from '@/ucFirst';
 
@@ -24,7 +25,7 @@ class UniqueOperationIds {
     tails = tails.filter((tail) => {
       return tail.length > 0;
     });
-    cwd = cwd || process.cwd();
+    cwd = cwd || upath.toUnix(process.cwd());
     filePath = filePath.replace(cwd, '');
     filePath = removeFileExtension(filePath.replace(stripValue, ''));
     let filePathParts = filePath.split(sep);

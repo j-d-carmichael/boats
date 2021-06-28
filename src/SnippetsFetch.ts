@@ -1,7 +1,7 @@
 import 'colors';
 
 import fs from 'fs-extra';
-import path from 'path';
+import upath from 'upath';
 
 import { GIT_DIRECTORY_SNIPPET_CACHE } from '@/constants/CachePaths';
 import commandRun from '@/utils/commandRun';
@@ -14,7 +14,7 @@ class SnippetsFetch {
    * Returns the folder to store the git repos in
    */
   public getCacheFolder () {
-    this.targetGitCacheDir = path.join(process.cwd(), GIT_DIRECTORY_SNIPPET_CACHE);
+    this.targetGitCacheDir = upath.join(process.cwd(), GIT_DIRECTORY_SNIPPET_CACHE);
     return this.targetGitCacheDir;
   }
 
@@ -23,7 +23,7 @@ class SnippetsFetch {
    */
   public calculateLocalDirectoryFromUrl (url: string): string {
     const camelCaseUrl = camelCaseStringReplacement(url, ['/', ':', '.', '-', '?', '#']);
-    return path.join(this.getCacheFolder(), camelCaseUrl);
+    return upath.join(this.getCacheFolder(), camelCaseUrl);
   }
 
   /**
@@ -95,7 +95,7 @@ class SnippetsFetch {
    * @return {Promise<boolean>}
    */
   public async gitPull (cacheDirectory: string) {
-    const cwd = process.cwd();
+    const cwd = upath.toUnix(process.cwd());
     process.chdir(cacheDirectory);
     try {
       console.log('Updating git cache');
@@ -154,7 +154,7 @@ class SnippetsFetch {
     if (input.substring(0, 8) === 'https://') {
       return await this.gitFetch(input);
     } else {
-      const localSnippetPath = path.join(process.cwd(), input);
+      const localSnippetPath = upath.join(process.cwd(), input);
       // check local exists
       if (!fs.existsSync(localSnippetPath)) {
         throw new Error('Local snippet could not be found: ' + localSnippetPath);

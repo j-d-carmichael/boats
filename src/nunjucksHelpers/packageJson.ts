@@ -1,7 +1,7 @@
-import path from 'path';
+import upath from 'upath';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageJson = require(path.join(process.cwd(), 'package.json'));
+const packageJson = require(upath.join(process.cwd(), 'package.json'));
 
 export default (attribute: string): any => {
   if (typeof packageJson[attribute] === 'undefined') {

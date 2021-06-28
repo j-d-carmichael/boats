@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import fs from 'fs-extra';
 import { JSON } from '@/interfaces/BoatsRc';
 
@@ -26,10 +26,10 @@ const getVersion = (jsonObj: JSON, excludeVersion: boolean): string => {
 };
 
 const getFileName = (filePath: string, openApiJson: JSON, excludeVersion: boolean): string => {
-  const name = path.basename(filePath).replace(path.extname(filePath), '');
-  return name + getVersion(openApiJson, excludeVersion) + path.extname(filePath);
+  const name = upath.basename(filePath).replace(upath.extname(filePath), '');
+  return name + getVersion(openApiJson, excludeVersion) + upath.extname(filePath);
 };
 
 export default (filePath: string, openApiJson: JSON, excludeVersion: boolean): string => {
-  return path.join(path.dirname(filePath), getFileName(filePath, openApiJson, excludeVersion));
+  return upath.join(upath.dirname(filePath), getFileName(filePath, openApiJson, excludeVersion));
 };

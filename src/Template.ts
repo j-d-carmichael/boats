@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import nunjucks from 'nunjucks';
 import fs from 'fs-extra';
 import calculateIndentFromLineBreak from '@/calculateIndentFromLineBreak';
@@ -78,12 +78,13 @@ class Template {
       this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
 
       let returnFileinput: string;
-      walker(path.dirname(inputFile))
+      walker(upath.dirname(inputFile))
         .on('file', (file: string) => {
           try {
-            const outputFile = this.calculateOutputFile(inputFile, file, path.dirname(output));
+            file = upath.toUnix(file);
+            const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output));
             const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
-            if (path.normalize(inputFile) === path.normalize(file)) {
+            if (upath.normalize(inputFile) === upath.normalize(file)) {
               returnFileinput = outputFile;
             }
             fs.outputFileSync(outputFile, rendered);
@@ -122,6 +123,8 @@ class Template {
    * @returns {string|*}
    */
   cleanInputString (relativeFilePath: string) {
+    relativeFilePath = upath.toUnix(relativeFilePath)
+
     if (relativeFilePath.substring(0, 2) === './') {
       return relativeFilePath.substring(2, relativeFilePath.length);
     }
@@ -140,8 +143,8 @@ class Template {
    * @returns {*}
    */
   calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string) {
-    const inputDir = path.dirname(inputFile);
-    return this.stripNjkExtension(path.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, '')));
+    const inputDir = upath.dirname(inputFile);
+    return this.stripNjkExtension(upath.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, '')));
   }
 
   /**
@@ -170,7 +173,7 @@ class Template {
    * @param fileLocation The file location the string derived from
    */
   renderFile (inputString: string, fileLocation: string) {
-    this.currentFilePointer = fileLocation;
+    this.currentFilePointer = upath.toUnix(fileLocation);
     this.mixinObject = this.setMixinPositions(inputString, this.originalIndentation);
     this.mixinNumber = 0;
     this.indentObject = this.setIndentPositions(inputString, 0);
@@ -297,7 +300,7 @@ class Template {
    * @param filePath
    */
   getHelperFunctionNameFromPath (filePath: string) {
-    return path.basename(filePath, path.extname(filePath)).replace(/[^0-9a-z_]/gi, '');
+    return upath.basename(filePath, upath.extname(filePath)).replace(/[^0-9a-z_]/gi, '');
   }
 }
 

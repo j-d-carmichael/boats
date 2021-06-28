@@ -1,4 +1,4 @@
-import path from 'path';
+import upath from 'upath';
 import deepmerge from 'deepmerge';
 import jsYaml from 'js-yaml';
 import picomatch from 'picomatch';
@@ -16,8 +16,8 @@ class Injector {
    * Render the base template and inject content if provided
    */
   injectAndRender (inputPath: string, inputIndexYaml: string, boatsRc: BoatsRC): string {
-    const fullPath = path.join(process.cwd(), inputPath);
-    const relativePathToRoot = path.relative(path.dirname(inputPath), path.dirname(inputIndexYaml));
+    const fullPath = upath.join(upath.toUnix(process.cwd()), inputPath);
+    const relativePathToRoot = upath.relative(upath.dirname(inputPath), upath.dirname(inputIndexYaml));
     const picomatchOptions = boatsRc.picomatchOptions || { bash: true };
     const yaml = this.convertRootRefToRelative(render(fullPath), relativePathToRoot);
 
@@ -29,7 +29,7 @@ class Injector {
       return yaml;
     }
 
-    if (/index\./.test(path.basename(inputPath))) {
+    if (/index\./.test(upath.basename(inputPath))) {
       this.mapIndex(yaml, inputPath);
       return yaml;
     }
@@ -106,7 +106,7 @@ class Injector {
     }
     const injectRule = this.buildInjectRuleObject(injection);
     const operationName = this.fileToRouteMap[inputPath];
-    const methodName = path.basename(inputPath).replace(/\..*/, '');
+    const methodName = upath.basename(inputPath).replace(/\..*/, '');
 
     if (
       /channels/.test(inputPath) &&
@@ -221,7 +221,7 @@ class Injector {
    * @param {string}  inputPath  Path to YAML index file
    */
   mapIndex (yaml: string, inputPath: string) {
-    const indexRoute = path.dirname(inputPath);
+    const indexRoute = upath.dirname(inputPath);
     const index = jsYaml.safeLoad(yaml);
     Object.entries(index).forEach(([route, methods]) => {
       Object.values(methods).forEach((methodToFileRef: any) => {
@@ -235,7 +235,7 @@ class Injector {
 
   convertRootRefToRelative (content: string, relativePathToRoot: string) {
     return content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
-      const newPath = `${path.dirname(rootRef)}/index.yml#/${path.basename(rootRef)}`;
+      const newPath = `${upath.dirname(rootRef)}/index.yml#/${upath.basename(rootRef)}`;
       return `${ref}${relativePathToRoot}/${newPath}`;
     });
   }

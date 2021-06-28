@@ -1,6 +1,6 @@
 import nunjucks, { renderString } from 'nunjucks';
 import fs from 'fs-extra';
-import path from 'path';
+import upath from 'upath';
 import SnippetsFetch from '@/SnippetsFetch';
 
 // No types found for walker
@@ -51,9 +51,9 @@ export default class Snippets {
   async copySnippet (snippetName: string, subSnippetPath = '', relativeTargetPath: string, name: string): Promise<string> {
     let localSnippetPath = await SnippetsFetch.resolve(snippetName);
     if (subSnippetPath !== '') {
-      localSnippetPath = path.join(localSnippetPath, subSnippetPath);
+      localSnippetPath = upath.join(localSnippetPath, subSnippetPath);
     }
-    const targetPath = path.join(process.cwd(), relativeTargetPath, name);
+    const targetPath = upath.join(process.cwd(), relativeTargetPath, name);
     fs.ensureDirSync(targetPath);
     const filter = (src: string): boolean => {
       // do not return true for .git paths
