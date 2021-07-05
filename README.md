@@ -3,7 +3,6 @@
 ![Boats](boats.jpg)
 
 An OpenAPI & AsyncAPI templating system with Nunjucks... write less YAML... do more.
-
 ___
 
 ## Quick start
@@ -11,10 +10,10 @@ ___
 - Run BOATS init, `npx boats --init`, follow prompts
 
 ## Docs
-[Full docsify documentation here](https://johndcarmichael.github.io/boats/)
+[Full docsify documentation here: https://liffery-com.github.io/boats/](https://liffery-com.github.io/boats/)
 
 ## Examples
 Example files can be found here, but please also read the docs:
-- https://github.com/johndcarmichael/boats/tree/master/srcASYNC2
-- https://github.com/johndcarmichael/boats/tree/master/srcOA2
-- https://github.com/johndcarmichael/boats/tree/master/srcOA3
+- https://github.com/liffery-com/boats/tree/master/srcASYNC2
+- https://github.com/liffery-com/boats/tree/master/srcOA2
+- https://github.com/liffery-com/boats/tree/master/srcOA3
