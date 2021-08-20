@@ -244,6 +244,7 @@ class Template {
   /**
    * Sets up the tpl engine for the current file being rendered
    */
+  // eslint-disable-next-line max-lines-per-function
   async nunjucksSetup () {
     const env = nunjucks.configure(this.boatsrc.nunjucksOptions);
 
@@ -258,6 +259,7 @@ class Template {
       });
     }
     env.addGlobal('boatsConfig', this.boatsrc);
+    env.addGlobal('baseDir', upath.dirname(this.inputFile));
     env.addGlobal('mixinNumber', this.mixinNumber);
     env.addGlobal('mixinObject', this.mixinObject);
     env.addGlobal('indentNumber', this.indentNumber);

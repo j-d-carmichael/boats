@@ -7,7 +7,16 @@ const mixinDirectoryKey = 'mixinDirectory';
 export default function (): string {
   const tplGlobals = this.env.globals;
   // eslint-disable-next-line prefer-rest-params
-  const renderPath = upath.join(upath.dirname(tplGlobals.currentFilePointer), arguments[0]);
+  let argumentPath = arguments[0]
+
+  if (argumentPath.match(/\$/g)) {
+    const diff = upath.relative(upath.dirname(tplGlobals.currentFilePointer), tplGlobals.baseDir);
+
+    argumentPath = upath.normalize(argumentPath.replace('$', diff));
+  }
+
+  const renderPath = upath.join(upath.dirname(tplGlobals.currentFilePointer), argumentPath);
+
   if (!fs.pathExistsSync(renderPath)) {
     throw new Error('Path not found when trying to render mixin: ' + renderPath);
   }
