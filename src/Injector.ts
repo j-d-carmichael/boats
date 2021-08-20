@@ -234,10 +234,14 @@ class Injector {
   }
 
   convertRootRefToRelative (content: string, relativePathToRoot: string) {
-    return content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
-      const newPath = `${upath.dirname(rootRef)}/index.yml#/${upath.basename(rootRef)}`;
-      return `${ref}${relativePathToRoot}/${newPath}`;
-    });
+    return content
+      .replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
+        const newPath = `${upath.dirname(rootRef)}/index.yml#/${upath.basename(rootRef)}`;
+        return `${ref}${relativePathToRoot}/${newPath}`;
+      })
+      .replace(/(\$ref[ '"]*:[ '"]*)\$\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
+        return `${ref}${relativePathToRoot}/${rootRef}`;
+      });
   }
 }
 
