@@ -12,6 +12,10 @@ export interface MethodAlias {
   delete?: string;
 }
 
+export interface Paths {
+    [key: string]: string;
+  }
+
 export interface BoatsRC {
   nunjucksOptions?: {
     tags?: {
@@ -36,4 +40,5 @@ export interface BoatsRC {
   };
   picomatchOptions?: any;
   fancyPluralization?: boolean;
+  paths?: Paths;
 }
