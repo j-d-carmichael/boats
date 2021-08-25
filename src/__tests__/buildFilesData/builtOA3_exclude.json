@@ -28,43 +28,78 @@
   "paths": {
     "/relative": {
       "get": {
-         "tags": [
-            "Relative"
-         ],
-         "summary": "Example Relative Mixin Path",
-         "description": "Use a mixin which contains a relative path",
-         "operationId": "relativeGet",
-         "responses": {
-            "200": {
-               "description": "Successful fetch",
-               "content": {
-                  "application/json": {
-                     "schema": {
-                        "type": "object",
-                        "properties": {
-                           "included": {
-                              "type": "object",
-                              "properties": {
-                                 "one": {
-                                    "type": "string"
-                                 }
-                              }
-                           },
-                           "data": {
-                              "type": "array",
-                              "items": {
-                                 "$ref": "#/components/schemas/Weathers"
-                              }
-                           }
+        "tags": [
+          "Relative"
+        ],
+        "summary": "Example Relative Mixin Path",
+        "description": "Use a mixin which contains a relative path",
+        "operationId": "relativeGet",
+        "responses": {
+          "200": {
+            "description": "Successful fetch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "included": {
+                      "type": "object",
+                      "properties": {
+                        "one": {
+                          "type": "string"
                         }
-                     }
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Weathers"
+                      }
+                    }
                   }
-               }
-            },
-            "404": {
-               "description": "Temp not found"
+                }
+              }
             }
-         }
+          },
+          "404": {
+            "description": "Temp not found"
+          }
+        }
+      }
+    },
+    "/absolute": {
+      "get": {
+        "tags": [
+          "Absolute"
+        ],
+        "summary": "Example Absolute Mixin Path",
+        "description": "Use a schema which contains absolute paths to specified in the boatsrc file",
+        "operationId": "absoluteGet",
+        "responses": {
+          "200": {
+            "description": "Successful fetch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "included": {
+                      "type": "object",
+                      "properties": {
+                        "absolute": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Temp not found"
+          }
+        }
       }
     },
     "/weather": {
@@ -162,6 +197,11 @@
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "weatherIdIdPut",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PathId"
+          }
+        ],
         "requestBody": {
           "description": "Optional description in *Markdown*",
           "required": true,

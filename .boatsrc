@@ -1,14 +1,17 @@
 {
   "nunjucksOptions": {
-    "tags": {
-    }
+    "tags": {}
   },
-  "jsonSchemaRefParserBundleOpts": {
-  },
+  "jsonSchemaRefParserBundleOpts": {},
   "permissionConfig": {
     "globalPrefix": false
   },
   "picomatchOptions": {
     "bash": true
+  },
+  "paths": {
+    "@oa3Mixins": "srcOA3/mixins/",
+    "@oa3Parameters/": "srcOA3/components/parameters/",
+    "@/": "./"
   }
 }

@@ -3,6 +3,8 @@ tags:
 summary: weather data
 description: Create a new weather record.
 operationId: {{ uniqueOpId() }}
+parameters:
+  - $ref: @oa3Parameters/pathId.yml.njk
 requestBody:
   description: Optional description in *Markdown*
   required: true

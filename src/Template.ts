@@ -23,6 +23,7 @@ import uniqueOpId from '@/nunjucksHelpers/uniqueOpId';
 import optionalProps from './nunjucksHelpers/optionalProps';
 import pickProps from './nunjucksHelpers/pickProps';
 import { BoatsRC } from '@/interfaces/BoatsRc';
+import { pathInjector } from './pathInjector';
 
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -259,7 +260,7 @@ class Template {
       });
     }
     env.addGlobal('boatsConfig', this.boatsrc);
-    env.addGlobal('baseDir', upath.dirname(this.inputFile));
+    env.addGlobal('pathInjector', new pathInjector(this.boatsrc.paths));
     env.addGlobal('mixinNumber', this.mixinNumber);
     env.addGlobal('mixinObject', this.mixinObject);
     env.addGlobal('indentNumber', this.indentNumber);

@@ -1,21 +1,33 @@
 import upath from 'upath';
 import fs from 'fs-extra';
 import nunjucks from 'nunjucks';
+import { pathInjector } from '../pathInjector';
 
 const mixinDirectoryKey = 'mixinDirectory';
 
-export default function (): string {
-  const tplGlobals = this.env.globals;
-  // eslint-disable-next-line prefer-rest-params
-  let argumentPath = arguments[0]
+function parseMixinPath(mixinPath: string, pathInjector: pathInjector, currentFilePointer: string): string {
+  // Don't forget to parse the mixin path, as that could have been defined as an absolute path
+  // Maybe should be done when setting mixinPath initially
+  // eslint-disable-next-line prefer-const
+  let [parsedMixinPath, absolute] = pathInjector.injectMixin(mixinPath);
 
-  if (argumentPath.match(/\$/g)) {
-    const diff = upath.relative(upath.dirname(tplGlobals.currentFilePointer), tplGlobals.baseDir);
-
-    argumentPath = upath.normalize(argumentPath.replace('$', diff));
+  if (absolute) {
+    parsedMixinPath = upath.relative(upath.dirname(currentFilePointer), parsedMixinPath);
   }
 
-  const renderPath = upath.join(upath.dirname(tplGlobals.currentFilePointer), argumentPath);
+  return upath.dirname(upath.normalize(parsedMixinPath));
+}
+
+export default function (): string {
+  const tplGlobals = this.env.globals;
+  const pathInjector = (tplGlobals.pathInjector) as pathInjector;
+
+  // eslint-disable-next-line prefer-rest-params
+  const [argumentPath, isAbsolute] = pathInjector.injectMixin(arguments[0])
+
+  const renderPath = isAbsolute
+    ? argumentPath
+    : upath.join(upath.dirname(tplGlobals.currentFilePointer), argumentPath);
 
   if (!fs.pathExistsSync(renderPath)) {
     throw new Error('Path not found when trying to render mixin: ' + renderPath);
@@ -24,8 +36,7 @@ export default function (): string {
   const vars: any = {};
 
   const mixinObj = tplGlobals.mixinObject[tplGlobals.mixinNumber];
-
-  vars[mixinDirectoryKey] = upath.dirname(mixinObj.mixinPath)
+  vars[mixinDirectoryKey] = parseMixinPath(mixinObj.mixinPath, pathInjector, tplGlobals.currentFilePointer);
 
   let skipAutoIndex = false;
   for (let i = 1; i < arguments.length; ++i) {
