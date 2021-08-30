@@ -21,10 +21,10 @@ export default function buildIndexFromPath(cleanPath: string, trimOpts?: any, en
     return rawIndex.replace(trim, '');
   }
 
-  const index = pluralize.plural(rawIndex.replace(`${trim}s`, ''));
+  const pluralIndex = pluralize.plural(rawIndex.replace(`${trim}s`, ''));
 
   // Add an extra "s" to words which are the same in both plural and non-plural form (i.e. sheep)
-  return isPlural && rawIndex === index
-    ? `${index}s`
-    : index;
+  return isPlural && rawIndex === pluralIndex
+    ? `${pluralIndex}s`
+    : pluralIndex;
 }
