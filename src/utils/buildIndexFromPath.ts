@@ -15,8 +15,16 @@ export default function buildIndexFromPath(cleanPath: string, trimOpts?: any, en
   }
   const trim = typeof trimOpts === 'string' ? trimOpts : '';
   const rawIndex = ucFirst(_.camelCase(removeFileExtension(_path)));
+  const isPlural = rawIndex.endsWith(`${trim}s`);
 
-  return enableFancyPluralization && rawIndex.endsWith(`${trim}s`)
-    ? pluralize.plural(rawIndex.replace(`${trim}s`, ''))
-    : rawIndex.replace(trim, '');
+  if (!isPlural || !enableFancyPluralization) {
+    return rawIndex.replace(trim, '');
+  }
+
+  const index = pluralize.plural(rawIndex.replace(`${trim}s`, ''));
+
+  // Add an extra "s" to words which are the same in both plural and non-plural form (i.e. sheep)
+  return isPlural && rawIndex === index
+    ? `${index}s`
+    : index;
 }
