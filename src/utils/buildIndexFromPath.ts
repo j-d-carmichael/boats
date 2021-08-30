@@ -3,8 +3,9 @@ import getMethodFromFileName from '@/utils/getMethodFromFileName';
 import ucFirst from '@/ucFirst';
 import removeFileExtension from '@/removeFileExtension';
 import _ from 'lodash';
+import pluralize from 'pluralize';
 
-export default function buildIndexFromPath(cleanPath: string, trimOpts?: any) {
+export default function buildIndexFromPath(cleanPath: string, trimOpts?: any, enableFancyPluralization?: boolean): string {
   const dir = upath.dirname(cleanPath);
   const filename = upath.basename(cleanPath);
   const method = getMethodFromFileName(filename);
@@ -13,5 +14,9 @@ export default function buildIndexFromPath(cleanPath: string, trimOpts?: any) {
     _path = cleanPath.replace(filename, '');
   }
   const trim = typeof trimOpts === 'string' ? trimOpts : '';
-  return ucFirst(_.camelCase(removeFileExtension(_path))).replace(trim, '');
+  const rawIndex = ucFirst(_.camelCase(removeFileExtension(_path)));
+
+  return enableFancyPluralization && rawIndex.endsWith(`${trim}s`)
+    ? pluralize.plural(rawIndex.replace(`${trim}s`, ''))
+    : rawIndex.replace(trim, '');
 }

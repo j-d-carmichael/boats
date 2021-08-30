@@ -5,6 +5,7 @@ import removeFileExtension from '@/removeFileExtension';
 import { GetIndexYamlOptions } from '@/interfaces/GetIndexYamlOptions';
 import buildIndexFromPath from '@/utils/buildIndexFromPath';
 import getMethodFromFileName from '@/utils/getMethodFromFileName';
+import { BoatsRC } from '@/interfaces/BoatsRc';
 
 class AutoIndexer {
   getFiles(dir: string) {
@@ -22,7 +23,7 @@ class AutoIndexer {
     });
   }
 
-  buildPathsYamlString(cleanPaths: string[], channels?: any, components?: any, paths?: any, trimOpts?: any) {
+  buildPathsYamlString(cleanPaths: string[], boatsrc: BoatsRC, channels?: any, components?: any, paths?: any, trimOpts?: any) {
     const indexObject: any = {};
     cleanPaths.forEach((cleanPath) => {
       if (cleanPath) {
@@ -41,12 +42,13 @@ class AutoIndexer {
           };
         }
         if (components) {
-          indexObject[buildIndexFromPath(cleanPath, trimOpts)] = {
+          indexObject[buildIndexFromPath(cleanPath, trimOpts, boatsrc.fancyPluralization)] = {
             $ref: `.${cleanPath}`,
           };
         }
       }
     });
+
     return YAML.safeDump(indexObject, {
       indent: 2,
     });
@@ -55,12 +57,12 @@ class AutoIndexer {
   /**
    * Returns a string from an auto-built yaml file
    */
-  getIndexYaml(indexFile: string, options: GetIndexYamlOptions) {
+  getIndexYaml(indexFile: string, boatsrc: BoatsRC, options: GetIndexYamlOptions) {
     const absoluteIndexFilePath = upath.join(process.cwd(), indexFile);
     const dir = upath.join(process.cwd(), upath.dirname(indexFile));
     const files = this.getFiles(dir);
     const cleanPaths = this.cleanFilePaths(dir, files, absoluteIndexFilePath);
-    return this.buildPathsYamlString(cleanPaths, options.channels, options.components, options.paths, options.remove);
+    return this.buildPathsYamlString(cleanPaths, boatsrc, options.channels, options.components, options.paths, options.remove);
   }
 }
 
