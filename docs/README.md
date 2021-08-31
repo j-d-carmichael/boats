@@ -75,7 +75,7 @@ A `.boatsrc` file should be a JSON representation of this interface:
 
 - `nunjucksOptions` Overwrite the default nunjucks options eg the tag delimiters
 - `jsonSchemaRefParserBundleOpts` Inject your own [jsonSchemaRefParserBundle](https://apitools.dev/json-schema-ref-parser/docs/options.html)
-- `permissionConfig` Option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
+- `permissionConfig` Option will override how th2020/12/14 2.7.0: pickProps added, allowing simple object building from props of anothere `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
   - `methodAlias` An object of method alias overrides, please see the interface for the default options
   - `methodAliasPosition` Place the alias (default behavior) after the global prefix (if present) or at the end of the permission string
   - `globalPrefix` Defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
@@ -613,10 +613,17 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/08/31 2.14.0: Fancy pluralisation added to the model naming
+- 2021/08/31 2.13.0: skipped as 13 is not a lucky number :b
+- 2021/06/28 2.12.0: windows compatibility 
+- 2021/06/27 2.11.0: relative mixins added
+- 2021/06/24 2.10.0: boats init now offers async api
+- 2021/06/21 2.9.0:  schemaRef helper for OA3 discriminator
+- 2021/01/28 2.8.0:  boats init package file as private
 - 2020/12/14 2.7.0:  pickProps added, allowing simple object building from props of another
 - 2020/12/12 2.6.0:  Inject include/exclude now takes string[] or {path:string, method: string}[] for finer control
 - 2020/11/15 2.5.0:  Merge objects added for when allOf is not possible
-- 2020/11/09 2.3/4.0:  Snippets extracted out of the core, now pulled from remote or local
+- 2020/11/09 2.3/4:  Snippets extracted out of the core, now pulled from remote or local
 - 2020/11/08 2.2.0:  Snippets feature added for faster scaffolding into an existing project
 - 2020/11/07 2.1.0:  Support for the windows file system
 - 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false
