@@ -82,6 +82,7 @@ A `.boatsrc` file should be a JSON representation of this interface:
   - `permissionStyle` The overall permission style, defaults to camelCase
   - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
 - `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
+- `fancyPluralization` Enables better pluralization for your model names (i.e. Universities instead of Universitys)
 
 TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
 ```json
@@ -164,9 +165,9 @@ If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, 
 TIP: The tpl helpers and the examples in this repo all use the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
 
 ### File ext.
-You may use `.yaml` or `.yml` or the `.njk` file extension. 
+You may use `.yaml` or `.yml` or the `.njk` file extension.
 Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig mapping in you settings for file types).
-You can switch from yml to njk via cli arguments. 
+You can switch from yml to njk via cli arguments.
 
 There is an issue still with the `.njk` ext in that a reference to a file in another project on disk via `...yml.njk` will break as BOATS removes `.njk` after running through the nunjucks tpl engine.
 
@@ -243,8 +244,8 @@ Anatomy of the injection:
           {
             path: '/car/*',       # Include all car paths where the method is post/put/delete
             methods: [
-              'post', 
-              'put', 
+              'post',
+              'put',
               'delete'
             ]
           }
@@ -524,7 +525,7 @@ description: List all users
 x-permission: <$ routePermission() $>
 ```
 
-You should name the attribute something that fits your generator, `x-permission: ...` is configured to work with [generate-it's](https://www.npmjs.com/package/generate-it) typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28). 
+You should name the attribute something that fits your generator, `x-permission: ...` is configured to work with [generate-it's](https://www.npmjs.com/package/generate-it) typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28).
 
 You may also:
  - Instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`.
@@ -618,7 +619,7 @@ url: <$ host $>
 - 2020/11/09 2.3/4.0:  Snippets extracted out of the core, now pulled from remote or local
 - 2020/11/08 2.2.0:  Snippets feature added for faster scaffolding into an existing project
 - 2020/11/07 2.1.0:  Support for the windows file system
-- 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false 
+- 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false
 - 2020/08/28 1.25.4: Rollback to 1.24.1 to revert the breaking change
 - 2020/08/28 1.25.0: A breaking change was released to live, sorry
 - 2020/08/27 1.24.0: feat: Add `-y`, `--yes` option to skip remote version check
@@ -629,11 +630,11 @@ url: <$ host $>
 - 2020/08/13 1.20.2: fix: --init script
 - 2020/08/13 1.20.0: feat: now uses the new https://www.npmjs.com/package/@asyncapi/parser which enforces all operationId to all be unique and brings in Types.
 - 2020/08/11 1.19.0: feat: pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17) via process.env or .boatsrc file allowing header injection for url resolution
-- 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files 
+- 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files
 - 2020/06/28 1.18.1: chore: Bump tool check version to 1.1.1
 - 2020/06/28 1.18.0: feat: Conversion to typescript
 - 2020/06/18 1.17.0: feat: Allow njk templating in injected content and a new function routePermission()
-- 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example) 
+- 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example)
 - 2020/05/03 1.16.0: feat: An additional unique operation id check during the bundle process.
 - 2020/05/03 1.15.0: feat: Calculate the strip value based on the input type, src/paths or src/channels
 - 2020/04/30 1.14.0: feat: Cli args --convert_to_njk <localDirectory> and --convert_to_yml <localDirectory> added and documented
@@ -649,7 +650,7 @@ url: <$ host $>
 - 2020/04/07 1.7.4: fix: Bug fix only the 1st inject block found is respected, ignore subsequent blocks found.
 - 2020/04/07 1.7.3: chore: dependency update, camelcase
 - 2020/04/07 1.7.2: fix: relating to "inject" new option "includeMethods"
-- 2020/04/03 1.7.1: fix: PR from @CasperJ to fix windows build environments 
+- 2020/04/03 1.7.1: fix: PR from @CasperJ to fix windows build environments
 - 2020/03/30 1.7.0: feat: Tpl helper "inject" new option "includeMethods"
 - 2020/03/28 1.6.0: feat: New tpl helper "inject" common content to paths/channels inc. exclude list
 - 2020/03/28 1.5.0: feat: .njk ext support allowing std nunjucks tags, tip: .boatsrc

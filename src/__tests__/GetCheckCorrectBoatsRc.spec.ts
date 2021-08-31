@@ -30,10 +30,12 @@ it('should warn and write old config naming to new', async () => {
       usePackageJsonNameAsPrefix: true,
       routePrefix: {},
     },
+    fancyPluralization: true
   });
   expect(global.console.warn).toHaveBeenCalled();
   expect(newRc.permissionConfig.usePackageJsonNameAsPrefix).toBe(undefined);
   expect(newRc.permissionConfig.globalPrefix).toBe(true);
   expect(newRc.permissionConfig.routePrefix).toBe(undefined);
   expect(newRc.permissionConfig.methodAlias).toEqual({});
+  expect(newRc.fancyPluralization).toEqual(true);
 });
