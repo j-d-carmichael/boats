@@ -1,9 +1,10 @@
+import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 import { StringStyle } from '@/enums/StringStyle';
-import { BoatsRC } from './interfaces/BoatsRc';
+import deepmerge from 'deepmerge';
 import fs from 'fs-extra';
 import upath from 'upath';
-import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
-import deepmerge from 'deepmerge';
+import { createBoatsrcIfNotExists } from './init';
+import { BoatsRC } from './interfaces/BoatsRc';
 
 class GetCheckCorrectBoatsRc {
   boatsRc: BoatsRC;
@@ -31,6 +32,8 @@ class GetCheckCorrectBoatsRc {
    */
   getBoatsConfig() {
     const boatsrc = upath.join(process.cwd(), '.boatsrc');
+    createBoatsrcIfNotExists();
+
     try {
       const boatsRcJson: BoatsRC = fs.readJsonSync(boatsrc);
       const json = deepmerge(this.defaultRc, boatsRcJson);
