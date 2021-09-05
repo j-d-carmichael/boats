@@ -10,6 +10,7 @@ import 'colors';
 import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import Snippets from '@/Snippets';
+import { init, createBoatsrcIfNotExists } from './init';
 
 const dotenvFilePath = upath.join(process.cwd(), '.env');
 const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
@@ -38,13 +39,14 @@ const parseCli = async () => {
   } else if (program.convert_to_yml) {
     // Convert files to yaml
     convertToNunjucksOrYaml(program.convert_to_yml, 'yml');
-  } else if(program.injectSnippet) {
+  } else if (program.injectSnippet) {
     // Snippets
-    new Snippets(program)
+    new Snippets(program);
   } else if (program.init) {
     // Return init function
-    require('./init');
+    await init();
   } else {
+    createBoatsrcIfNotExists();
     // parse the directory then validate and bundle with swagger-parser
     const returnFile = await Template.directoryParse(
       program.input,
