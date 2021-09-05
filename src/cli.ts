@@ -10,7 +10,7 @@ import 'colors';
 import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import Snippets from '@/Snippets';
-import { init, createBoatsrcIfNotExists } from './init';
+import { init } from './init';
 
 const dotenvFilePath = upath.join(process.cwd(), '.env');
 const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
@@ -46,7 +46,6 @@ const parseCli = async () => {
     // Return init function
     await init();
   } else {
-    createBoatsrcIfNotExists();
     // parse the directory then validate and bundle with swagger-parser
     const returnFile = await Template.directoryParse(
       program.input,
