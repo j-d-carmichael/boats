@@ -1,5 +1,6 @@
 import * as upath from 'upath';
 import { Paths } from './interfaces/BoatsRc';
+import fs from 'fs-extra';
 
 export class pathInjector {
   keyPatterns: string[];
@@ -8,13 +9,35 @@ export class pathInjector {
   mixinExpressions: RegExp[];
   refExpressions: RegExp[];
 
+  private enrichForSpecialCases(paths: Paths, sourceRoot?: string): Paths {
+    if (!sourceRoot) { return paths }
+
+    // When the root of the source is a valid path under one of the absolute paths
+    // Then we need to add a special case to ensure it is converted into a relative path
+    const validPaths = Object.keys(paths)
+                           .filter((prefix) =>
+                              fs.pathExistsSync(upath.join(paths[prefix], sourceRoot)));
+
+    if (validPaths.length > 0) {
+      validPaths.forEach((prefix) => {
+        paths[upath.join(prefix, sourceRoot)] = upath.join(paths[prefix], sourceRoot);
+      });
+    }
+
+    return paths;
+  }
+
   constructor(private paths: Paths, private pathModifier?: string) {
-    this.paths = paths;
+    this.paths = this.enrichForSpecialCases(paths, pathModifier);
     this.pathModifier = pathModifier || '';
 
     if (paths) {
-      // If we have paths, setup a working strategy and assign it, trim trailing slashes to avoid stripping them out later
-      this.keyPatterns = Object.keys(paths);
+      // If we have paths, setup a working strategy and assign it
+
+      // Sort the patterns so the most specific ones are first (crudely using longest as most specific)
+      this.keyPatterns = Object.keys(paths).sort((a, b) => b.length - a.length);
+
+      // trim trailing slashes to avoid stripping them out later
       this.mixinExpressions = this.keyPatterns.map((str) => str.replace(/\/$/, '')).map((str) => new RegExp(str, 'g'));
       this.refExpressions = this.keyPatterns
         .map((str) => str.replace(/\/$/, ''))
