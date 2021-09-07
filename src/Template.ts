@@ -260,7 +260,7 @@ class Template {
       });
     }
     env.addGlobal('boatsConfig', this.boatsrc);
-    env.addGlobal('pathInjector', new pathInjector(this.boatsrc.paths));
+    env.addGlobal('pathInjector', new pathInjector(this.boatsrc.paths, upath.relative('.', upath.dirname(this.inputFile))));
     env.addGlobal('mixinNumber', this.mixinNumber);
     env.addGlobal('mixinObject', this.mixinObject);
     env.addGlobal('indentNumber', this.indentNumber);
