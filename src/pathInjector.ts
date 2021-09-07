@@ -27,9 +27,9 @@ export class pathInjector {
     return paths;
   }
 
-  constructor(private paths: Paths, private pathModifier?: string) {
-    this.paths = this.enrichForSpecialCases(paths, pathModifier);
-    this.pathModifier = pathModifier || '';
+  constructor(private paths: Paths, private sourceFolderInWorkspace?: string) {
+    this.paths = this.enrichForSpecialCases(paths, sourceFolderInWorkspace);
+    this.sourceFolderInWorkspace = sourceFolderInWorkspace || '';
 
     if (paths) {
       // If we have paths, setup a working strategy and assign it
@@ -61,7 +61,7 @@ export class pathInjector {
       const keyPattern = this.mixinExpressions[i];
 
       if (keyPattern.test(target)) {
-        const value = upath.join(this.pathModifier, this.paths[this.keyPatterns[i]]);
+        const value = this.paths[this.keyPatterns[i]];
 
         return [upath.normalize(target.replace(keyPattern, value)), true];
       }
@@ -79,9 +79,9 @@ export class pathInjector {
         // as the templating has already happened
         // files are no longer where they were, and have all moved to locations relative to the index file
         const value = upath.join(relativeRoot,
-          upath.relative(this.pathModifier, this.paths[this.keyPatterns[i]]));
+          upath.relative(this.sourceFolderInWorkspace, this.paths[this.keyPatterns[i]]));
 
-        return target.replace(keyPattern, `$1${value}`).replace('//', '/');
+        return target.replace(keyPattern, `$1${value.replace('//', '/')}`);
       }
     }
 
