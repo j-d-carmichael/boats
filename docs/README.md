@@ -82,6 +82,7 @@ A `.boatsrc` file should be a JSON representation of this interface:
   - `permissionStyle` The overall permission style, defaults to camelCase
   - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
 - `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
+- `paths` An object of key/value pairs that enable you to define absolute paths to be used in your tempaltes. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
 - `fancyPluralization` Enables better pluralization for your model names (i.e. Universities instead of Universitys)
 
 TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
@@ -596,6 +597,35 @@ To enable easier development with `process.env` variables BOATS also makes use o
 If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made available to the Nunjucks engine as a tpl variable.
 
 > !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
+
+### Absolute Paths
+
+If managing relative links causes problems, it's possible to specify a shorthand for referring to absolute paths using the `paths` option in the `boatsrc` file.
+
+Given a config like:
+
+```json
+{
+  "paths": {
+    "@mixins": "./src/mixins",
+    "@components": "./src/components"
+  }
+}
+```
+
+You can reference a file under `./src/mixins` like so:
+
+```yaml
+{{ mixin("@mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
+
+```
+
+Or a schema can be referenced like:
+
+```yaml
+schema:
+  $ref: @components/schemas/generic/searchMeta.yml.njk
+```
 
 ### Variables
 In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set
