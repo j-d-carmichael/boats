@@ -6,7 +6,7 @@ interface RefGeneratorOptions {
   componentsPath: string;
 }
 
-export default function (currentFilePointer: string, fileName: string, options: RefGeneratorOptions, boatsrc: BoatsRC) {
+export default function (currentFilePointer: string, fileName: string, options: RefGeneratorOptions, boatsrc: BoatsRC): string {
   const dir = upath.dirname(currentFilePointer);
 
   const lastSegment = dir.substring(dir.indexOf(options.componentsPath) + options.componentsPath.length);

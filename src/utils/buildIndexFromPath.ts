@@ -5,6 +5,7 @@ import removeFileExtension from '@/removeFileExtension';
 import _ from 'lodash';
 import pluralize from 'pluralize';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function buildIndexFromPath(cleanPath: string, trimOpts?: any, enableFancyPluralization?: boolean): string {
   const dir = upath.dirname(cleanPath);
   const filename = upath.basename(cleanPath);
