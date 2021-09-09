@@ -10,7 +10,7 @@
     "bash": true
   },
   "paths": {
-    "@oa3Mixins": "srcOA3/mixins/",
+    "@mixins": "srcOA3/mixins/",
     "@oa3Parameters/": "srcOA3/components/parameters/",
     "@/": "./"
   }

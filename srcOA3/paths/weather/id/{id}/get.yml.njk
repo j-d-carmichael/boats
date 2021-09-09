@@ -8,6 +8,6 @@ parameters:
 responses:
   '200':
     description: Successful fetch
-    content: {{ mixin("@oa3Mixins/response/json.yml.njk", "../../../../components/schemas/weather/model.yml.njk") }}
+    content: {{ mixin("@mixins/response/json.yml.njk", "../../../../components/schemas/weather/model.yml.njk") }}
   '404':
     description: Temp not found

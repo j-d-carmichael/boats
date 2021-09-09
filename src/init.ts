@@ -15,7 +15,7 @@ const npmInstall = (): Promise<number> =>
   new Promise<number>((resolve, reject) => {
     spawn('npm', ['install'], {
       stdio: 'inherit',
-      cwd: pwd,
+      cwd: pwd
     }).on('close', (code) => {
       if (code !== 0) {
         return reject(Error('npm install command was unsuccessful'));
@@ -36,7 +36,7 @@ const getQuestions = (localPkgJson: Record<string, any>): inquirer.ListQuestionO
       default: localPkgJson.name,
       validate: function (value: any) {
         return (typeof value === 'string' && value.length > 1) || 'Please enter a name longer than 1 character';
-      },
+      }
     },
     {
       type: 'confirm',
@@ -45,20 +45,20 @@ const getQuestions = (localPkgJson: Record<string, any>): inquirer.ListQuestionO
         'The current package.json name does not match the api name entered. Would you the package.json name to be updated too?',
       when: function (answers: any) {
         return answers.name !== localPkgJson.name;
-      },
+      }
     },
     {
       type: 'list',
       name: 'oaType',
-      choices: ['Swagger 2.0', 'OpenAPI 3.0.0', 'AsyncAPI 2.0.0'],
+      choices: ['Swagger 2.0', 'OpenAPI 3.0.0', 'AsyncAPI 2.0.0']
     },
     {
       type: 'confirm',
       name: 'installConfirm',
       message:
         'Press Y and enter to install. This will make a copy of the template files to ./src, an output directory ./build and a config file ./.boatsrc',
-      default: false,
-    },
+      default: false
+    }
   ];
 };
 
@@ -66,10 +66,10 @@ const validatePreInit = (): Record<string, any> => {
   if (srcAlreadyExists || buildAlreadyExists) {
     throw new Error(
       'Process stopped as ' +
-        srcAlreadyExists +
-        ' &/or' +
-        buildPath +
-        'already found. Installation cannot run with these folders existing.'
+      srcAlreadyExists +
+      ' &/or' +
+      buildPath +
+      'already found. Installation cannot run with these folders existing.'
     );
   }
 
@@ -82,26 +82,32 @@ const validatePreInit = (): Record<string, any> => {
 
   localPkgJson.dependencies = {
     ...(localPkgJson.dependencies || {}),
-    boats: `^${boatsPackageJson.version}`,
+    boats: `^${boatsPackageJson.version}`
   };
 
   return localPkgJson;
 };
 
-export const createBoatsrcIfNotExists = (force = false): void => {
+export const createBoatsrcIfNotExists = (answers?: Record<string, string>): void => {
   const boatsrcDefault: BoatsRC = {
     nunjucksOptions: {
-      tags: {},
+      tags: {}
     },
     jsonSchemaRefParserBundleOpts: {},
     picomatchOptions: {
-      bash: true,
+      bash: true
     },
     permissionConfig: {
-      globalPrefix: true,
+      globalPrefix: true
     },
+    paths: {}
   };
-  if (force || !fs.existsSync(upath.join(pwd, '/.boatsrc'))) {
+  if (answers && answers.oaType === 'OpenAPI 3.0.0') {
+    boatsrcDefault.paths = {
+      '@mixins': 'src/mixins/'
+    };
+  }
+  if (!fs.existsSync(upath.join(pwd, '/.boatsrc'))) {
     fs.writeFileSync(upath.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
   }
 };
@@ -156,7 +162,7 @@ export const init = async (): Promise<void> => {
     }
 
     // write boatsrc to disc
-    createBoatsrcIfNotExists();
+    createBoatsrcIfNotExists(answers);
     console.log('Completed: Injected a .boatsrc file');
 
     copyBoilerplate(answers);
