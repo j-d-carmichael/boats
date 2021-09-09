@@ -33,7 +33,6 @@ const parseCli = async () => {
   }
 
   if (program.init){
-    // Return init function
     return await init();
   }
 
