@@ -11,7 +11,7 @@
   },
   "paths": {
     "@mixins": "srcOA3/mixins/",
-    "@oa3Parameters/": "srcOA3/components/parameters/",
+    "@parameters/": "srcOA3/components/parameters/",
     "@/": "./"
   }
 }

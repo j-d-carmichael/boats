@@ -4,7 +4,7 @@ summary: weather data
 description: Get the latest temperatures
 operationId: {{ uniqueOpId() }}
 parameters:
-  - $ref: @oa3Parameters/pathId.yml.njk
+  - $ref: @parameters/pathId.yml.njk
 responses:
   '200':
     description: Successful fetch

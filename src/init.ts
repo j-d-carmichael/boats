@@ -104,7 +104,8 @@ export const createBoatsrcIfNotExists = (answers?: Record<string, string>): void
   };
   if (answers && answers.oaType === 'OpenAPI 3.0.0') {
     boatsrcDefault.paths = {
-      '@mixins': 'src/mixins/'
+      '@mixins/': 'src/mixins/',
+      '@parameters/': 'src/components/parameters/',
     };
   }
   if (!fs.existsSync(upath.join(pwd, '/.boatsrc'))) {
