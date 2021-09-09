@@ -13,7 +13,6 @@ import Snippets from '@/Snippets';
 import { init } from './init';
 
 const dotenvFilePath = upath.join(process.cwd(), '.env');
-const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
 const remoteBoatsPackageJson = 'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json';
 
 // If a .env file exists call dotenv package to set into the env vars
@@ -33,6 +32,14 @@ const parseCli = async () => {
     await checkVersion(packageJson.version, remoteBoatsPackageJson, 'BOATS').catch(catchHandle);
   }
 
+  if (program.init){
+    // Return init function
+    return await init();
+  }
+
+  // Fetch the boatsrc here and not before the init, as the init may inject a specific file based on the type initialised
+  const boatsRc: BoatsRC = GetCheckCorrectBoatsRc.getBoatsConfig();
+
   if (program.convert_to_njk) {
     // Convert files to njk
     convertToNunjucksOrYaml(program.convert_to_njk, 'njk');
@@ -42,9 +49,6 @@ const parseCli = async () => {
   } else if (program.injectSnippet) {
     // Snippets
     new Snippets(program);
-  } else if (program.init) {
-    // Return init function
-    await init();
   } else {
     // parse the directory then validate and bundle with swagger-parser
     const returnFile = await Template.directoryParse(

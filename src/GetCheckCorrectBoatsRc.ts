@@ -17,20 +17,21 @@ class GetCheckCorrectBoatsRc {
         variableStart: '<$',
         variableEnd: '$>',
         commentStart: '{#',
-        commentEnd: '#}',
-      },
+        commentEnd: '#}'
+      }
     },
     permissionConfig: {
       permissionStyle: StringStyle.camelCase,
       permissionSegmentStyle: StringStyle.camelCase,
-      methodAliasPosition: MethodAliasPosition.AfterGlobalPrefix,
+      methodAliasPosition: MethodAliasPosition.AfterGlobalPrefix
     },
+    paths: {}
   };
 
   /**
    * Finds, parses and validates the boatsrc file
    */
-  getBoatsConfig() {
+  getBoatsConfig () {
     const boatsrc = upath.join(process.cwd(), '.boatsrc');
     createBoatsrcIfNotExists();
 
@@ -50,23 +51,24 @@ class GetCheckCorrectBoatsRc {
     }
   }
 
-  parse(boatsRc: BoatsRC): BoatsRC {
+  parse (boatsRc: BoatsRC): BoatsRC {
     this.boatsRc = boatsRc;
     this.permissionConfigStyleCheck();
     this.permissionConfigPrefixesCheck();
     this.permissionConfigAliasChecks();
     this.jsonSchemaRefParserBundleOpts();
+    this.ensureAtLeastEmptyPaths();
     return this.boatsRc;
   }
 
-  stringStyleCheck(input: string): void {
+  stringStyleCheck (input: string): void {
     if (!Object.values(StringStyle).includes(input as any)) {
       console.warn(`WARNING: StringStyle provided does not match any of the available options, provided "${input}"`);
       console.warn(`Available styles: ${Object.values(StringStyle)}`);
     }
   }
 
-  permissionConfigStyleCheck(): void {
+  permissionConfigStyleCheck (): void {
     if (this.boatsRc?.permissionConfig?.permissionStyle) {
       this.stringStyleCheck(this.boatsRc.permissionConfig.permissionStyle);
     }
@@ -75,7 +77,7 @@ class GetCheckCorrectBoatsRc {
     }
   }
 
-  permissionConfigPrefixesCheck(): void {
+  permissionConfigPrefixesCheck (): void {
     if (typeof this.boatsRc?.permissionConfig?.usePackageJsonNameAsPrefix !== 'undefined') {
       console.warn(
         'Deprecation warning: permissionConfig.usePackageJsonNameAsPrefix will be removed in the future, please use permissionConfig.globalPrefix'
@@ -92,14 +94,14 @@ class GetCheckCorrectBoatsRc {
     }
   }
 
-  permissionConfigAliasChecks() {
+  permissionConfigAliasChecks () {
     this.boatsRc.permissionConfig = this.boatsRc.permissionConfig || {};
     if (!this.boatsRc.permissionConfig.methodAliasPosition) {
       this.boatsRc.permissionConfig.methodAliasPosition = MethodAliasPosition.AfterGlobalPrefix;
     }
   }
 
-  jsonSchemaRefParserBundleOpts(): void {
+  jsonSchemaRefParserBundleOpts (): void {
     if (process.env.jsonSchemaRefParserBundleOpts) {
       try {
         this.boatsRc.jsonSchemaRefParserBundleOpts = JSON.parse(process.env.jsonSchemaRefParserBundleOpts);
@@ -107,6 +109,12 @@ class GetCheckCorrectBoatsRc {
       } catch (e) {
         throw new Error('Error parsing process.env.jsonSchemaRefParserBundleOpts, invalid JSON provided.');
       }
+    }
+  }
+
+  ensureAtLeastEmptyPaths () {
+    if (!this.boatsRc.paths) {
+      this.boatsRc.paths = {};
     }
   }
 }

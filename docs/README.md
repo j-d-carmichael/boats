@@ -15,6 +15,7 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
  - Inject common content and responses
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
+ - Include files with Typescript like shorthand via absolute paths in the boatsrc file
  - See [built in functions](#template-functions-built-in) below for more
 
 Point boats at an entry index file and let it compile the rest automatically, either AsyncApi, OpenAPI or Swagger
@@ -76,13 +77,14 @@ A `.boatsrc` file should be a JSON representation of this interface:
 
 - `nunjucksOptions` Overwrite the default nunjucks options eg the tag delimiters
 - `jsonSchemaRefParserBundleOpts` Inject your own [jsonSchemaRefParserBundle](https://apitools.dev/json-schema-ref-parser/docs/options.html)
-- `permissionConfig` Option will override how th2020/12/14 2.7.0: pickProps added, allowing simple object building from props of anothere `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
+- `permissionConfig` Option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
   - `methodAlias` An object of method alias overrides, please see the interface for the default options
   - `methodAliasPosition` Place the alias (default behavior) after the global prefix (if present) or at the end of the permission string
   - `globalPrefix` Defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
   - `permissionStyle` The overall permission style, defaults to camelCase
   - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
 - `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
+- `paths` An object of key/value pairs that enable you to define absolute paths to be used in your templates. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
 - `fancyPluralization` Enables better pluralization for your model names (i.e. Universities instead of Universitys)
 
 TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
@@ -598,6 +600,35 @@ If a `.env` file is found at the root of your project then this will be parsed b
 
 > !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
 
+### Absolute Paths
+
+If managing relative links causes problems, it's possible to specify a shorthand for referring to absolute paths using the `paths` option in the `boatsrc` file.
+
+Given a config like:
+
+```json
+{
+  "paths": {
+    "@mixins": "./src/mixins",
+    "@components": "./src/components"
+  }
+}
+```
+
+You can reference a file under `./src/mixins` like so:
+
+```yaml
+{{ mixin("@mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
+
+```
+
+Or a schema can be referenced like:
+
+```yaml
+schema:
+  $ref: @components/schemas/generic/searchMeta.yml.njk
+```
+
 ### Variables
 In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set
 
@@ -614,11 +645,14 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/09/09 2.18.0: Init fixes
+- 2021/09/09 2.17.0: Rollback
+- 2021/09/08 2.16.0: Absolute paths in the .boatsrc file
 - 2021/09/07 2.15.0: The boatsrc is injected via the init function is 1 does not already exist
 - 2021/08/31 2.14.0: Fancy pluralisation added to the model naming
 - 2021/08/31 2.13.0: skipped as 13 is not a lucky number :b
 - 2021/06/28 2.12.0: windows compatibility 
-- 2021/06/27 2.11.0: relative mixins added
+- 2021/06/27 2.11.0: relative mixins added 
 - 2021/06/24 2.10.0: boats init now offers async api
 - 2021/06/21 2.9.0:  schemaRef helper for OA3 discriminator
 - 2021/01/28 2.8.0:  boats init package file as private

@@ -4,7 +4,7 @@ publish:
   message:
     contentType: application/json
     payload:
-      $ref: ../../components/schemas/ms-auth/cacheUser.yml.njk
+      $ref: @/srcASYNC2/components/schemas/ms-auth/cacheUser.yml.njk
 subscribe:
   operationId: {{uniqueOpId('Subscribe')}}
   message:

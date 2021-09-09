@@ -26,47 +26,6 @@
     }
   ],
   "paths": {
-    "/relative": {
-      "get": {
-         "tags": [
-            "Relative"
-         ],
-         "summary": "Example Relative Mixin Path",
-         "description": "Use a mixin which contains a relative path",
-         "operationId": "relativeGet",
-         "responses": {
-            "200": {
-               "description": "Successful fetch",
-               "content": {
-                  "application/json": {
-                     "schema": {
-                        "type": "object",
-                        "properties": {
-                           "included": {
-                              "type": "object",
-                              "properties": {
-                                 "one": {
-                                    "type": "string"
-                                 }
-                              }
-                           },
-                           "data": {
-                              "type": "array",
-                              "items": {
-                                 "$ref": "#/components/schemas/Weathers"
-                              }
-                           }
-                        }
-                     }
-                  }
-               }
-            },
-            "404": {
-               "description": "Temp not found"
-            }
-         }
-      }
-    },
     "/weather": {
       "get": {
         "tags": [
@@ -162,6 +121,11 @@
         "summary": "weather data",
         "description": "Create a new weather record.",
         "operationId": "weatherIdIdPut",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PathId"
+          }
+        ],
         "requestBody": {
           "description": "Optional description in *Markdown*",
           "required": true,
