@@ -645,6 +645,8 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/09/09 2.18.0: Init fixes
+- 2021/09/09 2.17.0: Rollback
 - 2021/09/08 2.16.0: Absolute paths in the .boatsrc file
 - 2021/09/07 2.15.0: The boatsrc is injected via the init function is 1 does not already exist
 - 2021/08/31 2.14.0: Fancy pluralisation added to the model naming
