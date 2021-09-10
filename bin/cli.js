@@ -21,7 +21,7 @@ if (!devMode) {
   });
 
   const cleanup = tsConfigPaths.register({
-    baseUrl: tsConfig.compilerOptions.baseUrl,
+    baseUrl: `${__dirname}/../${tsConfig.compilerOptions.baseUrl}`,
     paths: tsConfig.compilerOptions.paths,
   });
 
