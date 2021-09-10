@@ -2,7 +2,7 @@ import upath from 'upath';
 import YAML from 'js-yaml';
 import fs from 'fs-extra';
 import getOutputName from '@/getOutputName';
-import validate, { JsonSchema } from '@/validate';
+import validate from '@/validate';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 
@@ -32,7 +32,7 @@ export default async (
     }
 
     await validate.decideThenValidate(
-      bundled as JsonSchema,
+      bundled as any,
       boatsRc
     );
 

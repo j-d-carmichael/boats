@@ -3,46 +3,12 @@ import { validate } from 'swagger-parser';
 import { OpenAPI } from 'openapi-types';
 import parser from '@asyncapi/parser';
 import { BoatsRC } from '@/interfaces/BoatsRc';
-
-export type JsonSchema = {
-  [key: string]: unknown;
-  components?: {
-    schemas?: Record<string, unknown>
-  }
-};
+import generatePermissionsSchema from '@/generatePermissionsSchema';
+import { JsonSchema } from '@/types';
 
 class Validate {
-  generatePermissionsSchema(
-    bundledJson: JsonSchema,
-    generateSchemaNamed?: string
-  ): JsonSchema {
-    if (!bundledJson.paths || !generateSchemaNamed) {
-      return bundledJson;
-    }
-
-    const allPermissions: string[] = Object.values(bundledJson.paths)
-      .map((method) => Object.values(method))
-      .flat()
-      .map((definition: { 'x-permission'?: string }) => (
-        definition['x-permission'])
-      )
-      .filter((permissionName) => permissionName);
-
-    if (!allPermissions.length) {
-      return bundledJson;
-    }
-
-    bundledJson.components.schemas = bundledJson.components.schemas || {};
-    bundledJson.components.schemas[generateSchemaNamed] = {
-      type: 'string',
-      enum: allPermissions
-    };
-
-    return bundledJson;
-  }
-
   async decideThenValidate(bundledJson: JsonSchema, boatsRc: BoatsRC) {
-    bundledJson = this.generatePermissionsSchema(
+    bundledJson = generatePermissionsSchema(
       bundledJson,
       boatsRc.permissionConfig?.generateSchemaNamed
     );
