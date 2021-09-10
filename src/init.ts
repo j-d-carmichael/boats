@@ -102,11 +102,26 @@ export const createBoatsrcIfNotExists = (answers?: Record<string, string>): void
     },
     paths: {}
   };
-  if (answers && answers.oaType === 'OpenAPI 3.0.0') {
-    boatsrcDefault.paths = {
-      '@mixins/': 'src/mixins/',
-      '@parameters/': 'src/components/parameters/',
-    };
+  if (answers && answers.oaType) {
+    switch (answers.oaType) {
+      case 'OpenAPI 3.0.0': {
+        boatsrcDefault.paths = {
+          '@mixins/': 'src/mixins/',
+          '@parameters/': 'src/components/parameters/',
+          '@schemas/': 'src/components/schemas/',
+          '@/': './'
+        };
+      }
+        break;
+      case 'Swagger 2.0': {
+        boatsrcDefault.paths = {
+          '@oa2parameters/': 'src/parameters/',
+          '@oa2definitions/': 'src/definitions/',
+          '@/': './'
+        };
+      }
+    }
+
   }
   if (!fs.existsSync(upath.join(pwd, '/.boatsrc'))) {
     fs.writeFileSync(upath.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
