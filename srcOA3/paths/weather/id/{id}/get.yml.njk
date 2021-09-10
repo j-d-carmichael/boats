@@ -5,6 +5,7 @@ description: Get the latest temperatures
 operationId: {{ uniqueOpId() }}
 parameters:
   - $ref: @parameters/pathId.yml.njk
+  - $ref: @parameters/queryOffset.yml.njk
 responses:
   '200':
     description: Successful fetch

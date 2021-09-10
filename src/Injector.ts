@@ -1,10 +1,11 @@
+import 'ts-replace-all';
 import upath from 'upath';
 import deepmerge from 'deepmerge';
 import jsYaml from 'js-yaml';
 import picomatch from 'picomatch';
 import { render, renderString } from 'nunjucks';
 import { BoatsRC } from '@/interfaces/BoatsRc';
-import { pathInjector } from './pathInjector';
+import { PathInjector } from './pathInjector';
 
 class Injector {
   fileToRouteMap: any;
@@ -23,8 +24,12 @@ class Injector {
 
     const relativePathToRoot = upath.relative(upath.dirname(inputPath), upath.dirname(inputIndexYaml));
     const picomatchOptions = boatsRc.picomatchOptions || { bash: true };
-    const injector = new pathInjector(boatsRc.paths, pathFromIndexToBoatsRc);
-    const yaml = this.convertRootRefToRelative(render(fullPath), relativePathToRoot, injector);
+    const injector = new PathInjector(boatsRc.paths, pathFromIndexToBoatsRc);
+    const yaml = this.convertRootRefToRelative(
+      render(fullPath),
+      relativePathToRoot,
+      injector
+    );
 
     if (!global.boatsInject) {
       return yaml;
@@ -58,13 +63,14 @@ class Injector {
   /**
    * Merge the JSON from the YAML with the JSON injection content
    *
-   * @param  {object}  jsonTemplate        JSON representation of the YAML file
-   * @param  {string}  relativePathToRoot  Path from current file to root index (../ repeated)
-   * @param  {object}  content             Content to be injected
+   * @param  {object}       jsonTemplate        JSON representation of the YAML file
+   * @param  {string}       relativePathToRoot  Path from current file to root index (../ repeated)
+   * @param  {PathInjector} injector            Converts shorthand absolute paths to absolutes
+   * @param  {object}       content             Content to be injected
    *
    * @return {object}  Merged JSON of the template
    */
-  mergeInjection (jsonTemplate: any, relativePathToRoot: string, injector: pathInjector, content: string | any): any {
+  mergeInjection (jsonTemplate: any, relativePathToRoot: string, injector: PathInjector, content: string | any): any {
     if (!jsonTemplate || !content) {
       return jsonTemplate;
     }
@@ -243,12 +249,17 @@ class Injector {
     });
   }
 
-  convertRootRefToRelative (content: string, relativePathToRoot: string, injector: pathInjector) {
+  convertRootRefToRelative (content: string, relativePathToRoot: string, injector: PathInjector) {
+    // todo abstract and unit test
+    const replacer = (_: any, ref: any, rootRef: any) => {
+      const newPath = `${upath.dirname(rootRef)}/index.yml#/${upath.basename(rootRef)}`;
+      return `${ref}${relativePathToRoot}/${newPath}`;
+    };
     return injector.injectRefs(
-      content.replace(/(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g, (_: any, ref: any, rootRef: any) => {
-        const newPath = `${upath.dirname(rootRef)}/index.yml#/${upath.basename(rootRef)}`;
-        return `${ref}${relativePathToRoot}/${newPath}`;
-      }), relativePathToRoot);
+      content.replace(
+        /(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g,
+        replacer
+      ), relativePathToRoot);
   }
 }
 

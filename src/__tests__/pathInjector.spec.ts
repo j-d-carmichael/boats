@@ -1,7 +1,7 @@
-import { pathInjector } from "@/pathInjector";
+import { PathInjector } from "@/pathInjector";
 
 describe("null pathInjector", () => {
-  let injector: pathInjector = new pathInjector(null);
+  let injector: PathInjector = new PathInjector(null);
 
   it("injectRefs shouldn't do anything", () => {
     expect(injector.injectRefs('$ref: ../test', '../')).toStrictEqual('$ref: ../test');
@@ -13,7 +13,7 @@ describe("null pathInjector", () => {
 });
 
 describe("configured pathInjector", () => {
-  let injector: pathInjector = new pathInjector({
+  let injector: PathInjector = new PathInjector({
     "@/test": "./path/for/testing",
     "@/": "./other"
   });
@@ -40,7 +40,7 @@ describe("configured pathInjector", () => {
 });
 
 describe("configured pathInjector with src folder in a different path", () => {
-  let injector: pathInjector = new pathInjector(
+  let injector: PathInjector = new PathInjector(
     {
       '@/test': './path/for/testing',
       '@/': './',
