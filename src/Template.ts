@@ -23,7 +23,7 @@ import uniqueOpId from '@/nunjucksHelpers/uniqueOpId';
 import optionalProps from './nunjucksHelpers/optionalProps';
 import pickProps from './nunjucksHelpers/pickProps';
 import { BoatsRC } from '@/interfaces/BoatsRc';
-import { pathInjector } from './pathInjector';
+import { PathInjector } from './pathInjector';
 
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -246,7 +246,7 @@ class Template {
    * Sets up the tpl engine for the current file being rendered
    */
   // eslint-disable-next-line max-lines-per-function
-  async nunjucksSetup () {
+  nunjucksSetup () {
     const env = nunjucks.configure(this.boatsrc.nunjucksOptions);
 
     const processEnvVars = cloneObject(process.env);
@@ -260,7 +260,7 @@ class Template {
       });
     }
     env.addGlobal('boatsConfig', this.boatsrc);
-    env.addGlobal('pathInjector', new pathInjector(this.boatsrc.paths, upath.relative('.', upath.dirname(this.inputFile))));
+    env.addGlobal('pathInjector', new PathInjector(this.boatsrc.paths, upath.relative('.', upath.dirname(this.inputFile))));
     env.addGlobal('mixinNumber', this.mixinNumber);
     env.addGlobal('mixinObject', this.mixinObject);
     env.addGlobal('indentNumber', this.indentNumber);
