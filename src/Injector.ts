@@ -256,7 +256,7 @@ class Injector {
       return `${ref}${relativePathToRoot}/${newPath}`;
     };
     return injector.injectRefs(
-      content.replace(
+      content.replaceAll(
         /(\$ref[ '"]*:[ '"]*)#\/([^ '"$]*)/g,
         replacer
       ), relativePathToRoot);

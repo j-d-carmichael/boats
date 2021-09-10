@@ -1,6 +1,7 @@
 import * as upath from 'upath';
-import { Paths } from './interfaces/BoatsRc';
 import fs from 'fs-extra';
+import 'ts-replace-all';
+import { Paths } from './interfaces/BoatsRc';
 
 export class PathInjector {
   keyPatterns: string[];
@@ -76,7 +77,6 @@ export class PathInjector {
   doInjectRefs(target: string, relativeRoot: string): string {
     for (let i = 0; i < this.refExpressions.length; i++) {
       const keyPattern = this.refExpressions[i];
-
       if (keyPattern.test(target)) {
         // First remove the relative path from the .boatsrc to the index file,
         // as the templating has already happened
@@ -84,7 +84,7 @@ export class PathInjector {
         const value = upath.join(relativeRoot,
           upath.relative(this.sourceFolderInWorkspace, this.paths[this.keyPatterns[i]]));
 
-        return target.replace(keyPattern, `$1${value.replace('//', '/')}`);
+        target = target.replaceAll(keyPattern, `$1${value.replace('//', '/')}`);
       }
     }
 
