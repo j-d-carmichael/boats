@@ -1,11 +1,11 @@
 import upath from 'upath';
 import fs from 'fs-extra';
 import nunjucks from 'nunjucks';
-import { pathInjector } from '../pathInjector';
+import { PathInjector } from '../pathInjector';
 
 const mixinDirectoryKey = 'mixinDirectory';
 
-function parseMixinPath(mixinPath: string, pathInjector: pathInjector, currentFilePointer: string): string {
+function parseMixinPath(mixinPath: string, pathInjector: PathInjector, currentFilePointer: string): string {
   // Don't forget to parse the mixin path, as that could have been defined as an absolute path
   // Maybe should be done when setting mixinPath initially
   // eslint-disable-next-line prefer-const
@@ -20,7 +20,7 @@ function parseMixinPath(mixinPath: string, pathInjector: pathInjector, currentFi
 
 export default function (): string {
   const tplGlobals = this.env.globals;
-  const pathInjector = (tplGlobals.pathInjector) as pathInjector;
+  const pathInjector = (tplGlobals.pathInjector) as PathInjector;
 
   // eslint-disable-next-line prefer-rest-params
   const [argumentPath, isAbsolute] = pathInjector.injectMixin(arguments[0])

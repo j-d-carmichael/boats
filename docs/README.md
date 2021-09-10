@@ -85,7 +85,7 @@ A `.boatsrc` file should be a JSON representation of this interface:
   - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
   - `generateSchemaNamed` Schema name to auto generate an enum with all available permission values (leave this empty or skip the option to disable this auto-generated schema)
 - `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
-- `paths` An object of key/value pairs that enable you to define absolute paths to be used in your templates. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
+- `paths` An object of key/value pairs that enable you to define [absolute paths](#absolute-paths) to be used in your templates. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
 - `fancyPluralization` Enables better pluralization for your model names (i.e. Universities instead of Universitys)
 
 TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
@@ -175,6 +175,35 @@ You can switch from yml to njk via cli arguments.
 
 There is an issue still with the `.njk` ext in that a reference to a file in another project on disk via `...yml.njk` will break as BOATS removes `.njk` after running through the nunjucks tpl engine.
 
+### Absolute Paths
+
+If managing relative links causes problems, it's possible to specify a shorthand for referring to absolute paths using the `paths` option in the `boatsrc` file.
+
+Given a config like:
+
+```json
+{
+  "paths": {
+    "@mixins": "./src/mixins",
+    "@components": "./src/components"
+  }
+}
+```
+
+You can reference a file under `./src/mixins` like so:
+
+```yaml
+{{ mixin("@mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
+
+```
+
+Or a schema can be referenced like:
+
+```yaml
+schema:
+  $ref: @components/schemas/generic/searchMeta.yml.njk
+```
+
 ### Auto Index Files
 In async/swagger/openapi the channels/paths require an index file to register the routes.
 By the way [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser), unless you create an index file then the references to component/definitions will not look pretty and easily break other tools.
@@ -204,6 +233,52 @@ If you have an older set of BOATS files then you might have named the model file
 ```
 {{ autoComponentIndexer('Model') }}
 ```
+
+### autoTag
+Calculates the tag based on the location of the file in the folder structure:
+```yaml
+tags:
+  - <$ autoTag() $>
+```
+
+The following path:
+`src/paths/temperature/get.yml`
+Results in:
+`Temperature`
+
+The following path:
+`src/paths/temperature/europe/get.yml`
+Results in:
+`Temperature`
+
+
+### Custom template functions (your own)
+It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
+
+Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
+```
+boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.js
+```
+
+The `./nunjucksHelpers/injectPackageJsonVersion.js` should export a single default function:
+```javascript
+const packageJson = require('../package.json')
+module.exports = () => {
+  // assuming this is a valid package json file
+  return packageJson.version
+}
+```
+
+In your yaml file you can now access the custom function by file name:
+```yaml
+info:
+  version: <$ injectPackageJsonVersion() $>
+```
+
+- Customer helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
+- A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
+- The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
+
 
 ### inject
 
@@ -338,6 +413,44 @@ Content is either a JSON representation of the YAML content to inject, or a stri
 
 Type less do more.
 
+### merge
+allOf equiv. for when allOf is not supported.
+```
+{{ merge('../userAgent/model.yml', '../userIp/model.yml') }}
+```
+
+### mixin
+Example use:
+```yaml
+Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
+```
+
+The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L9).
+
+The mixin function assumes the 1st given argument to be the relative path to the mixin template yaml file.
+
+All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg `var1`
+
+Mixin file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml) and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
+
+The mixin will automatically calculate indents. If you use a mixin for plural models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk), then an additional argument can be added to the end:
+```
+{{ mixin("../../../mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
+```
+
+In most cases the additional indentation which not break anything, but if a clean partial output file is required...
+
+### packageJson
+Example use:
+```yaml
+openapi: "3.0.0"
+info:
+  version: <$ packageJson('version') $>
+```
+
+Returns the value of an expected attribute to be found in your `package.json` or throws an error.
+
+
 ### pickProps
 
 It takes the definitions path as the first parameter, and an array of strings or rest parameters specifying props to pick:
@@ -381,82 +494,16 @@ LocationPut:
       type: string
 ```
 
-### merge
-allOf equiv. for when allOf is not supported.
-```
-{{ merge('../userAgent/model.yml', '../userIp/model.yml') }}
-```
+### Process Environment Variables
+During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI files, this is common with AWS's cloud formation when used with dynamic containers.
 
-### mixin
-Example use:
-```yaml
-Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
-```
+To accommodate this, all `process.env` variables are exposed in read-only format to the templates.
 
-The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L9).
+To enable easier development with `process.env` variables BOATS also makes use of the [dotenv](https://www.npmjs.com/package/dotenv) package during cli use only.
 
-The mixin function assumes the 1st given argument to be the relative path to the mixin template yaml file.
+If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made available to the Nunjucks engine as a tpl variable.
 
-All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg `var1`
-
-Mixin file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml) and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
-
-The mixin will automatically calculate indents. If you use a mixin for plural models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk), then an additional argument can be added to the end:
-```
-{{ mixin("../../../mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
-```
-
-In most cases the additional indentation which not break anything, but if a clean partial output file is required...
-
-### packageJson
-Example use:
-```yaml
-openapi: "3.0.0"
-info:
-  version: <$ packageJson('version') $>
-```
-
-Returns the value of an expected attribute to be found in your `package.json` or throws an error.
-
-### uniqueOpId
-Example use:
-```yaml
-tags:
-  - temperature
-summary: Temperature data
-description: Get the latest temperature
-operationId: <$ uniqueOpId() $>
-```
-The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system.
-The path leading up to the entry point is always removed.
-In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "src/paths/".
-
-So the following path:
-`/home/me/code/project/src/paths/v1/temperature/get.yml`
-
-Results in:
-`v1TemperatureGet`
-
-Each segment of the path is run through [camelcase](https://github.com/sindresorhus/camelcase#readme) so `this-folder` results in `thisFolder`
-
-This is especially helpful for API generators eg: codegen
-
-### autoTag
-Calculates the tag based on the location of the file in the folder structure:
-```yaml
-tags:
-  - <$ autoTag() $>
-```
-
-The following path:
-`src/paths/temperature/get.yml`
-Results in:
-`Temperature`
-
-The following path:
-`src/paths/temperature/europe/get.yml`
-Results in:
-`Temperature`
+> !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
 
 ### optionalProps
 
@@ -518,6 +565,7 @@ properties:
       type: string
 ```
 
+
 ### routePermission
 Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control.
 
@@ -532,9 +580,9 @@ x-permission: <$ routePermission() $>
 You should name the attribute something that fits your generator, `x-permission: ...` is configured to work with [generate-it's](https://www.npmjs.com/package/generate-it) typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28).
 
 You may also:
- - Instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`.
- - Add a custom tail string to the output
- - Add a custom prefix to the start of the output
+- Instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`.
+- Add a custom tail string to the output
+- Add a custom prefix to the start of the output
 
 Here is a kitchen sink example:
 ```
@@ -563,72 +611,29 @@ delete: 'delete',
 
 Of course, you can remote control the injection of the permissions to all routes from the [inject helper](#inject).
 
-### Custom template functions (your own)
-It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
-
-Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
-```
-boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.js
-```
-
-The `./nunjucksHelpers/injectPackageJsonVersion.js` should export a single default function:
-```javascript
-const packageJson = require('../package.json')
-module.exports = () => {
-  // assuming this is a valid package json file
-  return packageJson.version
-}
-```
-
-In your yaml file you can now access the custom function by file name:
+### uniqueOpId
+Example use:
 ```yaml
-info:
-  version: <$ injectPackageJsonVersion() $>
+tags:
+  - temperature
+summary: Temperature data
+description: Get the latest temperature
+operationId: <$ uniqueOpId() $>
 ```
+The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system.
+The path leading up to the entry point is always removed.
+In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "src/paths/".
 
- - Customer helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
- - A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
- - The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
+So the following path:
+`/home/me/code/project/src/paths/v1/temperature/get.yml`
 
-### Process Environment Variables
-During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI files, this is common with AWS's cloud formation when used with dynamic containers.
+Results in:
+`v1TemperatureGet`
 
-To accommodate this, all `process.env` variables are exposed in read-only format to the templates.
+Each segment of the path is run through [camelcase](https://github.com/sindresorhus/camelcase#readme) so `this-folder` results in `thisFolder`
 
-To enable easier development with `process.env` variables BOATS also makes use of the [dotenv](https://www.npmjs.com/package/dotenv) package during cli use only.
+This is especially helpful for API generators eg: codegen
 
-If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made available to the Nunjucks engine as a tpl variable.
-
-> !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
-
-### Absolute Paths
-
-If managing relative links causes problems, it's possible to specify a shorthand for referring to absolute paths using the `paths` option in the `boatsrc` file.
-
-Given a config like:
-
-```json
-{
-  "paths": {
-    "@mixins": "./src/mixins",
-    "@components": "./src/components"
-  }
-}
-```
-
-You can reference a file under `./src/mixins` like so:
-
-```yaml
-{{ mixin("@mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
-
-```
-
-Or a schema can be referenced like:
-
-```yaml
-schema:
-  $ref: @components/schemas/generic/searchMeta.yml.njk
-```
 
 ### Variables
 In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set
@@ -646,7 +651,8 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2021/09/10 2.19.0: Add an option to automatically generate an enum schema with all availble permissions
+- 2021/09/10 2.20.0: Add an option to automatically generate an enum schema with all availble permissions
+- 2021/09/09 2.19.0: Absolute paths now work for multiple path shorthands in 1 file
 - 2021/09/09 2.18.0: Init fixes
 - 2021/09/09 2.17.0: Rollback
 - 2021/09/08 2.16.0: Absolute paths in the .boatsrc file

@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "2.18.1",
+  "version": "2.19.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -72,6 +72,7 @@
     "picomatch": "2.2.2",
     "pluralize": "^8.0.0",
     "swagger-parser": "10.0.1",
+    "ts-replace-all": "^1.0.0",
     "tslib": "2.0.1",
     "upath": "^2.0.1",
     "walker": "1.0.7"

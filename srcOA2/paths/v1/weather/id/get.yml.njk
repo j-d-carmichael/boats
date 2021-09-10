@@ -6,11 +6,11 @@ operationId: {{ uniqueOpId() }}
 produces:
   - application/json
 parameters:
-  - $ref: ../../../../parameters/pathId.yml.njk
+  - $ref: @oa2parameters/pathId.yml.njk
 responses:
   '200':
     description: Successful fetch
     schema:
-      $ref: ../../../../definitions/weather/model.yml.njk
+      $ref: @oa2definitions/weather/model.yml.njk
   '404':
     description: Temp not found

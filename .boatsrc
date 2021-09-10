@@ -10,8 +10,11 @@
     "bash": true
   },
   "paths": {
+    "@oa2parameters/": "srcOA2/parameters/",
+    "@oa2definitions/": "srcOA2/definitions/",
     "@mixins": "srcOA3/mixins/",
     "@parameters/": "srcOA3/components/parameters/",
+    "@schemas/": "srcOA3/components/schemas/",
     "@/": "./"
   }
 }
