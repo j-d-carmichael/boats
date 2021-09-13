@@ -1,14 +1,5 @@
 import { JsonSchema } from '@/interfaces/JsonSchema';
 
-class SchemaAlreadyExistsError extends Error {
-  constructor(generateSchemaNamed: string) {
-    super(
-      `Schema named "${generateSchemaNamed}" already exists. `
-      + 'Make sure to change "permissionConfig.generateSchemaNamed" to a schema name you are not already using.'
-    );
-  }
-}
-
 const generatePermissionsSchema = (
   bundledJson: JsonSchema,
   generateSchemaNamed?: string
@@ -41,7 +32,9 @@ const generatePermissionsSchema = (
     : bundledJson.components.schemas;
 
   if (schemasRef[generateSchemaNamed]) {
-    throw new SchemaAlreadyExistsError(generateSchemaNamed);
+    console.info(
+      `INFO: Schema named "${generateSchemaNamed}" already exists, overwriting this with the generated permissions schema.`
+    );
   }
 
   schemasRef[generateSchemaNamed] = {
