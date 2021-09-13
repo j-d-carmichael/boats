@@ -4,7 +4,7 @@ import { OpenAPI } from 'openapi-types';
 import parser from '@asyncapi/parser';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import generatePermissionsSchema from '@/generatePermissionsSchema';
-import { JsonSchema } from '@/types';
+import { JsonSchema } from '@/interfaces/JsonSchema';
 
 class Validate {
   async decideThenValidate(bundledJson: JsonSchema, boatsRc: BoatsRC) {

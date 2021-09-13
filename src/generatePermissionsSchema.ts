@@ -1,4 +1,4 @@
-import { JsonSchema } from '@/types';
+import { JsonSchema } from '@/interfaces/JsonSchema';
 
 class SchemaAlreadyExistsError extends Error {
   constructor(generateSchemaNamed: string) {
