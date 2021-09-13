@@ -1,11 +1,18 @@
 import cloneObject from '@/cloneObject';
 import { validate } from 'swagger-parser';
 import { OpenAPI } from 'openapi-types';
-
 import parser from '@asyncapi/parser';
+import { BoatsRC } from '@/interfaces/BoatsRc';
+import generatePermissionsSchema from '@/generatePermissionsSchema';
+import { JsonSchema } from '@/interfaces/JsonSchema';
 
 class Validate {
-  async decideThenvalidate(bundledJson: Record<string, unknown>) {
+  async decideThenValidate(bundledJson: JsonSchema, boatsRc: BoatsRC) {
+    bundledJson = generatePermissionsSchema(
+      bundledJson,
+      boatsRc.permissionConfig?.generateSchemaNamed
+    );
+
     if (bundledJson.asyncapi) {
       return this.asyncapi(JSON.stringify(bundledJson));
     }
@@ -14,7 +21,7 @@ class Validate {
     }
   }
 
-  openapi(input: Record<string, unknown>) {
+  openapi(input: JsonSchema) {
     return new Promise((resolve, reject) => {
       if (typeof input === 'object') {
         input = cloneObject(input);

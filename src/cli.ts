@@ -63,7 +63,7 @@ const parseCli = async () => {
     const pathWrittenTo = await bundlerSwaggerParse(
       returnFile,
       program.output,
-      boatsRc.jsonSchemaRefParserBundleOpts,
+      boatsRc,
       program.indentation,
       program.exclude_version,
       program.dereference

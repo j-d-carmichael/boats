@@ -83,6 +83,7 @@ A `.boatsrc` file should be a JSON representation of this interface:
   - `globalPrefix` Defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
   - `permissionStyle` The overall permission style, defaults to camelCase
   - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
+  - `generateSchemaNamed` Schema name to auto generate an enum with all available permission values (leave this empty or skip the option to disable this auto-generated schema)
 - `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
 - `paths` An object of key/value pairs that enable you to define [absolute paths](#absolute-paths) to be used in your templates. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
 - `fancyPluralization` Enables better pluralization for your model names (i.e. Universities instead of Universitys)
@@ -650,6 +651,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/09/10 2.20.0: Add an option to automatically generate an enum schema with all availble permissions
 - 2021/09/09 2.19.0: Absolute paths now work for multiple path shorthands in 1 file
 - 2021/09/09 2.18.0: Init fixes
 - 2021/09/09 2.17.0: Rollback
@@ -657,8 +659,8 @@ url: <$ host $>
 - 2021/09/07 2.15.0: The boatsrc is injected via the init function is 1 does not already exist
 - 2021/08/31 2.14.0: Fancy pluralisation added to the model naming
 - 2021/08/31 2.13.0: skipped as 13 is not a lucky number :b
-- 2021/06/28 2.12.0: windows compatibility 
-- 2021/06/27 2.11.0: relative mixins added 
+- 2021/06/28 2.12.0: windows compatibility
+- 2021/06/27 2.11.0: relative mixins added
 - 2021/06/24 2.10.0: boats init now offers async api
 - 2021/06/21 2.9.0:  schemaRef helper for OA3 discriminator
 - 2021/01/28 2.8.0:  boats init package file as private
