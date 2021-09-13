@@ -651,6 +651,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/09/13 2.22.0: (TEMP) The npm / github version check is removed to bypass github stalling issues
 - 2021/09/13 2.21.0: Allow overwriting of existing schema when the permissions schema is created
 - 2021/09/10 2.20.0: Add an option to automatically generate an enum schema with all available permissions
 - 2021/09/09 2.19.0: Absolute paths now work for multiple path shorthands in 1 file
