@@ -3,9 +3,8 @@ import YAML from 'js-yaml';
 import fs from 'fs-extra';
 import getOutputName from '@/getOutputName';
 import validate from '@/validate';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const $RefParser = require('json-schema-ref-parser');
+import { BoatsRC } from '@/interfaces/BoatsRc';
+import $RefParser from '@apidevtools/json-schema-ref-parser';
 
 /**
  * Bundles many files together and returns the final output path
@@ -20,19 +19,22 @@ const $RefParser = require('json-schema-ref-parser');
 export default async (
   inputFile: string,
   outputFile: string,
-  options = $RefParser.Options,
+  boatsRc: BoatsRC,
   indentation = 2,
   excludeVersion: boolean,
   dereference: boolean
 ): Promise<string> => {
   let bundled;
   try {
-    bundled = await $RefParser.bundle(inputFile, options);
+    bundled = await $RefParser.bundle(inputFile, boatsRc.jsonSchemaRefParserBundleOpts);
     if (dereference) {
       bundled = await $RefParser.dereference(bundled);
     }
 
-    await validate.decideThenvalidate(bundled);
+    await validate.decideThenValidate(
+      bundled as any,
+      boatsRc
+    );
 
     let contents;
     if (upath.extname(outputFile) === '.json') {

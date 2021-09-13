@@ -13,8 +13,8 @@ export interface MethodAlias {
 }
 
 export interface Paths {
-    [key: string]: string;
-  }
+  [key: string]: string;
+}
 
 export interface BoatsRC {
   nunjucksOptions?: {
@@ -37,6 +37,7 @@ export interface BoatsRC {
     usePackageJsonNameAsPrefix?: boolean; // to be deprecated, use globalPrefix instead
     permissionStyle?: StringStyle;
     permissionSegmentStyle?: StringStyle;
+    generateSchemaNamed?: string;
   };
   picomatchOptions?: any;
   fancyPluralization?: boolean;
