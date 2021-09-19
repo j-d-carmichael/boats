@@ -3,9 +3,9 @@ import commander from '@/commander';
 import convertToNunjucksOrYaml from '@/convertToNunjucksOrYaml';
 import Template from '@/Template';
 import fs from 'fs-extra';
-// import checkVersion from 'npm-tool-version-check';
+import checkVersion from 'npm-tool-version-check';
 import upath from 'upath';
-// import packageJson from '../package.json';
+import packageJson from '../package.json';
 import 'colors';
 import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
@@ -13,7 +13,7 @@ import Snippets from '@/Snippets';
 import { init } from './init';
 
 const dotenvFilePath = upath.join(process.cwd(), '.env');
-// const remoteBoatsPackageJson = 'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json';
+const remoteBoatsPackageJson = 'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json';
 
 // If a .env file exists call dotenv package to set into the env vars
 if (fs.pathExistsSync(dotenvFilePath)) {
@@ -29,7 +29,7 @@ const parseCli = async () => {
   }
 
   if (process.env.NODE_ENV !== 'test') {
-    // await checkVersion(packageJson.version, remoteBoatsPackageJson, 'BOATS').catch(catchHandle);  Need a better alternative to this now as github stalls when this package tries to fetch the version
+    await checkVersion(packageJson.version, remoteBoatsPackageJson, 'BOATS').catch(catchHandle);
   }
 
   if (program.init){
