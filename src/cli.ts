@@ -13,7 +13,6 @@ import Snippets from '@/Snippets';
 import { init } from './init';
 
 const dotenvFilePath = upath.join(process.cwd(), '.env');
-const remoteBoatsPackageJson = 'https://raw.githubusercontent.com/johndcarmichael/boats/master/package.json';
 
 // If a .env file exists call dotenv package to set into the env vars
 if (fs.pathExistsSync(dotenvFilePath)) {
@@ -29,7 +28,7 @@ const parseCli = async () => {
   }
 
   if (process.env.NODE_ENV !== 'test') {
-    await checkVersion(packageJson.version, remoteBoatsPackageJson, 'BOATS').catch(catchHandle);
+    await checkVersion(packageJson.version, packageJson.name, 'BOATS').catch(catchHandle);
   }
 
   if (program.init){
