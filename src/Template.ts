@@ -248,7 +248,6 @@ class Template {
   // eslint-disable-next-line max-lines-per-function
   nunjucksSetup () {
     const env = nunjucks.configure(this.boatsrc.nunjucksOptions);
-
     const processEnvVars = cloneObject(process.env);
     for (const key in processEnvVars) {
       env.addGlobal(key, processEnvVars[key]);
@@ -288,8 +287,18 @@ class Template {
     // already injected, which could be good thing if you know what you are doing.
     for (let i = 0; i < this.helpFunctionPaths.length; ++i) {
       const filePath = this.helpFunctionPaths[i];
+
+      if (filePath.endsWith('.ts')) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        require('ts-node').register();
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       let helper = require(filePath);
+      if (typeof helper !== 'function' && typeof helper.default === 'function') {
+        helper = helper.default;
+      }
+
       const helperType = helper(nunjucks);
       if (typeof helperType === 'function') {
         helper = helperType;

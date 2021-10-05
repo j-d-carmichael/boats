@@ -651,6 +651,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/10/05 2.25.0: allow loading of helper files in TypeScript using ts-node
 - 2021/09/19 2.24.0: npm version check updated to use npm api instead of github json url
 - 2021/09/19 2.23.0: npm version check updated
 - 2021/09/13 2.22.0: (TEMP) The npm / github version check is removed to bypass github stalling issues
