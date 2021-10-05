@@ -252,12 +252,12 @@ Results in:
 `Temperature`
 
 
-### Custom template functions (your own)
+### Custom template helpers / functions
 It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
 
 Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
 ```
-boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.js
+boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.ts
 ```
 
 The `./nunjucksHelpers/injectPackageJsonVersion.js` should export a single default function:
@@ -275,10 +275,10 @@ info:
   version: <$ injectPackageJsonVersion() $>
 ```
 
-- Customer helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
+- Custom helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
 - A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
 - The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
-
+- You can write your helper in either TypeScript or Javascript
 
 ### inject
 
