@@ -1,4 +1,6 @@
 import Template from '../Template';
+import _ from 'lodash';
+import upath from 'upath';
 
 const string1 = `
 Weather: mixin('some/path', 321)
@@ -96,5 +98,112 @@ describe('setDefaultStripValue', () => {
     } catch (e) {
       done();
     }
+  });
+});
+
+describe('nunjucksSetup', () => {
+  let mockEnv: Record<string, any>;
+  let mockTsNode: any;
+  let template: typeof Template;
+
+  beforeEach(() => {
+    jest.resetModules();
+
+    mockEnv = {
+      addGlobal(k: any, v: any) {
+        this[k] = v;
+      }
+    };
+
+    jest.mock('nunjucks', () => ({
+      configure: () => mockEnv
+    }));
+
+    mockTsNode = {
+      register: jest.fn()
+    };
+
+    jest.mock('ts-node', () => mockTsNode);
+
+    template = jest.requireActual('../Template').default;
+    template.inputFile = 'test.yml';
+    template.helpFunctionPaths = [];
+    template.boatsrc = {
+      nunjucksOptions: { beep: 'boop' }
+    };
+  });
+
+  afterEach(() => {
+    jest.resetModules();
+  });
+
+  it('copies process.env variables to nunjucks env', () => {
+    template.nunjucksSetup();
+
+    for (const envKey in process.env) {
+      expect(mockEnv[envKey]).toBeDefined();
+    }
+  });
+
+  it('defines default helpers', () => {
+    template.nunjucksSetup();
+
+    const internalHelpersNames = [
+      'mixinNumber',
+      'mixinObject',
+      'indentNumber',
+      'indentObject',
+      'mixinVarNamePrefix',
+      'currentFilePointer'
+    ];
+
+    for (const name of internalHelpersNames) {
+      expect(mockEnv[name]).toEqual((template as any)[name]);
+    }
+
+    const importedFnNames = [
+      'autoChannelIndexer',
+      'autoComponentIndexer',
+      'autoPathIndexer',
+      'schemaRef',
+      'autoTag',
+      'fileName',
+      'inject',
+      'optionalProps',
+      'merge',
+      'mixin',
+      'routePermission',
+      'uniqueOpId',
+      'packageJson'
+    ];
+
+    for (const name of importedFnNames) {
+      expect(mockEnv[name]).toEqual(expect.any(Function));
+    }
+
+    expect(mockEnv.boatsConfig).toEqual(template.boatsrc);
+    expect(mockEnv.pathInjector).toBeDefined();
+    expect(mockEnv.uniqueOpIdStripValue).toEqual(template.stripValue);
+    expect(mockEnv._.VERSION).toEqual(_.VERSION);
+  });
+
+  it('loads external helper from file - javascript', () => {
+    template.helpFunctionPaths = [
+      upath.normalize(`${__dirname}/testHelpers/exampleJsHelper.js`)
+    ];
+
+    template.nunjucksSetup();
+    expect(mockEnv.exampleJsHelper.name).toBe('exampleJsHelper');
+  });
+
+  it('loads external helper from file - typescript', () => {
+    template.helpFunctionPaths = [
+      upath.normalize(`${__dirname}/testHelpers/exampleTsHelper.ts`)
+    ];
+
+    template.nunjucksSetup();
+
+    expect(mockTsNode.register).toBeCalled();
+    expect(mockEnv.exampleTsHelper.name).toBe('exampleTsHelper');
   });
 });
