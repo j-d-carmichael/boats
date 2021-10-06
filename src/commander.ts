@@ -17,7 +17,7 @@ export default (args: any[]): any => {
     )
     .option(
       '-f, --functions [filepath]',
-      'Array of helper function relative paths, eg "-f ./helperOne.js -f ./helperTwo"',
+      'Array of helper function relative paths, eg "-f ./helperOne.js -f ./helperTwo -f ./helperThree.ts"',
       helperFunctions,
       []
     )
