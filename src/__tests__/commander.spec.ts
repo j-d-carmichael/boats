@@ -1,5 +1,4 @@
 import program from '../commander';
-import helperFunctions from '@/commander.helperFunctions';
 
 jest.mock('@/commander.helperFunctions', () => (path: string) => [path]);
 
@@ -29,7 +28,7 @@ describe('cli param parsing', () => {
       '-s',
       '/home/bobthebuilder',
       '-x',
-      '-y',
+      '-y'
     ]);
     expect(commanderReturn.input).toBe('inpath');
     expect(commanderReturn.output).toBe('outpath');
@@ -64,6 +63,7 @@ describe('cli param parsing', () => {
       '--convert_to_yml',
       '/remote_directory_yml',
       '--yes',
+      '--skipValidation'
     ]);
 
     expect(commanderReturn.init).toBe(true);
@@ -77,5 +77,6 @@ describe('cli param parsing', () => {
     expect(commanderReturn.convert_to_njk).toBe('/remote_directory_njk');
     expect(commanderReturn.convert_to_yml).toBe('/remote_directory_yml');
     expect(commanderReturn.yes).toBe(true);
+    expect(commanderReturn.skipValidation).toBe(true);
   });
 });

@@ -42,6 +42,10 @@ export default (args: any[]): any => {
       'Eg boats -I oa2/crud -R ./src/paths -N user'
     )
     .option(
+      '--skipValidation',
+      'Completely bypass any validation, use with caution.'
+    )
+    .option(
       '-s, --strip_value <strip>',
       'The value removed from the file path to create the uniqueOpId, it not provided will be either src/paths/ or src/channels/ based on api type.',
       false

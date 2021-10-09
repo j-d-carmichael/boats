@@ -58,14 +58,14 @@ const parseCli = async () => {
       program.functions,
       boatsRc
     );
-
     const pathWrittenTo = await bundlerSwaggerParse(
       returnFile,
       program.output,
       boatsRc,
       program.indentation,
       program.exclude_version,
-      program.dereference
+      program.dereference,
+      program.skipValidation
     );
     console.log('Completed, the files were rendered, validated and bundled to: '.green + pathWrittenTo.green.bold);
   }
