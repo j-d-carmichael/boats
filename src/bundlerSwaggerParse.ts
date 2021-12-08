@@ -6,24 +6,24 @@ import validate from '@/validate';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 
-/**
- * Bundles many files together and returns the final output path
- * @param inputFile
- * @param outputFile
- * @param options
- * @param indentation
- * @param excludeVersion
- * @param dereference
- * @returns {Promise<string>}
- */
-export default async (
+interface Input {
   inputFile: string,
   outputFile: string,
   boatsRc: BoatsRC,
-  indentation = 2,
+  indentation: number,
+  doNotValidate: boolean,
   excludeVersion: boolean,
   dereference: boolean
-): Promise<string> => {
+}
+
+/**
+ * Bundles many files together and returns the final output path
+ */
+export default async (input: Input): Promise<string> => {
+  const { excludeVersion, dereference, inputFile, outputFile, boatsRc } = input;
+  const doNotValidate = input.doNotValidate || false;
+  const indentation = input.indentation || 2;
+
   let bundled;
   try {
     bundled = await $RefParser.bundle(inputFile, boatsRc.jsonSchemaRefParserBundleOpts);
@@ -31,17 +31,21 @@ export default async (
       bundled = await $RefParser.dereference(bundled);
     }
 
-    await validate.decideThenValidate(
-      bundled as any,
-      boatsRc
-    );
+    if (doNotValidate) {
+      console.warn('Bypassing validation as dontValidateOutput flag seen')
+    } else {
+      await validate.decideThenValidate(
+        bundled as any,
+        boatsRc
+      );
+    }
 
     let contents;
     if (upath.extname(outputFile) === '.json') {
       contents = JSON.stringify(bundled, null, indentation);
     } else {
       contents = YAML.safeDump(bundled, {
-        indent: indentation,
+        indent: indentation
       });
     }
     fs.ensureDirSync(upath.dirname(outputFile));

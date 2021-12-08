@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "2.25.0",
+  "version": "2.26.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -57,9 +57,10 @@
   "homepage": "https://github.com/liffery-com/boats#readme",
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
+    "@apidevtools/swagger-parser": "^10.0.3",
     "@asyncapi/parser": "^1.1.1",
     "colors": "1.4.0",
-    "commander": "6.1.0",
+    "commander": "^8.3.0",
     "deepmerge": "4.2.2",
     "dotenv": "8.2.0",
     "fs-extra": "9.0.1",
@@ -70,7 +71,6 @@
     "nunjucks": "3.2.2",
     "picomatch": "2.2.2",
     "pluralize": "^8.0.0",
-    "swagger-parser": "10.0.1",
     "ts-replace-all": "^1.0.0",
     "tslib": "2.0.1",
     "upath": "^2.0.1",

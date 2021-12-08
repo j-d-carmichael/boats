@@ -20,6 +20,7 @@ if (fs.pathExistsSync(dotenvFilePath)) {
   require('dotenv').config({ path: dotenvFilePath });
 }
 
+// eslint-disable-next-line max-lines-per-function
 const parseCli = async () => {
   const program = commander(process.argv);
 
@@ -31,7 +32,7 @@ const parseCli = async () => {
     await checkVersion(packageJson.version, packageJson.name, 'BOATS').catch(catchHandle);
   }
 
-  if (program.init){
+  if (program.init) {
     return await init();
   }
 
@@ -59,14 +60,15 @@ const parseCli = async () => {
       boatsRc
     );
 
-    const pathWrittenTo = await bundlerSwaggerParse(
-      returnFile,
-      program.output,
+    const pathWrittenTo = await bundlerSwaggerParse({
+      inputFile: returnFile,
+      outputFile: program.output,
       boatsRc,
-      program.indentation,
-      program.exclude_version,
-      program.dereference
-    );
+      dereference: program.dereference,
+      doNotValidate: program.dontValidateOutput,
+      excludeVersion: program.exclude_version,
+      indentation: program.indentation
+    });
     console.log('Completed, the files were rendered, validated and bundled to: '.green + pathWrittenTo.green.bold);
   }
 };

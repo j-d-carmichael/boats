@@ -58,8 +58,12 @@ export default (args: any[]): any => {
       '--convert_to_yml <localDirectory>',
       'Converted to .yml.njk syntax but want to revert: --convert_to_yml ./src'
     )
+    .option(
+      '--dontValidateOutput',
+      'When passed, the compiled file will not be validated'
+    )
     .option('-y, --yes', 'Assumes yes to any questions prompted by the tool (skip version check).')
 
     .parse(args);
-  return commander;
+  return commander.opts();
 };
