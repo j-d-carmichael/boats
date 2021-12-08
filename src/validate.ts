@@ -1,5 +1,5 @@
 import cloneObject from '@/cloneObject';
-import { validate } from 'swagger-parser';
+import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPI } from 'openapi-types';
 import parser from '@asyncapi/parser';
 import { BoatsRC } from '@/interfaces/BoatsRc';
@@ -7,7 +7,7 @@ import generatePermissionsSchema from '@/generatePermissionsSchema';
 import { JsonSchema } from '@/interfaces/JsonSchema';
 
 class Validate {
-  async decideThenValidate(bundledJson: JsonSchema, boatsRc: BoatsRC) {
+  async decideThenValidate (bundledJson: JsonSchema, boatsRc: BoatsRC) {
     bundledJson = generatePermissionsSchema(
       bundledJson,
       boatsRc.permissionConfig?.generateSchemaNamed
@@ -21,12 +21,12 @@ class Validate {
     }
   }
 
-  openapi(input: JsonSchema) {
+  openapi (input: JsonSchema) {
     return new Promise((resolve, reject) => {
       if (typeof input === 'object') {
         input = cloneObject(input);
       }
-      validate((input as unknown) as OpenAPI.Document, {})
+      SwaggerParser.validate((input as unknown) as OpenAPI.Document, {})
         .then((data) => {
           resolve(data);
         })
@@ -36,7 +36,7 @@ class Validate {
     });
   }
 
-  asyncapi(input: string) {
+  asyncapi (input: string) {
     return new Promise((resolve, reject) => {
       parser
         .parse(input)
