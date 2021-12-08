@@ -651,6 +651,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/12/08 2.27.0: docs - readme
 - 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻
 - 2021/10/05 2.25.0: allow loading of helper files in TypeScript using ts-node
 - 2021/09/19 2.24.0: npm version check updated to use npm api instead of github json url

@@ -10,10 +10,10 @@ ___
 - Run BOATS init, `npx boats --init`, follow prompts
 
 ## Docs
-[Full docsify documentation here: https://liffery-com.github.io/boats/](https://liffery-com.github.io/boats/)
+[Full docsify documentation here: https://j-d-carmichael.github.io/boats/](https://j-d-carmichael.github.io/boats/#/)
 
 ## Examples
 Example files can be found here, but please also read the docs:
-- https://github.com/liffery-com/boats/tree/master/srcASYNC2
-- https://github.com/liffery-com/boats/tree/master/srcOA2
-- https://github.com/liffery-com/boats/tree/master/srcOA3
+- https://github.com/j-d-carmichael/boats/tree/master/srcASYNC2
+- https://github.com/j-d-carmichael/boats/tree/master/srcOA2
+- https://github.com/j-d-carmichael/boats/tree/master/srcOA3
