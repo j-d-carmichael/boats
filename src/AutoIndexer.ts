@@ -49,7 +49,7 @@ class AutoIndexer {
       }
     });
 
-    return YAML.safeDump(indexObject, {
+    return YAML.dump(indexObject, {
       indent: 2,
     });
   }

@@ -44,7 +44,7 @@ export default async (input: Input): Promise<string> => {
     if (upath.extname(outputFile) === '.json') {
       contents = JSON.stringify(bundled, null, indentation);
     } else {
-      contents = YAML.safeDump(bundled, {
+      contents = YAML.dump(bundled, {
         indent: indentation
       });
     }

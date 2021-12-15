@@ -15,7 +15,7 @@ export default function(): string {
       if (!fs.pathExistsSync(injectPath)) {
         throw new Error('Path not found when trying to make optional: ' + injectPath);
       }
-      const content: any = jsYaml.safeLoad(fs.readFileSync(injectPath, 'utf-8'));
+      const content: any = jsYaml.load(fs.readFileSync(injectPath, 'utf-8'));
       if (content && content['type'] !== 'object') {
         throw new TypeError('Referenced item must be an object: ' + injectPath);
       }
@@ -23,5 +23,5 @@ export default function(): string {
     }
   }
 
-  return jsYaml.safeDump(main);
+  return jsYaml.dump(main);
 }

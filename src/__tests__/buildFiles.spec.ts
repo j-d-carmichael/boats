@@ -18,7 +18,7 @@ const dumper = (file: string, input: any) => {
 describe('Check to ensure the files are generated with the correct file names:', () => {
   it('built srcASYNC2_1.0.1.yml', async (done) => {
     const file = 'test-build/srcASYNC2/srcASYNC2_1.0.1.yml';
-    const infile: any = jsYaml.safeLoad(fs.readFileSync(file, 'utf8'));
+    const infile: any = jsYaml.load(fs.readFileSync(file, 'utf8'));
     try {
       expect(infile).toEqual(srcASYNC2);
       done();
@@ -30,7 +30,7 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built builtOA2_std_1.0.1.yml', async (done) => {
     const file = 'test-build/builtOA2_std/builtOA2_std_1.0.1.yml';
-    const infile: any = jsYaml.safeLoad(fs.readFileSync(file, 'utf8'));
+    const infile: any = jsYaml.load(fs.readFileSync(file, 'utf8'));
     try {
       expect(infile).toEqual(builtOA2_std);
       done();
@@ -42,7 +42,7 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built builtOA2_readonly_1.0.1.yml', async (done) => {
     const file = 'test-build/builtOA2_readonly/builtOA2_readonly_1.0.1.yml';
-    const infile: any = jsYaml.safeLoad(
+    const infile: any = jsYaml.load(
       fs.readFileSync(file, 'utf8')
     );
     try {
@@ -56,7 +56,7 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built builtOA2_no_version.yml', async (done) => {
     const file = 'test-build/builtOA2_no_version/builtOA2_no_version.yml';
-    const infile: any = jsYaml.safeLoad(
+    const infile: any = jsYaml.load(
       fs.readFileSync(file, 'utf8')
     );
     try {
@@ -70,7 +70,7 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built test-build/builtOA2_inject/api_1.0.1.yml', async (done) => {
     const file = 'test-build/builtOA2_inject/api_1.0.1.yml';
-    const infile: any = jsYaml.safeLoad(fs.readFileSync(file, 'utf8'));
+    const infile: any = jsYaml.load(fs.readFileSync(file, 'utf8'));
     try {
       expect(infile).toEqual(builtOA2_inject);
       done();
@@ -82,7 +82,7 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built builtOA3_1.0.1.yml', async (done) => {
     const file = 'test-build/builtOA3_std/builtOA3_1.0.1.yml';
-    const infile: any = jsYaml.safeLoad(fs.readFileSync(file, 'utf8'));
+    const infile: any = jsYaml.load(fs.readFileSync(file, 'utf8'));
     try {
       expect(infile).toEqual(builtOA3);
       done();
@@ -94,7 +94,7 @@ describe('Check to ensure the files are generated with the correct file names:',
 
   it('built builtOA3.yml', async (done) => {
     const file = 'test-build/builtOA3_exclude/builtOA3.yml';
-    const infile: any = jsYaml.safeLoad(fs.readFileSync(file, 'utf8'));
+    const infile: any = jsYaml.load(fs.readFileSync(file, 'utf8'));
     try {
       expect(infile).toEqual(builtOA3_exclude);
       done();
