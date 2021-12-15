@@ -44,7 +44,7 @@ class Injector {
       return yaml;
     }
 
-    let jsonTemplate = jsYaml.safeLoad(yaml);
+    let jsonTemplate = jsYaml.load(yaml);
 
     for (const { toAllOperations } of global.boatsInject) {
       if (this.shouldInject(toAllOperations, inputPath, picomatchOptions)) {
@@ -57,7 +57,7 @@ class Injector {
       }
     }
 
-    return jsYaml.safeDump(jsonTemplate);
+    return jsYaml.dump(jsonTemplate);
   }
 
   /**
@@ -82,7 +82,7 @@ class Injector {
     content = this.convertRootRefToRelative(content, relativePathToRoot, injector);
     const renderedString = renderString(content, {});
 
-    const injectionContent = jsYaml.safeLoad(renderedString);
+    const injectionContent = jsYaml.load(renderedString);
 
     return deepmerge(jsonTemplate, injectionContent);
   }
@@ -238,7 +238,7 @@ class Injector {
    */
   mapIndex (yaml: string, inputPath: string) {
     const indexRoute = upath.dirname(inputPath);
-    const index = jsYaml.safeLoad(yaml);
+    const index = jsYaml.load(yaml);
     Object.entries(index).forEach(([route, methods]) => {
       Object.values(methods).forEach((methodToFileRef: any) => {
         if (methodToFileRef && methodToFileRef.$ref) {

@@ -13,7 +13,7 @@ export default function (defPath: string, ...rest: string[]): string {
     throw new Error('Path not found when trying to make optional: ' + injectPath);
   }
 
-  const content: any = jsYaml.safeLoad(fs.readFileSync(injectPath, 'utf-8'));
+  const content: any = jsYaml.load(fs.readFileSync(injectPath, 'utf-8'));
 
   if (content && content['type'] !== 'object') {
     throw new TypeError('Referenced item must be an object: ' + injectPath);
@@ -25,7 +25,7 @@ export default function (defPath: string, ...rest: string[]): string {
     content.required = content.required.filter((i:string) => _.flatten(rest).includes(i));
   }
 
-  const text = jsYaml.safeDump(content);
+  const text = jsYaml.dump(content);
 
   const parts = text.split('\n');
   const first = parts.pop();

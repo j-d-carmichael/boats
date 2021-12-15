@@ -13,13 +13,13 @@ export default function (): string {
     throw new Error('Path not found when trying to make optional: ' + injectPath);
   }
 
-  const content: any = jsYaml.safeLoad(fs.readFileSync(injectPath, 'utf-8'));
+  const content: any = jsYaml.load(fs.readFileSync(injectPath, 'utf-8'));
 
   if (content && content['type'] !== 'object') {
     throw new TypeError('Referenced item must be an object: ' + injectPath);
   }
 
-  const text = jsYaml.safeDump(_.omit(content, 'required'));
+  const text = jsYaml.dump(_.omit(content, 'required'));
 
   const parts = text.split('\n');
   const first = parts.pop();
