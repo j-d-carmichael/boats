@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer';
 import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer';
 import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer';
+import autoSummary from '@/nunjucksHelpers/autoSummary';
 import schemaRef from '@/nunjucksHelpers/schemaRef';
 import autoTag from '@/nunjucksHelpers/autoTag';
 import fileName from '@/nunjucksHelpers/fileName';
@@ -124,7 +125,7 @@ class Template {
    * @returns {string|*}
    */
   cleanInputString (relativeFilePath: string) {
-    relativeFilePath = upath.toUnix(relativeFilePath)
+    relativeFilePath = upath.toUnix(relativeFilePath);
 
     if (relativeFilePath.substring(0, 2) === './') {
       return relativeFilePath.substring(2, relativeFilePath.length);
@@ -259,6 +260,10 @@ class Template {
       });
     }
     env.addGlobal('boatsConfig', this.boatsrc);
+    env.addGlobal('autoChannelIndexer', autoChannelIndexer);
+    env.addGlobal('autoComponentIndexer', autoComponentIndexer);
+    env.addGlobal('autoPathIndexer', autoPathIndexer);
+    env.addGlobal('autoSummary', autoSummary);
     env.addGlobal('pathInjector', new PathInjector(this.boatsrc.paths, upath.relative('.', upath.dirname(this.inputFile))));
     env.addGlobal('mixinNumber', this.mixinNumber);
     env.addGlobal('mixinObject', this.mixinObject);
@@ -267,9 +272,6 @@ class Template {
     env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix);
     env.addGlobal('currentFilePointer', this.currentFilePointer);
     env.addGlobal('uniqueOpIdStripValue', this.stripValue);
-    env.addGlobal('autoChannelIndexer', autoChannelIndexer);
-    env.addGlobal('autoComponentIndexer', autoComponentIndexer);
-    env.addGlobal('autoPathIndexer', autoPathIndexer);
     env.addGlobal('schemaRef', schemaRef);
     env.addGlobal('autoTag', autoTag);
     env.addGlobal('fileName', fileName);

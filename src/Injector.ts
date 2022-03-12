@@ -31,6 +31,7 @@ class Injector {
       injector
     );
 
+    // @ts-ignore
     if (!global.boatsInject) {
       return yaml;
     }
@@ -46,6 +47,7 @@ class Injector {
 
     let jsonTemplate = jsYaml.load(yaml);
 
+    // @ts-ignore
     for (const { toAllOperations } of global.boatsInject) {
       if (this.shouldInject(toAllOperations, inputPath, picomatchOptions)) {
         jsonTemplate = this.mergeInjection(
