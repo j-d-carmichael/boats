@@ -234,7 +234,20 @@ If you have an older set of BOATS files then you might have named the model file
 {{ autoComponentIndexer('Model') }}
 ```
 
-### autoTag
+### Auto Summary
+With the auto-summary tpl helper, the summary string is automatically calculated based on the rest path.
+
+```yaml
+summary: {{ autoSummary() }}
+```
+
+Example "**user/{id}/get.yml**" would yield "**Get user based on {id}**"
+
+A more complex example, "**house/{number}/user/{id}/get.yml**" would output "**Get user based on {id}, from house {number}**"
+
+See the unit tests for more examples, [src/__tests__/AutoSummary.spec.ts](https://github.com/j-d-carmichael/boats/blob/develop/src/__tests__/AutoSummary.spec.ts)
+
+### Auto Tag
 Calculates the tag based on the location of the file in the folder structure:
 ```yaml
 tags:
@@ -651,6 +664,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/12/15 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
 - 2021/12/15 2.28.0: js-yaml upgraded to 4.1.0 replacing safeDump|Load to their new home
 - 2021/12/08 2.27.0: docs - readme
 - 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻

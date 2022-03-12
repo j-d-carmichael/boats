@@ -2,7 +2,7 @@ import autoSummary from '@/autoSummary';
 
 it('should return just the method', async () => {
   expect(
-    autoSummary('get.ymk')
+    autoSummary('get.yml')
   ).toBe(
     'Get'
   );
@@ -10,31 +10,31 @@ it('should return just the method', async () => {
 
 it('should return the method with User', async () => {
   expect(
-    autoSummary('user/get.ymk')
+    autoSummary('user/get.yml')
   ).toBe(
     'Get user'
   );
 });
 
-it('user/{id}/get.ymk', async () => {
+it('user/{id}/get.yml', async () => {
   expect(
-    autoSummary('user/{id}/get.ymk')
+    autoSummary('user/{id}/get.yml')
   ).toBe(
     'Get user based on {id}'
   );
 });
 
-it('house/{number}/user/{id}/get.ymk', async () => {
+it('house/{number}/user/{id}/get.yml', async () => {
   expect(
-    autoSummary('house/{number}/user/{id}/get.ymk')
+    autoSummary('house/{number}/user/{id}/get.yml')
   ).toBe(
     'Get user based on {id}, from house {number}'
   );
 });
 
-it('street/{name}/house/{number}/user/{id}/get.ymk', async () => {
+it('street/{name}/house/{number}/user/{id}/get.yml', async () => {
   expect(
-    autoSummary('street/{name}/house/{number}/user/{id}/get.ymk')
+    autoSummary('street/{name}/house/{number}/user/{id}/get.yml')
   ).toBe(
     'Get user based on {id}, from house {number}, from street {name}'
   );
