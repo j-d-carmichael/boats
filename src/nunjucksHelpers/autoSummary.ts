@@ -5,6 +5,5 @@ export default function (): string {
     this.env.globals.uniqueOpIdStripValue,
     ''
   );
-  console.log(filePath);
-  return '"' + autoSummary(filePath) + '"';
+  return autoSummary(filePath);
 }

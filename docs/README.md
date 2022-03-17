@@ -664,7 +664,8 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2021/12/15 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
+- 2021/03/17 2.30.0: `{{ autoSummary() }}` no longer wrapped in quotes
+- 2021/03/12 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
 - 2021/12/15 2.28.0: js-yaml upgraded to 4.1.0 replacing safeDump|Load to their new home
 - 2021/12/08 2.27.0: docs - readme
 - 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻
