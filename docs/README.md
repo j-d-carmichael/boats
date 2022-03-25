@@ -318,7 +318,7 @@ Anatomy of the injection:
             apiKey: []            # below.
           }]
         },
-        excludeChannel: [         # Optional - string array containing channels
+        excludeChannels: [        # Optional - string array containing channels
           '/user_messages/**'     # to exclude (parsed with https://github.com/micromatch/picomatch)
           '/system_information'
         ],
