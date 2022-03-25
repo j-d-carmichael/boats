@@ -11,8 +11,9 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
  - Validate AsyncAPI output with [asyncapi/parser-js](https://github.com/asyncapi/parser-js)
  - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
  - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
+ - Nunjucks not enough? There is also [lodash](#lodash) functions baked in
  - Unique operation id's based on file location automatically
- - Inject common content and responses
+ - [Inject](#inject) common content and responses from a single point of control
  - Mixins within y(a)ml files
  - Variables within y(a)ml files
  - Include files with Typescript like shorthand via absolute paths in the boatsrc file
@@ -98,11 +99,13 @@ TIP: If you use the `.yml.njk`, you will want to just use the default tags from 
 ```
 This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
 
-## CLI features
+## CLI
 BOATS can be used as a cli tool via an npm script.
 
+#### All available arguments
 The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
 
+#### Examples
 Example package.json script
 ```
 "boats": "boats"
@@ -425,6 +428,21 @@ Content is either a JSON representation of the YAML content to inject, or a stri
 ```
 
 Type less do more.
+
+### lodash 
+Nunjucks is a powerful template engine with a lot out of the box, but we wanted more so we injected lodash into the mix.
+
+Whatever you find in their docs https://lodash.com/docs/4.17.15 you can use in your boats files.
+
+To access lodash in your templates just ensure you preface your function with the _:
+```yaml
+info:
+  version: 1.0.1
+  title: {{ _.camelCase( packageJson('name') ) }}
+```
+
+(you can see the injection of lodash into nunjecks here: [src/Template.ts#L286](https://github.com/j-d-carmichael/boats/blob/main/src/Template.ts#L286))
+
 
 ### merge
 allOf equiv. for when allOf is not supported.
