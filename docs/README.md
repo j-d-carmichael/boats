@@ -102,10 +102,10 @@ This will use the default template tags as show [in their docs](https://mozilla.
 ## CLI
 BOATS can be used as a cli tool via an npm script.
 
-#### All available arguments
+### All available arguments
 The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
 
-#### Examples
+### Examples
 Example package.json script
 ```
 "boats": "boats"
