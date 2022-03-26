@@ -287,10 +287,12 @@ class Template {
 
     // Lastly, inject the helper files, this will of course override any existing helpers
     // already injected, which could be good thing if you know what you are doing.
+    let tsNodeLoaded = false;
     for (let i = 0; i < this.helpFunctionPaths.length; ++i) {
       const filePath = this.helpFunctionPaths[i];
 
-      if (filePath.endsWith('.ts')) {
+      if (filePath.endsWith('.ts') && !tsNodeLoaded) {
+        tsNodeLoaded = true;
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         require('ts-node').register();
       }
