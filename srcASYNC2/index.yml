@@ -15,3 +15,14 @@ channels:
 components:
   schemas:
     $ref: @/srcASYNC2/components/schemas/index.yml.njk
+
+{{
+  inject([{
+    toAllOperations: {
+      excludeChannels:['/ms-auth/cache-user'],
+      content: {
+        description: "This is an injected summary"
+      }
+    }
+  }])
+}}
