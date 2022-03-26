@@ -1,4 +1,3 @@
-description: When a new connection change occurs the new cache values are emitted in the payload
 publish:
   operationId: {{uniqueOpId('Publish')}}
   message:

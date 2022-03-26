@@ -12,7 +12,6 @@
   "defaultContentType": "application/json",
   "channels": {
     "/ms-auth/cache-connection": {
-      "description": "When a new connection change occurs the new cache values are emitted in the payload",
       "publish": {
         "operationId": "msAuthCacheConnectionPublish",
         "message": {
@@ -30,10 +29,10 @@
             "$ref": "#/components/schemas/MsAuthCacheConnection"
           }
         }
-      }
+      },
+      "description": "This is an injected summary"
     },
     "/ms-auth/cache-user": {
-      "description": "When a new connection change occurs the new cache values are emitted in the payload",
       "publish": {
         "operationId": "msAuthCacheUserPublish",
         "message": {

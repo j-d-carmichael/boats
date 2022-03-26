@@ -25,12 +25,14 @@ import optionalProps from './nunjucksHelpers/optionalProps';
 import pickProps from './nunjucksHelpers/pickProps';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import { PathInjector } from './pathInjector';
+import isAsyncApi from './isAsyncApi';
 
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const walker = require('walker');
 
 class Template {
+  isAsyncApiFile: boolean;
   originalIndentation: number;
   mixinVarNamePrefix: string;
   helpFunctionPaths: string[];
@@ -54,6 +56,7 @@ class Template {
    * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
    * @param boatsrc
    */
+  // eslint-disable-next-line max-lines-per-function
   directoryParse (
     inputFile: string,
     output: string,
@@ -74,9 +77,13 @@ class Template {
       this.boatsrc = boatsrc;
       this.inputFile = inputFile = this.cleanInputString(inputFile);
 
+      this.isAsyncApiFile = isAsyncApi(this.inputFile);
+
       // ensure we parse the input file 1st as this typically contains the inject function
       // this will also allow us to determine the api type and correctly set the stripValue
-      const renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+      const renderedIndex = this.renderFile(
+        fs.readFileSync(inputFile, 'utf8'), inputFile
+      );
       this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
 
       let returnFileinput: string;
@@ -85,7 +92,9 @@ class Template {
           try {
             file = upath.toUnix(file);
             const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output));
-            const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
+            const rendered = this.renderFile(
+              fs.readFileSync(file, 'utf8'), file
+            );
             if (upath.normalize(inputFile) === upath.normalize(file)) {
               returnFileinput = outputFile;
             }
@@ -172,7 +181,7 @@ class Template {
   /**
    * Loads and renders a tpl file
    * @param inputString The string to parse
-   * @param fileLocation The file location the string derived from
+   * @param fileLocation The file location the string for the current
    */
   renderFile (inputString: string, fileLocation: string) {
     this.currentFilePointer = upath.toUnix(fileLocation);
@@ -182,7 +191,12 @@ class Template {
     this.indentNumber = 0;
     this.nunjucksSetup();
 
-    const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile, this.boatsrc);
+    const renderedYaml = Injector.injectAndRender(
+      fileLocation,
+      this.inputFile,
+      this.boatsrc,
+      this.isAsyncApiFile
+    );
 
     return this.stripNjkExtensionFrom$Refs(renderedYaml);
   }
