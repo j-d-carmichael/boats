@@ -682,6 +682,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2021/03/26 2.33.0: Security updates
 - 2021/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
 - 2021/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
 - 2021/03/17 2.30.0: `{{ autoSummary() }}` no longer wrapped in quotes
