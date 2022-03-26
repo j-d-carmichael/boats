@@ -36,7 +36,7 @@
     "test:unit": "cross-env NODE_ENV=test jest --runInBand",
     "test:unit:single": "cross-env NODE_ENV=test jest --collect-coverage false",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version && npm run test:build-cli:oa2:inject",
-    "test:build-cli:asyncapi:std": "node ./bin/cli.js --yes -i ./srcASYNC2/index.yml.njk -o ./test-build/srcASYNC2/srcASYNC2.yml -s srcASYNC2/channels/",
+    "test:build-cli:asyncapi:std": "node ./bin/cli.js --yes -i ./srcASYNC2/index.yml -o ./test-build/srcASYNC2/srcASYNC2.yml -s srcASYNC2/channels/",
     "test:build-cli:oa2:inject": "node ./bin/cli.js --yes -i ./srcOA2/index.injections.yml.njk -o ./test-build/builtOA2_inject/api.yml -s srcOA2/paths/",
     "test:build-cli:oa2:readonly": "node ./bin/cli.js --yes -i ./srcOA2/index.readonly.yml.njk -o ./test-build/builtOA2_readonly/builtOA2_readonly.yml -s srcOA2/paths/",
     "test:build-cli:oa2:std": "node ./bin/cli.js --yes -i ./srcOA2/index.yml.njk -o ./test-build/builtOA2_std/builtOA2_std.yml -s srcOA2/paths/",

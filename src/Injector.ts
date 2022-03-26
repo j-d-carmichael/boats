@@ -17,19 +17,18 @@ class Injector {
   /**
    * Render the base template and inject content if provided
    */
-  injectAndRender (inputPath: string, inputIndexYaml: string, boatsRc: BoatsRC): string {
+  injectAndRender (
+    inputPath: string,
+    inputIndexYaml: string,
+    boatsRc: BoatsRC,
+    isAsyncApi: boolean
+  ): string {
     const fullPath = upath.join(upath.toUnix(process.cwd()), inputPath);
-
     const pathFromIndexToBoatsRc = upath.relative('.', upath.dirname(inputIndexYaml));
-
     const relativePathToRoot = upath.relative(upath.dirname(inputPath), upath.dirname(inputIndexYaml));
     const picomatchOptions = boatsRc.picomatchOptions || { bash: true };
     const injector = new PathInjector(boatsRc.paths, pathFromIndexToBoatsRc);
-    const yaml = this.convertRootRefToRelative(
-      render(fullPath),
-      relativePathToRoot,
-      injector
-    );
+    const yaml = this.convertRootRefToRelative(render(fullPath), relativePathToRoot, injector);
 
     // @ts-ignore
     if (!global.boatsInject) {
@@ -41,7 +40,11 @@ class Injector {
     }
 
     if (/index\./.test(upath.basename(inputPath))) {
-      this.mapIndex(yaml, inputPath);
+      if (isAsyncApi) {
+        this.mapChannelIndex(yaml, inputPath);
+      } else {
+        this.mapPathIndex(yaml, inputPath);
+      }
       return yaml;
     }
 
@@ -234,11 +237,8 @@ class Injector {
   /**
    * Map filenames to routes so that exclude paths can be
    * calculated from the input filename
-   *
-   * @param {string}  yaml       The YAML of a path or channel index
-   * @param {string}  inputPath  Path to YAML index file
    */
-  mapIndex (yaml: string, inputPath: string) {
+  mapPathIndex (yaml: string, inputPath: string): void {
     const indexRoute = upath.dirname(inputPath);
     const index = jsYaml.load(yaml);
     Object.entries(index).forEach(([route, methods]) => {
@@ -249,6 +249,17 @@ class Injector {
         }
       });
     });
+  }
+
+  mapChannelIndex (yaml: string, inputPath: string): void {
+    const indexRoute = upath.dirname(inputPath);
+    const index: Record<string, any> = jsYaml.load(yaml);
+    for (const channel in index) {
+      if (index[channel].$ref) {
+        const fullPath = `${indexRoute}/${index[channel].$ref.replace('./', '')}`;
+        this.fileToRouteMap[fullPath] = channel;
+      }
+    }
   }
 
   convertRootRefToRelative (content: string, relativePathToRoot: string, injector: PathInjector) {
