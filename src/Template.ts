@@ -1,3 +1,4 @@
+import { readdirSync, statSync } from 'fs';
 import upath from 'upath';
 import nunjucks from 'nunjucks';
 import fs from 'fs-extra';
@@ -70,20 +71,19 @@ class Template {
       if (!inputFile || !output) {
         throw new Error('You must pass an input file and output directory when parsing multiple files.');
       }
+
       this.originalIndentation = originalIndent;
       this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX;
       this.helpFunctionPaths = helpFunctionPaths || [];
       this.variables = variables || [];
       this.boatsrc = boatsrc;
       this.inputFile = inputFile = this.cleanInputString(inputFile);
-
       this.isAsyncApiFile = isAsyncApi(this.inputFile);
 
       // ensure we parse the input file 1st as this typically contains the inject function
       // this will also allow us to determine the api type and correctly set the stripValue
-      const renderedIndex = this.renderFile(
-        fs.readFileSync(inputFile, 'utf8'), inputFile
-      );
+      const renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+
       this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
 
       let returnFileinput: string;
@@ -92,9 +92,8 @@ class Template {
           try {
             file = upath.toUnix(file);
             const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output));
-            const rendered = this.renderFile(
-              fs.readFileSync(file, 'utf8'), file
-            );
+            const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
+
             if (upath.normalize(inputFile) === upath.normalize(file)) {
               returnFileinput = outputFile;
             }
@@ -191,12 +190,7 @@ class Template {
     this.indentNumber = 0;
     this.nunjucksSetup();
 
-    const renderedYaml = Injector.injectAndRender(
-      fileLocation,
-      this.inputFile,
-      this.boatsrc,
-      this.isAsyncApiFile
-    );
+    const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile, this.boatsrc, this.isAsyncApiFile);
 
     return this.stripNjkExtensionFrom$Refs(renderedYaml);
   }
@@ -216,7 +210,7 @@ class Template {
         index: regexp.lastIndex,
         match: matches[0],
         mixinPath: matches[2],
-        mixinLinePadding: ''
+        mixinLinePadding: '',
       };
       const indent = calculateIndentFromLineBreak(str, mixinObj.index) + originalIndentation;
       for (let i = 0; i < indent; ++i) {
@@ -246,7 +240,7 @@ class Template {
       const indentObject = {
         index: regexp.lastIndex,
         match: matches[0],
-        linePadding: ''
+        linePadding: '',
       };
       const indent = calculateIndentFromLineBreak(preparedString, indentObject.index) + originalIndentation;
       for (let i = 0; i < indent; ++i) {
@@ -260,50 +254,83 @@ class Template {
   /**
    * Sets up the tpl engine for the current file being rendered
    */
-  // eslint-disable-next-line max-lines-per-function
   nunjucksSetup () {
+    const env = this.setupDefaultNunjucksEnv();
+
+    env.addGlobal('currentFilePointer', this.currentFilePointer);
+    env.addGlobal('mixinObject', this.mixinObject);
+    env.addGlobal('mixinNumber', this.mixinNumber);
+    env.addGlobal('indentObject', this.indentObject);
+    env.addGlobal('indentNumber', this.indentNumber);
+    env.addGlobal(
+      'pathInjector',
+      new PathInjector(this.boatsrc.paths, upath.relative('.', upath.dirname(this.inputFile)))
+    );
+  }
+
+  /**
+   * Default nunjucks env configuration
+   *
+   * @return {nunjucks.Environment}
+   */
+  setupDefaultNunjucksEnv (): nunjucks.Environment {
     const env = nunjucks.configure(this.boatsrc.nunjucksOptions);
+
     const processEnvVars = cloneObject(process.env);
     for (const key in processEnvVars) {
       env.addGlobal(key, processEnvVars[key]);
     }
+
     if (Array.isArray(this.variables)) {
       this.variables.forEach((varObj) => {
         const keys = Object.keys(varObj);
         env.addGlobal(keys[0], varObj[keys[0]]);
       });
     }
-    env.addGlobal('boatsConfig', this.boatsrc);
+
+    env.addGlobal('_', _);
     env.addGlobal('autoChannelIndexer', autoChannelIndexer);
     env.addGlobal('autoComponentIndexer', autoComponentIndexer);
     env.addGlobal('autoPathIndexer', autoPathIndexer);
     env.addGlobal('autoSummary', autoSummary);
-    env.addGlobal('pathInjector', new PathInjector(this.boatsrc.paths, upath.relative('.', upath.dirname(this.inputFile))));
-    env.addGlobal('mixinNumber', this.mixinNumber);
-    env.addGlobal('mixinObject', this.mixinObject);
-    env.addGlobal('indentNumber', this.indentNumber);
-    env.addGlobal('indentObject', this.indentObject);
-    env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix);
-    env.addGlobal('currentFilePointer', this.currentFilePointer);
-    env.addGlobal('uniqueOpIdStripValue', this.stripValue);
-    env.addGlobal('schemaRef', schemaRef);
     env.addGlobal('autoTag', autoTag);
+    env.addGlobal('boatsConfig', this.boatsrc);
     env.addGlobal('fileName', fileName);
     env.addGlobal('inject', inject);
-    env.addGlobal('optionalProps', optionalProps);
-    env.addGlobal('pickProps', pickProps);
     env.addGlobal('merge', merge);
     env.addGlobal('mixin', mixin);
+    env.addGlobal('mixinVarNamePrefix', this.mixinVarNamePrefix);
+    env.addGlobal('optionalProps', optionalProps);
     env.addGlobal('packageJson', packageJson);
+    env.addGlobal('pickProps', pickProps);
     env.addGlobal('routePermission', routePermission);
+    env.addGlobal('schemaRef', schemaRef);
     env.addGlobal('uniqueOpId', uniqueOpId);
-    env.addGlobal('_', _);
+    env.addGlobal('uniqueOpIdStripValue', this.stripValue);
 
-    // Lastly, inject the helper files, this will of course override any existing helpers
-    // already injected, which could be good thing if you know what you are doing.
+    this.loadHelpers(env);
+
+    return env;
+  }
+
+  /**
+   * Loads js and ts helpers from files / folders, overriding existing if they
+   * exist.
+   *
+   * @param {nunjucks.Environment}  env  The environment
+   */
+  loadHelpers (env: nunjucks.Environment): void {
     let tsNodeLoaded = false;
-    for (let i = 0; i < this.helpFunctionPaths.length; ++i) {
-      const filePath = this.helpFunctionPaths[i];
+    const helpers = this.helpFunctionPaths.slice();
+
+    while (helpers?.length) {
+      const filePath = helpers.shift();
+
+      if (statSync(filePath).isDirectory()) {
+        const files = readdirSync(filePath).map((dir) => upath.join(filePath, dir));
+        helpers.push(...files);
+        continue;
+      }
 
       if (filePath.endsWith('.ts') && !tsNodeLoaded) {
         tsNodeLoaded = true;
