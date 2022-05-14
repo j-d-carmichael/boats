@@ -15,6 +15,7 @@ Weather:
 Weathers:
   object: mixin('some/other/path', 654654)
 `;
+
 describe('setMixinPositions', () => {
   it('match simple mixin', () => {
     const response = JSON.stringify(Template.setMixinPositions(string1, 2));
@@ -23,13 +24,13 @@ describe('setMixinPositions', () => {
         {
           index: 33,
           match: "mixin('some/path', 321)",
-          mixinPath: "some/path",
+          mixinPath: 'some/path',
           mixinLinePadding: '  ',
         },
         {
           index: 77,
           match: "mixin('some/pther/path', 654654)",
-          mixinPath: "some/pther/path",
+          mixinPath: 'some/pther/path',
           mixinLinePadding: '  ',
         },
       ])
@@ -43,13 +44,13 @@ describe('setMixinPositions', () => {
         {
           index: 43,
           match: "mixin('some/path', 321)",
-          mixinPath: "some/path",
+          mixinPath: 'some/path',
           mixinLinePadding: '  ',
         },
         {
           index: 97,
           match: "mixin('some/other/path', 654654)",
-          mixinPath: "some/other/path",
+          mixinPath: 'some/other/path',
           mixinLinePadding: '  ',
         },
       ])
@@ -63,6 +64,7 @@ describe('stripNjkExtension', () => {
       '/some/path/helpers/myCoolHelper.js'
     );
   });
+
   it('should return plain', function () {
     expect(Template.stripNjkExtension('/some/path/helpers/myCoolHelper.js')).toBe('/some/path/helpers/myCoolHelper.js');
   });
@@ -112,15 +114,15 @@ describe('nunjucksSetup', () => {
     mockEnv = {
       addGlobal(k: any, v: any) {
         this[k] = v;
-      }
+      },
     };
 
     jest.mock('nunjucks', () => ({
-      configure: () => mockEnv
+      configure: () => mockEnv,
     }));
 
     mockTsNode = {
-      register: jest.fn()
+      register: jest.fn(),
     };
 
     jest.mock('ts-node', () => mockTsNode);
@@ -129,7 +131,7 @@ describe('nunjucksSetup', () => {
     template.inputFile = 'test.yml';
     template.helpFunctionPaths = [];
     template.boatsrc = {
-      nunjucksOptions: { beep: 'boop' }
+      nunjucksOptions: { beep: 'boop' },
     };
   });
 
@@ -154,7 +156,7 @@ describe('nunjucksSetup', () => {
       'indentNumber',
       'indentObject',
       'mixinVarNamePrefix',
-      'currentFilePointer'
+      'currentFilePointer',
     ];
 
     for (const name of internalHelpersNames) {
@@ -174,7 +176,7 @@ describe('nunjucksSetup', () => {
       'mixin',
       'routePermission',
       'uniqueOpId',
-      'packageJson'
+      'packageJson',
     ];
 
     for (const name of importedFnNames) {
@@ -188,22 +190,52 @@ describe('nunjucksSetup', () => {
   });
 
   it('loads external helper from file - javascript', () => {
-    template.helpFunctionPaths = [
-      upath.normalize(`${__dirname}/testHelpers/exampleJsHelper.js`)
-    ];
+    template.helpFunctionPaths = [upath.normalize(`${__dirname}/testHelpers/exampleJsHelper.js`)];
 
     template.nunjucksSetup();
     expect(mockEnv.exampleJsHelper.name).toBe('exampleJsHelper');
   });
 
   it('loads external helper from file - typescript', () => {
-    template.helpFunctionPaths = [
-      upath.normalize(`${__dirname}/testHelpers/exampleTsHelper.ts`)
-    ];
+    template.helpFunctionPaths = [upath.normalize(`${__dirname}/testHelpers/exampleTsHelper.ts`)];
 
     template.nunjucksSetup();
 
     expect(mockTsNode.register).toBeCalled();
     expect(mockEnv.exampleTsHelper.name).toBe('exampleTsHelper');
+  });
+
+  it('loads external helper from file - files and folders', () => {
+    template.helpFunctionPaths = [
+      upath.normalize(`${__dirname}/testHelpers/exampleJsHelper.js`),
+      upath.normalize(`${__dirname}/testHelpers/exampleTsHelper.ts`),
+      upath.normalize(`${__dirname}/testHelpers/moreHelpers`),
+    ];
+
+    expect(Object.keys(mockEnv).length).toBe(1);
+
+    template.nunjucksSetup();
+
+    expect(mockTsNode.register).toBeCalled();
+    expect(mockEnv.exampleJsHelper.name).toBe('exampleJsHelper');
+    expect(mockEnv.exampleTsHelper.name).toBe('exampleTsHelper');
+    expect(mockEnv.justAnotherJsHelper.name).toBe('justAnotherJsHelper');
+    expect(mockEnv.justAnotherTsHelper.name).toBe('justAnotherTsHelper');
+  });
+
+  it('loads external helper from file - recursive', () => {
+    template.helpFunctionPaths = [
+      upath.normalize(`${__dirname}/testHelpers`),
+    ];
+
+    expect(Object.keys(mockEnv).length).toBe(1);
+
+    template.nunjucksSetup();
+
+    expect(mockTsNode.register).toBeCalled();
+    expect(mockEnv.exampleJsHelper.name).toBe('exampleJsHelper');
+    expect(mockEnv.exampleTsHelper.name).toBe('exampleTsHelper');
+    expect(mockEnv.justAnotherJsHelper.name).toBe('justAnotherJsHelper');
+    expect(mockEnv.justAnotherTsHelper.name).toBe('justAnotherTsHelper');
   });
 });
