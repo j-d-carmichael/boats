@@ -9,8 +9,10 @@ ___
 - Create a new project, `npm init -y`
 - Run BOATS init, `npx boats --init`, follow prompts
 
-## Docs
-[Full docsify documentation here: https://j-d-carmichael.github.io/boats/](https://j-d-carmichael.github.io/boats/#/)
+## Docs & Changelog
+[Full documentation: https://j-d-carmichael.github.io/boats/](https://j-d-carmichael.github.io/boats/#/)
+
+[Changelog](https://j-d-carmichael.github.io/boats/#/?id=changelog)
 
 ## Examples
 Example files can be found here, but please also read the docs:
