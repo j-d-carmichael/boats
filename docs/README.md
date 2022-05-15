@@ -291,6 +291,11 @@ info:
   version: <$ injectPackageJsonVersion() $>
 ```
 
+If the helper is a folder, boats will recursively add all js or ts files as helpers:
+```
+boats -i ./src/index.yml -o ./build/myapi.yml -f ./tplHelpers/
+```
+
 - Custom helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
 - A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
 - The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
@@ -682,6 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2022/05/15 2.34.0: Changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
 - 2021/03/26 2.33.0: Security updates
 - 2021/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
 - 2021/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
