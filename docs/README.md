@@ -688,11 +688,11 @@ url: <$ host $>
 
 ## Changelog
 - 2022/05/15 2.34.0: Changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
-- 2021/03/26 2.33.0: Security updates
-- 2021/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
-- 2021/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
-- 2021/03/17 2.30.0: `{{ autoSummary() }}` no longer wrapped in quotes
-- 2021/03/12 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
+- 2022/03/26 2.33.0: Security updates
+- 2022/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
+- 2022/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
+- 2022/03/17 2.30.0: `{{ autoSummary() }}` no longer wrapped in quotes
+- 2022/03/12 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
 - 2021/12/15 2.28.0: js-yaml upgraded to 4.1.0 replacing safeDump|Load to their new home
 - 2021/12/08 2.27.0: docs - readme
 - 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻
