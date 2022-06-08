@@ -687,6 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2022/06/08 2.34.1: Fixed: recursive helpers ignore files other than js/ts
 - 2022/05/15 2.34.0: Changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
 - 2022/03/26 2.33.0: Security updates
 - 2022/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
