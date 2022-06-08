@@ -338,6 +338,10 @@ class Template {
         require('ts-node').register();
       }
 
+      if (!filePath.endsWith('.ts') && !filePath.endsWith('.js')) {
+        continue;
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       let helper = require(filePath);
       if (typeof helper !== 'function' && typeof helper.default === 'function') {
