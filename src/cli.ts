@@ -75,7 +75,39 @@ const parseCli = async () => {
 };
 
 const catchHandle = (error: any) => {
-  console.trace(error);
+  const line = '----------------------'.red;
+  const printed = error.stack || error.details || error.name;
+  if (error.stack) {
+    console.error('');
+    console.error('');
+    console.error('');
+    console.error(line);
+    console.error('ERROR.STACK: '.red.bold);
+    console.error(line);
+    console.error(error.stack.red);
+    console.error('');
+    console.error('');
+    console.error('');
+  }
+
+  if (error.details) {
+    console.error(line);
+    console.error('ERROR.DETAILS: '.red.bold);
+    console.error(line);
+    console.error(JSON.stringify(error.details, null, 2).red);
+    console.error('');
+    console.error('');
+    console.error('');
+  }
+
+  if (error.name) {
+    console.error('ERROR.NAME: '.red.bold, JSON.stringify(error.name).red);
+  }
+
+  if (!printed) {
+    console.trace(error);
+  }
+
   process.exit(1);
 };
 
