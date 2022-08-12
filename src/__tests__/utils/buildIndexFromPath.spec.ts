@@ -11,6 +11,11 @@ describe('glob check', () => {
     expect(buildIndexFromPath('university/models.yml', 'Model')).toEqual('Universitys');
   });
 
+  it('it does dumb pluralization and only replaces last trim occurence ', () => {
+    expect(buildIndexFromPath('model-code/model.yml', 'Model')).toEqual('ModelCode');
+    expect(buildIndexFromPath('model-code/models.yml', 'Model')).toEqual('ModelCodes');
+  });
+
   it('it does fancy pluralization with trim', () => {
     expect(buildIndexFromPath('university/model.yml', 'Model', true)).toEqual('University');
     expect(buildIndexFromPath('university/models.yml', 'Model', true)).toEqual('Universities');
@@ -24,6 +29,11 @@ describe('glob check', () => {
   it('it does fancy pluralization with trim when name ends with "s"', () => {
     expect(buildIndexFromPath('address/model.yml', 'Model', true)).toEqual('Address');
     expect(buildIndexFromPath('address/models.yml', 'Model', true)).toEqual('Addresses');
+  });
+
+  it('it does fancy pluralization and only replaces last trim occurence ', () => {
+    expect(buildIndexFromPath('model-code/model.yml', 'Model')).toEqual('ModelCode');
+    expect(buildIndexFromPath('model-code/models.yml', 'Model')).toEqual('ModelCodes');
   });
 
   it('drops basename when in trimOpts', () => {

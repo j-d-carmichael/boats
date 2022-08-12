@@ -18,11 +18,15 @@ export default function buildIndexFromPath(cleanPath: string, trimOpts?: any, en
   const rawIndex = ucFirst(_.camelCase(removeFileExtension(_path)));
   const isPlural = trim && rawIndex.endsWith(`${trim}s`);
 
-  if (!isPlural || !enableFancyPluralization) {
-    return rawIndex.replace(trim, '');
+  if (!isPlural) {
+    return rawIndex.replace(new RegExp(`${trim}$`), '');
   }
 
-  const trimmedIndex = rawIndex.replace(`${trim}s`, '');
+  if(!enableFancyPluralization) {
+    return rawIndex.replace(new RegExp(`${trim}s$`), 's');
+  }
+
+  const trimmedIndex = rawIndex.replace(new RegExp(`${trim}s$`), '');
   const pluralIndex = pluralize.plural(trimmedIndex);
 
   // Add an extra "s" to words which are the same in both plural and non-plural form (i.e. sheep)
