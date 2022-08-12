@@ -687,6 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2022/08/12 2.37.0: Fix: Trim only replaces the last occurence of trim when generating model names
 - 2022/08/04 2.36.0: Enhance: When a syntax error is found in the yaml files, the error is now easier/ quicker to read
 - 2022/06/08 2.35.0: Fixed: recursive helpers ignore files other than js/ts
 - 2022/05/15 2.34.0: Changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
