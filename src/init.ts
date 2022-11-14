@@ -1,7 +1,7 @@
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import { spawn } from 'child_process';
 import fs from 'fs-extra';
-import inquirer from 'inquirer';
+import inquirer, { QuestionCollection } from 'inquirer';
 import upath from 'upath';
 import boatsPackageJson from '../package.json';
 
@@ -27,7 +27,7 @@ const npmInstall = (): Promise<number> =>
 
 const localPkgJsonPath = upath.join(pwd, 'package.json');
 
-const getQuestions = (localPkgJson: Record<string, any>): inquirer.ListQuestionOptions[] => {
+const getQuestions = (localPkgJson: Record<string, any>): QuestionCollection => {
   return [
     {
       type: 'input',
