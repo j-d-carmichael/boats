@@ -687,6 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2022/12/07 2.39.0: Chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)  
 - 2022/11/14 2.38.0: Chore: Updated the dependencies and tested  
 - 2022/08/12 2.37.0: Fix: Trim only replaces the last occurrence of trim when generating model names
 - 2022/08/04 2.36.0: Enhance: When a syntax error is found in the yaml files, the error is now easier/ quicker to read

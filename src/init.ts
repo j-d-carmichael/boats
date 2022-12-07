@@ -13,7 +13,7 @@ const buildAlreadyExists = fs.pathExistsSync(srcPath);
 
 const npmInstall = (): Promise<number> =>
   new Promise<number>((resolve, reject) => {
-    spawn('npm', ['install'], {
+    spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['install'], {
       stdio: 'inherit',
       cwd: pwd
     }).on('close', (code) => {
