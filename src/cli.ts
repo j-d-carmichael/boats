@@ -86,6 +86,12 @@ const catchHandle = (error: any) => {
     console.error(line);
     console.error(error.stack.red);
     console.error('');
+    if (
+      String(error.stack).includes('Cannot read property \'stack\' of undefined') ||
+      String(error.stack).includes('There were errors validating the AsyncAPI document')
+    ) {
+      console.log('TIP: An non-helpful error message from SwaggerParser or @asyncapi/parser is typically caused by invalid openapi or async api syntax not handled by them; it can often be invalid use of the combine keywords such as "allOf".'.red);
+    }
     console.error('');
     console.error('');
   }
@@ -106,6 +112,10 @@ const catchHandle = (error: any) => {
 
   if (!printed) {
     console.trace(error);
+  }
+
+  if (error.name) {
+
   }
 
   process.exit(1);
