@@ -687,6 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2022/12/07 3.0.0:  Breaking change now BOATS requires min. node 14 and built with Node 18
 - 2022/12/07 2.40.0: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
 - 2022/12/07 2.39.0: Chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)  
 - 2022/11/14 2.38.0: Chore: Updated the dependencies and tested  
@@ -768,8 +769,16 @@ url: <$ host $>
 
 
 ## Thanks To
-BOATS is nothing more than a connection between other packages so big thanks to:
- - Everyone at @apidevtools
- - Everyone at @asyncapi
- - vitaly for js-yaml
- - The team behind nunjucks and lodash
+BOATS is nothing without the support of everyone involved, so a big thanks to:
+- Every [contributor](https://github.com/j-d-carmichael/boats/graphs/contributors) & [issue](https://github.com/j-d-carmichael/boats/issues) reports!
+- Jetbrains for their [Open Source Development - Community Support](https://www.jetbrains.com/community/opensource/#support) and powerful IDE!
+- [GitHub](https://github.com/) for hosting the Open Source codebase!
+- Everyone at [@apidevtools](https://github.com/APIDevTools)
+- Everyone at [@asyncapi](https://github.com/asyncapi)
+- vitaly for [js-yaml](https://github.com/nodeca/js-yaml)
+- Mozilla for [Nujucks](https://github.com/mozilla/nunjucks)
+
+
+[![Jetbrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/community/opensource/#support) [![GitHub](https://github.githubassets.com/images/modules/dashboard/onboarding/gh-desktop.png)](https://github.com/) [![apidevtools](https://avatars.githubusercontent.com/u/43750074?s=200&v=4)](https://github.com/APIDevTools) [![asyncapi](https://avatars.githubusercontent.com/u/16401334?s=200&v=4)](https://github.com/asyncapi) [![Nujucks](https://avatars.githubusercontent.com/u/131524?s=200&v=4)](https://github.com/mozilla/nunjucks)
+
+
