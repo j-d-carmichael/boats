@@ -1,12 +1,12 @@
+import fs from 'fs-extra';
+import upath from 'upath';
+import 'colors';
 import bundlerSwaggerParse from '@/bundlerSwaggerParse';
 import commander from '@/commander';
 import convertToNunjucksOrYaml from '@/convertToNunjucksOrYaml';
 import Template from '@/Template';
-import fs from 'fs-extra';
 import checkVersion from 'npm-tool-version-check';
-import upath from 'upath';
 import packageJson from '../package.json';
-import 'colors';
 import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import Snippets from '@/Snippets';

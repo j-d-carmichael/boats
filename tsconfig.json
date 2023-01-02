@@ -1,7 +1,7 @@
 {
   "ts-node": {
     "transpileOnly": true,
-    "compiler": "ttypescript"
+    "compiler": "typescript"
   },
   "compilerOptions": {
     "target": "ES2019",
@@ -20,13 +20,7 @@
       "@/*": [
         "src/*"
       ]
-    },
-    "plugins": [
-      {
-        "transform": "@zerollup/ts-transform-paths",
-        "exclude": ["*"]
-      }
-    ]
+    }
   },
   "exclude": [
     "package.json",
