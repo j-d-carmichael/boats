@@ -14,7 +14,7 @@ if (!devMode) {
   // hook into ts-node so we can run typescript on the fly
   const service = require('ts-node').register({
     project: `${__dirname}/../tsconfig.json`,
-    compiler: 'ttypescript',
+    compiler: 'typescript',
     compilerOptions: {
       plugins: tsConfig.compilerOptions.plugins
     }

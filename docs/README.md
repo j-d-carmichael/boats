@@ -687,7 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2023/01/01 3.1.0:  Happy new year! The --init now initializes without .njk file extensions in favour of simple .yml files
+- 2023/01/01 3.1.0:  Happy new year! The --init now initializes without .njk file extensions and we dropped zerollup for tsc-alias
 - 2022/12/07 3.0.0:  Breaking change now BOATS requires min. node 14 and built with Node 18
 - 2022/12/07 2.40.0: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
 - 2022/12/07 2.39.0: Chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)  
