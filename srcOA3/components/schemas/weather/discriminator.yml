@@ -1,0 +1,9 @@
+type: object
+discriminator:
+    mapping:
+        typeOne: {{ schemaRef("polymorphicmodel_one.yml") }}
+        typeTwo: {{ schemaRef("polymorphicmodel_two.yml") }}
+    propertyName: selector
+oneOf:
+- $ref: polymorphicmodel_one.yml
+- $ref: polymorphicmodel_two.yml

@@ -1,6 +1,6 @@
-{% set write = false %}
+{% set write = true %}
 
-{% extends "./index.base.yml.njk" %}
+{% extends "./index.base.yml" %}
 
 {% block additional_paths %}
 ## place any readonly specific paths here

@@ -1,9 +1,0 @@
-allOf:
- - {{ pickProps('./post.yml.njk', 'name', 'description') }}
- - type: object
-   properties:
-    id:
-      type: string
-    location:
-      allOf:
-        - {{ pickProps('./post.yml.njk', ['name', 'description']) }}

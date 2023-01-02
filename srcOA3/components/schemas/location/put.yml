@@ -1,9 +1,9 @@
 allOf:
- - {{ optionalProps('./post.yml.njk') }}
+ - {{ optionalProps('./post.yml') }}
  - type: object
    properties:
     id:
       type: string
     location:
       allOf:
-        - {{ optionalProps('./post.yml.njk') }}
+        - {{ optionalProps('./post.yml') }}

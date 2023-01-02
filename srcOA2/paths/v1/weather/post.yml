@@ -3,20 +3,18 @@ tags:
 summary: weather data
 description: Create a new weather record.
 operationId: {{ uniqueOpId() }}
-produces:
-  - application/json
 parameters:
-  - $ref: ../../../../parameters/pathId.yml.njk
   - in: body
     name: {{ uniqueOpId() }}
     description: Optional description in *Markdown*
     required: true
     schema:
-      $ref: ../../../../definitions/weather/id/put.yml.njk
+      $ref: ../../../definitions/weather/post.yml
 responses:
   '200':
     description: Successful temp creation
     schema:
-      $ref: ../../../../definitions/weather/model.yml.njk
+      $ref: ../../../definitions/weather/model.yml
   '422':
     description: Invalid form data provided
+x-permission: {{ routePermission({removeMethod: true}) }}

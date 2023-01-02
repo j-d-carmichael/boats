@@ -3,4 +3,4 @@ application/json:
     type: object
     properties:
       included:
-        $ref: {{ mixinDirectory }}/referredFromAbsolute.yml.njk
+        $ref: {{ mixinDirectory }}/referredFromAbsolute.yml

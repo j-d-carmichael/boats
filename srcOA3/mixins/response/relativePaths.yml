@@ -3,7 +3,7 @@ application/json:
     type: object
     properties:
       included:
-        $ref: {{ mixinDirectory }}/standard.yml.njk
+        $ref: {{ mixinDirectory }}/standard.yml
       data:
         type: array
         items:

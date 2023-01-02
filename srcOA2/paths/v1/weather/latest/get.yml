@@ -9,6 +9,6 @@ responses:
   '200':
     description: Successful fetch
     schema:
-      $ref: @/srcOA2/definitions/weather/models.yml.njk
+      $ref: @/srcOA2/definitions/weather/models.yml
   '404':
     description: Temp not found
