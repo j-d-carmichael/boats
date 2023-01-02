@@ -5,12 +5,12 @@ description: Search for weather objects
 operationId: {{ uniqueOpId() }}
 x-filename: {{ fileName() }}
 parameters:
-  - $ref: ../../../parameters/queryOffset.yml.njk
-  - $ref: ../../../parameters/queryTextSearch.yml.njk
+  - $ref: ../../../parameters/queryOffset.yml
+  - $ref: ../../../parameters/queryTextSearch.yml
 responses:
   '200':
     description: Successful fetch
     # Example use of the mixin helper from boats: https://johndcarmichael.github.io/boats/#/?id=mixin
-    schema: {{ mixin("../../../mixins/response/pagination.yml.njk", "../../../definitions/generic/searchMeta.yml.njk", "../../../definitions/weather/model.yml.njk") }}
+    schema: {{ mixin("../../../mixins/response/pagination.yml", "../../../definitions/generic/searchMeta.yml", "../../../definitions/weather/model.yml") }}
   '404':
     description: Temp not found

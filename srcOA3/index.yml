@@ -19,10 +19,10 @@ tags:
     description: Weather data
 
 paths:
-  $ref: paths/index.yml.njk
+  $ref: paths/index.yml
 
 components:
   parameters:
-    $ref: components/parameters/index.yml.njk
+    $ref: components/parameters/index.yml
   schemas:
-    $ref: components/schemas/index.yml.njk
+    $ref: components/schemas/index.yml

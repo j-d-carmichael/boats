@@ -1,0 +1,1 @@
+{{ mixin("../../../mixins/response/pagination.yml", "../generic/searchMeta.yml", "./model.yml", "--skip-auto-indent") }}

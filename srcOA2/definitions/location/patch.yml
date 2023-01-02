@@ -1,0 +1,1 @@
+{{ optionalProps('./post.yml') }}

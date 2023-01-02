@@ -31,14 +31,14 @@ securityDefinitions:
     chase it through and you will see a usefull example of
     using nunjucks set, extends and block features to
     type less and more.
-    Compare this to the /src/OA2/index.readonly.yml.njk
+    Compare this to the /src/OA2/index.readonly.yml
 #}
 paths:
-    $ref: paths/index.yml.njk
+    $ref: paths/index.yml
 parameters:
-    $ref: parameters/index.yml.njk
+    $ref: parameters/index.yml
 definitions:
-    $ref: definitions/index.yml.njk
+    $ref: definitions/index.yml
 
 {{
   inject([{

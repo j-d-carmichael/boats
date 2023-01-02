@@ -7,6 +7,6 @@ responses:
   "200":
     description: Successful fetch
     schema:
-      $ref: ../../../definitions/star-wars/StarWars.yml.njk
+      $ref: ../../../definitions/star-wars/StarWars.yml
   "404":
     description: start not found

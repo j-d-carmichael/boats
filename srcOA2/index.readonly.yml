@@ -23,11 +23,11 @@ schemes:
     type less and more.
 #}
 paths:
-    $ref: paths/index.readonly.yml.njk
+    $ref: paths/index.readonly.yml
 parameters:
-    $ref: parameters/index.yml.njk
+    $ref: parameters/index.yml
 definitions:
-    $ref: definitions/index.yml.njk
+    $ref: definitions/index.yml
 
 {{ inject([{
     toAllOperations: {

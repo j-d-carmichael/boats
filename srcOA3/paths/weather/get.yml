@@ -3,12 +3,9 @@ tags:
 summary: weather data
 description: Get the latest temperatures
 operationId: {{ uniqueOpId() }}
-parameters:
-  - $ref: @parameters/pathId.yml.njk
-  - $ref: @parameters/queryOffset.yml.njk
 responses:
   '200':
     description: Successful fetch
-    content: {{ mixin("@mixins/response/json.yml.njk", "@schemas/weather/model.yml.njk") }}
+    content: {{ mixin("../../mixins/response/json.yml", "../../components/schemas/weather/models.yml") }}
   '404':
     description: Temp not found
