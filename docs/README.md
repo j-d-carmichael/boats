@@ -687,16 +687,17 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2023/01/02 3.2.0:  Dropped zerollup for tsc-alias
-- 2023/01/02 3.1.0:  Happy new year! The --init now initializes without .njk file extensions
-- 2022/12/07 3.0.0:  Breaking change now BOATS requires min. node 14 and built with Node 18
-- 2022/12/07 2.40.0: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
-- 2022/12/07 2.39.0: Chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)  
-- 2022/11/14 2.38.0: Chore: Updated the dependencies and tested  
-- 2022/08/12 2.37.0: Fix: Trim only replaces the last occurrence of trim when generating model names
-- 2022/08/04 2.36.0: Enhance: When a syntax error is found in the yaml files, the error is now easier/ quicker to read
-- 2022/06/08 2.35.0: Fixed: recursive helpers ignore files other than js/ts
-- 2022/05/15 2.34.0: Changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
+- 2023/01/02 3.3.0:  fix: --init will now not fail when the package.json file doesn't already have a scripts object
+- 2023/01/02 3.2.0:  chore: Dropped zerollup for tsc-alias
+- 2023/01/02 3.1.0:  chore: Happy new year! The --init now initializes without .njk file extensions
+- 2022/12/07 3.0.0:  chore: Breaking change now BOATS requires min. node 14 and built with Node 18
+- 2022/12/07 2.40.0: feat: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
+- 2022/12/07 2.39.0: chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)  
+- 2022/11/14 2.38.0: chore: Updated the dependencies and tested  
+- 2022/08/12 2.37.0: fix: Trim only replaces the last occurrence of trim when generating model names
+- 2022/08/04 2.36.0: enhance: When a syntax error is found in the yaml files, the error is now easier/ quicker to read
+- 2022/06/08 2.35.0: fixed: recursive helpers ignore files other than js/ts
+- 2022/05/15 2.34.0: changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
 - 2022/03/26 2.33.0: Security updates
 - 2022/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
 - 2022/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
