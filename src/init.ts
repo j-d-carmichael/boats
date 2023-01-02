@@ -150,6 +150,7 @@ const updatePackageJson = (answers: Record<string, string>) => {
   if (answers.updateName) {
     localPkgJson.name = name;
   }
+  localPkgJson['scripts'] = localPkgJson['scripts'] || {};
   localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.json';
   localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.yml';
   localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml';
