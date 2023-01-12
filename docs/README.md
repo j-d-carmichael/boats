@@ -687,6 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2023/01/12 3.4.0:  feat: new cli option -n for no-version check
 - 2023/01/02 3.3.0:  fix: --init will now not fail when the package.json file doesn't already have a scripts object
 - 2023/01/02 3.2.0:  chore: Dropped zerollup for tsc-alias
 - 2023/01/02 3.1.0:  chore: Happy new year! The --init now initializes without .njk file extensions

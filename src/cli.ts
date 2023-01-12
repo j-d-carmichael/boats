@@ -28,7 +28,7 @@ const parseCli = async () => {
     process.env.npm_tool_version_check__quiet = 'true';
   }
 
-  if (process.env.NODE_ENV !== 'test') {
+  if (!(program.noVersionCheck || process.env.NODE_ENV === 'test')) {
     await checkVersion(packageJson.version, packageJson.name, 'BOATS').catch(catchHandle);
   }
 
