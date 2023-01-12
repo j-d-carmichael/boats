@@ -62,6 +62,7 @@ export default (args: any[]): any => {
       '--dontValidateOutput',
       'When passed, the compiled file will not be validated'
     )
+    .option('-n --noVersionCheck', 'Will completely bypass the version check')
     .option('-y, --yes', 'Assumes yes to any questions prompted by the tool (skip version check).')
 
     .parse(args);
