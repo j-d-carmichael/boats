@@ -1,7 +1,7 @@
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import { spawn } from 'child_process';
 import fs from 'fs-extra';
-import inquirer, { QuestionCollection } from 'inquirer';
+import { QuestionCollection } from 'inquirer';
 import upath from 'upath';
 import boatsPackageJson from '../package.json';
 
@@ -172,7 +172,8 @@ export const init = async (): Promise<void> => {
   try {
     const localPkgJson = validatePreInit();
     const questions = getQuestions(localPkgJson);
-    const answers = await inquirer.prompt(questions);
+    const inquirer = await import('inquirer');
+    const answers = await inquirer.default.prompt(questions);
 
     if (!answers.installConfirm) {
       return console.log('BOATS Installation cancelled.');

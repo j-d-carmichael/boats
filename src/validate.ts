@@ -1,7 +1,7 @@
 import cloneObject from '@/cloneObject';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPI } from 'openapi-types';
-import parser from '@asyncapi/parser';
+import { Parser } from '@asyncapi/parser';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import generatePermissionsSchema from '@/generatePermissionsSchema';
 import { JsonSchema } from '@/interfaces/JsonSchema';
@@ -38,6 +38,7 @@ class Validate {
 
   asyncapi (input: string) {
     return new Promise((resolve, reject) => {
+      const parser = new Parser();
       parser
         .parse(input)
         .then((data: any) => {
