@@ -687,7 +687,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2023/07/18 4.0.0:  chore: Breaking change now BOATS requires min. node 14 and built with Node 18
+- 2023/07/18 4.0.0:  chore: Breaking change now BOATS requires min. node 18
 - 2023/04/27 3.4.1:  fix: https://github.com/j-d-carmichael/boats/pull/79
 - 2023/01/12 3.4.0:  feat: new cli option -n for no-version check
 - 2023/01/02 3.3.0:  fix: --init will now not fail when the package.json file doesn't already have a scripts object
