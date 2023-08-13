@@ -1,0 +1,6 @@
+type: object
+required:
+  - statusText
+properties:
+  statusText:
+    type: text

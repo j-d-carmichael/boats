@@ -1,0 +1,7 @@
+parameters:
+  - $ref: ../../../parameters/pathId.yml
+responses:
+  '200':
+    description: User object
+    schema:
+      $ref: ../../../definitions/user/model.yml

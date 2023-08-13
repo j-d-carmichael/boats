@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  function openInNewTab(url) {
+    const newWindow = window.open(url, '_blank');
+    console.log(newWindow);
+    setTimeout(() => {
+      console.log(newWindow[0].window.location.href);
+    }, 1500)
+  }
+</script>
+
+<button onclick="openInNewTab('https://www.liffery.com');">Something To Click On</button>
+
+
+</body>
+</html>
