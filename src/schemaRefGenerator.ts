@@ -11,5 +11,9 @@ export default function (currentFilePointer: string, fileName: string, options: 
 
   const lastSegment = dir.substring(dir.indexOf(options.componentsPath) + options.componentsPath.length);
   const fullPath = upath.normalize(upath.join(lastSegment, fileName));
-  return `"#/${options.componentsPath}/${buildIndexFromPath(fullPath, {}, boatsrc.fancyPluralization)}"`;
+  return `"#/${options.componentsPath}/${buildIndexFromPath({
+    cleanPath:fullPath,
+    autoComponentIndexerOptions: {},
+    enableFancyPluralization: boatsrc.fancyPluralization
+  })}"`;
 }
