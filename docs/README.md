@@ -236,6 +236,11 @@ If you have an older set of BOATS files then you might have named the model file
 ```
 {{ autoComponentIndexer('Model') }}
 ```
+or you may not want to auto ucFirst the file:
+```
+{{ autoComponentIndexer({dontUcFirst: true}) }}
+```
+
 
 ### Auto Summary
 With the auto-summary tpl helper, the summary string is automatically calculated based on the rest path.
