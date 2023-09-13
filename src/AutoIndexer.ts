@@ -29,7 +29,7 @@ class AutoIndexer {
   }
 
   createChannelString (boatsrc: BoatsRC, cleanPath: string, autoChannelIndexerOptions?: AutoChannelIndexerOptions) {
-    const pathWithoutExtension = removeFileExtension(cleanPath);
+    let pathWithoutExtension = removeFileExtension(cleanPath);
     if (autoChannelIndexerOptions) {
       for (let i = 0; i < autoChannelIndexerOptions.channelSeparators.length; i++) {
         const isMatch = picomatch(
@@ -37,6 +37,9 @@ class AutoIndexer {
           boatsrc.picomatchOptions
         );
         if (isMatch(pathWithoutExtension)) {
+          if (pathWithoutExtension[0] === '/') {
+            pathWithoutExtension = pathWithoutExtension.slice(1);
+          }
           return pathWithoutExtension
             .split('/')
             .join(autoChannelIndexerOptions.channelSeparators[i].separator);

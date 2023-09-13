@@ -9,17 +9,20 @@ const boatsRcDummyObject: BoatsRC = {
 
 describe('createChannelString', () => {
   it('should return without the ext but with the / as a sep', async () => {
-    const output = AutoIndexer.createChannelString(boatsRcDummyObject, 'domains/RoleNameDomain.yml');
-    expect(output).toEqual('domains/RoleNameDomain');
+    const output = AutoIndexer.createChannelString(
+      boatsRcDummyObject,
+      '/domains/RoleNameDomain.yml'
+    );
+    expect(output).toEqual('/domains/RoleNameDomain');
   });
 
   it('should return without the ext but with the . as a sep', async () => {
     const output = AutoIndexer.createChannelString(
       boatsRcDummyObject,
-      'domains/RoleNameDomain.yml',
+      '/domains/RoleNameDomain.yml',
       {
         channelSeparators: [{
-          match: 'domains/**',
+          match: '/domains/**',
           separator: '.'
         }]
       }
@@ -30,10 +33,10 @@ describe('createChannelString', () => {
   it('should return without the ext but with the . as a sep but with a deeper path', async () => {
     const output = AutoIndexer.createChannelString(
       boatsRcDummyObject,
-      'domains/RoleNameDomain/Bob/Thing.yml',
+      '/domains/RoleNameDomain/Bob/Thing.yml',
       {
         channelSeparators: [{
-          match: 'domains/**',
+          match: '/domains/**',
           separator: '.'
         }]
       }
@@ -44,21 +47,21 @@ describe('createChannelString', () => {
   it('should return without the ext but with the / as a sep even though there is a pico match', async () => {
     const output = AutoIndexer.createChannelString(
       boatsRcDummyObject,
-      'domain/RoleNameDomain/Bob/Thing.yml',
+      '/domain/RoleNameDomain/Bob/Thing.yml',
       {
         channelSeparators: [{
-          match: 'domains/**',
+          match: '/domains/**',
           separator: '.'
         }]
       }
     );
-    expect(output).toEqual('domain/RoleNameDomain/Bob/Thing');
+    expect(output).toEqual('/domain/RoleNameDomain/Bob/Thing');
   });
 
   it('should return without the ext but with the . as a sep on a complete wildcard', async () => {
     const output = AutoIndexer.createChannelString(
       boatsRcDummyObject,
-      'domain/RoleNameDomain/Bob/Thing.yml',
+      '/domain/RoleNameDomain/Bob/Thing.yml',
       {
         channelSeparators: [{
           match: '**',

@@ -14,9 +14,9 @@ export interface AutoChannelIndexerOptions {
 
 export interface GetIndexYamlOptions {
   autoComponentIndexerOptions?: AutoComponentIndexerOptions;
+  autoChannelIndexerOptions?: AutoChannelIndexerOptions;
   channels?: any;
   components?: any;
   dontUcFirst?: boolean;
   paths?: any;
-  autoChannelIndexerOptions?: AutoChannelIndexerOptions;
 }
