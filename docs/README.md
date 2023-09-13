@@ -692,7 +692,8 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2023/09/08 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
+- 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start
+- 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
 - 2023/09/08 4.1.0:  feat: dontUcFirst can now be injected to {{autoComponentIndexer('dontUcFirst')}}
 - 2023/07/18 4.0.0:  chore: Breaking change now BOATS requires min. node 18
 - 2023/04/27 3.4.1:  fix: https://github.com/j-d-carmichael/boats/pull/79
