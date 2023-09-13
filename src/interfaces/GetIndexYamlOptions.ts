@@ -1,9 +1,16 @@
 export type AutoComponentIndexerOptions =
   | {
-      dropBaseName: boolean;
-      dontUcFirst?: boolean;
-    }
+  dropBaseName: boolean;
+  dontUcFirst?: boolean;
+}
   | string;
+
+export interface AutoChannelIndexerOptions {
+  channelSeparators: {
+    match: string,
+    separator: string
+  }[];
+}
 
 export interface GetIndexYamlOptions {
   autoComponentIndexerOptions?: AutoComponentIndexerOptions;
@@ -11,4 +18,5 @@ export interface GetIndexYamlOptions {
   components?: any;
   dontUcFirst?: boolean;
   paths?: any;
+  autoChannelIndexerOptions?: AutoChannelIndexerOptions;
 }
