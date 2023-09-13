@@ -1,8 +1,13 @@
 import { readdirSync } from 'fs';
 import upath from 'upath';
 import YAML from 'js-yaml';
+import picomatch from 'picomatch';
 import removeFileExtension from '@/removeFileExtension';
-import { AutoComponentIndexerOptions, GetIndexYamlOptions } from '@/interfaces/GetIndexYamlOptions';
+import {
+  AutoChannelIndexerOptions,
+  AutoComponentIndexerOptions,
+  GetIndexYamlOptions
+} from '@/interfaces/GetIndexYamlOptions';
 import buildIndexFromPath from '@/utils/buildIndexFromPath';
 import getMethodFromFileName from '@/utils/getMethodFromFileName';
 import { BoatsRC } from '@/interfaces/BoatsRc';
@@ -23,13 +28,33 @@ class AutoIndexer {
     });
   }
 
+  createChannelString (boatsrc: BoatsRC, cleanPath: string, autoChannelIndexerOptions?: AutoChannelIndexerOptions) {
+    const pathWithoutExtension = removeFileExtension(cleanPath);
+    if (autoChannelIndexerOptions) {
+      for (let i = 0; i < autoChannelIndexerOptions.channelSeparators.length; i++) {
+        const isMatch = picomatch(
+          autoChannelIndexerOptions.channelSeparators[i].match,
+          boatsrc.picomatchOptions
+        );
+        if (isMatch(pathWithoutExtension)) {
+          return pathWithoutExtension
+            .split('/')
+            .join(autoChannelIndexerOptions.channelSeparators[i].separator);
+        }
+      }
+    }
+    // the fall back is basic / separator for channels
+    return pathWithoutExtension;
+  }
+
   buildPathsYamlString (
     cleanPaths: string[],
     boatsrc: BoatsRC,
     channels?: any,
     components?: any,
     paths?: any,
-    autoComponentIndexerOptions?: AutoComponentIndexerOptions
+    autoComponentIndexerOptions?: AutoComponentIndexerOptions,
+    autoChannelIndexerOptions?: AutoChannelIndexerOptions
   ) {
     const indexObject: any = {};
     cleanPaths.forEach((cleanPath) => {
@@ -44,7 +69,7 @@ class AutoIndexer {
           };
         }
         if (channels) {
-          indexObject[removeFileExtension(cleanPath)] = {
+          indexObject[this.createChannelString(boatsrc, cleanPath, autoChannelIndexerOptions)] = {
             $ref: `.${cleanPath}`
           };
         }
@@ -68,7 +93,11 @@ class AutoIndexer {
   /**
    * Returns a string from an auto-built yaml file
    */
-  getIndexYaml (indexFile: string, boatsrc: BoatsRC, options: GetIndexYamlOptions) {
+  getIndexYaml (
+    indexFile: string,
+    boatsrc: BoatsRC,
+    options: GetIndexYamlOptions
+  ) {
     const absoluteIndexFilePath = upath.join(process.cwd(), indexFile);
     const dir = upath.join(process.cwd(), upath.dirname(indexFile));
     const files = this.getFiles(dir);
@@ -79,7 +108,8 @@ class AutoIndexer {
       options.channels,
       options.components,
       options.paths,
-      options.autoComponentIndexerOptions
+      options.autoComponentIndexerOptions,
+      options.autoChannelIndexerOptions
     );
   }
 }
