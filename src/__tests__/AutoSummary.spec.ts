@@ -73,3 +73,9 @@ it('/streets/location/{name}/house/delete.yml', async () => {
     'Delete a house, from location {name}, from streets'
   );
 });
+
+it('leave the name in place   /streets/location/{name}/house/out.yml', async () => {
+  expect(autoSummary('streets/location/{name}/house/our.yml', {useFileName: true})).toBe(
+    ' Our, from house, from location {name}, from streets'
+  );
+});

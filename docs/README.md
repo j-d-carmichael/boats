@@ -225,9 +225,22 @@ Path Indexer
 {{ autoPathIndexer() }}
 ```
 Channel Indexer
+ - Options allow you to alter the separator here based on patterns, see the options below
 ```
 {{ autoChannelIndexer() }}
 ```
+or this, which will convert all channels with KC/** to use a . separator, outputting something like `KK.1234` instead of `/KK/1234`:
+```
+{{ autoChannelIndexer({
+    channelSeparators: [{
+       match: '/KK/**',
+       separator: '.'
+    }]
+}) }}
+```
+
+
+
 Definition/Component/Parameter Indexer:
 ```
 {{ autoComponentIndexer() }}
@@ -252,6 +265,11 @@ summary: {{ autoSummary() }}
 Example "**user/{id}/get.yml**" would yield "**Get user based on {id}**"
 
 A more complex example, "**house/{number}/user/{id}/get.yml**" would output "**Get user based on {id}, from house {number}**"
+
+You can also instruct the helper to use the filename in the output, helpful for asyncapi channel names (see the last test in the test suit for an example):
+```yaml
+{{ autoSummary({useFileName: true}) }}
+```
 
 See the unit tests for more examples, [src/__tests__/AutoSummary.spec.ts](https://github.com/j-d-carmichael/boats/blob/develop/src/__tests__/AutoSummary.spec.ts)
 
@@ -692,6 +710,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
 - 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start
 - 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
 - 2023/09/08 4.1.0:  feat: dontUcFirst can now be injected to {{autoComponentIndexer('dontUcFirst')}}
