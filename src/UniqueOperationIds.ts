@@ -70,6 +70,9 @@ class UniqueOperationIds {
         // upper case for camel and pascal for overall styling
         if ([StringStyle.camelCase, StringStyle.PascalCase].includes(style)) {
           filePathParts[i] = ucFirst(filePathParts[i]);
+          if (iterationToNotCaseChange !== -1 && (i - 1) === iterationToNotCaseChange) {
+            filePathParts[i] = lcFirst(filePathParts[i]);
+          }
         }
         // Add the split highlight
         if (i === iterationToNotCaseChange) {

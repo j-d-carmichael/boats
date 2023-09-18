@@ -172,7 +172,7 @@ describe('firstSegmentSplit tests', () => {
         cwd: 'some/dir/',
         firstSegmentSplit: '.'
       })
-    ).toBe('weather.IsBadGet');
+    ).toBe('weather.isBadGet');
   });
 
   it('should separate with _', async () => {
@@ -183,7 +183,7 @@ describe('firstSegmentSplit tests', () => {
         cwd: 'some/dir/',
         firstSegmentSplit: '_'
       })
-    ).toBe('weather_IsBadGet');
+    ).toBe('weather_isBadGet');
   });
 
   it('should separate with - but also the camel case should be applied to the first segment even though there is a split highlight passed', async () => {
@@ -194,6 +194,6 @@ describe('firstSegmentSplit tests', () => {
         cwd: 'some/dir/',
         firstSegmentSplit: '-'
       })
-    ).toBe('weatherIs-BadGet');
+    ).toBe('weatherIs-badGet');
   });
 });
