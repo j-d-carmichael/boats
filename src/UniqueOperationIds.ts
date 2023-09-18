@@ -41,7 +41,6 @@ class UniqueOperationIds {
     let iterationToNotCaseChange = -1;
     if (firstSegmentSplit) {
       iterationToNotCaseChange = 0;
-      filePathParts[0] = filePathParts[0] + firstSegmentSplit;
     }
 
     // inject the prefixes if given
@@ -53,7 +52,7 @@ class UniqueOperationIds {
     }
 
     for (let i = 0; i < filePathParts.length; ++i) {
-      if (filePathParts[i] !== sep && i !== iterationToNotCaseChange) {
+      if (filePathParts[i] !== sep) {
         switch (segmentStyle) {
           case StringStyle.snakeCase:
             filePathParts[i] = _.snakeCase(this.removeCurlys(filePathParts[i]));
@@ -71,6 +70,10 @@ class UniqueOperationIds {
         // upper case for camel and pascal for overall styling
         if ([StringStyle.camelCase, StringStyle.PascalCase].includes(style)) {
           filePathParts[i] = ucFirst(filePathParts[i]);
+        }
+        // Add the split highlight
+        if (i === iterationToNotCaseChange) {
+          filePathParts[i] += firstSegmentSplit;
         }
       }
     }

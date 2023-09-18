@@ -186,14 +186,14 @@ describe('firstSegmentSplit tests', () => {
     ).toBe('weather_IsBadGet');
   });
 
-  it('should separate with -', async () => {
+  it('should separate with - but also the camel case should be applied to the first segment even though there is a split highlight passed', async () => {
     expect(
       UniqueOperationIds.getUniqueOperationIdFromPath({
-        filePath: 'src/paths/weather/is-bad/get.yml',
+        filePath: 'src/paths/weather-is/bad/get.yml',
         stripValue: 'src/paths/',
         cwd: 'some/dir/',
         firstSegmentSplit: '-'
       })
-    ).toBe('weather-IsBadGet');
+    ).toBe('weatherIs-BadGet');
   });
 });
