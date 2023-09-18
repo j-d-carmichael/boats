@@ -681,7 +681,8 @@ operationId: <$ uniqueOpId() $>
 ```
 The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system.
 The path leading up to the entry point is always removed.
-In addition the value of the "strip_value" command is also removed, if a strip value is not provided this will default to "src/paths/".
+
+In addition, the value of the "strip_value" (see the .boatsrc section) is also removed, if a strip value is not provided this will default to "src/paths/".
 
 So the following path:
 `/home/me/code/project/src/paths/v1/temperature/get.yml`
@@ -692,6 +693,8 @@ Results in:
 Each segment of the path is run through [camelcase](https://github.com/sindresorhus/camelcase#readme) so `this-folder` results in `thisFolder`
 
 This is especially helpful for API generators eg: codegen
+
+There is however, many options to pass into the uniqueOpId() to control the output, please the unit test for all options: https://github.com/j-d-carmichael/boats/blob/23d63384e598c99fdfa459554c3bec610af43667/src/__tests__/UniqueOperationIds.spec.ts
 
 
 ### Variables
@@ -710,6 +713,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)
 - 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
 - 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start
 - 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}

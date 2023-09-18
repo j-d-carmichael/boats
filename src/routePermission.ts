@@ -10,7 +10,7 @@ const defaultPrefix = {
   post: 'create',
   put: 'update',
   patch: 'update',
-  delete: 'delete',
+  delete: 'delete'
 };
 
 export default (
@@ -45,14 +45,13 @@ export default (
   } else {
     mainPrefixes.push(calculatedPrefix);
   }
-  return UniqueOperationIds.getUniqueOperationIdFromPath(
+  return UniqueOperationIds.getUniqueOperationIdFromPath({
     filePath,
     stripValue,
     tails,
-    undefined,
     removeMethod,
-    boatsrc?.permissionConfig?.permissionStyle,
-    boatsrc?.permissionConfig?.permissionSegmentStyle,
-    mainPrefixes
-  );
+    style: boatsrc?.permissionConfig?.permissionStyle,
+    segmentStyle: boatsrc?.permissionConfig?.permissionSegmentStyle,
+    prefixes: mainPrefixes
+  });
 };
