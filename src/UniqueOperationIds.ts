@@ -52,8 +52,6 @@ class UniqueOperationIds {
       filePathParts = prefixes.concat(filePathParts);
     }
 
-    console.log(filePathParts);
-
     for (let i = 0; i < filePathParts.length; ++i) {
       if (filePathParts[i] !== sep) {
         switch (segmentStyle) {
