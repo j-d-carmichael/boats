@@ -15,6 +15,7 @@ export interface GetUniqueOperationIdFromPath {
   style?: StringStyle,
   segmentStyle?: StringStyle,
   firstSegmentSplit?: '.' | '-' | '_'
+  allSegmentSplit?: '.' | '-' | '_'
   prefixes?: string[]
 }
 
@@ -51,6 +52,8 @@ class UniqueOperationIds {
       filePathParts = prefixes.concat(filePathParts);
     }
 
+    console.log(filePathParts);
+
     for (let i = 0; i < filePathParts.length; ++i) {
       if (filePathParts[i] !== sep) {
         switch (segmentStyle) {
@@ -62,6 +65,9 @@ class UniqueOperationIds {
             break;
           case StringStyle.kebabCase:
             filePathParts[i] = _.kebabCase(this.removeCurlys(filePathParts[i]));
+            break;
+          case StringStyle.asIs:
+            filePathParts[i] = this.removeCurlys(filePathParts[i]);
             break;
           default:
             filePathParts[i] = _.camelCase(this.removeCurlys(filePathParts[i]));
@@ -97,6 +103,8 @@ class UniqueOperationIds {
         return filePathParts.join('');
       case StringStyle.snakeCase:
         return filePathParts.join('_');
+      case StringStyle.dotNotation:
+        return filePathParts.join('.');
       default:
         return lcFirst(filePathParts.join(''));
     }

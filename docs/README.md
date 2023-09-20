@@ -694,7 +694,8 @@ Each segment of the path is run through [camelcase](https://github.com/sindresor
 
 This is especially helpful for API generators eg: codegen
 
-There is however, many options to pass into the uniqueOpId() to control the output, please the unit test for all options: https://github.com/j-d-carmichael/boats/blob/23d63384e598c99fdfa459554c3bec610af43667/src/__tests__/UniqueOperationIds.spec.ts
+There is however, many options to pass into the uniqueOpId() to control the output, please the unit-tests 
+for all options: https://github.com/j-d-carmichael/boats/blob/23d63384e598c99fdfa459554c3bec610af43667/src/__tests__/UniqueOperationIds.spec.ts
 
 
 ### Variables
@@ -713,6 +714,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
 - 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)
 - 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
 - 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start

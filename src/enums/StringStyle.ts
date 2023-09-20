@@ -3,4 +3,6 @@ export enum StringStyle {
   camelCase = 'camelCase',
   snakeCase = 'snake_case',
   kebabCase = 'kebab-case',
+  asIs = 'asIs',
+  dotNotation = 'dotNotation',
 }

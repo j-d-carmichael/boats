@@ -10,7 +10,7 @@ it('standard action v1WeatherGet', () => {
     })
   ).toBe('v1WeatherGet');
 });
-it('custom strip value', () => {
+it('custom strip value, ie where this is being loaded from on disk is not in the output', () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/more/v1/weather/get.yml',
@@ -20,7 +20,7 @@ it('custom strip value', () => {
   ).toBe('v1WeatherGet');
 });
 
-it('handle snake-case', () => {
+it('handle snake-case in the url segments', () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/more/v1/weather-is-bad/get.yml',
@@ -65,7 +65,7 @@ it('should be able to inject a single preset', async () => {
   ).toBe('bobbyWeatherIsBad');
 });
 
-it('should be able to inject many presets', async () => {
+it('remove the method, camelCase for the connecting style and the segment style', async () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/weather-is-bad/get.yml',
@@ -79,7 +79,7 @@ it('should be able to inject many presets', async () => {
   ).toBe('bobbyAwesomeWeatherIsBad');
 });
 
-it('should be able to inject many presets and Pascal case', async () => {
+it('many presets and Pascal case', async () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/weather-is-bad/get.yml',
@@ -93,7 +93,7 @@ it('should be able to inject many presets and Pascal case', async () => {
   ).toBe('BobbyAwesomeWeatherIsBad');
 });
 
-it('should be able to inject many presets and snake case', async () => {
+it('many presets and snake case', async () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/weather-is-bad/get.yml',
@@ -121,7 +121,7 @@ it('should be able to inject many presets and kebab case', async () => {
   ).toBe('bobby-awesome-weatherIsBad');
 });
 
-it('should be able to inject many presets and kebab case and kebab case for the segment style', async () => {
+it('kebab case and kebab case for the segment style', async () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/weather-is-bad/get.yml',
@@ -135,7 +135,7 @@ it('should be able to inject many presets and kebab case and kebab case for the 
   ).toBe('bobby-awesome-weather-is-bad');
 });
 
-it('should be able to inject many presets and snakeCase overall and snakeCase for the segment style', async () => {
+it('many presets and snakeCase overall and snakeCase for the segment style', async () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/weather-is-bad/get.yml',
@@ -149,7 +149,7 @@ it('should be able to inject many presets and snakeCase overall and snakeCase fo
   ).toBe('bobby_awesome_weather_is_bad');
 });
 
-it('should be able to inject many presets and kebab case and kebab case for the segment style', async () => {
+it('many presets and kebab case and kebab case for the segment style', async () => {
   expect(
     UniqueOperationIds.getUniqueOperationIdFromPath({
       filePath: 'src/paths/weather-is-bad/get.yml',
@@ -163,8 +163,20 @@ it('should be able to inject many presets and kebab case and kebab case for the 
   ).toBe('bobby_awesome_weather-is-bad');
 });
 
+it('get EVENT.*.THING from src/paths/EVENT/*/THING.yml', async () => {
+  expect(
+    UniqueOperationIds.getUniqueOperationIdFromPath({
+      filePath: 'src/paths/EVENT/*/THING.yml',
+      stripValue: 'src/paths/',
+      cwd: 'some/dir/',
+      style: StringStyle.dotNotation,
+      segmentStyle: StringStyle.asIs,
+    })
+  ).toBe('EVENT.*.THING');
+});
+
 describe('firstSegmentSplit tests', () => {
-  it('should separate with .', async () => {
+  it('get weather.isBadGet from src/paths/weather/is-bad/get.yml', async () => {
     expect(
       UniqueOperationIds.getUniqueOperationIdFromPath({
         filePath: 'src/paths/weather/is-bad/get.yml',
@@ -175,7 +187,7 @@ describe('firstSegmentSplit tests', () => {
     ).toBe('weather.isBadGet');
   });
 
-  it('should separate with _', async () => {
+  it('get weather_isBadGet from src/paths/weather/is-bad/get.yml', async () => {
     expect(
       UniqueOperationIds.getUniqueOperationIdFromPath({
         filePath: 'src/paths/weather/is-bad/get.yml',
@@ -186,7 +198,7 @@ describe('firstSegmentSplit tests', () => {
     ).toBe('weather_isBadGet');
   });
 
-  it('should separate with - but also the camel case should be applied to the first segment even though there is a split highlight passed', async () => {
+  it('get weatherIs-badGet from src/paths/weather-is/bad/get.yml', async () => {
     expect(
       UniqueOperationIds.getUniqueOperationIdFromPath({
         filePath: 'src/paths/weather-is/bad/get.yml',
