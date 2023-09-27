@@ -103,7 +103,10 @@ class AutoIndexer {
   ) {
     const absoluteIndexFilePath = upath.join(process.cwd(), indexFile);
     const dir = upath.join(process.cwd(), upath.dirname(indexFile));
-    const files = this.getFiles(dir);
+    const files = this.getFiles(dir).filter((file) => {
+      return ['.yml', '.yaml', '.njk'].indexOf(upath.extname(file)) !== -1;
+    });
+
     const cleanPaths = this.cleanFilePaths(dir, files, absoluteIndexFilePath);
     return this.buildPathsYamlString(
       cleanPaths,

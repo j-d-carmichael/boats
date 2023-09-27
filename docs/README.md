@@ -714,6 +714,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for example a README.md in the same folder
 - 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
 - 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)
 - 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
