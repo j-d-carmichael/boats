@@ -65,7 +65,7 @@
     "deepmerge": "4.3.1",
     "dotenv": "16.3.1",
     "fs-extra": "11.1.1",
-    "inquirer": "9.2.8",
+    "inquirer": "8.2.6",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "npm-tool-version-check": "1.2.0",
