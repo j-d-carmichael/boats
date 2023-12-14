@@ -170,7 +170,7 @@ it('get EVENT.*.THING from src/paths/EVENT/*/THING.yml', async () => {
       stripValue: 'src/paths/',
       cwd: 'some/dir/',
       style: StringStyle.dotNotation,
-      segmentStyle: StringStyle.asIs,
+      segmentStyle: StringStyle.asIs
     })
   ).toBe('EVENT.*.THING');
 });
@@ -208,4 +208,22 @@ describe('firstSegmentSplit tests', () => {
       })
     ).toBe('weatherIs-badGet');
   });
+});
+
+it('should be able to handle replacements, eg [any] to *', async () => {
+  expect(
+    UniqueOperationIds.getUniqueOperationIdFromPath({
+      filePath: 'src/paths/weather/[any]/bad/get.yml',
+      stripValue: 'src/paths/',
+      cwd: 'some/dir/',
+      style: StringStyle.dotNotation,
+      segmentStyle: StringStyle.asIs,
+      replacements: [
+        {
+          find: '[any]',
+          replace: '*'
+        }
+      ]
+    })
+  ).toBe('weather.*.bad.get');
 });

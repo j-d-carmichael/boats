@@ -16,7 +16,8 @@ export interface GetUniqueOperationIdFromPath {
   segmentStyle?: StringStyle,
   firstSegmentSplit?: '.' | '-' | '_'
   allSegmentSplit?: '.' | '-' | '_'
-  prefixes?: string[]
+  prefixes?: string[],
+  replacements?: { find: string, replace: string }[]
 }
 
 class UniqueOperationIds {
@@ -94,18 +95,34 @@ class UniqueOperationIds {
       filePathParts = filePathParts.concat(tails);
     }
 
+    let operationId = '';
+
     switch (style) {
       case StringStyle.kebabCase:
-        return lcFirst(filePathParts.join('-'));
+        operationId = lcFirst(filePathParts.join('-'));
+        break;
       case StringStyle.PascalCase:
-        return filePathParts.join('');
+        operationId = filePathParts.join('');
+        break;
       case StringStyle.snakeCase:
-        return filePathParts.join('_');
+        operationId = filePathParts.join('_');
+        break;
       case StringStyle.dotNotation:
-        return filePathParts.join('.');
+        operationId = filePathParts.join('.');
+        break;
       default:
-        return lcFirst(filePathParts.join(''));
+        operationId = lcFirst(filePathParts.join(''));
+        break;
     }
+
+    // lastly, if we have any replacements, apply them now
+    if (input.replacements && input.replacements.length) {
+      input.replacements.forEach((replacement) => {
+        operationId = operationId.split(replacement.find).join(replacement.replace);
+      });
+    }
+
+    return operationId;
   }
 
   /**
