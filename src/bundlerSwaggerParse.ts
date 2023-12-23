@@ -6,20 +6,19 @@ import validate from '@/validate';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 
-interface Input {
+/**
+ * Bundles many files together and returns the final output path
+ */
+export default async (input: {
   inputFile: string,
   outputFile: string,
+  oneFileOutput: boolean,
   boatsRc: BoatsRC,
   indentation: number,
   doNotValidate: boolean,
   excludeVersion: boolean,
   dereference: boolean
-}
-
-/**
- * Bundles many files together and returns the final output path
- */
-export default async (input: Input): Promise<string> => {
+}): Promise<string> => {
   const { excludeVersion, dereference, inputFile, outputFile, boatsRc } = input;
   const doNotValidate = input.doNotValidate || false;
   const indentation = input.indentation || 2;
@@ -32,7 +31,7 @@ export default async (input: Input): Promise<string> => {
     }
 
     if (doNotValidate) {
-      console.warn('Bypassing validation as dontValidateOutput flag seen')
+      console.warn('Bypassing validation as dontValidateOutput flag seen');
     } else {
       await validate.decideThenValidate(
         bundled as any,
@@ -51,6 +50,7 @@ export default async (input: Input): Promise<string> => {
     fs.ensureDirSync(upath.dirname(outputFile));
     const pathToWriteTo = getOutputName(outputFile, bundled, excludeVersion);
     fs.writeFileSync(pathToWriteTo, contents);
+
     return pathToWriteTo;
   } catch (e) {
     console.error(JSON.stringify(bundled, undefined, 2));
