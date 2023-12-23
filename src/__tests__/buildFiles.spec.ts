@@ -7,6 +7,7 @@ import builtOA2_readonly from '@/__tests__/buildFilesData/builtOA2_readonly.json
 import builtOA2_no_version from '@/__tests__/buildFilesData/builtOA2_no_version.json';
 import builtOA3 from '@/__tests__/buildFilesData/builtOA3.json';
 import builtOA3_exclude from '@/__tests__/buildFilesData/builtOA3_exclude.json';
+import upath from 'upath';
 
 jest.setTimeout(60 * 1000); // in milliseconds
 
@@ -102,5 +103,17 @@ describe('Check to ensure the files are generated with the correct file names:',
       dumper(file, infile);
       done(e);
     }
+  });
+
+  it('it should have only output 1 file to the builtOA3_std_onefile folder when --one-file-output was present', () => {
+    const outputFile = 'test-build/builtOA3_std_onefile/builtOA3_1.0.1.yml';
+    expect(fs.pathExistsSync(outputFile)).toBe(true);
+    const files = fs.readdirSync(
+      upath.join(
+        process.cwd(),
+        upath.dirname(outputFile)
+      )
+    );
+    expect(files.length).toBe(1);
   });
 });
