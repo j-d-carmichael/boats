@@ -94,7 +94,6 @@ class Injector {
 
   buildInjectRuleObject (injection: any): any {
     return {
-      exclude: [] /* << deprecated and will be removed in the a future release */,
       excludeChannels: [],
       includeOnlyChannels: [],
       excludePaths: [],
@@ -151,9 +150,6 @@ class Injector {
   shouldInjectToChannels (operationName: string, injectRule: any, methodName: string, picomatchOptions: any) {
     // Exclude channels
     if (this.globCheck(operationName, injectRule.excludeChannels, picomatchOptions, methodName)) {
-      return false;
-    }
-    if (this.globCheck(operationName, injectRule.exclude, picomatchOptions, methodName)) {
       return false;
     }
     // Specifically include a channel

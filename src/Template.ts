@@ -85,7 +85,14 @@ class Template {
 
       // ensure we parse the input file 1st as this typically contains the inject function
       // this will also allow us to determine the api type and correctly set the stripValue
-      const renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+      let renderedIndex: string;
+      try {
+        renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+      } catch (e) {
+        console.error(`Error parsing nunjucks file ${inputFile}: `.red.bold);
+        console.error('Common errors in the index file are JSON syntax errors with the `inject` tpl function'.red)
+        reject(e);
+      }
 
       this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
 
@@ -102,7 +109,7 @@ class Template {
             }
             fs.outputFileSync(outputFile, rendered);
           } catch (e) {
-            console.error(`Error parsing nunjucks file ${file}: `);
+            console.error(`Error parsing nunjucks file ${file}: `.red.bold);
             return reject(e);
           }
         })

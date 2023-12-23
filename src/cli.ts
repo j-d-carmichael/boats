@@ -85,8 +85,6 @@ const catchHandle = (error: any) => {
   const printed = error.stack || error.details || error.name;
   if (error.stack) {
     console.error('');
-    console.error('');
-    console.error('');
     console.error(line);
     console.error('ERROR.STACK: '.red.bold);
     console.error(line);
@@ -115,6 +113,8 @@ const catchHandle = (error: any) => {
   if (error.name) {
     console.error('ERROR.NAME: '.red.bold, JSON.stringify(error.name).red);
   }
+
+  console.error('Tip: '.red.bold, 'Scroll up in this terminal window for more errors and hints'.red);
 
   if (!printed) {
     console.trace(error);
