@@ -60,7 +60,7 @@
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "9.1.2",
     "@apidevtools/swagger-parser": "10.1.0",
-    "@asyncapi/parser": "2.0.3",
+    "@asyncapi/parser": "3.0.2",
     "colors": "1.4.0",
     "commander": "11.0.0",
     "deepmerge": "4.3.1",
