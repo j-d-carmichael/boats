@@ -714,7 +714,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2023/12/23 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output.
+- 2023/12/25 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output. 🎅
 - 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
 - 2023/10/07 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version
 - 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for example a README.md in the same folder
