@@ -417,7 +417,7 @@ Content is either a JSON representation of the YAML content to inject, or a stri
         excludePaths: ['/users'],
         includeMethods: ['post','put','patch','delete'],
         content: {
-          x-write-required: '{{ routePermission() }}'
+          x-write-required: '{{ routePermission() }}',
           security: [{
             apiKey: []
           }]
@@ -428,27 +428,24 @@ Content is either a JSON representation of the YAML content to inject, or a stri
     # add defaults to all routes
     {
       toAllOperations: {
-        content: '
-          tags:
-            - {{ autoTag() }}
-          summary: {{ myCustomAutoSummary() }}
-          operationId: {{ uniqueOpId() }}
-          description: |
-            {{ myCustomDescription() }}
-          responses:
-            '404':
-              description: Not found
-              schema:
-                $ref: #/common/404.yml.njk
-            '401':
-              description: Unauthenticated
-              schema:
-                $ref: #/common/401.yml.njk
-            '418':
-              description: Error brewing coffee
-              schema:
-                $ref: #/common/418.yml.njk
-        '
+        content:
+          tags: [ "{{ autoTag() }}" ],
+          summary: "{{ myCustomAutoSummary() }}",
+          operationId: "{{ uniqueOpId() }}",
+          description: "{{ myCustomDescription() }}",
+        responses:
+          '404':
+            description: "Not found",
+            schema:
+              $ref: "./common/404.yml",
+          '401':
+            description: "Unauthenticated",
+            schema:
+              $ref: "./common/401.yml",
+          '418':
+            description: "Error brewing coffee"
+            schema:
+              $ref: "./common/418.yml"
       }
     }
   ])
@@ -714,6 +711,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
+- 2023/12/25 4.9.1:  chore: Dependency updates, some major & some minor zero BOATS functionality change 🎅
 - 2023/12/25 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output. 🎅
 - 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
 - 2023/10/07 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version

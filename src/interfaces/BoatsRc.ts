@@ -1,4 +1,3 @@
-import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { StringStyle } from '@/enums/StringStyle';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 
@@ -28,7 +27,7 @@ export interface BoatsRC {
     };
     [key: string]: any;
   };
-  jsonSchemaRefParserBundleOpts?: $RefParser.Options;
+  jsonSchemaRefParserBundleOpts?: any;
   permissionConfig?: {
     routePrefix?: MethodAlias; // to be deprecated, use methodAlias instead
     methodAlias?: MethodAlias;

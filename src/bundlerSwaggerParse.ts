@@ -27,6 +27,7 @@ export default async (input: {
   try {
     bundled = await $RefParser.bundle(inputFile, boatsRc.jsonSchemaRefParserBundleOpts);
     if (dereference) {
+      // @ts-ignore
       bundled = await $RefParser.dereference(bundled);
     }
 
@@ -48,6 +49,7 @@ export default async (input: {
       });
     }
     fs.ensureDirSync(upath.dirname(outputFile));
+    // @ts-ignore
     const pathToWriteTo = getOutputName(outputFile, bundled, excludeVersion);
     fs.writeFileSync(pathToWriteTo, contents);
 

@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import upath from 'upath';
-import 'colors';
+import '@colors/colors';
 import bundlerSwaggerParse from '@/bundlerSwaggerParse';
 import commander from '@/commander';
 import convertToNunjucksOrYaml from '@/convertToNunjucksOrYaml';
