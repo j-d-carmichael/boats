@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import lcFirst from '@/lcFirst';
 import upath, { sep } from 'upath';
+import lcFirst from '@/lcFirst';
 import removeFileExtension from '@/removeFileExtension';
-import { methods } from '@/constants/methods';
+import { METHODS } from '@/constants';
 import { StringStyle } from '@/enums/StringStyle';
 import ucFirst from '@/ucFirst';
 
@@ -87,7 +87,7 @@ class UniqueOperationIds {
     }
 
     if (removeMethod) {
-      if (methods.includes(filePathParts[filePathParts.length - 1].toLowerCase())) {
+      if (METHODS.includes(filePathParts[filePathParts.length - 1].toLowerCase())) {
         filePathParts.pop();
       }
     }

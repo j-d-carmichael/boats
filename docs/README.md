@@ -106,10 +106,10 @@ BOATS can be used as a cli tool via an npm script.
 The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
 
 ### Examples
-Example package.json script
+Example package.json script, the end result would be a single compiled file and without the version number of the spec in the filename:
 ```
 "boats": "boats"
-"build:yml": "boats -i ./src/index.yml -o ./build/api.yml"
+"build:yml": "boats -i ./src/index.yml -o ./build/api.yml --one-file-output --exclude_version"
 ```
 
 If you have an existing repository with .yml files and want to convert to .yml.njk you can convert all the file extensions, and the references with one command:
@@ -714,8 +714,9 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2023/09/27 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
-- 2023/09/27 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version
+- 2023/12/25 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output. 🎅
+- 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
+- 2023/10/07 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version
 - 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for example a README.md in the same folder
 - 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
 - 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)

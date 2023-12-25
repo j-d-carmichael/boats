@@ -21,6 +21,7 @@ export default (args: any[]): any => {
   commander.option('-n --noVersionCheck', 'Will completely bypass the version check');
   commander.option('-N, --targetName <snippet>', 'Eg boats -I oa2/crud -R ./src/paths -N user');
   commander.option('-o, --output [path]', 'The relative path to the main output file eg "./built/bundled.yml');
+  commander.option('-O, --one-file-output', 'Will ensure the only ouput is 1 compiled file');
   commander.option('-R, --relativeTargetPath <snippet>', 'Eg boats -I oa2/crud -R ./src/paths -N user');
   commander.option('-s, --strip_value <strip>', 'The value removed from the file path to create the uniqueOpId, it not provided will be either src/paths/ or src/channels/ based on api type.', false);
   commander.option('-S, --subSnippetPath <snippet>', 'The subdir in the target to extract eg "boats -I https://github/some/snippet.git -S oa2/crud -R ./src/paths -N user"');

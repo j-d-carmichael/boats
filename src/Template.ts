@@ -1,14 +1,14 @@
 import { readdirSync, statSync } from 'fs';
-import upath from 'upath';
-import nunjucks from 'nunjucks';
 import fs from 'fs-extra';
+import * as _ from 'lodash';
+import nunjucks from 'nunjucks';
+import upath from 'upath';
 import calculateIndentFromLineBreak from '@/calculateIndentFromLineBreak';
 import cloneObject from '@/cloneObject';
 import defaults from '@/defaults';
 import stripFromEndOfString from '@/stripFromEndOfString';
 import apiTypeFromString from '@/apiTypeFromString';
 import Injector from '@/Injector';
-import * as _ from 'lodash';
 import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer';
 import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer';
 import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer';
@@ -27,6 +27,7 @@ import pickProps from './nunjucksHelpers/pickProps';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import { PathInjector } from './pathInjector';
 import isAsyncApi from './isAsyncApi';
+import { TMP_COMPILED_DIR_NAME } from '@/constants';
 
 // No types found for walker
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -56,6 +57,7 @@ class Template {
    * @param variables The variables for the tpl engine
    * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
    * @param boatsrc
+   * @param oneFileOutput When passed will output the tpl compiled files into a tmp folder, TMP_COMPILED_DIR_NAME
    */
   // eslint-disable-next-line max-lines-per-function
   directoryParse (
@@ -65,7 +67,8 @@ class Template {
     stripValue = defaults.DEFAULT_STRIP_VALUE,
     variables: any[],
     helpFunctionPaths: string[],
-    boatsrc: BoatsRC
+    boatsrc: BoatsRC,
+    oneFileOutput: boolean
   ): Promise<string> {
     return new Promise((resolve, reject) => {
       if (!inputFile || !output) {
@@ -82,7 +85,14 @@ class Template {
 
       // ensure we parse the input file 1st as this typically contains the inject function
       // this will also allow us to determine the api type and correctly set the stripValue
-      const renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+      let renderedIndex: string;
+      try {
+        renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+      } catch (e) {
+        console.error(`Error parsing nunjucks file ${inputFile}: `.red.bold);
+        console.error('Common errors in the index file are JSON syntax errors with the `inject` tpl function'.red)
+        reject(e);
+      }
 
       this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
 
@@ -91,7 +101,7 @@ class Template {
         .on('file', (file: string) => {
           try {
             file = upath.toUnix(file);
-            const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output));
+            const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output), oneFileOutput);
             const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
 
             if (upath.normalize(inputFile) === upath.normalize(file)) {
@@ -99,7 +109,7 @@ class Template {
             }
             fs.outputFileSync(outputFile, rendered);
           } catch (e) {
-            console.error(`Error parsing nunjucks file ${file}: `);
+            console.error(`Error parsing nunjucks file ${file}: `.red.bold);
             return reject(e);
           }
         })
@@ -147,14 +157,17 @@ class Template {
   /**
    * Calculates the output file based on the input file, used for mirroring the input src dir.
    * Any .njk ext will automatically be removed.
-   * @param inputFile
-   * @param currentFile
-   * @param outputDirectory
-   * @returns {*}
    */
-  calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string) {
+  calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string, oneFileOutput: boolean) {
     const inputDir = upath.dirname(inputFile);
-    return this.stripNjkExtension(upath.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, '')));
+    return this.stripNjkExtension(
+      upath.join(
+        process.cwd(),
+        outputDirectory,
+        oneFileOutput ? TMP_COMPILED_DIR_NAME : '',
+        currentFile.replace(inputDir, '')
+      )
+    );
   }
 
   /**
@@ -210,7 +223,7 @@ class Template {
         index: regexp.lastIndex,
         match: matches[0],
         mixinPath: matches[2],
-        mixinLinePadding: '',
+        mixinLinePadding: ''
       };
       const indent = calculateIndentFromLineBreak(str, mixinObj.index) + originalIndentation;
       for (let i = 0; i < indent; ++i) {
@@ -240,7 +253,7 @@ class Template {
       const indentObject = {
         index: regexp.lastIndex,
         match: matches[0],
-        linePadding: '',
+        linePadding: ''
       };
       const indent = calculateIndentFromLineBreak(preparedString, indentObject.index) + originalIndentation;
       for (let i = 0; i < indent; ++i) {
