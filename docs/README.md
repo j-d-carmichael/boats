@@ -417,7 +417,7 @@ Content is either a JSON representation of the YAML content to inject, or a stri
         excludePaths: ['/users'],
         includeMethods: ['post','put','patch','delete'],
         content: {
-          x-write-required: '{{ routePermission() }}'
+          x-write-required: '{{ routePermission() }}',
           security: [{
             apiKey: []
           }]
@@ -428,27 +428,24 @@ Content is either a JSON representation of the YAML content to inject, or a stri
     # add defaults to all routes
     {
       toAllOperations: {
-        content: '
-          tags:
-            - {{ autoTag() }}
-          summary: {{ myCustomAutoSummary() }}
-          operationId: {{ uniqueOpId() }}
-          description: |
-            {{ myCustomDescription() }}
-          responses:
-            '404':
-              description: Not found
-              schema:
-                $ref: #/common/404.yml.njk
-            '401':
-              description: Unauthenticated
-              schema:
-                $ref: #/common/401.yml.njk
-            '418':
-              description: Error brewing coffee
-              schema:
-                $ref: #/common/418.yml.njk
-        '
+        content:
+          tags: [ "{{ autoTag() }}" ],
+          summary: "{{ myCustomAutoSummary() }}",
+          operationId: "{{ uniqueOpId() }}",
+          description: "{{ myCustomDescription() }}",
+        responses:
+          '404':
+            description: "Not found",
+            schema:
+              $ref: "./common/404.yml",
+          '401':
+            description: "Unauthenticated",
+            schema:
+              $ref: "./common/401.yml",
+          '418':
+            description: "Error brewing coffee"
+            schema:
+              $ref: "./common/418.yml"
       }
     }
   ])
