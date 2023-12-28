@@ -21,6 +21,108 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
 
 Point boats at an entry index file and let it compile the rest automatically, either AsyncApi, OpenAPI or Swagger
 
+## Changelog
+- 2023/12/28 4.9.4:  fix: readme.md link
+- 2023/12/28 4.9.3:  fix: https://github.com/j-d-carmichael/boats/issues/86
+- 2023/12/28 4.9.2:  chore: Dependency dropped, walker package no longer used
+- 2023/12/25 4.9.1:  chore: Dependency updates, some major & some minor zero BOATS functionality change 🎅
+- 2023/12/25 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output. 🎅
+- 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
+- 2023/10/07 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version
+- 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for example a README.md in the same folder
+- 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
+- 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)
+- 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
+- 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start
+- 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
+- 2023/09/08 4.1.0:  feat: dontUcFirst can now be injected to {{autoComponentIndexer('dontUcFirst')}}
+- 2023/07/18 4.0.0:  chore: Breaking change now BOATS requires min. node 18
+- 2023/04/27 3.4.1:  fix: https://github.com/j-d-carmichael/boats/pull/79
+- 2023/01/12 3.4.0:  feat: new cli option -n for no-version check
+- 2023/01/02 3.3.0:  fix: --init will now not fail when the package.json file doesn't already have a scripts object
+- 2023/01/02 3.2.0:  chore: Dropped zerollup for tsc-alias
+- 2023/01/02 3.1.0:  chore: Happy new year! The --init now initializes without .njk file extensions
+- 2022/12/07 3.0.0:  chore: Breaking change now BOATS requires min. node 14 and built with Node 18
+- 2022/12/07 2.40.0: feat: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
+- 2022/12/07 2.39.0: chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)
+- 2022/11/14 2.38.0: chore: Updated the dependencies and tested
+- 2022/08/12 2.37.0: fix: Trim only replaces the last occurrence of trim when generating model names
+- 2022/08/04 2.36.0: enhance: When a syntax error is found in the yaml files, the error is now easier/ quicker to read
+- 2022/06/08 2.35.0: fixed: recursive helpers ignore files other than js/ts
+- 2022/05/15 2.34.0: changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
+- 2022/03/26 2.33.0: Security updates
+- 2022/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
+- 2022/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
+- 2022/03/17 2.30.0: `{{ autoSummary() }}` no longer wrapped in quotes
+- 2022/03/12 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
+- 2021/12/15 2.28.0: js-yaml upgraded to 4.1.0 replacing safeDump|Load to their new home
+- 2021/12/08 2.27.0: docs - readme
+- 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻
+- 2021/10/05 2.25.0: allow loading of helper files in TypeScript using ts-node
+- 2021/09/19 2.24.0: npm version check updated to use npm api instead of github json url
+- 2021/09/19 2.23.0: npm version check updated
+- 2021/09/13 2.22.0: (TEMP) The npm / github version check is removed to bypass github stalling issues
+- 2021/09/13 2.21.0: Allow overwriting of existing schema when the permissions schema is created
+- 2021/09/10 2.20.0: Add an option to automatically generate an enum schema with all available permissions
+- 2021/09/09 2.19.0: Absolute paths now work for multiple path shorthands in 1 file
+- 2021/09/09 2.18.0: Init fixes
+- 2021/09/09 2.17.0: Rollback
+- 2021/09/08 2.16.0: Absolute paths in the .boatsrc file
+- 2021/09/07 2.15.0: The boatsrc is injected via the init function is 1 does not already exist
+- 2021/08/31 2.14.0: Fancy pluralisation added to the model naming
+- 2021/08/31 2.13.0: skipped as 13 is not a lucky number :b
+- 2021/06/28 2.12.0: windows compatibility
+- 2021/06/27 2.11.0: relative mixins added
+- 2021/06/24 2.10.0: boats init now offers async api
+- 2021/06/21 2.9.0:  schemaRef helper for OA3 discriminator
+- 2021/01/28 2.8.0:  boats init package file as private
+- 2020/12/14 2.7.0:  pickProps added, allowing simple object building from props of another
+- 2020/12/12 2.6.0:  Inject include/exclude now takes string[] or {path:string, method: string}[] for finer control
+- 2020/11/15 2.5.0:  Merge objects added for when allOf is not possible
+- 2020/11/09 2.3/4:  Snippets extracted out of the core, now pulled from remote or local
+- 2020/11/08 2.2.0:  Snippets feature added for faster scaffolding into an existing project
+- 2020/11/07 2.1.0:  Support for the windows file system
+- 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false
+- 2020/08/28 1.25.4: Rollback to 1.24.1 to revert the breaking change
+- 2020/08/28 1.25.0: A breaking change was released to live, sorry
+- 2020/08/27 1.24.0: feat: Add `-y`, `--yes` option to skip remote version check
+- 2020/08/26 1.23.0: feat: Add prefix to permissions `{{ routePermission({prefix: 'ms-authentication', removeMethod: true}) }}`
+- 2020/08/26 1.22.0: feat: tpl helper [optionalProps](https://johndcarmichael.github.io/boats/#/?id=optionalprops) added AND [glob pattern matching for the injector](https://johndcarmichael.github.io/boats/#/?id=inject), aka wildcards
+- 2020/08/25 1.21.0: feat: options added to routePermission helper: x-permission: `{{ routePermission({removeMethod: true}) }}` strips the method off the generated permission name.
+- 2020/08/13 1.20.4: docs: readme
+- 2020/08/13 1.20.2: fix: --init script
+- 2020/08/13 1.20.0: feat: now uses the new https://www.npmjs.com/package/@asyncapi/parser which enforces all operationId to all be unique and brings in Types.
+- 2020/08/11 1.19.0: feat: pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17) via process.env or .boatsrc file allowing header injection for url resolution
+- 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files
+- 2020/06/28 1.18.1: chore: Bump tool check version to 1.1.1
+- 2020/06/28 1.18.0: feat: Conversion to typescript
+- 2020/06/18 1.17.0: feat: Allow njk templating in injected content and a new function routePermission()
+- 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example)
+- 2020/05/03 1.16.0: feat: An additional unique operation id check during the bundle process.
+- 2020/05/03 1.15.0: feat: Calculate the strip value based on the input type, src/paths or src/channels
+- 2020/04/30 1.14.0: feat: Cli args --convert_to_njk <localDirectory> and --convert_to_yml <localDirectory> added and documented
+- 2020/04/27 1.13.0: feat: New feature for the tpl helper: nunjucksHelpers/autoComponentIndexer.js to [remove](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk) a string from the def/comp/param. leaving [different naming](https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L123).
+- 2020/04/26 1.12.2: chore: Dependency updates, moved to @asyncapi/parser from asyncapi-parser
+- 2020/04/26 1.12.1: docs: Readme for npm
+- 2020/04/26 1.12.0: feat: Auto indexer tpl helpers based on directories and files ([paths/index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk), [channels/index](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk), [components|definitions|parameters index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk)).. less donkey work.
+- 2020/04/15 1.11.0: feat: Using deepmerge in the `inject` helper for more complex injections; [srcOA2/index.yml.njk](https://github.com/johndcarmichael/boats/tree/master/srcOA2)
+- 2020/04/12 1.10.0: deat: Auto detection of input type, asyncapi, openapi or swagger. -t cli arg no longer present
+- 2020/04/12 1.9.0: feat: Expose convert to njk file ext, --convert_to_njk ./src
+- 2020/04/12 1.8.0: feat: New tpl helper fileName & uniqueOpId bug fix for .njk files
+- 2020/04/07 1.7.5: docs: better examples readme links.
+- 2020/04/07 1.7.4: fix: Bug fix only the 1st inject block found is respected, ignore subsequent blocks found.
+- 2020/04/07 1.7.3: chore: dependency update, camelcase
+- 2020/04/07 1.7.2: fix: relating to "inject" new option "includeMethods"
+- 2020/04/03 1.7.1: fix: PR from @CasperJ to fix windows build environments
+- 2020/03/30 1.7.0: feat: Tpl helper "inject" new option "includeMethods"
+- 2020/03/28 1.6.0: feat: New tpl helper "inject" common content to paths/channels inc. exclude list
+- 2020/03/28 1.5.0: feat: .njk ext support allowing std nunjucks tags, tip: .boatsrc
+- 2020/03/08 1.4.0: feat: Added ability to build and validate AsyncAPI yml files
+- 2020/01/25 Dependencies updated and unique of id 1st segment bug fix
+- 2019/11/04 Expose the dereference of swaggerparser via the new -d | --dereference cli argument
+- 2019/07/14 Security update from [inquirer](https://www.npmjs.com/package/inquirer)
+
+
 ## Getting started
 Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init command. The net result will be:
  - Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
@@ -709,106 +811,6 @@ url: <$ host $>
 ```
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
-
-## Changelog
-- 2023/12/25 4.9.3:  fix: https://github.com/j-d-carmichael/boats/issues/86
-- 2023/12/25 4.9.2:  chore: Dependency dropped, walker package no longer used
-- 2023/12/25 4.9.1:  chore: Dependency updates, some major & some minor zero BOATS functionality change 🎅
-- 2023/12/25 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output. 🎅
-- 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
-- 2023/10/07 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version
-- 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for example a README.md in the same folder
-- 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
-- 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)
-- 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
-- 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start
-- 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
-- 2023/09/08 4.1.0:  feat: dontUcFirst can now be injected to {{autoComponentIndexer('dontUcFirst')}}
-- 2023/07/18 4.0.0:  chore: Breaking change now BOATS requires min. node 18
-- 2023/04/27 3.4.1:  fix: https://github.com/j-d-carmichael/boats/pull/79
-- 2023/01/12 3.4.0:  feat: new cli option -n for no-version check
-- 2023/01/02 3.3.0:  fix: --init will now not fail when the package.json file doesn't already have a scripts object
-- 2023/01/02 3.2.0:  chore: Dropped zerollup for tsc-alias
-- 2023/01/02 3.1.0:  chore: Happy new year! The --init now initializes without .njk file extensions
-- 2022/12/07 3.0.0:  chore: Breaking change now BOATS requires min. node 14 and built with Node 18
-- 2022/12/07 2.40.0: feat: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
-- 2022/12/07 2.39.0: chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)  
-- 2022/11/14 2.38.0: chore: Updated the dependencies and tested  
-- 2022/08/12 2.37.0: fix: Trim only replaces the last occurrence of trim when generating model names
-- 2022/08/04 2.36.0: enhance: When a syntax error is found in the yaml files, the error is now easier/ quicker to read
-- 2022/06/08 2.35.0: fixed: recursive helpers ignore files other than js/ts
-- 2022/05/15 2.34.0: changed: cli helpers `-f helper` will recursively add helpers from a folder when specified
-- 2022/03/26 2.33.0: Security updates
-- 2022/03/26 2.32.0: Fix: map channels index [issues/70](https://github.com/j-d-carmichael/boats/issues/70)
-- 2022/03/26 2.31.0: Fix: ts-node require once [issues/69](https://github.com/j-d-carmichael/boats/issues/69)
-- 2022/03/17 2.30.0: `{{ autoSummary() }}` no longer wrapped in quotes
-- 2022/03/12 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
-- 2021/12/15 2.28.0: js-yaml upgraded to 4.1.0 replacing safeDump|Load to their new home
-- 2021/12/08 2.27.0: docs - readme
-- 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻
-- 2021/10/05 2.25.0: allow loading of helper files in TypeScript using ts-node
-- 2021/09/19 2.24.0: npm version check updated to use npm api instead of github json url
-- 2021/09/19 2.23.0: npm version check updated
-- 2021/09/13 2.22.0: (TEMP) The npm / github version check is removed to bypass github stalling issues
-- 2021/09/13 2.21.0: Allow overwriting of existing schema when the permissions schema is created
-- 2021/09/10 2.20.0: Add an option to automatically generate an enum schema with all available permissions
-- 2021/09/09 2.19.0: Absolute paths now work for multiple path shorthands in 1 file
-- 2021/09/09 2.18.0: Init fixes
-- 2021/09/09 2.17.0: Rollback
-- 2021/09/08 2.16.0: Absolute paths in the .boatsrc file
-- 2021/09/07 2.15.0: The boatsrc is injected via the init function is 1 does not already exist
-- 2021/08/31 2.14.0: Fancy pluralisation added to the model naming
-- 2021/08/31 2.13.0: skipped as 13 is not a lucky number :b
-- 2021/06/28 2.12.0: windows compatibility
-- 2021/06/27 2.11.0: relative mixins added
-- 2021/06/24 2.10.0: boats init now offers async api
-- 2021/06/21 2.9.0:  schemaRef helper for OA3 discriminator
-- 2021/01/28 2.8.0:  boats init package file as private
-- 2020/12/14 2.7.0:  pickProps added, allowing simple object building from props of another
-- 2020/12/12 2.6.0:  Inject include/exclude now takes string[] or {path:string, method: string}[] for finer control
-- 2020/11/15 2.5.0:  Merge objects added for when allOf is not possible
-- 2020/11/09 2.3/4:  Snippets extracted out of the core, now pulled from remote or local
-- 2020/11/08 2.2.0:  Snippets feature added for faster scaffolding into an existing project
-- 2020/11/07 2.1.0:  Support for the windows file system
-- 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false
-- 2020/08/28 1.25.4: Rollback to 1.24.1 to revert the breaking change
-- 2020/08/28 1.25.0: A breaking change was released to live, sorry
-- 2020/08/27 1.24.0: feat: Add `-y`, `--yes` option to skip remote version check
-- 2020/08/26 1.23.0: feat: Add prefix to permissions `{{ routePermission({prefix: 'ms-authentication', removeMethod: true}) }}`
-- 2020/08/26 1.22.0: feat: tpl helper [optionalProps](https://johndcarmichael.github.io/boats/#/?id=optionalprops) added AND [glob pattern matching for the injector](https://johndcarmichael.github.io/boats/#/?id=inject), aka wildcards
-- 2020/08/25 1.21.0: feat: options added to routePermission helper: x-permission: `{{ routePermission({removeMethod: true}) }}` strips the method off the generated permission name.
-- 2020/08/13 1.20.4: docs: readme
-- 2020/08/13 1.20.2: fix: --init script
-- 2020/08/13 1.20.0: feat: now uses the new https://www.npmjs.com/package/@asyncapi/parser which enforces all operationId to all be unique and brings in Types.
-- 2020/08/11 1.19.0: feat: pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17) via process.env or .boatsrc file allowing header injection for url resolution
-- 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files
-- 2020/06/28 1.18.1: chore: Bump tool check version to 1.1.1
-- 2020/06/28 1.18.0: feat: Conversion to typescript
-- 2020/06/18 1.17.0: feat: Allow njk templating in injected content and a new function routePermission()
-- 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example)
-- 2020/05/03 1.16.0: feat: An additional unique operation id check during the bundle process.
-- 2020/05/03 1.15.0: feat: Calculate the strip value based on the input type, src/paths or src/channels
-- 2020/04/30 1.14.0: feat: Cli args --convert_to_njk <localDirectory> and --convert_to_yml <localDirectory> added and documented
-- 2020/04/27 1.13.0: feat: New feature for the tpl helper: nunjucksHelpers/autoComponentIndexer.js to [remove](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk) a string from the def/comp/param. leaving [different naming](https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L123).
-- 2020/04/26 1.12.2: chore: Dependency updates, moved to @asyncapi/parser from asyncapi-parser
-- 2020/04/26 1.12.1: docs: Readme for npm
-- 2020/04/26 1.12.0: feat: Auto indexer tpl helpers based on directories and files ([paths/index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk), [channels/index](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk), [components|definitions|parameters index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk)).. less donkey work.
-- 2020/04/15 1.11.0: feat: Using deepmerge in the `inject` helper for more complex injections; [srcOA2/index.yml.njk](https://github.com/johndcarmichael/boats/tree/master/srcOA2)
-- 2020/04/12 1.10.0: deat: Auto detection of input type, asyncapi, openapi or swagger. -t cli arg no longer present
-- 2020/04/12 1.9.0: feat: Expose convert to njk file ext, --convert_to_njk ./src
-- 2020/04/12 1.8.0: feat: New tpl helper fileName & uniqueOpId bug fix for .njk files
-- 2020/04/07 1.7.5: docs: better examples readme links.
-- 2020/04/07 1.7.4: fix: Bug fix only the 1st inject block found is respected, ignore subsequent blocks found.
-- 2020/04/07 1.7.3: chore: dependency update, camelcase
-- 2020/04/07 1.7.2: fix: relating to "inject" new option "includeMethods"
-- 2020/04/03 1.7.1: fix: PR from @CasperJ to fix windows build environments
-- 2020/03/30 1.7.0: feat: Tpl helper "inject" new option "includeMethods"
-- 2020/03/28 1.6.0: feat: New tpl helper "inject" common content to paths/channels inc. exclude list
-- 2020/03/28 1.5.0: feat: .njk ext support allowing std nunjucks tags, tip: .boatsrc
-- 2020/03/08 1.4.0: feat: Added ability to build and validate AsyncAPI yml files
-- 2020/01/25 Dependencies updated and unique of id 1st segment bug fix
-- 2019/11/04 Expose the dereference of swaggerparser via the new -d | --dereference cli argument
-- 2019/07/14 Security update from [inquirer](https://www.npmjs.com/package/inquirer)
 
 
 ## Thanks To
