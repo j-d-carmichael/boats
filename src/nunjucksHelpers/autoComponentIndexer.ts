@@ -1,9 +1,13 @@
 import AutoIndexer from '@/AutoIndexer';
-import { Remove } from '@/interfaces/GetIndexYamlOptions';
+import { AutoComponentIndexerOptions } from '@/interfaces/GetIndexYamlOptions';
 
-export default function (remove: Remove): string {
-  return AutoIndexer.getIndexYaml(this.env.globals.currentFilePointer, this.env.globals.boatsConfig, {
-    components: true,
-    remove,
-  });
+export default function (autoComponentIndexerOptions: AutoComponentIndexerOptions): string {
+  return AutoIndexer.getIndexYaml(
+    this.env.globals.currentFilePointer,
+    this.env.globals.boatsConfig,
+    {
+      components: true,
+      autoComponentIndexerOptions
+    }
+  );
 }

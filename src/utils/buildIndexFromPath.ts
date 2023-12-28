@@ -6,23 +6,33 @@ import _ from 'lodash';
 import pluralize from 'pluralize';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function buildIndexFromPath(cleanPath: string, trimOpts?: any, enableFancyPluralization?: boolean): string {
+export default function buildIndexFromPath (input: {
+  cleanPath: string,
+  autoComponentIndexerOptions?: any,
+  enableFancyPluralization?: boolean,
+  dontUcFirst?: boolean
+}): string {
+  const { cleanPath, autoComponentIndexerOptions, enableFancyPluralization, dontUcFirst } = input;
   const dir = upath.dirname(cleanPath);
   const filename = upath.basename(cleanPath);
   const method = getMethodFromFileName(filename);
   let _path = cleanPath;
-  if (trimOpts && trimOpts.dropBaseName && new RegExp(method + '$', 'i').test(_.camelCase(dir))) {
+  if (autoComponentIndexerOptions && autoComponentIndexerOptions.dropBaseName && new RegExp(method + '$', 'i').test(_.camelCase(dir))) {
     _path = cleanPath.replace(filename, '');
   }
-  const trim = typeof trimOpts === 'string' ? trimOpts : '';
-  const rawIndex = ucFirst(_.camelCase(removeFileExtension(_path)));
+  const trim = typeof autoComponentIndexerOptions === 'string' ? autoComponentIndexerOptions : '';
+  let rawIndex = _.camelCase(removeFileExtension(_path));
+  if (!dontUcFirst) {
+    rawIndex = ucFirst(rawIndex);
+  }
+
   const isPlural = trim && rawIndex.endsWith(`${trim}s`);
 
   if (!isPlural) {
     return rawIndex.replace(new RegExp(`${trim}$`), '');
   }
 
-  if(!enableFancyPluralization) {
+  if (!enableFancyPluralization) {
     return rawIndex.replace(new RegExp(`${trim}s$`), 's');
   }
 

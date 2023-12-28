@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import upath from 'upath';
-import 'colors';
+import '@colors/colors';
 import bundlerSwaggerParse from '@/bundlerSwaggerParse';
 import commander from '@/commander';
 import convertToNunjucksOrYaml from '@/convertToNunjucksOrYaml';
@@ -11,6 +11,7 @@ import GetCheckCorrectBoatsRc from '@/GetCheckCorrectBoatsRc';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import Snippets from '@/Snippets';
 import { init } from './init';
+import tmpFolderRemove from '@/tmpFolderRemove';
 
 const dotenvFilePath = upath.join(process.cwd(), '.env');
 
@@ -51,25 +52,30 @@ const parseCli = async () => {
   } else {
 
     // parse the directory then validate and bundle with swagger-parser
-    const returnFile = await Template.directoryParse(
+    const returnFile = Template.directoryParse(
       program.input,
       program.output,
       program.indentation,
       program.strip_value,
       program.variables,
       program.functions,
-      boatsRc
+      boatsRc,
+      program.oneFileOutput
     );
 
     const pathWrittenTo = await bundlerSwaggerParse({
       inputFile: returnFile,
       outputFile: program.output,
+      oneFileOutput: program.oneFileOutput,
       boatsRc,
       dereference: program.dereference,
       doNotValidate: program.dontValidateOutput,
       excludeVersion: program.exclude_version,
       indentation: program.indentation
     });
+
+    tmpFolderRemove(upath.dirname(pathWrittenTo));
+
     console.log('Completed, the files were rendered, validated and bundled to: '.green + pathWrittenTo.green.bold);
   }
 };
@@ -78,8 +84,6 @@ const catchHandle = (error: any) => {
   const line = '----------------------'.red;
   const printed = error.stack || error.details || error.name;
   if (error.stack) {
-    console.error('');
-    console.error('');
     console.error('');
     console.error(line);
     console.error('ERROR.STACK: '.red.bold);
@@ -109,6 +113,8 @@ const catchHandle = (error: any) => {
   if (error.name) {
     console.error('ERROR.NAME: '.red.bold, JSON.stringify(error.name).red);
   }
+
+  console.error('Tip: '.red.bold, 'Scroll up in this terminal window for more errors and hints'.red);
 
   if (!printed) {
     console.trace(error);

@@ -1,6 +1,8 @@
 import { upperFirst } from 'lodash';
 import { sep } from 'upath';
 import getMethodFromFileName from '@/utils/getMethodFromFileName';
+import removeFileExtension from '@/removeFileExtension';
+import UcFirst from '@/ucFirst';
 
 const summaryVerbReplacements = {
   get: 'Get',
@@ -14,11 +16,24 @@ const isVar = (part: string): boolean => {
   return part.includes('{');
 };
 
-export default (filePath: string): string => {
+export interface AutoSummaryOptions {
+  useFileName: boolean;
+}
+
+export default (filePath: string, options?: AutoSummaryOptions): string => {
   const parts = filePath.split(sep);
 
   // @ts-ignore
-  const method = summaryVerbReplacements[getMethodFromFileName(parts.pop())];
+  const method = summaryVerbReplacements[
+    getMethodFromFileName(
+      // if we use the filename governed by the options, don't pop the last part, leave it in place.
+      options && options.useFileName ? parts[parts.length - 1] : parts.pop()
+    )
+    ];
+
+  if (options && options.useFileName) {
+    parts[parts.length - 1] = UcFirst(removeFileExtension(parts[parts.length - 1])).trim();
+  }
 
   let out = `${upperFirst(method)}`;
 

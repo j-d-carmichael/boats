@@ -1,9 +1,24 @@
-import UniqueOperationIds from '@/UniqueOperationIds';
+import UniqueOperationIds, { GetUniqueOperationIdFromPath } from '@/UniqueOperationIds';
 
-export default function (tail: string): string {
-  return UniqueOperationIds.getUniqueOperationIdFromPath(
-    this.env.globals.currentFilePointer,
-    this.env.globals.uniqueOpIdStripValue,
-    tail
-  );
+export default function (tailOrFullConfig: string | GetUniqueOperationIdFromPath): string {
+  const base = {
+    filePath: this.env.globals.currentFilePointer,
+    stripValue: this.env.globals.uniqueOpIdStripValue
+  };
+
+  if(!tailOrFullConfig){
+    return UniqueOperationIds.getUniqueOperationIdFromPath(base);
+  }
+
+  const input: GetUniqueOperationIdFromPath = typeof tailOrFullConfig === 'string' ?
+    {
+      ...base,
+      tails: tailOrFullConfig
+    } :
+    {
+      ...base,
+      ...tailOrFullConfig
+    };
+
+  return UniqueOperationIds.getUniqueOperationIdFromPath(input);
 }

@@ -3,7 +3,7 @@ import 'colors';
 import fs from 'fs-extra';
 import upath from 'upath';
 
-import { GIT_DIRECTORY_SNIPPET_CACHE } from '@/constants/CachePaths';
+import { GIT_DIRECTORY_SNIPPET_CACHE } from '@/constants';
 import commandRun from '@/utils/commandRun';
 import camelCaseStringReplacement from '@/utils/camelCaseStringReplacement';
 

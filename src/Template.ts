@@ -1,14 +1,14 @@
 import { readdirSync, statSync } from 'fs';
-import upath from 'upath';
-import nunjucks from 'nunjucks';
 import fs from 'fs-extra';
+import * as _ from 'lodash';
+import nunjucks from 'nunjucks';
+import upath from 'upath';
 import calculateIndentFromLineBreak from '@/calculateIndentFromLineBreak';
 import cloneObject from '@/cloneObject';
 import defaults from '@/defaults';
 import stripFromEndOfString from '@/stripFromEndOfString';
 import apiTypeFromString from '@/apiTypeFromString';
 import Injector from '@/Injector';
-import * as _ from 'lodash';
 import autoChannelIndexer from '@/nunjucksHelpers/autoChannelIndexer';
 import autoComponentIndexer from '@/nunjucksHelpers/autoComponentIndexer';
 import autoPathIndexer from '@/nunjucksHelpers/autoPathIndexer';
@@ -27,10 +27,9 @@ import pickProps from './nunjucksHelpers/pickProps';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import { PathInjector } from './pathInjector';
 import isAsyncApi from './isAsyncApi';
-
-// No types found for walker
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const walker = require('walker');
+import { TMP_COMPILED_DIR_NAME } from '@/constants';
+import { dirListFilesSync } from '@/utils/dirListFilesSync';
+import fileArraySortIndexToTop from '@/utils/fileArraySortIndexToTop';
 
 class Template {
   isAsyncApiFile: boolean;
@@ -56,6 +55,7 @@ class Template {
    * @param variables The variables for the tpl engine
    * @param helpFunctionPaths Array of fully qualified local file paths to nunjucks helper functions
    * @param boatsrc
+   * @param oneFileOutput When passed will output the tpl compiled files into a tmp folder, TMP_COMPILED_DIR_NAME
    */
   // eslint-disable-next-line max-lines-per-function
   directoryParse (
@@ -65,51 +65,54 @@ class Template {
     stripValue = defaults.DEFAULT_STRIP_VALUE,
     variables: any[],
     helpFunctionPaths: string[],
-    boatsrc: BoatsRC
-  ): Promise<string> {
-    return new Promise((resolve, reject) => {
-      if (!inputFile || !output) {
-        throw new Error('You must pass an input file and output directory when parsing multiple files.');
+    boatsrc: BoatsRC,
+    oneFileOutput: boolean
+  ): string {
+    if (!inputFile || !output) {
+      throw new Error('You must pass an input file and output directory when parsing multiple files.');
+    }
+
+    this.originalIndentation = originalIndent;
+    this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX;
+    this.helpFunctionPaths = helpFunctionPaths || [];
+    this.variables = variables || [];
+    this.boatsrc = boatsrc;
+    this.inputFile = inputFile = this.cleanInputString(inputFile);
+    this.isAsyncApiFile = isAsyncApi(this.inputFile);
+
+    // ensure we parse the input file 1st as this typically contains the inject function
+    // this will also allow us to determine the api type and correctly set the stripValue
+    let renderedIndex: string;
+    try {
+      console.log('Render index file 1st', inputFile);
+      renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
+    } catch (e) {
+      console.error(`Error parsing nunjucks file ${inputFile}: `.red.bold);
+      console.error('Common errors in the index file are JSON syntax errors with the `inject` tpl function'.red);
+      throw e;
+    }
+
+    this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
+
+    let returnFileinput: string;
+
+    const files = fileArraySortIndexToTop(dirListFilesSync(upath.dirname(inputFile)));
+
+    for (let i = 0; i < files.length; i++) {
+      const file = upath.toUnix(files[i]);
+      try {
+        const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output), oneFileOutput);
+        const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
+        if (upath.normalize(inputFile) === upath.normalize(file)) {
+          returnFileinput = outputFile;
+        }
+        fs.outputFileSync(outputFile, rendered);
+      } catch (e) {
+        console.error(`Error parsing nunjucks file ${file}: `.red.bold);
+        throw e;
       }
-
-      this.originalIndentation = originalIndent;
-      this.mixinVarNamePrefix = defaults.DEFAULT_MIXIN_VAR_PREFIX;
-      this.helpFunctionPaths = helpFunctionPaths || [];
-      this.variables = variables || [];
-      this.boatsrc = boatsrc;
-      this.inputFile = inputFile = this.cleanInputString(inputFile);
-      this.isAsyncApiFile = isAsyncApi(this.inputFile);
-
-      // ensure we parse the input file 1st as this typically contains the inject function
-      // this will also allow us to determine the api type and correctly set the stripValue
-      const renderedIndex = this.renderFile(fs.readFileSync(inputFile, 'utf8'), inputFile);
-
-      this.stripValue = this.setDefaultStripValue(stripValue, renderedIndex);
-
-      let returnFileinput: string;
-      walker(upath.dirname(inputFile))
-        .on('file', (file: string) => {
-          try {
-            file = upath.toUnix(file);
-            const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output));
-            const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
-
-            if (upath.normalize(inputFile) === upath.normalize(file)) {
-              returnFileinput = outputFile;
-            }
-            fs.outputFileSync(outputFile, rendered);
-          } catch (e) {
-            console.error(`Error parsing nunjucks file ${file}: `);
-            return reject(e);
-          }
-        })
-        .on('error', (er: any, entry: string) => {
-          reject(er + ' on entry ' + entry);
-        })
-        .on('end', () => {
-          resolve(this.stripNjkExtension(returnFileinput));
-        });
-    });
+    }
+    return this.stripNjkExtension(returnFileinput);
   }
 
   setDefaultStripValue (stripValue?: string, inputString?: string): string {
@@ -130,7 +133,6 @@ class Template {
   /**
    * Cleans the input string to ensure a match with the walker package when mirroring
    * @param relativeFilePath
-   * @returns {string|*}
    */
   cleanInputString (relativeFilePath: string) {
     relativeFilePath = upath.toUnix(relativeFilePath);
@@ -147,14 +149,17 @@ class Template {
   /**
    * Calculates the output file based on the input file, used for mirroring the input src dir.
    * Any .njk ext will automatically be removed.
-   * @param inputFile
-   * @param currentFile
-   * @param outputDirectory
-   * @returns {*}
    */
-  calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string) {
+  calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string, oneFileOutput: boolean) {
     const inputDir = upath.dirname(inputFile);
-    return this.stripNjkExtension(upath.join(process.cwd(), outputDirectory, currentFile.replace(inputDir, '')));
+    return this.stripNjkExtension(
+      upath.join(
+        process.cwd(),
+        outputDirectory,
+        oneFileOutput ? TMP_COMPILED_DIR_NAME : '',
+        currentFile.replace(inputDir, '')
+      )
+    );
   }
 
   /**
@@ -169,7 +174,6 @@ class Template {
   /**
    * After render use only, takes a rendered njk file and replaces the .yml.njk with .njk
    * @param multiLineBlock
-   * @returns {*|void|string}
    */
   stripNjkExtensionFrom$Refs (multiLineBlock: string) {
     const pattern = '.yml.njk';
@@ -210,7 +214,7 @@ class Template {
         index: regexp.lastIndex,
         match: matches[0],
         mixinPath: matches[2],
-        mixinLinePadding: '',
+        mixinLinePadding: ''
       };
       const indent = calculateIndentFromLineBreak(str, mixinObj.index) + originalIndentation;
       for (let i = 0; i < indent; ++i) {
@@ -240,7 +244,7 @@ class Template {
       const indentObject = {
         index: regexp.lastIndex,
         match: matches[0],
-        linePadding: '',
+        linePadding: ''
       };
       const indent = calculateIndentFromLineBreak(preparedString, indentObject.index) + originalIndentation;
       for (let i = 0; i < indent; ++i) {
