@@ -2,7 +2,7 @@
 
 ![Boats](boats.jpg)
 
-An OpenAPI & AsyncAPI templating system with Nunjucks... write less YAML... do more.
+Ab OpenAPI & AsyncAPI templating system with Nunjucks... write less YAML... do more.
 ___
 
 ## Quick start
@@ -10,24 +10,23 @@ ___
 - Run BOATS init, `npx boats --init`, follow prompts
 
 ## Docs & Changelog
-[Full documentation: https://j-d-carmichael.github.io/boats/](https://j-d-carmichael.github.io/boats/#/)
+[Full documentation](https://j-d-carmichael.github.io/boats)
 
 [Changelog](https://j-d-carmichael.github.io/boats/#/?id=changelog)
 
 ## Examples
 Example files can be found here, but please also read the docs:
-- https://github.com/j-d-carmichael/boats/tree/master/srcASYNC2
-- https://github.com/j-d-carmichael/boats/tree/master/srcOA2
-- https://github.com/j-d-carmichael/boats/tree/master/srcOA3
+- Async API: https://github.com/j-d-carmichael/boats/tree/master/srcASYNC2
+- Open API 2: https://github.com/j-d-carmichael/boats/tree/master/srcOA2
+- Open API 3: https://github.com/j-d-carmichael/boats/tree/master/srcOA3
 
 ## Thanks To
 BOATS is nothing without the support of everyone involved, so a big thanks to:
-- Every [contributor](https://github.com/j-d-carmichael/boats/graphs/contributors) & [issue](https://github.com/j-d-carmichael/boats/issues) reports!
-- Jetbrains for their [Open Source Development - Community Support](https://www.jetbrains.com/community/opensource/#support) and powerful IDE!
-- [GitHub](https://github.com/) for hosting the Open Source codebase!
-- Everyone at [@apidevtools](https://github.com/APIDevTools)
-- Everyone at [@asyncapi](https://github.com/asyncapi)
-- vitaly for [js-yaml](https://github.com/nodeca/js-yaml)
+- Every [contributor](https://github.com/j-d-carmichael/boats/graphs/contributors) & [issue](https://github.com/j-d-carmichael/boats/issues)!
+- Jetbrains for their [Open Source Development - Community Support](https://www.jetbrains.com/community/opensource/#support)!
+- [@apidevtools](https://github.com/APIDevTools)
+- [@asyncapi](https://github.com/asyncapi)
+- [js-yaml](https://github.com/nodeca/js-yaml)
 - Mozilla for [Nujucks](https://github.com/mozilla/nunjucks)
 
 
