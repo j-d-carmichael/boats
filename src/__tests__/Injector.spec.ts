@@ -2,6 +2,11 @@ import Injector from '@/Injector';
 
 describe('glob check', () => {
   it('simple match', () => {
+    const currentPath = '/';
+    const paths = ['/'];
+    expect(Injector.globCheck(currentPath, paths, {}, 'GET')).toBe(true);
+  });
+  it('simple match', () => {
     const currentPath = '/path/one';
     const paths = ['/path/one'];
     expect(Injector.globCheck(currentPath, paths, {}, 'GET')).toBe(true);
