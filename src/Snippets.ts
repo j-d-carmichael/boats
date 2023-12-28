@@ -2,10 +2,7 @@ import nunjucks, { renderString } from 'nunjucks';
 import fs from 'fs-extra';
 import upath from 'upath';
 import SnippetsFetch from '@/SnippetsFetch';
-
-// No types found for walker
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const walker = require('walker');
+import { dirListFilesSync } from '@/utils/dirListFilesSync';
 
 interface ISnippets {
   injectSnippet: string,
@@ -65,22 +62,18 @@ export default class Snippets {
 
   renderPlacedSnippet (targetPath: string, data: Record<any, any>): Promise<void> {
     return new Promise((resolve, reject) => {
-      walker(targetPath)
-        .on('file', (file: string) => {
-          try {
-            const rendered = renderString(fs.readFileSync(file, 'utf8'), data);
-            fs.outputFileSync(file, rendered);
-          } catch (e) {
-            console.error(`Error parsing nunjucks file ${file}: `);
-            return reject(e);
-          }
-        })
-        .on('error', (er: any, entry: string) => {
-          reject(er + ' on entry ' + entry);
-        })
-        .on('end', () => {
-          resolve();
-        });
+      const files: string[] = dirListFilesSync(targetPath);
+      files.forEach((file) => {
+        try {
+          const rendered = renderString(fs.readFileSync(file, 'utf8'), data);
+          fs.outputFileSync(file, rendered);
+        } catch (e) {
+          console.error(`Error parsing nunjucks file ${file}: `);
+          return reject(e);
+        }
+      });
+
+      resolve();
     });
   }
 }
