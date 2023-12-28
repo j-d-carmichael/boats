@@ -1,8 +1,6 @@
 import fs from 'fs-extra';
 import upath from 'upath';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const walker = require('walker');
+import { dirListFilesSync } from '@/utils/dirListFilesSync';
 
 const toNjk = (file: string) => {
   // ensure we don't double up the njk exts
@@ -32,22 +30,16 @@ const toYml = (file: string) => {
 
 export default (dir: string, type: 'yml' | 'njk'): void => {
   dir = upath.join(process.cwd(), dir);
-  console.log('Converting: ' + dir);
-  const files: string[] = [];
-  walker(dir)
-    .on('file', async (file: string) => {
-      files.push(file);
-    })
-    .on('end', () => {
-      files.forEach((file) => {
-        switch (type) {
-          case 'yml':
-            toYml(file);
-            break;
-          case 'njk':
-            toNjk(file);
-            break;
-        }
-      });
-    });
+  console.log(`Converting to ${type}: ${dir}`);
+  const files: string[] = dirListFilesSync(dir);
+  files.forEach((file) => {
+    switch (type) {
+      case 'yml':
+        toYml(file);
+        break;
+      case 'njk':
+        toNjk(file);
+        break;
+    }
+  });
 };
