@@ -166,6 +166,11 @@ The options passed in should be valid [bundle function](https://github.com/APIDe
 ## Dereference the output
 When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
 
+## Single or multi-file output
+By default boats will out multiple files and a single combined file into the output target defined.
+
+You can however, instruct BOATS to output only a single file by passing in "-O" or "--one-file-output".
+
 ## Validation
 Errors are output to the console.
 
@@ -207,6 +212,8 @@ BOATS can be used as a cli tool via an npm script.
 ### All available arguments
 The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
 
+Or via cli --help
+
 ### Examples
 Example package.json script, the end result would be a single compiled file and without the version number of the spec in the filename:
 ```
@@ -228,7 +235,9 @@ npm run boats -- --convert_to_yml ./src
 You can also use BOATS programmatically, just require (import if you are using a bundler) the lib into your project.
 
 ## Snippets
-Snippets are prebuild files that can be injected into an existing file system, they can be pulled from a remote url or from a local disk.
+Snippets are prebuild files that can be injected into an existing file system, they can be pulled from either:
+- Remote git url
+- Local disk
 
 There are a few snippets bundled with BOATS in the Snippets branch: https://github.com/johndcarmichael/boats/tree/snippets
 
