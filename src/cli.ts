@@ -52,7 +52,7 @@ const parseCli = async () => {
   } else {
 
     // parse the directory then validate and bundle with swagger-parser
-    const returnFile = await Template.directoryParse(
+    const returnFile = Template.directoryParse(
       program.input,
       program.output,
       program.indentation,

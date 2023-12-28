@@ -40,6 +40,7 @@ class Injector {
     }
 
     if (/index\./.test(upath.basename(inputPath))) {
+
       if (isAsyncApi) {
         this.mapChannelIndex(yaml, inputPath);
       } else {
@@ -130,13 +131,13 @@ class Injector {
 
     if (
       /channels/.test(inputPath) &&
-      this.shouldInjectToChannels(operationName, injectRule, methodName, picomatchOptions) === false
+      false === this.shouldInjectToChannels(operationName, injectRule, methodName, picomatchOptions)
     ) {
       return false;
     }
     if (
       /paths/.test(inputPath) &&
-      this.shouldInjectToPaths(operationName, injectRule, methodName, picomatchOptions) === false
+      false === this.shouldInjectToPaths(operationName, injectRule, methodName, picomatchOptions)
     ) {
       return false;
     }
@@ -170,6 +171,11 @@ class Injector {
   /**
    * Returns false when the path should not be injected into
    * else returns true
+   *
+   * @param operationName The URL path (Open API) or the Channel path (Async API)
+   * @param injectRule The injection rule, defined in th injection tpl helper
+   * @param methodName The name of the method, Open API in BOATS, the file name is the method name, eg something/get.yml.. GET == method
+   * @param picomatchOptions The https://www.npmjs.com/package/picomatch options (injected via the boatsrc)
    */
   shouldInjectToPaths (operationName: string, injectRule: any, methodName: string, picomatchOptions: any) {
     // Exclude a path completely
@@ -215,6 +221,7 @@ class Injector {
       } else {
         throw new Error('Invalid inject object passed to globCheck, expected either a string or {path: string, methods: string[]}. Got instead: ' + JSON.stringify(hay));
       }
+
       const isMatch = picomatch(stringToCheck, picoOptions);
       if (isMatch(needle)) {
         if (methodsToCheck) {
