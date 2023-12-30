@@ -1,6 +1,6 @@
 type: object
-required:
-  - name
 properties:
-  name:
+  username:
+    type: string
+  email:
     type: string

@@ -1,0 +1,6 @@
+publish:
+  operationId: {{uniqueOpId('Publish')}}
+  message:
+    contentType: application/json
+    payload:
+      $ref: ../../components/schemas/ms-auth/cacheUser.yml.njk

@@ -1,5 +1,3 @@
-import 'colors';
-
 import fs from 'fs-extra';
 import upath from 'upath';
 

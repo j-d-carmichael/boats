@@ -17,14 +17,14 @@ schemes:
 host: api.example.com
 
 securityDefinitions:
-    jwtToken:
-        type: apiKey
-        in: header
-        name: authorization
-    apiKey:
-        type: apiKey
-        in: header
-        name: x-api-key
+  jwtToken:
+      type: apiKey
+      in: header
+      name: authorization
+  apiKey:
+      type: apiKey
+      in: header
+      name: x-api-key
 
 paths:
     $ref: paths/index.yml
@@ -46,10 +46,12 @@ definitions:
   }, {
     toAllOperations: {
       content: {
-        'x-permission': '{{ routePermission( {removeMethod: true} ) }}',
+        tags: [ '{{ autoTag() }}' ],
+        summary: '{{ autoSummary() }}',
+        operationId: '{{ uniqueOpId() }}',
         responses: {
-          '404': {
-            description: 'Path & method combination not found'
+          '200': {
+            description: 'OK'
           }
         }
       }

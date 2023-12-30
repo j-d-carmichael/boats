@@ -1,0 +1,4 @@
+publish:
+  message:
+    payload:
+      $ref: ../../components/schemas/ms-auth/cacheConnection.yml

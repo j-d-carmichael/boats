@@ -1,5 +1,4 @@
 responses:
   '200':
-    description: Fetched items
     schema:
       $ref: ../../definitions/health/model.yml

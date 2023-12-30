@@ -1,0 +1,80 @@
+openapi: "3.0.0"
+info:
+  version: "{{ packageJson('version') }}"
+  title: "{{ packageJson('name') }}"
+
+paths:
+  $ref: paths/index.yml
+
+components:
+  parameters:
+    $ref: components/parameters/index.yml
+  schemas:
+    $ref: components/schemas/index.yml
+  securitySchemes:
+    $ref: components/security/index.yml
+
+{{
+  inject([
+    {
+      toAllOperations: {
+        content: {
+          tags: [ '{{ autoTag() }}' ],
+          summary: '{{ autoSummary() }}',
+          operationId: '{{ uniqueOpId() }}',
+          responses: {
+            '200': {
+              description: 'OK'
+            },
+            '400': {
+              description: 'Bad Request'
+            },
+            '401': {
+              description: 'Unauthorized'
+            },
+            '403': {
+              description: 'Forbidden'
+            },
+            '406': {
+              description: 'Not Acceptable'
+            }
+          }
+        }
+      }
+    },
+    {
+      toAllOperations: {
+        includeOnlyPaths: [
+          '/admin/**'
+        ],
+        content: {
+          'x-permission': '{{ routePermission() }}'
+        }
+      }
+    },
+    {
+      toAllOperations: {
+        excludePaths: [
+          '/health'
+        ],
+        content: {
+          security: [{
+            jwtToken: []
+          }]
+        }
+      }
+    },
+    {
+      toAllOperations: {
+        includeMethods: ['post', 'patch'],
+        content: {
+          responses: {
+            '422': {
+              description: 'Not Acceptable'
+            }
+          }
+        }
+      }
+    }
+  ])
+}}

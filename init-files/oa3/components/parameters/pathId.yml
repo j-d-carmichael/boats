@@ -1,0 +1,6 @@
+in: path
+name: id
+schema:
+  type: string
+required: true
+description: ID of object to fetch
