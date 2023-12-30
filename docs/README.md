@@ -22,6 +22,7 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
 Point boats at an entry index file and let it compile the rest automatically, either AsyncApi, OpenAPI or Swagger
 
 ## Changelog
+- 2023/12/28 4.10.0: feat: init files now use the own lightweight files over the files used for testing purposes.
 - 2023/12/28 4.9.4:  fix: readme.md link
 - 2023/12/28 4.9.3:  fix: https://github.com/j-d-carmichael/boats/issues/86
 - 2023/12/28 4.9.2:  chore: Dependency dropped, walker package no longer used

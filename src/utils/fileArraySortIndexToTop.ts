@@ -1,5 +1,5 @@
 export default (input: string[]) => {
-  const newinput: string[] = JSON.parse(JSON.stringify(input));
+  const newinput: string[] = input.slice();
   newinput.sort((a: string, b: string) => {
     // Split paths into components
     const aParts = a.split('/');
@@ -14,10 +14,10 @@ export default (input: string[]) => {
     }
 
     // If directories are the same, prioritize 'index'
-    if (aParts[minLength - 1].includes('index') && !bParts[minLength - 1].includes('index')) {
+    if (aParts[minLength - 1].startsWith('index.') && !bParts[minLength - 1].startsWith('index.')) {
       return -1;
     }
-    if (bParts[minLength - 1].includes('index') && !aParts[minLength - 1].includes('index')) {
+    if (bParts[minLength - 1].startsWith('index.') && !aParts[minLength - 1].startsWith('index.')) {
       return 1;
     }
 

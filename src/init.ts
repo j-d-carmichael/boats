@@ -102,43 +102,27 @@ export const createBoatsrcIfNotExists = (answers?: Record<string, string>): void
     },
     paths: {}
   };
-  if (answers && answers.oaType) {
-    switch (answers.oaType) {
-      case 'OpenAPI 3.0.0': {
-        boatsrcDefault.paths = {
-          '@mixins/': 'src/mixins/',
-          '@parameters/': 'src/components/parameters/',
-          '@schemas/': 'src/components/schemas/',
-          '@/': './'
-        };
-      }
-        break;
-      case 'Swagger 2.0': {
-        boatsrcDefault.paths = {
-          '@oa2parameters/': 'src/parameters/',
-          '@oa2definitions/': 'src/definitions/',
-          '@/': './'
-        };
-      }
-    }
 
-  }
   if (!fs.existsSync(upath.join(pwd, '/.boatsrc'))) {
     fs.writeFileSync(upath.join(pwd, '/.boatsrc'), JSON.stringify(boatsrcDefault, null, 4));
   }
 };
 
 const copyBoilerplate = (answers: Record<string, string>) => {
-  if (answers.oaType === 'Swagger 2.0') {
-    fs.copySync(upath.join(__dirname, '../../srcOA2'), srcPath);
-  } else if (answers.oaType === 'OpenAPI 3.0.0') {
-    fs.copySync(upath.join(__dirname, '../../srcOA3'), srcPath);
-  } else if (answers.oaType === 'AsyncAPI 2.0.0') {
-    fs.copySync(upath.join(__dirname, '../../srcASYNC2'), srcPath);
+  switch (answers.oaType){
+    case 'Swagger 2.0':
+      fs.copySync(upath.join(__dirname, '../../init-files/oa2'), srcPath);
+      break;
+    case 'OpenAPI 3.0.0':
+      fs.copySync(upath.join(__dirname, '../../init-files/oa3'), srcPath);
+      break;
+    case 'AsyncAPI 2.0.0':
+      fs.copySync(upath.join(__dirname, '../../init-files/asyncapi'), srcPath);
+      break;
   }
   console.log('Completed: Installed boats skeleton files to ' + srcPath);
-  fs.ensureDirSync(buildPath);
 
+  fs.ensureDirSync(buildPath);
   console.log('Completed: Created a build output directory');
 };
 
@@ -151,9 +135,9 @@ const updatePackageJson = (answers: Record<string, string>) => {
     localPkgJson.name = name;
   }
   localPkgJson['scripts'] = localPkgJson['scripts'] || {};
-  localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.json';
-  localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.yml';
-  localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml';
+  localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.json -x -O';
+  localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.yml -x -O';
+  localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml -x -O';
 
   // ensure the licence and private field is correct in the package.json
   // we assume private by default and let the user correct otherwise.

@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "4.9.4",
+  "version": "4.10.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -37,6 +37,10 @@
     "test:unit": "cross-env NODE_ENV=test jest --runInBand",
     "test:unit:single": "cross-env NODE_ENV=test jest --collect-coverage false",
     "test:builds": "npm run test:build-cli:asyncapi:std && npm run test:build-cli:oa2:std && npm run test:build-cli:oa2:readonly && npm run test:build-cli:oa2:std:exclude-version && npm run test:build-cli:oa3:std && npm run test:build-cli:oa3:std:exclude-version && npm run test:build-cli:oa2:inject && npm run test:build-cli:oa3:std:single-file-output",
+    "test:init:builds": "npm run test:init:asyncapi && npm run test:init:oa2 && npm run test:init:oa3",
+    "test:init:asyncapi": "node ./bin/cli.js -x -O --yes -n -i init-files/asyncapi/index.yml -o ./init-files/build/async/output.yml -s init-files/asyncapi/channels/",
+    "test:init:oa2": "node ./bin/cli.js -x -O --yes -n -i init-files/oa2/index.yml -o ./init-files/build/oa2/output.yml -s init-files/oa2/paths/",
+    "test:init:oa3": "node ./bin/cli.js -x -O --yes -n -i init-files/oa3/index.yml -o ./init-files/build/oa3/output.yml -s init-files/oa3/paths/",
     "test:build-cli:asyncapi:std": "node ./bin/cli.js --yes -n -i ./srcASYNC2/index.yml -o ./test-build/srcASYNC2/srcASYNC2.yml -s srcASYNC2/channels/",
     "test:build-cli:oa2:inject": "node ./bin/cli.js --yes -n -i ./srcOA2/index.injections.yml -o ./test-build/builtOA2_inject/api.yml -s srcOA2/paths/",
     "test:build-cli:oa2:readonly": "node ./bin/cli.js --yes -n -i ./srcOA2/index.readonly.yml -o ./test-build/builtOA2_readonly/builtOA2_readonly.yml -s srcOA2/paths/",
@@ -61,7 +65,6 @@
     "@apidevtools/json-schema-ref-parser": "11.1.0",
     "@apidevtools/swagger-parser": "10.1.0",
     "@asyncapi/parser": "3.0.2",
-    "@colors/colors": "1.6.0",
     "commander": "11.1.0",
     "deepmerge": "4.3.1",
     "dotenv": "16.3.1",
