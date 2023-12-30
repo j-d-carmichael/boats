@@ -1,0 +1,6 @@
+parameters:
+  - $ref: ../../parameters/queryOffset.yml
+responses:
+  '200':
+    schema:
+      $ref: ../../definitions/user/models.yml

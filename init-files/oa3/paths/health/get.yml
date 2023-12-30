@@ -1,0 +1,6 @@
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/health/model.yml

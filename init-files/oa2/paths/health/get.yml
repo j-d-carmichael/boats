@@ -1,0 +1,4 @@
+responses:
+  '200':
+    schema:
+      $ref: ../../definitions/health/model.yml

@@ -1,0 +1,8 @@
+type: object
+properties:
+  totalResultCount:
+    type: number
+  offset:
+    type: number
+  limit:
+    type: number
