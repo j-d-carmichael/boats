@@ -1,7 +1,7 @@
 import { JsonSchema } from '@/interfaces/JsonSchema';
 
 const generatePermissionsSchema = (
-  bundledJson: JsonSchema,
+  bundledJson: any,
   generateSchemaNamed?: string
 ): JsonSchema => {
   if (!bundledJson.paths || !generateSchemaNamed) {

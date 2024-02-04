@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "4.10.2",
+  "version": "4.11.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -64,10 +64,10 @@
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "11.1.0",
     "@apidevtools/swagger-parser": "10.1.0",
-    "@asyncapi/parser": "3.0.2",
+    "@asyncapi/parser": "3.0.5",
     "commander": "11.1.0",
     "deepmerge": "4.3.1",
-    "dotenv": "16.3.1",
+    "dotenv": "16.4.1",
     "fs-extra": "11.2.0",
     "inquirer": "8.2.6",
     "js-yaml": "4.1.0",

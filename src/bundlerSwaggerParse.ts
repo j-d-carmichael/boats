@@ -5,6 +5,9 @@ import getOutputName from '@/getOutputName';
 import validate from '@/validate';
 import { BoatsRC } from '@/interfaces/BoatsRc';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
+import generatePermissionsSchema from '@/generatePermissionsSchema';
+import isOpenAPI from '@/utils/isOpenAPI';
+import SortAttributes from '@/SortAttributes';
 
 /**
  * Bundles many files together and returns the final output path
@@ -30,23 +33,21 @@ export default async (input: {
       // @ts-ignore
       bundled = await $RefParser.dereference(bundled);
     }
+    bundled = generatePermissionsSchema(bundled, boatsRc.permissionConfig?.generateSchemaNamed);
+    const thisIsOpenAPI = isOpenAPI(bundled);
+    bundled = (thisIsOpenAPI) ? SortAttributes.forOpenAPI(bundled) : SortAttributes.forAsyncAPI(bundled);
 
     if (doNotValidate) {
       console.warn('Bypassing validation as dontValidateOutput flag seen');
     } else {
-      await validate.decideThenValidate(
-        bundled as any,
-        boatsRc
-      );
+      thisIsOpenAPI ? await validate.openapi(bundled) : await validate.asyncapi(JSON.stringify(bundled));
     }
 
     let contents;
     if (upath.extname(outputFile) === '.json') {
       contents = JSON.stringify(bundled, null, indentation);
     } else {
-      contents = YAML.dump(bundled, {
-        indent: indentation
-      });
+      contents = YAML.dump(bundled, { indent: indentation });
     }
     fs.ensureDirSync(upath.dirname(outputFile));
     // @ts-ignore
