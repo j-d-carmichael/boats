@@ -15,7 +15,6 @@ import SortAttributes from '@/SortAttributes';
 export default async (input: {
   inputFile: string,
   outputFile: string,
-  oneFileOutput: boolean,
   boatsRc: BoatsRC,
   indentation: number,
   doNotValidate: boolean,

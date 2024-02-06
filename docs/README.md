@@ -721,6 +721,7 @@ url: <$ host $>
 
 
 ## Changelog
+- 2024/02/06 4.11.1: fix: One file output tmp file is now relative to allow directory traversing for $ref to still function as expected 
 - 2024/02/04 4.11.0: feat: Order attributes after running inject, [gh issue](https://github.com/j-d-carmichael/boats/issues/82)
 - 2023/12/28 4.10.2: fix: init files oa3 auto indexer was missing
 - 2023/12/28 4.10.0: feat: init files now use the own lightweight files over the files used for testing purposes.

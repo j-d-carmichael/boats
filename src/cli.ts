@@ -66,7 +66,6 @@ const parseCli = async () => {
     const pathWrittenTo = await bundlerSwaggerParse({
       inputFile: returnFile,
       outputFile: program.output,
-      oneFileOutput: program.oneFileOutput,
       boatsRc,
       dereference: program.dereference,
       doNotValidate: program.dontValidateOutput,
@@ -74,7 +73,8 @@ const parseCli = async () => {
       indentation: program.indentation
     });
 
-    tmpFolderRemove(upath.dirname(pathWrittenTo));
+    // gracefully remove the tmp file that might have been created
+    tmpFolderRemove(program.input);
 
     console.log(LOG_GREEN, 'Completed, the files were rendered, validated and bundled to: ');
     console.log(LOG_GREEN_BOLD, pathWrittenTo);
