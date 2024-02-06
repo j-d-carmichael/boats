@@ -101,7 +101,12 @@ class Template {
     for (let i = 0; i < files.length; i++) {
       const file = upath.toUnix(files[i]);
       try {
-        const outputFile = this.calculateOutputFile(inputFile, file, upath.dirname(output), oneFileOutput);
+        const outputFile = this.calculateOutputFile({
+          inputFile,
+          currentFile: file,
+          output,
+          oneFileOutput
+        });
         const rendered = this.renderFile(fs.readFileSync(file, 'utf8'), file);
         if (upath.normalize(inputFile) === upath.normalize(file)) {
           returnFileinput = outputFile;
@@ -150,14 +155,21 @@ class Template {
    * Calculates the output file based on the input file, used for mirroring the input src dir.
    * Any .njk ext will automatically be removed.
    */
-  calculateOutputFile (inputFile: string, currentFile: string, outputDirectory: string, oneFileOutput: boolean) {
-    const inputDir = upath.dirname(inputFile);
+  calculateOutputFile (input: {
+    inputFile: string,
+    currentFile: string,
+    output: string,
+    oneFileOutput: boolean
+  }) {
+    const inputDir = upath.dirname(input.inputFile);
+    const filePathWithoutBuildOrSrcPath = input.currentFile.replace(inputDir, '');
     return this.stripNjkExtension(
       upath.join(
         process.cwd(),
-        outputDirectory,
-        oneFileOutput ? TMP_COMPILED_DIR_NAME : '',
-        currentFile.replace(inputDir, '')
+        // add the tmp folder name or not - the tmp folder has to be in the same relative positive as
+        // the final output to ensure included from directory traversing still function
+        (input.oneFileOutput) ? inputDir + TMP_COMPILED_DIR_NAME : upath.dirname(input.output),
+        filePathWithoutBuildOrSrcPath
       )
     );
   }
