@@ -676,6 +676,18 @@ delete: 'delete',
 
 Of course, you can remote control the injection of the permissions to all routes from the [inject helper](#inject).
 
+You can control how the helper functions via the `.boatsrc` file, the options can be found here: https://github.com/j-d-carmichael/boats/blob/main/src/interfaces/BoatsRc.ts
+```
+{
+    methodAlias?: MethodAlias; // change the names used, eg instead of get => "read" change get => "fetch"
+    methodAliasPosition?: MethodAliasPosition;  // Choose from https://github.com/j-d-carmichael/boats/blob/main/src/enums/MethodAliasPosition.ts
+    globalPrefix?: string | boolean; // defaults the the package.json name
+    permissionStyle?: StringStyle; // use any of https://github.com/j-d-carmichael/boats/blob/main/src/enums/StringStyle.ts
+    permissionSegmentStyle?: StringStyle; // use any of https://github.com/j-d-carmichael/boats/blob/main/src/enums/StringStyle.ts
+    generateSchemaNamed?: string;
+}
+```
+
 ### uniqueOpId
 Example use:
 ```yaml
@@ -721,6 +733,7 @@ url: <$ host $>
 
 
 ## Changelog
+- 2024/05/15 4.11.2: fix: When placing the calculated permission prefix position to the end, the case as set by permissionConfig.permissionSegmentStyle is respected
 - 2024/02/06 4.11.1: fix: One file output tmp file is now relative to allow directory traversing for $ref to still function as expected 
 - 2024/02/04 4.11.0: feat: Order attributes after running inject, [gh issue](https://github.com/j-d-carmichael/boats/issues/82)
 - 2023/12/28 4.10.2: fix: init files oa3 auto indexer was missing

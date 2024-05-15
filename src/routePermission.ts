@@ -2,6 +2,7 @@ import upath from 'upath';
 import UniqueOperationIds from '@/UniqueOperationIds';
 import { BoatsRC, JSON } from '@/interfaces/BoatsRc';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
+import ucFirst from '@/ucFirst';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require(upath.join(process.cwd(), 'package.json'));
 
@@ -41,7 +42,7 @@ export default (
     tails.push(tail);
   }
   if (boatsrc?.permissionConfig?.methodAliasPosition === MethodAliasPosition.EndOfPermissionString) {
-    tails.push(calculatedPrefix);
+    tails.push(ucFirst(calculatedPrefix));
   } else {
     mainPrefixes.push(calculatedPrefix);
   }
