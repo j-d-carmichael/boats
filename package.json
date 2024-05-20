@@ -62,7 +62,7 @@
   },
   "homepage": "https://github.com/j-d-carmichael/boats#readme",
   "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "11.1.0",
+    "@apidevtools/json-schema-ref-parser": "11.1.1",
     "@apidevtools/swagger-parser": "10.1.0",
     "@asyncapi/parser": "3.0.5",
     "commander": "11.1.0",
