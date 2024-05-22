@@ -7,7 +7,7 @@ ___
 
 ## What is it?
 
-OpenAPI and AsyncAPI are great, writing yaml is fast... however, there is a lot of copy/paste required. Additionally, managing many routes in a single file it painful. BOATS allows you to reduce the copy and pasting with many built in helpers while at the same time breaking the 1 larger file down into small chunks. The output from BOATS is also validated via [@apidevtools](https://github.com/APIDevTools) or [@asyncapi](https://github.com/asyncapi).
+OpenAPI and AsyncAPI are great, writing yaml is fast... however, there is a lot of copy/paste required. Additionally, managing many routes in a single file is painful. BOATS allows you to reduce the copy and pasting with many built in helpers while at the same time breaking the 1 larger file down into many small files. The output from BOATS is also validated via [@apidevtools](https://github.com/APIDevTools) or [@asyncapi](https://github.com/asyncapi).
 
 ## Quick start
 1. Initialize a new project: npm init -y
