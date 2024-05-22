@@ -733,6 +733,7 @@ url: <$ host $>
 
 
 ## Changelog
+- 2024/05/22 4.12.0: fix & chore: [PR fixes yaml file ext](https://github.com/j-d-carmichael/boats/pull/89) from [kdubuc](https://github.com/kdubuc) and all dependencies upgraded
 - 2024/05/15 4.11.2: fix: When placing the calculated permission prefix position to the end, the case as set by permissionConfig.permissionSegmentStyle is respected
 - 2024/02/06 4.11.1: fix: One file output tmp file is now relative to allow directory traversing for $ref to still function as expected 
 - 2024/02/04 4.11.0: feat: Order attributes after running inject, [gh issue](https://github.com/j-d-carmichael/boats/issues/82)

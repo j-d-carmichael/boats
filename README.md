@@ -5,6 +5,10 @@
 An OpenAPI & AsyncAPI templating system with Nunjucks... write less YAML... do more.
 ___
 
+## What is it?
+
+OpenAPI and AsyncAPI are great, writing yaml is fast... however, there is a lot of copy/paste required. Additionally, managing many routes in a single file it painful. BOATS allows you to reduce the copy and pasting with many built in helpers while at the same time breaking the 1 larger file down into small chunks. The output from BOATS is also validated via [@apidevtools](https://github.com/APIDevTools) or [@asyncapi](https://github.com/asyncapi).
+
 ## Quick start
 1. Initialize a new project: npm init -y
 2. Set up BOATS: npx boats --init (follow the prompts)
@@ -14,6 +18,12 @@ ___
 [Full documentation](https://j-d-carmichael.github.io/boats)
 
 [Changelog](https://j-d-carmichael.github.io/boats/#/?id=changelog)
+
+## BOATS CLI
+
+Writing yaml files for BOATS is easier that with a single file, but to make writing BOATS yml files even easier there is now a BOATS CLI tool:
+
+https://www.npmjs.com/package/@acrontum/boats-cli
 
 ## Examples
 Simple examples can be found here:
