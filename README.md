@@ -21,7 +21,7 @@ OpenAPI and AsyncAPI are great, writing yaml is fast... however, there is a lot 
 
 ## BOATS CLI
 
-Writing yaml files for BOATS is easier that with a single file, but to make writing BOATS yml files even easier there is now a BOATS CLI tool:
+Writing yaml files for BOATS is easier than managing a single file, but to make writing BOATS yml files even easier... there is now a BOATS CLI tool:
 
 https://www.npmjs.com/package/@acrontum/boats-cli
 
