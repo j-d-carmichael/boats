@@ -1,6 +1,6 @@
 {
   "name": "boats",
-  "version": "4.12.2",
+  "version": "5.0.0",
   "description": "Beautiful Open / Async Template System - Write less yaml with BOATS and Nunjucks.",
   "keywords": [
     "asyncapi",
@@ -17,7 +17,6 @@
     "DDD",
     "Documentation-Driven Development"
   ],
-  "main": "src/index.js",
   "bin": {
     "boats": "./bin/cli.js",
     "bundler": "./bin/cli.js"
