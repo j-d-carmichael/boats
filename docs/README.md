@@ -2,35 +2,41 @@
 
 An OpenAPI & AsyncAPI templating system with Nunjucks... write less YAML... do more.
 
-
 ## Summary
 
 ---
-An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files through the use of a template engine:
- - Bundle multiple yml files together with [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser)
- - Validate AsyncAPI output with [asyncapi/parser-js](https://github.com/asyncapi/parser-js)
- - Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
- - Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less do more
- - Nunjucks not enough? There is also [lodash](#lodash) functions baked in
- - Unique operation id's based on file location automatically
- - [Inject](#inject) common content and responses from a single point of control
- - Mixins within y(a)ml files
- - Variables within y(a)ml files
- - Include files with Typescript like shorthand via absolute paths in the boatsrc file
- - See [built in functions](#template-functions-built-in) below for more
+An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml files through the use of a template
+engine:
+
+- Bundle multiple yml files together with [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser)
+- Validate AsyncAPI output with [asyncapi/parser-js](https://github.com/asyncapi/parser-js)
+- Validate OpenAPI 2|3 output with [swagger-parser](https://www.npmjs.com/package/swagger-parser)
+- Use the full power of the [Nunjucks](https://mozilla.github.io/nunjucks/) templating engine within y(a)ml, type less
+  do more
+- Nunjucks not enough? There is also [lodash](#lodash) functions baked in
+- Unique operation id's based on file location automatically
+- [Inject](#inject) common content and responses from a single point of control
+- Mixins within y(a)ml files
+- Variables within y(a)ml files
+- Include files with Typescript like shorthand via absolute paths in the boatsrc file
+- See [built in functions](#template-functions-built-in) below for more
 
 Point boats at an entry index file and let it compile the rest automatically, either AsyncApi, OpenAPI or Swagger
 
 ## Getting started
-Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init command. The net result will be:
- - Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
- - Build scripts for JSON and YAML added to your package.json file for CLI use.
+
+Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init
+command. The net result will be:
+
+- Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
+- Build scripts for JSON and YAML added to your package.json file for CLI use.
 
 ```
 npm run boats -- --init
 ```
 
 Want to start with a bare bones repo then just install and add these scripts to get going:
+
 ```json
 {
   "name": "awesome-api-d",
@@ -52,49 +58,70 @@ Want to start with a bare bones repo then just install and add these scripts to 
 
 All openapi content is run through the bundle function found in https://github.com/APIDevTools/json-schema-ref-parser
 
-The [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) offers a few options that can be passed in.
+The [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) offers a few
+options that can be passed in.
 
 In boats, you are able to pass these options in via 3 methods:
- - Create a .env file containing a JSON string of the options object under `jsonSchemaRefParserBundleOpts`
- - Create a process.env variable `jsonSchemaRefParserBundleOpts` containing a JSON string of the options
- - Add to your .boatsrc "jsonSchemaRefParserBundleOpts": { ... options }
 
-The options passed in should be valid [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) options.
+- Create a .env file containing a JSON string of the options object under `jsonSchemaRefParserBundleOpts`
+- Create a process.env variable `jsonSchemaRefParserBundleOpts` containing a JSON string of the options
+- Add to your .boatsrc "jsonSchemaRefParserBundleOpts": { ... options }
+
+The options passed in should be
+valid [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) options.
 
 ## Dereference the output
-When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
+
+When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via
+the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method
+to fully dereference document. Helpful for when working with the likes of AWS for example.
 
 ## Single or multi-file output
+
 By default boats will out multiple files and a single combined file into the output target defined.
 
 You can however, instruct BOATS to output only a single file by passing in "-O" or "--one-file-output".
 
 ## Validation
+
 Errors are output to the console.
 
 ## .boatsrc
 
-> TIP! The 2.0.0-rc1.1 release is on branch develop github - all links to the source point to master, make you sure switch
+> TIP! The 2.0.0-rc1.1 release is on branch develop github - all links to the source point to master, make you sure
+> switch
 
-You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
+You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks
+engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks
+options found here will be merged into the default options.
 
 A `.boatsrc` file should be a JSON representation of this interface:
+
 - https://github.com/johndcarmichael/boats/blob/master/src/interfaces/BoatsRc.ts
 
 - `nunjucksOptions` Overwrite the default nunjucks options eg the tag delimiters
-- `jsonSchemaRefParserBundleOpts` Inject your own [jsonSchemaRefParserBundle](https://apitools.dev/json-schema-ref-parser/docs/options.html)
-- `permissionConfig` Option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
+- `jsonSchemaRefParserBundleOpts` Inject your
+  own [jsonSchemaRefParserBundle](https://apitools.dev/json-schema-ref-parser/docs/options.html)
+- `permissionConfig` Option will override how the `routePermission` [helper](#routePermission) prefixes routes (the
+  default settings are shown above)
   - `methodAlias` An object of method alias overrides, please see the interface for the default options
-  - `methodAliasPosition` Place the alias (default behavior) after the global prefix (if present) or at the end of the permission string
-  - `globalPrefix` Defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
+  - `methodAliasPosition` Place the alias (default behavior) after the global prefix (if present) or at the end of the
+    permission string
+  - `globalPrefix` Defaults to true (prefix perms with the package.json name) else false for no prefix or a simple
+    string for a custom prefix
   - `permissionStyle` The overall permission style, defaults to camelCase
-  - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
-  - `generateSchemaNamed` Schema name to auto generate an enum with all available permission values (leave this empty or skip the option to disable this auto-generated schema)
+  - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something
+    else)
+  - `generateSchemaNamed` Schema name to auto generate an enum with all available permission values (leave this empty or
+    skip the option to disable this auto-generated schema)
 - `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
-- `paths` An object of key/value pairs that enable you to define [absolute paths](#absolute-paths) to be used in your templates. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
+- `paths` An object of key/value pairs that enable you to define [absolute paths](#absolute-paths) to be used in your
+  templates. Similar to [Typescript's Paths compiler option](https://www.typescriptlang.org/tsconfig#paths)
 - `fancyPluralization` Enables better pluralization for your model names (i.e. Universities instead of Universitys)
 
-TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
+TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax
+highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
+
 ```json
 {
   "nunjucksOptions": {
@@ -102,94 +129,125 @@ TIP: If you use the `.yml.njk`, you will want to just use the default tags from 
   }
 }
 ```
+
 This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
 
 ## CLI
+
 BOATS can be used as a cli tool via an npm script.
 
 ### All available arguments
-The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
+
+The available arguments are
+best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
 
 Or via cli --help
 
 ### Examples
-Example package.json script, the end result would be a single compiled file and without the version number of the spec in the filename:
+
+Example package.json script, the end result would be a single compiled file and without the version number of the spec
+in the filename:
+
 ```
 "boats": "boats"
 "build:yml": "boats -i ./src/index.yml -o ./build/api.yml --one-file-output --exclude_version"
 ```
 
-If you have an existing repository with .yml files and want to convert to .yml.njk you can convert all the file extensions, and the references with one command:
+If you have an existing repository with .yml files and want to convert to .yml.njk you can convert all the file
+extensions, and the references with one command:
+
 ```
 npm run boats -- --convert_to_njk ./src
 ```
 
 To convert all back to yml:
+
 ```
 npm run boats -- --convert_to_yml ./src
 ```
 
 ## Programmatic Use
-This is tool designed for command line only, however a pull-request on github would be very much welcomed if you would like this feature.
+
+This is tool designed for command line only, however a pull-request on github would be very much welcomed if you would
+like this feature.
 
 ## Snippets
+
 Snippets are prebuild files that can be injected into an existing file system, they can be pulled from either:
+
 - Remote git url
 - Local disk
 
-There are a few snippets bundled with BOATS in the Snippets branch: https://github.com/johndcarmichael/boats/tree/snippets
+There are a few snippets bundled with BOATS in the Snippets
+branch: https://github.com/johndcarmichael/boats/tree/snippets
 
 Pull requests are welcomed for more snippets :)
 
 Example use pull from remote url:
+
 ```
 npm run boats -- -I https://github.com/johndcarmichael/boats.git#snippets -S oa2/crud -R ./src/paths -N beer
 ```
 
 This will output:
+
 - Fetch the snippet from the URL provided and write to a dir within the project
 - The snippet renderer will then look for the optional -S flag, if present, use this subdir
 - The snippets will then be copied to your project, then rendered with Nunjucks.
 
 Example use pull from local disk:
+
 ```
 npm run boats -- -I ../../mysnippets -S oa2/crud -R ./src/paths -N beer
 ```
 
 This will output:
+
 - Check the local dir of `../../mysnippets` exists
 - The snippet renderer will then look for the optional -S flag, if present, use this subdir
 - The snippets will then be copied to your project, then rendered with Nunjucks.
 
-
 ## Templating
-As Nunjucks is used as the tpl engine, this means if you use a smart IDE such as intellij you are able to utilize the syntax highlight of both yml and njk.
 
-If you come from a PHP world you will already be used to this with Twig, Blade or even back in the day with Smarty. These you will be used to viewing proper html syntax highlighting but at the same time good function/condition highlighting that the tpl engine offers.
+As Nunjucks is used as the tpl engine, this means if you use a smart IDE such as intellij you are able to utilize the
+syntax highlight of both yml and njk.
+
+If you come from a PHP world you will already be used to this with Twig, Blade or even back in the day with Smarty.
+These you will be used to viewing proper html syntax highlighting but at the same time good function/condition
+highlighting that the tpl engine offers.
 
 Set your IDE to use the twig syntax for *.njk files:
 ![Settings panel](./images/njk_syntax_highlighting.png)
 
-Now your IDE will show both yaml and nunjucks styntax highlighting in one view without the swagger/openapi validator complaining but we can still jump through the files with "control+mouse click", eg:
+Now your IDE will show both yaml and nunjucks styntax highlighting in one view without the swagger/openapi validator
+complaining but we can still jump through the files with "control+mouse click", eg:
 ![Settings panel](./images/njk_yaml.png)
 
-Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)ml files, write loops, use variables, whatever you need.
-BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also have the full power of the nunjucks templating functions available to you.
+Each file is passed through the Nunjucks templating engine meaning you can write Nunjucks syntax directly into the y(a)
+ml files, write loops, use variables, whatever you need.
+BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also have the full power of the nunjucks
+templating functions available to you.
 
-If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
+If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade
+and Django templating language.
 
-TIP: The tpl helpers and the examples in this repo all use the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
+TIP: The tpl helpers and the examples in this repo all use
+the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
 
 ### File ext.
+
 You may use `.yaml` or `.yml` or the `.njk` file extension.
-Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig mapping in you settings for file types).
+Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig
+mapping in you settings for file types).
 You can switch from yml to njk via cli arguments.
 
-There is an issue still with the `.njk` ext in that a reference to a file in another project on disk via `...yml.njk` will break as BOATS removes `.njk` after running through the nunjucks tpl engine.
+There is an issue still with the `.njk` ext in that a reference to a file in another project on disk via `...yml.njk`
+will break as BOATS removes `.njk` after running through the nunjucks tpl engine.
 
 ### Absolute Paths
 
-If managing relative links causes problems, it's possible to specify a shorthand for referring to absolute paths using the `paths` option in the `boatsrc` file.
+If managing relative links causes problems, it's possible to specify a shorthand for referring to absolute paths using
+the `paths` option in the `boatsrc` file.
 
 Given a config like:
 
@@ -205,7 +263,7 @@ Given a config like:
 You can reference a file under `./src/mixins` like so:
 
 ```yaml
-{{ mixin("@mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
+{ { mixin("@mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") } }
 
 ```
 
@@ -217,28 +275,46 @@ schema:
 ```
 
 ### Auto Index Files
+
 In async/swagger/openapi the channels/paths require an index file to register the routes.
-By the way [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser), unless you create an index file then the references to component/definitions will not look pretty and easily break other tools.
+By the way [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser), unless you create an index
+file then the references to component/definitions will not look pretty and easily break other tools.
 Maintaining these index files is quite a monotonous chore, and very human error prone.
 
-The index file is nothing more duplicate data; we already carefully name our folders and files to then manually go and type it all out again in a not fun to manage index file.
+The index file is nothing more duplicate data; we already carefully name our folders and files to then manually go and
+type it all out again in a not fun to manage index file.
 
 The easiest way to explain this is to look at the examples and their outputs:
-- Paths indexer, https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk resulting in the compiled file: https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L18 This indexer expects to find single files within an end url segment folder to contain the avilable http verbs. Also not the curly braces for dynamic url parameters: https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/weather/id/%7Bid%7D/get.yml.njk
-- Channel indexer, https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk is slightly different to the paths as a single channel file is expected to contain all subscribe and publish data in on.
-- Components|definitions|parameters indexer https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk will create a UpperCamelCase index file.
+
+- Paths indexer, https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk resulting in the
+  compiled file: https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L18 This indexer expects
+  to find single files within an end url segment folder to contain the avilable http verbs. Also not the curly braces
+  for dynamic url
+  parameters: https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/weather/id/%7Bid%7D/get.yml.njk
+- Channel indexer, https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk is slightly
+  different to the paths as a single channel file is expected to contain all subscribe and publish data in on.
+- Components|definitions|parameters
+  indexer https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk will create a
+  UpperCamelCase index file.
 
 The 3 types of indexers:
 Path Indexer
+
 ```
 {{ autoPathIndexer() }}
 ```
+
 Channel Indexer
- - Options allow you to alter the separator here based on patterns, see the options below
+
+- Options allow you to alter the separator here based on patterns, see the options below
+
 ```
 {{ autoChannelIndexer() }}
 ```
-or this, which will convert all channels with KC/** to use a . separator, outputting something like `KK.1234` instead of `/KK/1234`:
+
+or this, which will convert all channels with KC/** to use a . separator, outputting something like `KK.1234` instead of
+`/KK/1234`:
+
 ```
 {{ autoChannelIndexer({
     channelSeparators: [{
@@ -248,42 +324,52 @@ or this, which will convert all channels with KC/** to use a . separator, output
 }) }}
 ```
 
-
-
 Definition/Component/Parameter Indexer:
+
 ```
 {{ autoComponentIndexer() }}
 ```
-If you have an older set of BOATS files then you might have named the model files without the word model, to strip model from the naming:
+
+If you have an older set of BOATS files then you might have named the model files without the word model, to strip model
+from the naming:
+
 ```
 {{ autoComponentIndexer('Model') }}
 ```
+
 or you may not want to auto ucFirst the file:
+
 ```
 {{ autoComponentIndexer({dontUcFirst: true}) }}
 ```
 
-
 ### Auto Summary
+
 With the auto-summary tpl helper, the summary string is automatically calculated based on the rest path.
 
 ```yaml
-summary: {{ autoSummary() }}
+summary: { { autoSummary() } }
 ```
 
 Example "**user/{id}/get.yml**" would yield "**Get user based on {id}**"
 
-A more complex example, "**house/{number}/user/{id}/get.yml**" would output "**Get user based on {id}, from house {number}**"
+A more complex example, "**house/{number}/user/{id}/get.yml**" would output "**Get user based on {id}, from house
+{number}**"
 
-You can also instruct the helper to use the filename in the output, helpful for asyncapi channel names (see the last test in the test suit for an example):
+You can also instruct the helper to use the filename in the output, helpful for asyncapi channel names (see the last
+test in the test suit for an example):
+
 ```yaml
-{{ autoSummary({useFileName: true}) }}
+{ { autoSummary({ useFileName: true }) } }
 ```
 
-See the unit tests for more examples, [src/__tests__/AutoSummary.spec.ts](https://github.com/j-d-carmichael/boats/blob/develop/src/__tests__/AutoSummary.spec.ts)
+See the unit tests for more examples, [src/__tests
+__/AutoSummary.spec.ts](https://github.com/j-d-carmichael/boats/blob/develop/src/__tests__/AutoSummary.spec.ts)
 
 ### Auto Tag
+
 Calculates the tag based on the location of the file in the folder structure:
+
 ```yaml
 tags:
   - <$ autoTag() $>
@@ -299,16 +385,21 @@ The following path:
 Results in:
 `Temperature`
 
-
 ### Custom template helpers / functions
-It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
 
-Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
+It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject
+your own helper function that would automatically inject the package.json version number (bad example as you could use
+the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
+
+Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your
+`package.json` lives:
+
 ```
 boats -i ./src/index.yml -o ./build/myapi.yml -f ./nunjucksHelpers/injectPackageJsonVersion.js -f ./someOtherHelper.ts
 ```
 
 The `./nunjucksHelpers/injectPackageJsonVersion.js` should export a single default function:
+
 ```javascript
 const packageJson = require('../package.json')
 module.exports = () => {
@@ -318,17 +409,20 @@ module.exports = () => {
 ```
 
 In your yaml file you can now access the custom function by file name:
+
 ```yaml
 info:
   version: <$ injectPackageJsonVersion() $>
 ```
 
 If the helper is a folder, boats will recursively add all js or ts files as helpers:
+
 ```
 boats -i ./src/index.yml -o ./build/myapi.yml -f ./tplHelpers/
 ```
 
-- Custom helpers are injected via the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
+- Custom helpers are injected via
+  the [Nunjuck's addGlobal function](https://mozilla.github.io/nunjucks/api.html#addglobal).
 - A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
 - The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
 - You can write your helper in either TypeScript or Javascript
@@ -337,7 +431,9 @@ boats -i ./src/index.yml -o ./build/myapi.yml -f ./tplHelpers/
 
 The inject helper allows you to inject content to many operations from a single block.
 
-Path maching is handled via [picomatch](https://github.com/micromatch/picomatch#picomatch-options), you are able to inject your own options via the `.boatsrc` file. The default options are
+Path maching is handled via [picomatch](https://github.com/micromatch/picomatch#picomatch-options), you are able to
+inject your own options via the `.boatsrc` file. The default options are
+
 ```
   "picomatchOptions": {
     "bash": true
@@ -345,160 +441,178 @@ Path maching is handled via [picomatch](https://github.com/micromatch/picomatch#
 ```
 
 Anatomy of the injection:
+
 ```yaml
-{{
-  inject([                        # The inject block accepts an array of objects with options described below
-    {
-      toAllOperations: {
-        content: {                # Required - the content to inject to each, can be anything you choose. Restrictions are only valid async/openapi syntax
-          security: [{            # path or channel, filtered by the options
-            apiKey: []            # below.
-          }]
-        },
-        excludeChannels: [        # Optional - string array containing channels
-          '/user_messages/**'     # to exclude (parsed with https://github.com/micromatch/picomatch)
-          '/system_information'
-        ],
-        includeOnlyChannels: [    # Optional - string array containing channels
-          '/admin/**'             # only include these channels (parsed with https://github.com/micromatch/picomatch)
-        ],
-        excludePaths: [           # Optional - string|object array containing paths or paths and methods
-          '/users',               # to exclude (parsed with https://github.com/micromatch/picomatch)
-          {
-            path: '/car/*',       # Exclude all car paths where the method is get
-            methods: [
-              'get'
-            ]
-          }
-        ],
-        includeOnlyPaths: [       # Optional - string array containing channels
-          '/admin/**'             # only include these paths (parsed with https://github.com/micromatch/picomatch)
-          {
-            path: '/car/*',       # Include all car paths where the method is post/put/delete
-            methods: [
-              'post',
-              'put',
-              'delete'
-            ]
-          }
-        ],
-        includeMethods: [         # Optional - string array containing method
-          'post',                 # whitelist (default is all methods)
-          'put',
-          'patch',
-          'delete'
-        ]
-      }
+{ {
+  inject([ # The inject block accepts an array of objects with options described below
+  {
+    toAllOperations: {
+      content: { # Required - the content to inject to each, can be anything you choose. Restrictions are only valid async/openapi syntax
+        security: [ { # path or channel, filtered by the options
+          apiKey: [ ]            # below.
+        } ]
+      },
+      excludeChannels: [ # Optional - string array containing channels
+        '/user_messages/**'     # to exclude (parsed with https://github.com/micromatch/picomatch)
+        '/system_information'
+      ],
+      includeOnlyChannels: [ # Optional - string array containing channels
+        '/admin/**'             # only include these channels (parsed with https://github.com/micromatch/picomatch)
+      ],
+      excludePaths: [ # Optional - string|object array containing paths or paths and methods
+        '/users',               # to exclude (parsed with https://github.com/micromatch/picomatch)
+        {
+          path: '/car/*',       # Exclude all car paths where the method is get
+          methods: [
+            'get'
+          ]
+        }
+      ],
+      includeOnlyPaths: [ # Optional - string array containing channels
+        '/admin/**'             # only include these paths (parsed with https://github.com/micromatch/picomatch)
+        {
+          path: '/car/*',       # Include all car paths where the method is post/put/delete
+          methods: [
+            'post',
+            'put',
+            'delete'
+          ]
+        }
+      ],
+      includeMethods: [ # Optional - string array containing method
+        'post',                 # whitelist (default is all methods)
+        'put',
+        'patch',
+        'delete'
+      ]
     }
-  ])
-}}
+  }
+])
+} }
 ```
+
 In the example below we are injecting a header parameter to every path method:
 Example: https://github.com/johndcarmichael/boats/blob/master/srcOA2/index.yml.njk#L43
 
 For openapi, the content will be merged/concat/injected into paths that are not excluded.
 
-For asyncapi, the content will be merged/concat/injected into [channels](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/index.yml#L19).
+For asyncapi, the content will be merged/concat/injected
+into [channels](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/index.yml#L19).
 
 Content is either a JSON representation of the YAML content to inject, or a string:
+
 ```yaml
 # index.yaml
 # ...
 
-{{
+{ {
   inject([
 
-    # add auth to all routes
-    {
-      toAllOperations: {
-        content: {
-          security: [{
-            jwtToken: []
-          }]
-        }
-      }
-    },
-
-    # add x-write and api key to all post, put, patch, delete calls to routes
-    # except for /users
-    {
-      toAllOperations: {
-        excludePaths: ['/users'],
-        includeMethods: ['post','put','patch','delete'],
-        content: {
-          x-write-required: '{{ routePermission() }}',
-          security: [{
-            apiKey: []
-          }]
-        }
-      }
-    },
-
-    # add defaults to all routes
-    {
-      toAllOperations: {
-        content:
-          tags: [ "{{ autoTag() }}" ],
-          summary: "{{ myCustomAutoSummary() }}",
-          operationId: "{{ uniqueOpId() }}",
-          description: "{{ myCustomDescription() }}",
-        responses:
-          '404':
-            description: "Not found",
-            schema:
-              $ref: "./common/404.yml",
-          '401':
-            description: "Unauthenticated",
-            schema:
-              $ref: "./common/401.yml",
-          '418':
-            description: "Error brewing coffee"
-            schema:
-              $ref: "./common/418.yml"
+  # add auth to all routes
+  {
+    toAllOperations: {
+      content: {
+        security: [ {
+          jwtToken: [ ]
+        } ]
       }
     }
-  ])
-}}
+  },
+
+  # add x-write and api key to all post, put, patch, delete calls to routes
+  # except for /users
+  {
+    toAllOperations: {
+      excludePaths: [ '/users' ],
+      includeMethods: [ 'post','put','patch','delete' ],
+      content: {
+        x-write-required: '{{ routePermission() }}',
+        security: [ {
+          apiKey: [ ]
+        } ]
+      }
+    }
+  },
+
+  # add defaults to all routes
+  {
+    toAllOperations: {
+      content:
+        tags: [ "{{ autoTag() }}" ],
+      summary: "{{ myCustomAutoSummary() }}",
+      operationId: "{{ uniqueOpId() }}",
+      description: "{{ myCustomDescription() }}",
+      responses:
+        '404':
+          description: "Not found",
+      schema:
+        $ref: "./common/404.yml",
+      '401':
+        description: "Unauthenticated",
+      schema:
+        $ref: "./common/401.yml",
+      '418':
+        description: "Error brewing coffee"
+        schema:
+          $ref: "./common/418.yml"
+    }
+  }
+])
+} }
 ```
 
 Type less do more.
 
-### lodash 
+### lodash
+
 Nunjucks is a powerful template engine with a lot out of the box, but we wanted more so we injected lodash into the mix.
 
 Whatever you find in their docs https://lodash.com/docs/4.17.15 you can use in your boats files.
 
 To access lodash in your templates just ensure you preface your function with the _:
+
 ```yaml
 info:
   version: 1.0.1
-  title: {{ _.camelCase( packageJson('name') ) }}
+  title: { { _.camelCase( packageJson('name') ) } }
 ```
 
-(you can see the injection of lodash into nunjecks here: [src/Template.ts#L286](https://github.com/j-d-carmichael/boats/blob/main/src/Template.ts#L286))
-
+(you can see the injection of lodash into nunjecks
+here: [src/Template.ts#L286](https://github.com/j-d-carmichael/boats/blob/main/src/Template.ts#L286))
 
 ### merge
+
 allOf equiv. for when allOf is not supported.
+
 ```
 {{ merge('../userAgent/model.yml', '../userIp/model.yml') }}
 ```
 
 ### mixin
+
 Example use:
+
 ```yaml
 Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
 ```
 
-The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human error. With mixins you are able to wrap definitions/components in common content. For example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L9).
+The `mixin` gives function to OpenAPI files that previously meant a lot of repetitive typing which results in less human
+error. With mixins you are able to wrap definitions/components in common content. For
+example [pagination](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/v1/weather/get.yml#L9).
 
 The mixin function assumes the 1st given argument to be the relative path to the mixin template yaml file.
 
-All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg `var1`
+All additional arguments are passed as numbers variables to the Nunjucks templating engine `var<argument index>` eg
+`var1`
 
-Mixin file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml) and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
+Mixin
+file [example here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/response/json.pagination.yml)
+and [here](https://github.com/johndcarmichael/boats/blob/master/srcOA3/mixins/request/json.yml).
 
-The mixin will automatically calculate indents. If you use a mixin for plural models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk), then an additional argument can be added to the end:
+The mixin will automatically calculate indents. If you use a mixin for plural
+models [like this](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/weather/models.yml.njk),
+then an additional argument can be added to the end:
+
 ```
 {{ mixin("../../../mixins/response/pagination.yml.njk", "../generic/searchMeta.yml.njk", "./model.yml.njk", "--skip-auto-indent") }}
 ```
@@ -506,7 +620,9 @@ The mixin will automatically calculate indents. If you use a mixin for plural mo
 In most cases the additional indentation which not break anything, but if a clean partial output file is required...
 
 ### packageJson
+
 Example use:
+
 ```yaml
 openapi: "3.0.0"
 info:
@@ -515,19 +631,23 @@ info:
 
 Returns the value of an expected attribute to be found in your `package.json` or throws an error.
 
-
 ### pickProps
 
-It takes the definitions path as the first parameter, and an array of strings or rest parameters specifying props to pick:
+It takes the definitions path as the first parameter, and an array of strings or rest parameters specifying props to
+pick:
+
 ```
 {{ pickProps('path', 'prop1', 'prop2') }}
 ```
+
 or
+
 ```
 {{ pickProps('path', ['prop1', 'prop2']) }}
 ```
 
 For example, a model file with many attributes might look like:
+
 ```
 type: object
 required:
@@ -543,12 +663,15 @@ properties:
   ... etc etc
 ```
 
-Another definition doesn't want this whole definition, just a part, but we don't want juggle around with complex openapi inheritance features, so pickProps can be used instead:
+Another definition doesn't want this whole definition, just a part, but we don't want juggle around with complex openapi
+inheritance features, so pickProps can be used instead:
+
 ```
 {{ pickProps('./post.yml.njk', 'name') }}
 ```
 
 The output would be:
+
 ```
 LocationPut:
   type: object
@@ -560,31 +683,38 @@ LocationPut:
 ```
 
 ### Process Environment Variables
-During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI files, this is common with AWS's cloud formation when used with dynamic containers.
+
+During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI
+files, this is common with AWS's cloud formation when used with dynamic containers.
 
 To accommodate this, all `process.env` variables are exposed in read-only format to the templates.
 
-To enable easier development with `process.env` variables BOATS also makes use of the [dotenv](https://www.npmjs.com/package/dotenv) package during cli use only.
+To enable easier development with `process.env` variables BOATS also makes use of
+the [dotenv](https://www.npmjs.com/package/dotenv) package during cli use only.
 
-If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made available to the Nunjucks engine as a tpl variable.
+If a `.env` file is found at the root of your project then this will be parsed by dotenv and subsequently be made
+available to the Nunjucks engine as a tpl variable.
 
-> !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
+> !Tip: Do not add the .env file to your git repo, this is only for development purposes, read
+> the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build
+> chain.
 
 ### optionalProps
 
-Allows inheritance from a referenced object definition but makes all properties optional, i.e, it drops the required object prop.
+Allows inheritance from a referenced object definition but makes all properties optional, i.e, it drops the required
+object prop.
 
 Usage:
 
 ```yaml
-{{ optionalProps() }}
+{ { optionalProps() } }
 ```
 
 With OA3 inheritance
 
 ```yml
 allOf:
-  - {{ optionalProps() }}
+  - { { optionalProps() } }
 ```
 
 Example
@@ -612,7 +742,7 @@ And the helper used as follows:
 `patch.yml`
 
 ```yaml
-{{ optionalProps('./post.yml.njk') }}
+{ { optionalProps('./post.yml.njk') } }
 ```
 
 Will produce
@@ -630,11 +760,13 @@ properties:
       type: string
 ```
 
-
 ### routePermission
-Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control.
+
+Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access
+control.
 
 `weather/post.yml` would result in `createWeatherPost`:
+
 ```yaml
 tags:
   - <$ autoTag() $>
@@ -642,14 +774,18 @@ description: List all users
 x-permission: <$ routePermission() $>
 ```
 
-You should name the attribute something that fits your generator, `x-permission: ...` is configured to work with [generate-it's](https://www.npmjs.com/package/generate-it) typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28).
+You should name the attribute something that fits your generator, `x-permission: ...` is configured to work
+with [generate-it's](https://www.npmjs.com/package/generate-it)
+typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28).
 
 You may also:
+
 - Instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`.
 - Add a custom tail string to the output
 - Add a custom prefix to the start of the output
 
 Here is a kitchen sink example:
+
 ```
 {% set prefix = packageJson("name") %}
 {% set tail = 'wags' %}
@@ -666,6 +802,7 @@ Here is a kitchen sink example:
 ```
 
 The method conversion defaults are:
+
 ```
 get: 'read',
 post: 'create',
@@ -676,7 +813,9 @@ delete: 'delete',
 
 Of course, you can remote control the injection of the permissions to all routes from the [inject helper](#inject).
 
-You can control how the helper functions via the `.boatsrc` file, the options can be found here: https://github.com/j-d-carmichael/boats/blob/main/src/interfaces/BoatsRc.ts
+You can control how the helper functions via the `.boatsrc` file, the options can be found
+here: https://github.com/j-d-carmichael/boats/blob/main/src/interfaces/BoatsRc.ts
+
 ```
 {
     methodAlias?: MethodAlias; // change the names used, eg instead of get => "read" change get => "fetch"
@@ -689,7 +828,9 @@ You can control how the helper functions via the `.boatsrc` file, the options ca
 ```
 
 ### uniqueOpId
+
 Example use:
+
 ```yaml
 tags:
   - temperature
@@ -697,10 +838,13 @@ summary: Temperature data
 description: Get the latest temperature
 operationId: <$ uniqueOpId() $>
 ```
-The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location within the file system.
+
+The `uniqueOpId` function reduces human error by automatically returning a unique identifier based on the files location
+within the file system.
 The path leading up to the entry point is always removed.
 
-In addition, the value of the "strip_value" (see the .boatsrc section) is also removed, if a strip value is not provided this will default to "src/paths/".
+In addition, the value of the "strip_value" (see the .boatsrc section) is also removed, if a strip value is not provided
+this will default to "src/paths/".
 
 So the following path:
 `/home/me/code/project/src/paths/v1/temperature/get.yml`
@@ -708,37 +852,47 @@ So the following path:
 Results in:
 `v1TemperatureGet`
 
-Each segment of the path is run through [camelcase](https://github.com/sindresorhus/camelcase#readme) so `this-folder` results in `thisFolder`
+Each segment of the path is run through [camelcase](https://github.com/sindresorhus/camelcase#readme) so `this-folder`
+results in `thisFolder`
 
 This is especially helpful for API generators eg: codegen
 
-There is however, many options to pass into the uniqueOpId() to control the output, please the unit-tests 
-for all options: https://github.com/j-d-carmichael/boats/blob/23d63384e598c99fdfa459554c3bec610af43667/src/__tests__/UniqueOperationIds.spec.ts
-
+There is however, many options to pass into the uniqueOpId() to control the output, please the unit-tests
+for all
+options: https://github.com/j-d-carmichael/boats/blob/23d63384e598c99fdfa459554c3bec610af43667/src/__tests__/UniqueOperationIds.spec.ts
 
 ### Variables
-In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set
+
+In addition to Nunjucks ability to set variables within template
+files: https://mozilla.github.io/nunjucks/templating.html#set
 
 You can also pass in custom variables to your templates with the --variables option:
+
 ```
 npm run boats -i ./src/index.yml -$ host=http://somedomain.com -$ email=john@boats.com
 ```
 
 The variables can then be accessed via the normal nunjucks syntax eg:
+
 ```
 url: <$ host $>
 ```
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
-
 ## Changelog
-- 2024/11/01 5.1.0: feat: Long values no longer automatically end up in folded blocks, it is up to the author
+
+- 2024/11/01 5.1.0: feat: Long values no longer automatically end up in folded blocks, it is up to the author.
+  Additionally, dependency updates.o
 - 2024/08/08 5.0.0: breaking: No longer supports programtic use. If anyone would like this feature, please create a PR.
-- 2024/05/22 4.12.0: fix & chore: [PR fixes yaml file ext](https://github.com/j-d-carmichael/boats/pull/89) from [kdubuc](https://github.com/kdubuc) and all dependencies upgraded
-- 2024/05/15 4.11.2: fix: When placing the calculated permission prefix position to the end, the case as set by permissionConfig.permissionSegmentStyle is respected
-- 2024/02/06 4.11.1: fix: One file output tmp file is now relative to allow directory traversing for $ref to still function as expected 
-- 2024/02/04 4.11.0: feat: Order attributes after running inject, [gh issue](https://github.com/j-d-carmichael/boats/issues/82)
+- 2024/05/22 4.12.0: fix & chore: [PR fixes yaml file ext](https://github.com/j-d-carmichael/boats/pull/89)
+  from [kdubuc](https://github.com/kdubuc) and all dependencies upgraded
+- 2024/05/15 4.11.2: fix: When placing the calculated permission prefix position to the end, the case as set by
+  permissionConfig.permissionSegmentStyle is respected
+- 2024/02/06 4.11.1: fix: One file output tmp file is now relative to allow directory traversing for $ref to still
+  function as expected
+- 2024/02/04 4.11.0: feat: Order attributes after running
+  inject, [gh issue](https://github.com/j-d-carmichael/boats/issues/82)
 - 2023/12/28 4.10.2: fix: init files oa3 auto indexer was missing
 - 2023/12/28 4.10.0: feat: init files now use the own lightweight files over the files used for testing purposes.
 - 2023/12/28 4.9.4:  fix: readme.md link
@@ -746,14 +900,21 @@ url: <$ host $>
 - 2023/12/28 4.9.2:  chore: Dependency dropped, walker package no longer used
 - 2023/12/25 4.9.1:  chore: Dependency updates, some major & some minor zero BOATS functionality change 🎅
 - 2023/12/25 4.9.0:  feat: cli arg --one-file-output or -O for short. This will result in a single file output. 🎅
-- 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a folder name
+- 2023/12/14 4.8.0:  feat: uniqueOpId now accepts replacements, useful for windows that wont accept a * character as a
+  folder name
 - 2023/10/07 4.7.0:  fix: a recent update to inquirer broke the init of boats, rolling back the inquirer version
-- 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for example a README.md in the same folder
-- 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
-- 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output, see [uniqueOpId](#uniqueOpId)
-- 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output, see [Auto Summary](#auto-summary)
-- 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion preventing dots at the start
-- 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/** separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
+- 2023/09/27 4.6.0:  feat: auto indexers now filter out files that are not yml, yaml or njk allowing you to place for
+  example a README.md in the same folder
+- 2023/09/20 4.5.0:  feat: uniqueOpId now accepts more options so this "EVENT/\*/SOMETHING" can result in "
+  EVENT.\*.SOMETHING", see [uniqueOpId](#uniqueOpId)
+- 2023/09/18 4.4.0:  feat: uniqueOpId now accepts many options object to control the output,
+  see [uniqueOpId](#uniqueOpId)
+- 2023/09/13 4.3.0:  feat: AutoSummary now accepts an option to use the file name in the summary output,
+  see [Auto Summary](#auto-summary)
+- 2023/09/13 4.2.1:  fix: Converting from / seperator to . seperator now removes the leading slash before conversion
+  preventing dots at the start
+- 2023/09/13 4.2.0:  feat: Control the separator type for channels, this will result in all channels with KC/**
+  separated with . {{ autoChannelIndexer( {channelSeparators: [{match: 'KC/**', separator: '.'}]} )}}
 - 2023/09/08 4.1.0:  feat: dontUcFirst can now be injected to {{autoComponentIndexer('dontUcFirst')}}
 - 2023/07/18 4.0.0:  chore: Breaking change now BOATS requires min. node 18
 - 2023/04/27 3.4.1:  fix: https://github.com/j-d-carmichael/boats/pull/79
@@ -762,7 +923,8 @@ url: <$ host $>
 - 2023/01/02 3.2.0:  chore: Dropped zerollup for tsc-alias
 - 2023/01/02 3.1.0:  chore: Happy new year! The --init now initializes without .njk file extensions
 - 2022/12/07 3.0.0:  chore: Breaking change now BOATS requires min. node 14 and built with Node 18
-- 2022/12/07 2.40.0: feat: Async and Open api parsers don't always print helpful errors from bad use of combine keywords like allOf, this version tries to hint.
+- 2022/12/07 2.40.0: feat: Async and Open api parsers don't always print helpful errors from bad use of combine keywords
+  like allOf, this version tries to hint.
 - 2022/12/07 2.39.0: chore: Updated the parsers & [issues/74](https://github.com/j-d-carmichael/boats/issues/74)
 - 2022/11/14 2.38.0: chore: Updated the dependencies and tested
 - 2022/08/12 2.37.0: fix: Trim only replaces the last occurrence of trim when generating model names
@@ -776,7 +938,8 @@ url: <$ host $>
 - 2022/03/12 2.29.0: New template helper, `{{ autoSummary() }}` generates summary string based on url path
 - 2021/12/15 2.28.0: js-yaml upgraded to 4.1.0 replacing safeDump|Load to their new home
 - 2021/12/08 2.27.0: docs - readme
-- 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to @apidevtools/swagger-parser to fix a ghostly bug 👻
+- 2021/12/08 2.26.0: --dontValidateOutput added, does what you think it might :) and switched to
+  @apidevtools/swagger-parser to fix a ghostly bug 👻
 - 2021/10/05 2.25.0: allow loading of helper files in TypeScript using ts-node
 - 2021/09/19 2.24.0: npm version check updated to use npm api instead of github json url
 - 2021/09/19 2.23.0: npm version check updated
@@ -801,30 +964,45 @@ url: <$ host $>
 - 2020/11/09 2.3/4:  Snippets extracted out of the core, now pulled from remote or local
 - 2020/11/08 2.2.0:  Snippets feature added for faster scaffolding into an existing project
 - 2020/11/07 2.1.0:  Support for the windows file system
-- 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false
+- 2020/08/29 2.0.0:  Route permissions will auto inject a namespace by default, this is a breaking change from v1
+  behaviour. To prevent set globalPrefix to false
 - 2020/08/28 1.25.4: Rollback to 1.24.1 to revert the breaking change
 - 2020/08/28 1.25.0: A breaking change was released to live, sorry
 - 2020/08/27 1.24.0: feat: Add `-y`, `--yes` option to skip remote version check
-- 2020/08/26 1.23.0: feat: Add prefix to permissions `{{ routePermission({prefix: 'ms-authentication', removeMethod: true}) }}`
-- 2020/08/26 1.22.0: feat: tpl helper [optionalProps](https://johndcarmichael.github.io/boats/#/?id=optionalprops) added AND [glob pattern matching for the injector](https://johndcarmichael.github.io/boats/#/?id=inject), aka wildcards
-- 2020/08/25 1.21.0: feat: options added to routePermission helper: x-permission: `{{ routePermission({removeMethod: true}) }}` strips the method off the generated permission name.
+- 2020/08/26 1.23.0: feat: Add prefix to permissions
+  `{{ routePermission({prefix: 'ms-authentication', removeMethod: true}) }}`
+- 2020/08/26 1.22.0: feat: tpl helper [optionalProps](https://johndcarmichael.github.io/boats/#/?id=optionalprops) added
+  AND [glob pattern matching for the injector](https://johndcarmichael.github.io/boats/#/?id=inject), aka wildcards
+- 2020/08/25 1.21.0: feat: options added to routePermission helper: x-permission:
+  `{{ routePermission({removeMethod: true}) }}` strips the method off the generated permission name.
 - 2020/08/13 1.20.4: docs: readme
 - 2020/08/13 1.20.2: fix: --init script
-- 2020/08/13 1.20.0: feat: now uses the new https://www.npmjs.com/package/@asyncapi/parser which enforces all operationId to all be unique and brings in Types.
-- 2020/08/11 1.19.0: feat: pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17) via process.env or .boatsrc file allowing header injection for url resolution
+- 2020/08/13 1.20.0: feat: now uses the new https://www.npmjs.com/package/@asyncapi/parser which enforces all
+  operationId to all be unique and brings in Types.
+- 2020/08/11 1.19.0: feat:
+  pass [json-schema-ref-parser options](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js#L17)
+  via process.env or .boatsrc file allowing header injection for url resolution
 - 2020/07/28 1.18.5: feat: handle # refs instead of trying to resolve them as files
 - 2020/06/28 1.18.1: chore: Bump tool check version to 1.1.1
 - 2020/06/28 1.18.0: feat: Conversion to typescript
 - 2020/06/18 1.17.0: feat: Allow njk templating in injected content and a new function routePermission()
-- 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across multiple channels (see the test example)
+- 2020/05/03 1.16.1: fix: Allow a channel in asyncAPI to have the same id for subscribe and publish, but not across
+  multiple channels (see the test example)
 - 2020/05/03 1.16.0: feat: An additional unique operation id check during the bundle process.
 - 2020/05/03 1.15.0: feat: Calculate the strip value based on the input type, src/paths or src/channels
-- 2020/04/30 1.14.0: feat: Cli args --convert_to_njk <localDirectory> and --convert_to_yml <localDirectory> added and documented
-- 2020/04/27 1.13.0: feat: New feature for the tpl helper: nunjucksHelpers/autoComponentIndexer.js to [remove](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk) a string from the def/comp/param. leaving [different naming](https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L123).
+- 2020/04/30 1.14.0: feat: Cli args --convert_to_njk <localDirectory> and --convert_to_yml <localDirectory> added and
+  documented
+- 2020/04/27 1.13.0: feat: New feature for the tpl helper: nunjucksHelpers/autoComponentIndexer.js
+  to [remove](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk) a string
+  from the def/comp/param.
+  leaving [different naming](https://github.com/johndcarmichael/boats/blob/master/build/builtOA3_1.0.1.yml#L123).
 - 2020/04/26 1.12.2: chore: Dependency updates, moved to @asyncapi/parser from asyncapi-parser
 - 2020/04/26 1.12.1: docs: Readme for npm
-- 2020/04/26 1.12.0: feat: Auto indexer tpl helpers based on directories and files ([paths/index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk), [channels/index](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk), [components|definitions|parameters index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk)).. less donkey work.
-- 2020/04/15 1.11.0: feat: Using deepmerge in the `inject` helper for more complex injections; [srcOA2/index.yml.njk](https://github.com/johndcarmichael/boats/tree/master/srcOA2)
+- 2020/04/26 1.12.0: feat: Auto indexer tpl helpers based on directories and
+  files ([paths/index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/paths/index.yml.njk), [channels/index](https://github.com/johndcarmichael/boats/blob/master/srcASYNC2/channels/index.yml.njk), [components|definitions|parameters index](https://github.com/johndcarmichael/boats/blob/master/srcOA3/components/schemas/index.yml.njk))..
+  less donkey work.
+- 2020/04/15 1.11.0: feat: Using deepmerge in the `inject` helper for more complex
+  injections; [srcOA2/index.yml.njk](https://github.com/johndcarmichael/boats/tree/master/srcOA2)
 - 2020/04/12 1.10.0: deat: Auto detection of input type, asyncapi, openapi or swagger. -t cli arg no longer present
 - 2020/04/12 1.9.0: feat: Expose convert to njk file ext, --convert_to_njk ./src
 - 2020/04/12 1.8.0: feat: New tpl helper fileName & uniqueOpId bug fix for .njk files
@@ -842,15 +1020,20 @@ url: <$ host $>
 - 2019/07/14 Security update from [inquirer](https://www.npmjs.com/package/inquirer)
 
 ## Thanks To
+
 BOATS is nothing without the support of everyone involved, so a big thanks to:
-- Every [contributor](https://github.com/j-d-carmichael/boats/graphs/contributors) & [issue](https://github.com/j-d-carmichael/boats/issues) reports!
-- Jetbrains for their [Open Source Development - Community Support](https://www.jetbrains.com/community/opensource/#support) and powerful IDE!
+
+-
+Every [contributor](https://github.com/j-d-carmichael/boats/graphs/contributors) & [issue](https://github.com/j-d-carmichael/boats/issues)
+reports!
+- Jetbrains for
+  their [Open Source Development - Community Support](https://www.jetbrains.com/community/opensource/#support) and
+  powerful IDE!
 - [GitHub](https://github.com/) for hosting the Open Source codebase!
 - Everyone at [@apidevtools](https://github.com/APIDevTools)
 - Everyone at [@asyncapi](https://github.com/asyncapi)
 - vitaly for [js-yaml](https://github.com/nodeca/js-yaml)
 - Mozilla for [Nujucks](https://github.com/mozilla/nunjucks)
-
 
 [![Jetbrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/community/opensource/#support) [![GitHub](https://github.githubassets.com/images/modules/dashboard/onboarding/gh-desktop.png)](https://github.com/) [![apidevtools](https://avatars.githubusercontent.com/u/43750074?s=200&v=4)](https://github.com/APIDevTools) [![asyncapi](https://avatars.githubusercontent.com/u/16401334?s=200&v=4)](https://github.com/asyncapi) [![Nujucks](https://avatars.githubusercontent.com/u/131524?s=200&v=4)](https://github.com/mozilla/nunjucks)
 
