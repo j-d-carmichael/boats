@@ -63,7 +63,7 @@ class Injector {
       }
     }
 
-    return jsYaml.dump(jsonTemplate);
+    return jsYaml.dump(jsonTemplate, { lineWidth: 1000 });
   }
 
   /**

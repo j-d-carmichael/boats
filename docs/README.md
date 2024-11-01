@@ -733,6 +733,7 @@ url: <$ host $>
 
 
 ## Changelog
+- 2024/11/01 5.1.0: feat: Long values no longer automatically end up in folded blocks, it is up to the author
 - 2024/08/08 5.0.0: breaking: No longer supports programtic use. If anyone would like this feature, please create a PR.
 - 2024/05/22 4.12.0: fix & chore: [PR fixes yaml file ext](https://github.com/j-d-carmichael/boats/pull/89) from [kdubuc](https://github.com/kdubuc) and all dependencies upgraded
 - 2024/05/15 4.11.2: fix: When placing the calculated permission prefix position to the end, the case as set by permissionConfig.permissionSegmentStyle is respected
