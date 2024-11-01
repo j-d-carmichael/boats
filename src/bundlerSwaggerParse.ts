@@ -46,10 +46,10 @@ export default async (input: {
     if (upath.extname(outputFile) === '.json') {
       contents = JSON.stringify(bundled, null, indentation);
     } else {
-      contents = YAML.dump(bundled, { indent: indentation });
+      contents = YAML.dump(bundled, { indent: indentation, lineWidth: 1000 });
     }
     fs.ensureDirSync(upath.dirname(outputFile));
-    // @ts-ignore
+
     const pathToWriteTo = getOutputName(outputFile, bundled, excludeVersion);
     fs.writeFileSync(pathToWriteTo, contents);
 
