@@ -77,7 +77,8 @@ const validatePreInit = (): Record<string, any> => {
     throw new Error('Error: No package.json file found. Please add a package.json file to continue');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const localPkgJson = require(localPkgJsonPath);
 
   localPkgJson.dependencies = {
@@ -127,7 +128,8 @@ const copyBoilerplate = (answers: Record<string, string>) => {
 };
 
 const updatePackageJson = (answers: Record<string, string>) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const localPkgJson = require(localPkgJsonPath);
 
   const name = answers.name;

@@ -17,7 +17,7 @@ const dotenvFilePath = upath.join(process.cwd(), '.env');
 
 // If a .env file exists call dotenv package to set into the env vars
 if (fs.pathExistsSync(dotenvFilePath)) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require('dotenv').config({ path: dotenvFilePath });
 }
 

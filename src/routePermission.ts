@@ -3,7 +3,8 @@ import UniqueOperationIds from '@/UniqueOperationIds';
 import { BoatsRC, JSON } from '@/interfaces/BoatsRc';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 import ucFirst from '@/ucFirst';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const packageJson = require(upath.join(process.cwd(), 'package.json'));
 
 const defaultPrefix = {

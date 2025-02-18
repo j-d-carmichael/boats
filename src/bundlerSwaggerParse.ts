@@ -39,6 +39,7 @@ export default async (input: {
     if (doNotValidate) {
       console.warn('Bypassing validation as dontValidateOutput flag seen');
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       thisIsOpenAPI ? await validate.openapi(bundled) : await validate.asyncapi(JSON.stringify(bundled));
     }
 
