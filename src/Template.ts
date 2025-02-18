@@ -350,7 +350,7 @@ class Template {
 
       if (filePath.endsWith('.ts') && !tsNodeLoaded) {
         tsNodeLoaded = true;
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         require('ts-node').register();
       }
 
@@ -358,7 +358,7 @@ class Template {
         continue;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       let helper = require(filePath);
       if (typeof helper !== 'function' && typeof helper.default === 'function') {
         helper = helper.default;

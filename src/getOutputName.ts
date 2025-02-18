@@ -13,6 +13,7 @@ const getVersion = (jsonObj: JSON, excludeVersion: boolean): string => {
     let packageJson;
     try {
       packageJson = JSON.parse(fs.readFileSync('./package.json').toString('utf8'));
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       packageJson = {};
     }

@@ -45,6 +45,7 @@ class SnippetsFetch {
     try {
       await commandRun('git', ['--help'], true);
       return true;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       console.error('Git command not found on this operating system, please install git to continue.');
       return false;

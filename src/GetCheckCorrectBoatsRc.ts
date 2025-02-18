@@ -44,8 +44,8 @@ class GetCheckCorrectBoatsRc {
         // to nunjucks default tpl tags
         json.nunjucksOptions.tags = boatsRcJson.nunjucksOptions.tags;
       }
-      json.nunjucksOptions.tags;
       return this.parse(json);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       return {};
     }
@@ -106,6 +106,7 @@ class GetCheckCorrectBoatsRc {
       try {
         this.boatsRc.jsonSchemaRefParserBundleOpts = JSON.parse(process.env.jsonSchemaRefParserBundleOpts);
         console.log('process.env.jsonSchemaRefParserBundleOpts parsed successfully.');
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (e) {
         throw new Error('Error parsing process.env.jsonSchemaRefParserBundleOpts, invalid JSON provided.');
       }

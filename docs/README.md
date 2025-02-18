@@ -882,6 +882,7 @@ url: <$ host $>
 
 ## Changelog
 
+- 2024/18/02 5.1.2: chore: Dependency updates
 - 2024/11/01 5.1.1: chore: Dependency updates
 - 2024/11/01 5.1.0: feat: Long values no longer automatically end up in folded blocks, it is up to the author. 
 - 2024/08/08 5.0.0: breaking: No longer supports programtic use. If anyone would like this feature, please create a PR.
