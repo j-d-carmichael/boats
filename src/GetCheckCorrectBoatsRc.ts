@@ -37,6 +37,12 @@ class GetCheckCorrectBoatsRc {
 
     try {
       const boatsRcJson: BoatsRC = fs.readJsonSync(boatsrc);
+      if (!boatsRcJson.nunjucksOptions) {
+        boatsRcJson.nunjucksOptions = { tags: {} };
+      }
+      if (!boatsRcJson.nunjucksOptions.tags) {
+        boatsRcJson.nunjucksOptions.tags = {};
+      }
       const json = deepmerge(this.defaultRc, boatsRcJson);
       if (boatsRcJson.nunjucksOptions.tags) {
         // as merging an {} into a full {} leaves the full {} intact

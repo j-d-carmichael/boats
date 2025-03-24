@@ -1,7 +1,4 @@
 {
-  "nunjucksOptions": {
-    "tags": {}
-  },
   "jsonSchemaRefParserBundleOpts": {},
   "permissionConfig": {
     "globalPrefix": false
