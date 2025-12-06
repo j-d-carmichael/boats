@@ -882,6 +882,7 @@ url: <$ host $>
 
 ## Changelog
 
+- 2025/12/06 5.3.0: chore: deprecated code form v4 removed from .boatsrc options around the permissions helper 
 - 2025/10/16 5.2.0: feat: better error logging when nunjucks fails to render a file, updated @apidevtools and other small securities
 - 2025/03/24 5.1.3: fix: .boatsrc no longer requires nunjucksOptions and/or nunjucksOptions.tags to be set
 - 2025/02/18 5.1.2: chore: Dependency updates

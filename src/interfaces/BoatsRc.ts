@@ -29,11 +29,9 @@ export interface BoatsRC {
   };
   jsonSchemaRefParserBundleOpts?: any;
   permissionConfig?: {
-    routePrefix?: MethodAlias; // to be deprecated, use methodAlias instead
     methodAlias?: MethodAlias;
     methodAliasPosition?: MethodAliasPosition;
     globalPrefix?: string | boolean;
-    usePackageJsonNameAsPrefix?: boolean; // to be deprecated, use globalPrefix instead
     permissionStyle?: StringStyle;
     permissionSegmentStyle?: StringStyle;
     generateSchemaNamed?: string;

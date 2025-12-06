@@ -84,20 +84,7 @@ class GetCheckCorrectBoatsRc {
   }
 
   permissionConfigPrefixesCheck (): void {
-    if (typeof this.boatsRc?.permissionConfig?.usePackageJsonNameAsPrefix !== 'undefined') {
-      console.warn(
-        'Deprecation warning: permissionConfig.usePackageJsonNameAsPrefix will be removed in the future, please use permissionConfig.globalPrefix'
-      );
-      this.boatsRc.permissionConfig.globalPrefix = this.boatsRc.permissionConfig.usePackageJsonNameAsPrefix;
-      delete this.boatsRc.permissionConfig.usePackageJsonNameAsPrefix;
-    }
-    if (typeof this.boatsRc.permissionConfig.routePrefix !== 'undefined') {
-      console.warn(
-        'Deprecation warning: permissionConfig.routePrefix will be removed in the future, please use permissionConfig.methodAlias'
-      );
-      this.boatsRc.permissionConfig.methodAlias = this.boatsRc.permissionConfig.routePrefix;
-      delete this.boatsRc.permissionConfig.routePrefix;
-    }
+    // nothing to check - deprecated code removed
   }
 
   permissionConfigAliasChecks () {
