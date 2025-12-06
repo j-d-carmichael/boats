@@ -199,16 +199,24 @@ class Template {
    * @param fileLocation The file location the string for the current
    */
   renderFile (inputString: string, fileLocation: string) {
-    this.currentFilePointer = upath.toUnix(fileLocation);
-    this.mixinObject = this.setMixinPositions(inputString, this.originalIndentation);
-    this.mixinNumber = 0;
-    this.indentObject = this.setIndentPositions(inputString, 0);
-    this.indentNumber = 0;
-    this.nunjucksSetup();
+    try {
+      this.currentFilePointer = upath.toUnix(fileLocation);
+      this.mixinObject = this.setMixinPositions(inputString, this.originalIndentation);
+      this.mixinNumber = 0;
+      this.indentObject = this.setIndentPositions(inputString, 0);
+      this.indentNumber = 0;
+      this.nunjucksSetup();
 
-    const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile, this.boatsrc, this.isAsyncApiFile);
+      const renderedYaml = Injector.injectAndRender(fileLocation, this.inputFile, this.boatsrc, this.isAsyncApiFile);
 
-    return this.stripNjkExtensionFrom$Refs(renderedYaml);
+      return this.stripNjkExtensionFrom$Refs(renderedYaml);
+    } catch (e) {
+      console.log(`Template.renderFile() attemtped to render: ${fileLocation}`)
+      throw new Error({
+        fileAttemptedToRender: fileLocation,
+        ...e
+      });
+    }
   }
 
   /**
