@@ -13,7 +13,7 @@ export default function(): string {
       // eslint-disable-next-line prefer-rest-params
       const injectPath = upath.join(upath.dirname(tplGlobals.currentFilePointer), arguments[key]);
       if (!fs.pathExistsSync(injectPath)) {
-        throw new Error('Path not found when trying to make optional: ' + injectPath);
+        throw new Error('Path not found when trying to merge: ' + injectPath);
       }
       const content: any = jsYaml.load(fs.readFileSync(injectPath, 'utf-8'));
       if (content && content['type'] !== 'object') {

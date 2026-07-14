@@ -48,7 +48,7 @@ const parseCli = async () => {
     convertToNunjucksOrYaml(program.convert_to_yml, 'yml');
   } else if (program.injectSnippet) {
     // Snippets
-    new Snippets(program);
+    await new Snippets(program).run();
   } else {
 
     // parse the directory then validate and bundle with swagger-parser

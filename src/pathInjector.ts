@@ -3,6 +3,9 @@ import fs from 'fs-extra';
 import 'ts-replace-all';
 import { Paths } from './interfaces/BoatsRc';
 
+// the path shorthands are plain string prefixes, so any regex special characters in them must be escaped
+const escapeForRegExp = (str: string): string => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 export class PathInjector {
   keyPatterns: string[];
   injectMixin: (target: string) => [string, boolean];
@@ -21,10 +24,12 @@ export class PathInjector {
       this.keyPatterns = Object.keys(paths).sort((a, b) => b.length - a.length);
 
       // trim trailing slashes to avoid stripping them out later
-      this.mixinExpressions = this.keyPatterns.map((str) => str.replace(/\/$/, '')).map((str) => new RegExp(str, 'g'));
+      this.mixinExpressions = this.keyPatterns
+        .map((str) => str.replace(/\/$/, ''))
+        .map((str) => new RegExp(escapeForRegExp(str), 'g'));
       this.refExpressions = this.keyPatterns
         .map((str) => str.replace(/\/$/, ''))
-        .map((str) => new RegExp(`(\\$ref[ '"]*:[ '"]*)(${str})`, 'gs'));
+        .map((str) => new RegExp(`(\\$ref[ '"]*:[ '"]*)(${escapeForRegExp(str)})`, 'gs'));
 
       this.injectMixin = this.doInject;
       this.injectRefs = this.doInjectRefs;

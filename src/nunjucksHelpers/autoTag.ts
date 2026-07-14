@@ -5,7 +5,9 @@ export default function (): string {
   let tag;
   switch (base.length) {
     case 1:
-      tag = base[0].split('.').shift();
+      // a file sitting directly in the strip-value root: drop the file extension
+      tag = ucFirst(base[0].split('.').shift());
+      break;
     default:
       tag = ucFirst(base[0]);
   }

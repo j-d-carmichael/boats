@@ -211,11 +211,8 @@ class Template {
 
       return this.stripNjkExtensionFrom$Refs(renderedYaml);
     } catch (e) {
-      console.log(`Template.renderFile() attemtped to render: ${fileLocation}`)
-      throw new Error({
-        fileAttemptedToRender: fileLocation,
-        ...e
-      });
+      console.log(`Template.renderFile() attempted to render: ${fileLocation}`);
+      throw e;
     }
   }
 

@@ -56,7 +56,9 @@ export default async (input: {
 
     return pathToWriteTo;
   } catch (e) {
-    console.error(JSON.stringify(bundled, undefined, 2));
+    if (bundled) {
+      console.error(JSON.stringify(bundled, undefined, 2));
+    }
     throw e;
   }
 };

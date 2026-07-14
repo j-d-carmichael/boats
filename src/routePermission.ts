@@ -4,8 +4,21 @@ import { BoatsRC, JSON } from '@/interfaces/BoatsRc';
 import { MethodAliasPosition } from '@/enums/MethodAliasPosition';
 import ucFirst from '@/ucFirst';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const packageJson = require(upath.join(process.cwd(), 'package.json'));
+let packageJson: Record<string, any>;
+
+const getLocalPackageJson = (): Record<string, any> => {
+  if (!packageJson) {
+    const packageJsonPath = upath.join(process.cwd(), 'package.json');
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      packageJson = require(packageJsonPath);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      throw new Error('The routePermission helper could not read the package.json file expected at: ' + packageJsonPath);
+    }
+  }
+  return packageJson;
+};
 
 const defaultPrefix = {
   get: 'read',
@@ -25,11 +38,11 @@ export default (
 ): string => {
   const permissionConfig = (boatsrc && boatsrc.permissionConfig) || {};
   const methodAlias = permissionConfig.methodAlias || {};
-  const prefixConfig: JSON = Object.assign(defaultPrefix, methodAlias);
+  const prefixConfig: JSON = Object.assign({}, defaultPrefix, methodAlias);
   const mainPrefixes = [];
   const usePackageName = typeof permissionConfig.globalPrefix === 'undefined' || permissionConfig.globalPrefix === true;
   if (usePackageName) {
-    mainPrefixes.push(packageJson.name);
+    mainPrefixes.push(getLocalPackageJson().name);
   } else if (typeof permissionConfig.globalPrefix === 'string') {
     mainPrefixes.push(permissionConfig.globalPrefix);
   }

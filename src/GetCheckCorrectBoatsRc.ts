@@ -35,26 +35,27 @@ class GetCheckCorrectBoatsRc {
     const boatsrc = upath.join(process.cwd(), '.boatsrc');
     createBoatsrcIfNotExists();
 
+    let boatsRcJson: BoatsRC;
     try {
-      const boatsRcJson: BoatsRC = fs.readJsonSync(boatsrc);
-      if (!boatsRcJson.nunjucksOptions) {
-        boatsRcJson.nunjucksOptions = { tags: {} };
-      }
-      if (!boatsRcJson.nunjucksOptions.tags) {
-        boatsRcJson.nunjucksOptions.tags = {};
-      }
-      const json = deepmerge(this.defaultRc, boatsRcJson);
-      if (boatsRcJson.nunjucksOptions.tags) {
-        // as merging an {} into a full {} leaves the full {} intact
-        // in this specific use-case the user wants an empty {} to revert
-        // to nunjucks default tpl tags
-        json.nunjucksOptions.tags = boatsRcJson.nunjucksOptions.tags;
-      }
-      return this.parse(json);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      boatsRcJson = fs.readJsonSync(boatsrc);
     } catch (e) {
-      return {};
+      throw new Error(`The .boatsrc file could not be parsed as JSON, please fix or remove it: ${boatsrc}. Parse error: ${e.message}`);
     }
+
+    if (!boatsRcJson.nunjucksOptions) {
+      boatsRcJson.nunjucksOptions = { tags: {} };
+    }
+    if (!boatsRcJson.nunjucksOptions.tags) {
+      boatsRcJson.nunjucksOptions.tags = {};
+    }
+    const json = deepmerge(this.defaultRc, boatsRcJson);
+    if (boatsRcJson.nunjucksOptions.tags) {
+      // as merging an {} into a full {} leaves the full {} intact
+      // in this specific use-case the user wants an empty {} to revert
+      // to nunjucks default tpl tags
+      json.nunjucksOptions.tags = boatsRcJson.nunjucksOptions.tags;
+    }
+    return this.parse(json);
   }
 
   parse (boatsRc: BoatsRC): BoatsRC {

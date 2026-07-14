@@ -23,9 +23,9 @@ class AutoIndexer {
   }
 
   cleanFilePaths (dir: string, filePaths: string[], indexFile: string): string[] {
-    return filePaths.map((filePath) => {
-      return filePath !== indexFile && filePath.replace(dir, '');
-    });
+    return filePaths
+      .filter((filePath) => filePath !== indexFile)
+      .map((filePath) => filePath.replace(dir, ''));
   }
 
   createChannelString (boatsrc: BoatsRC, cleanPath: string, autoChannelIndexerOptions?: AutoChannelIndexerOptions) {

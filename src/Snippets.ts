@@ -12,24 +12,19 @@ interface ISnippets {
 }
 
 export default class Snippets {
-  constructor (input: ISnippets) {
+  constructor (private input: ISnippets) {
     this.nunjucksSetup();
-    this.copySnippet(
-      input.injectSnippet,
-      input.subSnippetPath,
-      input.relativeTargetPath,
-      input.targetName
-    ).then((target) => {
-      this.renderPlacedSnippet(target, input)
-        .then(() => {
-          console.log('Done');
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-    }).catch((e) => {
-      console.error(e);
-    });
+  }
+
+  async run (): Promise<void> {
+    const target = await this.copySnippet(
+      this.input.injectSnippet,
+      this.input.subSnippetPath,
+      this.input.relativeTargetPath,
+      this.input.targetName
+    );
+    await this.renderPlacedSnippet(target, this.input);
+    console.log('Done');
   }
 
   nunjucksSetup (): void {

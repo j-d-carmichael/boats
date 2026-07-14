@@ -18,7 +18,11 @@ const toNjk = (file: string) => {
 };
 
 const toYml = (file: string) => {
-  const newTarget = file.replace('.njk', '');
+  // only convert .njk files, leave anything else untouched
+  if (file.substring(file.length - 4) !== '.njk') {
+    return;
+  }
+  const newTarget = file.substring(0, file.length - 4);
   fs.moveSync(file, newTarget);
   // read file to string and replace .yml with .yml.njk
   let string = fs.readFileSync(newTarget, { encoding: 'utf8' }).toString();

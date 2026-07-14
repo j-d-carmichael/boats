@@ -9,7 +9,7 @@ const pwd = upath.toUnix(process.cwd());
 const srcPath = upath.join(pwd, '/src');
 const srcAlreadyExists = fs.pathExistsSync(srcPath);
 const buildPath = upath.join(pwd, '/build');
-const buildAlreadyExists = fs.pathExistsSync(srcPath);
+const buildAlreadyExists = fs.pathExistsSync(buildPath);
 
 const npmInstall = (): Promise<number> =>
   new Promise<number>((resolve, reject) => {
@@ -42,7 +42,7 @@ const getQuestions = (localPkgJson: Record<string, any>): QuestionCollection => 
       type: 'confirm',
       name: 'updateName',
       message:
-        'The current package.json name does not match the api name entered. Would you the package.json name to be updated too?',
+        'The current package.json name does not match the api name entered. Would you like the package.json name to be updated too?',
       when: function (answers: any) {
         return answers.name !== localPkgJson.name;
       }
@@ -50,6 +50,7 @@ const getQuestions = (localPkgJson: Record<string, any>): QuestionCollection => 
     {
       type: 'list',
       name: 'oaType',
+      message: 'Which API specification would you like to use?',
       choices: ['Swagger 2.0', 'OpenAPI 3.0.0', 'AsyncAPI 2.0.0']
     },
     {
@@ -66,10 +67,10 @@ const validatePreInit = (): Record<string, any> => {
   if (srcAlreadyExists || buildAlreadyExists) {
     throw new Error(
       'Process stopped as ' +
-      srcAlreadyExists +
-      ' &/or' +
+      srcPath +
+      ' &/or ' +
       buildPath +
-      'already found. Installation cannot run with these folders existing.'
+      ' already found. Installation cannot run with these folders existing.'
     );
   }
 
@@ -110,15 +111,19 @@ export const createBoatsrcIfNotExists = (answers?: Record<string, string>): void
 };
 
 const copyBoilerplate = (answers: Record<string, string>) => {
+  // when built this file lives in build/src, when run via ts-node it lives in src
+  const initFilesPath = fs.pathExistsSync(upath.join(__dirname, '../init-files'))
+    ? upath.join(__dirname, '../init-files')
+    : upath.join(__dirname, '../../init-files');
   switch (answers.oaType){
     case 'Swagger 2.0':
-      fs.copySync(upath.join(__dirname, '../../init-files/oa2'), srcPath);
+      fs.copySync(upath.join(initFilesPath, 'oa2'), srcPath);
       break;
     case 'OpenAPI 3.0.0':
-      fs.copySync(upath.join(__dirname, '../../init-files/oa3'), srcPath);
+      fs.copySync(upath.join(initFilesPath, 'oa3'), srcPath);
       break;
     case 'AsyncAPI 2.0.0':
-      fs.copySync(upath.join(__dirname, '../../init-files/asyncapi'), srcPath);
+      fs.copySync(upath.join(initFilesPath, 'asyncapi'), srcPath);
       break;
   }
   console.log('Completed: Installed boats skeleton files to ' + srcPath);
@@ -139,7 +144,7 @@ const updatePackageJson = (answers: Record<string, string>) => {
   localPkgJson['scripts'] = localPkgJson['scripts'] || {};
   localPkgJson['scripts']['build:json'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.json -x -O';
   localPkgJson['scripts']['build:yaml'] = 'boats -i ./src/index.yml -o ./build/${npm_package_name}.yml -x -O';
-  localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml -x -O';
+  localPkgJson['scripts']['build'] = 'npm run build:json && npm run build:yaml';
 
   // ensure the licence and private field is correct in the package.json
   // we assume private by default and let the user correct otherwise.

@@ -10,7 +10,7 @@ export default (val: string, arr: any[]): any[] => {
   if (parts.length === 1) {
     obj[parts[0].trim()] = true;
   } else {
-    obj[parts.shift().trim()] = parts.join().trim();
+    obj[parts.shift().trim()] = parts.join('=').trim();
   }
   arr.push(obj);
   return arr;
